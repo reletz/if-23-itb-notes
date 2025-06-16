@@ -22,6 +22,7 @@ cssclasses:
 - ## Entity-Relationship Diagram
 	- [[Dasar-dasar Model ER]]
 	- [[Batasan (Constraints), Partisipasi, dan Entitas Lemah]]
+	- [[Specialization, Generalization, dan Aggregation]]
 	- [[Reduksi ER-Model ke Relational Model]]
 - ## Relational Database Design
 	- [[Functional Dependencies]]
