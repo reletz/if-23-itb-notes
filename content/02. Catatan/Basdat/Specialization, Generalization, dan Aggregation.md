@@ -22,6 +22,8 @@ _Back to_ [[Basdat]]
 > > - **Definisi:** Sebuah proses desain **top-down** di mana kita mengidentifikasi sub-grup di dalam sebuah _entity set_ yang memiliki atribut atau relasi yang unik, yang tidak dimiliki oleh semua anggota _entity set_ tersebut.
 > > - **Contoh:** Dalam _entity set_ `person`, kita bisa mengidentifikasi sub-grup `student` (yang memiliki atribut `tot_cred`) dan `instructor` (yang memiliki atribut `salary`).
 > > - **Konsep:** Sub-grup ini disebut juga _subclass_, dan _entity set_ utamanya adalah _superclass_. _Subclass_ mewarisi semua atribut dan relasi dari _superclass_-nya (disebut _attribute inheritance_).
+> > - Dapat didefinisikan Spesialisasi yang berbeda untuk sebuah entitas.
+> > ![[Pasted image 20250617025434.png]]
 > > 
 > > ### Generalization (Generalisasi)
 > > 
@@ -50,12 +52,17 @@ _Back to_ [[Basdat]]
 > >     ```
 > >     
 > > - **Batasan pada Generalization:**
+> >     - **User-defined vs. Condition-defined:**
+> >         - _User-defined_: Keanggotaan dalam sebuah sub-grup ditentukan **secara otomatis** oleh sebuah kondisi atau nilai atribut di entitas induk (_superclass_).
+> >         - _Condition-defined_: Tidak ada kondisi otomatis. Pengguna sistem (misalnya, operator data entry) yang secara **manual menentukan** keanggotaan sebuah entitas.
 > >     - **Disjoint vs. Overlapping:**
-> >         - _Disjoint:_ Sebuah entitas hanya bisa menjadi anggota dari **satu** _subclass_ (Default).
-> >         - _Overlapping:_ Sebuah entitas bisa menjadi anggota dari **beberapa** _subclass_ secara bersamaan (misalnya, seseorang bisa menjadi mahasiswa sekaligus instruktur).
+> >         - _Disjoint:_ Sebuah entitas hanya bisa menjadi anggota dari **satu** _subclass_. Ditandai dengan menuliskan "Disjoint" pada ISA yang bersesuaian.
+> >         - _Overlapping:_ Sebuah entitas bisa menjadi anggota dari **beberapa** _subclass_ secara bersamaan (misalnya, seseorang bisa menjadi mahasiswa sekaligus instruktur)(Default).
 > >     - **Total vs. Partial:**
 > >         - _Total:_ Setiap entitas di _superclass_ **harus** termasuk dalam salah satu _subclass_.
 > >         - _Partial:_ Sebuah entitas di _superclass_ **boleh tidak** termasuk dalam _subclass_ manapun.
+> >        
+> >   ![[Pasted image 20250617025706.png]]
 > > 
 > > ### Aggregation (Agregasi)
 > > 
