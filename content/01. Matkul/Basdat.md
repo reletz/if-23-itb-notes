@@ -1,0 +1,40 @@
+---
+cssclasses:
+  - dashboard
+---
+# Overview
+- ## Pengenalan Basis dan Model Data
+	- [[Konsep Fundamental dan Pendekatan Basis Data]]
+	- [[Arsitektur, Komponen, dan Pengguna Sistem Basis Data]]
+	- [[Pengantar Pemodelan Data & Model Populer (Relasional & ER)]]
+	- [[Tinjauan Model Data Lainnya]]
+- ## Relational Model, Algebra, dan Calculus
+	- [[Struktur Dasar Model Relasional]]
+	- [[Kunci (Keys) dan Aturan Integritas Data]]
+	- [[Aljabar Relasional (Operator Dasar)]]
+	- [[Aljabar Relasional (Operator Tambahan)]]
+	- [[Kalkulus Relasional]]
+- ## SQL
+	- [[Query Dasar]]
+	- [[Agregasi dan Join]]
+	- [[Subquery dan WITH Clause]]
+	- [[Views, DML, dan DDL]]
+- ## Entity-Relationship Diagram
+	- [[Dasar-dasar Model ER]]
+	- [[Batasan (Constraints), Partisipasi, dan Entitas Lemah]]
+	- [[Reduksi ER-Model ke Relational Model]]
+- ## Relational Database Design
+	- [[Functional Dependencies]]
+	- [[Normal Forms dan Properti Dekomposisi]]
+	- [[Functional Dependency Theory]]
+	- [[Algoritma Dekomposisi]]
+- ## Integritas Lanjutan dan Pemrograman Basis Data
+	- [[Integritas Deklaratif Lanjutan]]
+	- [[Triggers]]
+	- [[Stored Functions and Procedures]]
+- ## Data Warehousing dan OLAP
+	- [[OLTP ke OLAP]]
+	- [[Konsep dan Arsitektur Data Warehouse]]
+- ## Proses Pengembangan Basis Data
+	- [[SDLC vs Prototyping]]
+	- [[Three-schema + Three-tiered Architecture]]
