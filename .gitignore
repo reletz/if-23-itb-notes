@@ -9,3 +9,7 @@ tsconfig.tsbuildinfo
 private/
 .replit
 replit.nix
+
+TEMPLATE_CORNELL.md
+*.canvas
+04. Excalidraw/
