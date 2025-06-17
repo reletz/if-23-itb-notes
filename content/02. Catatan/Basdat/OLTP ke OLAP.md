@@ -6,15 +6,6 @@ cssclasses:
 _Back to_ [[Basdat]]
 > [!cornell] Topic
 > > ## Questions/Cues
-> > - Apa itu Itsy Bitsy?
-> > - Bagaimana pemodelan relasional Itsy Bitsy?
-> > - Entitas Penjual?
-> > - Entitas Barang?
-> > - Entitas Pembeli?
-> > - Entitas Order?
-> > - Entitas Order_Item?
-> > - Bagaimana Foreign Keys (FK) di Itsy Bitsy?
-> > - Kebutuhan informasi tim eksekutif?
 > > - Apa masalah model relasional untuk analisis?
 > > - Bagaimana ilustrasi kompleksitas *query*?
 > > - Apa perbedaan *Operational Queries* dan *Analysis Queries*?
