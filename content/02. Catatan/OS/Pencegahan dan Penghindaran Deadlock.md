@@ -3,7 +3,7 @@ type: Note
 cssclasses:
   - cornell-notes
 ---
-_Back to: [[01. Matkul/OS]]_
+_Back to: [[IF2130 Sistem Operasi]]_
 > [!cornell] Topic
 > > ## Questions/Cues
 > > - Prinsip pencegahan (prevention)?

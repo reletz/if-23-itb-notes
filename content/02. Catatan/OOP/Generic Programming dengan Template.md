@@ -6,7 +6,7 @@ cssclasses:
 - cornell-notes
 ---
 
-_Back to_ [[OOP]]
+_Back to_ [[IF2010 Pemrograman Berorientasi Objek]]
 
 > [!cornell] Generic Programming: Templates
 > 

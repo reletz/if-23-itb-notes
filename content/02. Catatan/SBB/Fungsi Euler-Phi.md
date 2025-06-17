@@ -4,7 +4,7 @@ cssclasses:
   - cornell-notes
 ---
 
-_Back to_ [[SBB]]
+_Back to_ [[MA2022 Struktur Bilangan Bulat]]
 
 > [!cornell] Fungsi Euler-Phi
 > 

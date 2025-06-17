@@ -8,7 +8,7 @@ cssclasses:
 
 ---
 
-_Back to_ [[OOP]]
+_Back to_ [[IF2010 Pemrograman Berorientasi Objek]]
 
 > [!cornell] Exception Handling
 > 

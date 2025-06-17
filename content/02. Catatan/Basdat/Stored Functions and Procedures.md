@@ -3,7 +3,7 @@ type: Note
 cssclasses:
   - cornell-notes
 ---
-_Back to_ [[Basdat]]
+_Back to_ [[IF2240 Basis Data]]
 > [!cornell] Topic
 > > ## Questions/Cues
 > > - Apa tujuan utama Fungsi & Prosedur?

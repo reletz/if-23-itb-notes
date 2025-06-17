@@ -1,4 +1,4 @@
-_Back to_ [[01. Matkul/Stima]]
+_Back to_ [[IF2211 Strategi Algoritma]]
 
 > [!cornell] Pengenalan Pencocokan String (String/Pattern Matching)
 > 

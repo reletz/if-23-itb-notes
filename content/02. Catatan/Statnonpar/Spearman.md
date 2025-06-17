@@ -3,7 +3,7 @@ type: Note
 cssclasses:
   - cornell-notes
 ---
-_Back to_ [[Statnonpar]]
+_Back to_ [[MA2281 Statistika nonparametrik]]
 > [!cornell] Topic
 > > ## Questions/Cues
 > > 

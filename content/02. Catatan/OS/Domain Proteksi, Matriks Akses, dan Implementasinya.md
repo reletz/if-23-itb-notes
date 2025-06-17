@@ -3,7 +3,7 @@ type: Note
 cssclasses:
   - cornell-notes
 ---
-_Back to_ [[OS]]
+_Back to_ [[IF2130 Sistem Operasi]]
 > [!cornell] Topic
 > > ## Questions/Cues
 > > - Domain Proteksi & Switching

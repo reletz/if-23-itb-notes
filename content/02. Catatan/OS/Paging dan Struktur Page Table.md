@@ -3,7 +3,7 @@ type: Note
 cssclasses:
   - cornell-notes
 ---
-_Back To_ [[01. Matkul/OS]]
+_Back To_ [[IF2130 Sistem Operasi]]
 > [!cornell] Topic
 > > ## Questions/Cues
 > > - Definisi Paging?

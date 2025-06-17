@@ -3,7 +3,7 @@ type: Note
 cssclasses:
   - cornell-notes
 ---
-_Back to_ [[SBB]]
+_Back to_ [[MA2022 Struktur Bilangan Bulat]]
 > [!cornell] Properti Elemen Grup
 > 
 > > ## Questions/Cues
