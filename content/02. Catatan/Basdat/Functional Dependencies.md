@@ -70,6 +70,15 @@ _Back to_ [[Basdat]]
 > > - Karena (AG)+ berisi semua atribut di R, maka **`{AG}` adalah sebuah superkey**.
 > > - Untuk mengecek apakah ini _candidate key_, kita uji subsetnya: (A)+ tidak berisi semua atribut R; (G)+ juga tidak. Maka, tidak ada subset dari `{AG}` yang merupakan superkey.
 > > - Kesimpulan: **`{AG}` adalah sebuah _candidate key_**.
+> > 
+> > ### Armstrong's Axiom
+> > $\alpha+$ dapat dihitung dengan menerapkan Axiom Armstrong berkali-kali. Ada enam aturan:
+> > 1. $(β⊆α) \rightarrow (α→β)$ _(Reflexive)_ : Aturan ini menyatakan bahwa sebuah set atribut selalu menentukan dirinya sendiri atau subset dari dirinya.
+> > 2. $(\alpha \rightarrow \beta) \rightarrow (\gamma\alpha \rightarrow \gamma\beta)$ _(Augmentative)_: Jika sebuah dependensi berlaku, maka dependensi itu akan tetap berlaku meskipun kita menambahkan atribut yang sama di kedua sisi.
+> > 3. Jika $\alpha \rightarrow \beta$ dan $\beta \rightarrow \gamma$, maka $\alpha \rightarrow \gamma$ _(Transitive)_: Ini adalah aturan rantai yang paling umum: jika A menentukan B, dan B menentukan C, maka A pasti menentukan C.
+> > 4. Jika $\alpha \rightarrow \beta$ dan $\alpha \rightarrow \gamma$, maka $\alpha \rightarrow \beta\gamma$ _(Union)_: Jika sebuah set atribut dapat menentukan dua set atribut secara terpisah, maka ia juga dapat menentukan gabungan dari kedua set atribut tersebut.
+> > 5. Jika $\alpha \rightarrow \beta\gamma$, maka $\alpha \rightarrow \beta$ dan $\alpha \rightarrow \gamma$ _(Decomposition)_: Kebalikan dari aturan gabungan. Jika sebuah set atribut dapat menentukan gabungan beberapa atribut, maka ia juga dapat menentukan masing-masing atribut tersebut secara individu.
+> > 6. Jika $\alpha \rightarrow \beta$ dan $\gamma\beta \rightarrow \delta$, maka $\gamma\alpha \rightarrow \delta$ _(Pseudo-transitivity)_: Ini adalah bentuk lain dari aturan transitivitas. Jika A menentukan B, dan gabungan B dengan C menentukan D, maka gabungan A dengan C juga pasti menentukan D.
 
 > [!cornell] #### Summary
 > 

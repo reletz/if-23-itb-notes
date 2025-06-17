@@ -88,6 +88,7 @@ _Back to_ [[Basdat]]
 > >         - Kita periksa kondisi ketiga: Apakah setiap atribut di sisi kanan (`dept_name`) adalah bagian dari sebuah _candidate key_? **Ya**, `dept_name` adalah bagian dari _candidate key_ `{s_ID, dept_name}`.
 > >     5. **Kesimpulan**: Karena kondisi ketiga 3NF terpenuhi, skema ini **berada dalam 3NF**. Ini adalah contoh klasik di mana 3NF dan BCNF berbeda.
 
+
 > [!cornell] #### Summary
 > 
 > Dekomposisi relasi yang baik harus memenuhi dua properti utama: lossless-join dan dependency preservation. Bentuk Normal (1NF, 2NF, 3NF, BCNF) digunakan untuk mengukur kualitas desain relasi terhadap redundansi. BCNF adalah bentuk paling ketat, yang mengharuskan setiap determinan FD non-trivial menjadi superkey. 3NF adalah relaksasi dari BCNF yang mengizinkan determinan non-superkey jika atribut yang ditentukan adalah bagian dari candidate key, sebuah kompromi untuk selalu dapat mempertahankan semua FD.
