@@ -56,35 +56,6 @@
   --font-family-preview: var(--font-text); // Assuming Quartz's --font-text is what you want
 }
 
-// Global styles for links (a tags)
-a {
-  color: var(--text-accent); // Uses the --text-accent from above
-  font-weight: 400;
-  text-decoration: none; // No underline by default, Obsidian typically doesn't
-  transition: color 0.15s ease;
-}
-
-a:hover {
-  color: var(--text-accent-hover); // Changes color on hover
-  text-decoration: underline; // Add underline on hover if desired
-}
-
-// Styling for bold text
-strong {
-  color: var(--text-normal); // Default text color for bold
-  font-weight: 600; // A common bold weight
-  // If bold text has a specific color in Obsidian, change it here:
-  // color: rgb(var(--ctp-ext-mauve)); // Example: make bold purple
-}
-
-// Styling for italic text
-em {
-  color: var(--text-normal); // Default text color for italic
-  font-style: italic;
-  // If italic text has a specific color in Obsidian, change it here:
-  // color: rgb(var(--ctp-ext-pink)); // Example: make italic pink
-}
-
 /* --- Dashboard Layout (from dashboard.css) --- */
 .dashboard {
   font-family: var(--font-family-editor);
