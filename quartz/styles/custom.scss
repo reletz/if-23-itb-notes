@@ -1,7 +1,91 @@
 @use "./base.scss";
-@use "themes";
+@use "./themes";
 
-/* Dashboard Layout */
+/* --- Obsidian Variable Mappings --- */
+// These variables are derived from extended_colorscheme.css (ctp-rosebox dark flavor)
+// and map to the generic Obsidian variables used in your snippets.
+// Adjust the rgb values below if you want a different specific color or a different Catppuccin flavor.
+.dark { // Apply these overrides specifically for dark mode
+  --background-primary: rgb(var(--ctp-ext-base)); /* Corresponds to base */
+  --background-primary-alt: rgb(var(--ctp-ext-surface0)); /* Corresponds to surface0 */
+  --background-secondary: rgb(var(--ctp-ext-surface1)); /* Corresponds to surface1 */
+  --background-tertiary: rgb(var(--ctp-ext-surface2)); /* Corresponds to surface2 */
+
+  --text-normal: rgb(var(--ctp-ext-text));
+  --text-muted: rgb(var(--ctp-ext-subtext1));
+  --text-accent: rgb(var(--ctp-ext-blue)); /* Using ctp-ext-blue for general accent text */
+  --text-accent-hover: rgb(var(--ctp-ext-sapphire)); /* A slightly different blue for hover */
+
+  --color-accent: rgb(var(--ctp-ext-mauve)); /* Your primary accent color for outlines/gradients */
+  --color-accent-alt: rgb(var(--ctp-ext-pink)); /* Secondary accent for lines/borders */
+
+  --background-modifier-border: rgba(var(--ctp-ext-overlay0), 0.2); // Soft border
+  --background-modifier-border-hover: rgba(var(--ctp-ext-overlay0), 0.3); // Border on hover
+
+  // Define --ctp-ext- variables for the chosen flavor (ctp-rosebox dark)
+  // These are directly copied from your extended_colorscheme.css for .ctp-rosebox
+  --ctp-ext-rosewater: 165, 117, 98;
+  --ctp-ext-flamingo: 165, 117, 98;
+  --ctp-ext-pink: 180, 142, 173;
+  --ctp-ext-mauve: 180, 142, 173;
+  --ctp-ext-red: 191, 97, 106;
+  --ctp-ext-maroon: 191, 97, 106;
+  --ctp-ext-peach: 208, 135, 112;
+  --ctp-ext-yellow: 235, 203, 139;
+  --ctp-ext-green: 163, 190, 140;
+  --ctp-ext-teal: 143, 188, 187;
+  --ctp-ext-sky: 136, 192, 208;
+  --ctp-ext-sapphire: 136, 192, 208;
+  --ctp-ext-blue: 94, 129, 172;
+  --ctp-ext-lavender: 129, 161, 193;
+  --ctp-ext-text: 163, 165, 170;
+  --ctp-ext-subtext1: 135, 137, 145;
+  --ctp-ext-subtext0: 110, 113, 119;
+  --ctp-ext-overlay2: 92, 92, 92;
+  --ctp-ext-overlay1: 82, 82, 82;
+  --ctp-ext-overlay0: 71, 71, 71;
+  --ctp-ext-surface2: 61, 61, 61;
+  --ctp-ext-surface1: 51, 51, 51;
+  --ctp-ext-surface0: 40, 40, 40;
+  --ctp-ext-base: 35, 35, 35;
+  --ctp-ext-mantle: 30, 30, 30;
+  --ctp-ext-crust: 25, 25, 25;
+
+  // Obsidian default font mapping - adjust if you use a specific font not found here
+  --font-family-editor: var(--font-editor); // Assuming Quartz's --font-editor is what you want
+  --font-family-preview: var(--font-text); // Assuming Quartz's --font-text is what you want
+}
+
+// Global styles for links (a tags)
+a {
+  color: var(--text-accent); // Uses the --text-accent from above
+  font-weight: 400;
+  text-decoration: none; // No underline by default, Obsidian typically doesn't
+  transition: color 0.15s ease;
+}
+
+a:hover {
+  color: var(--text-accent-hover); // Changes color on hover
+  text-decoration: underline; // Add underline on hover if desired
+}
+
+// Styling for bold text
+strong {
+  color: var(--text-normal); // Default text color for bold
+  font-weight: 600; // A common bold weight
+  // If bold text has a specific color in Obsidian, change it here:
+  // color: rgb(var(--ctp-ext-mauve)); // Example: make bold purple
+}
+
+// Styling for italic text
+em {
+  color: var(--text-normal); // Default text color for italic
+  font-style: italic;
+  // If italic text has a specific color in Obsidian, change it here:
+  // color: rgb(var(--ctp-ext-pink)); // Example: make italic pink
+}
+
+/* --- Dashboard Layout (from dashboard.css) --- */
 .dashboard {
   font-family: var(--font-family-editor);
   padding: 30px !important;
@@ -48,7 +132,7 @@
   display: none;
 }
 
-.dashboard div > ul {
+.dashboard > ul, .dashboard .markdown-body > ul { // Adjust if your Markdown body has a specific class
   list-style: none;
   display: flex;
   column-gap: 20px;
@@ -58,7 +142,7 @@
   margin: 1rem 0 2rem 0;
 }
 
-.dashboard div > ul > li {
+.dashboard > ul > li, .dashboard .markdown-body > ul > li { // Corresponding change
   min-width: 250px;
   flex: 1 0 calc(25% - 20px);
   margin: 0;
@@ -71,7 +155,8 @@
   overflow: hidden;
 }
 
-.dashboard div > ul > li:hover {
+.dashboard > ul > li:hover,
+.dashboard .markdown-body > ul > li:hover {
   transform: translateY(-3px);
   box-shadow: 0 7px 15px rgba(0, 0, 0, 0.15);
 }
@@ -89,12 +174,13 @@
 .dashboard div > ul > li > ul {
   padding-left: 0 !important;
   margin-top: 0.8rem;
+  line-height: 1.8;
   display: block;
 }
 
 .dashboard div > ul > li > ul > li {
-  margin-bottom: 0.5rem;
-  padding-left: 0;
+  margin-bottom: 0.8rem;
+  padding-left: 1.5rem;
   position: relative;
 }
 
@@ -157,7 +243,7 @@
   }
 }
 
-/* Cornell Notes */
+/* --- Cornell Notes (from cornell.css) --- */
 .callout[data-callout="cornell"] {
   background-color: var(--background-primary);
   border: none;
@@ -274,18 +360,18 @@
   .callout[data-callout="cornell"] .callout-content {
     flex-direction: column;
   }
-  
+
   .callout[data-callout="cornell"] .callout-content > blockquote:first-of-type {
     flex-basis: auto;
     border-right: none;
     border-bottom: 2px solid var(--color-accent-alt);
     padding: 1.25rem;
   }
-  
+
   .callout[data-callout="cornell"] .callout-content > :not(blockquote:first-of-type):not(hr ~ *) {
     padding: 1.25rem;
   }
-  
+
   .callout[data-callout="cornell"] .callout-content > hr ~ * {
     padding: 1.25rem 1.25rem 1.25rem 1.75rem;
   }
@@ -354,4 +440,106 @@
   padding-top: 0.5rem;
   border-top: 1px dashed var(--background-modifier-border);
   margin-top: 0.5rem;
+}
+
+/* --- Flashcard Styles (from flashcard.css) --- */
+.callout[data-callout="question"] {
+  background-color: var(--background-primary);
+  border: none;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 15px;
+  margin: 2rem 0;
+  padding: 0;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.callout[data-callout="question"]:hover {
+  transform: translateY(-2px);
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 8px 20px;
+}
+
+.callout[data-callout="question"] .callout-title {
+  font-weight: 600;
+  font-size: 1.1em;
+  background: linear-gradient(to right, var(--background-secondary-alt), var(--background-secondary));
+  padding: 1.5rem;
+  width: 100%;
+  cursor: pointer;
+  border-left: 5px solid var(--color-accent);
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.callout[data-callout="question"] .callout-content {
+  padding: 1.5rem;
+  color: var(--text-normal);
+  background-color: var(--background-primary);
+  border-left: 5px solid transparent;
+}
+
+.callout[data-callout="question"] .callout-icon {
+  color: var(--color-accent);
+}
+
+.callout[data-callout="answer"] {
+  background-color: var(--background-primary);
+  border-radius: 8px;
+  border-left: 5px solid var(--color-accent-alt);
+  margin-top: -1.5rem;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding: 1.2rem;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 3px 10px inset;
+}
+
+.callout[data-callout="answer"] .callout-title {
+  font-size: 0.9em;
+  color: var(--text-muted);
+  justify-content: flex-start;
+  border-bottom: 1px dashed var(--background-modifier-border);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-left: none;
+  background: none;
+}
+
+.callout[data-callout="answer"] .callout-icon {
+  color: var(--color-accent-alt);
+}
+
+.flashcard-tag {
+  display: inline-block;
+  margin-right: 0.2rem;
+  margin-left: 0.5rem;
+  font-weight: normal;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.tag-easy {
+  background-color: #4CAF50;
+  color: white !important;
+}
+
+.tag-medium {
+  background-color: #FF9800;
+  color: white !important;
+}
+
+.tag-hard {
+  background-color: #F44336;
+  color: white !important;
+}
+
+.flashcard-collection h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px dotted var(--background-modifier-border);
+  font-size: 1.8em;
+  color: var(--text-normal);
 }
