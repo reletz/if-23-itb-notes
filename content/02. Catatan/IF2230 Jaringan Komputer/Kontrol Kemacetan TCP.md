@@ -52,6 +52,8 @@ _Back to_ [[IF2230 Jaringan Komputer]]
 > >     
 > >     - **Pemicu:** Koneksi berjalan lancar; pengirim berhasil mengirim satu window penuh (`cwnd`) dan menerima ACK untuk semua data tersebut dalam satu RTT (_Round-Trip Time_).
 > >     - **Aksi:** `cwnd` akan **ditambah sebesar 1 MSS** (_Maximum Segment Size_) setiap RTT. Ini adalah langkah maju yang lambat dan linear, untuk secara bertahap memanfaatkan kapasitas jaringan yang mungkin baru tersedia.
+> >  
+> >  ![[Pasted image 20250618194011.png]]
 > > 
 > > ### Slow Start
 > > 

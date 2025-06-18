@@ -55,6 +55,7 @@ _Back to_ [[IF2230 Jaringan Komputer]]
 > >     - **Host-to-host:** Semua paket dengan alamat IP sumber & tujuan yang sama.
 > >     - **Process-to-process:** Semua paket dengan IP sumber/tujuan DAN port sumber/tujuan yang sama (ini setara dengan _channel_ di transport layer).
 > > - Perbedaan utamanya adalah _flow_ terlihat oleh router di dalam jaringan, sedangkan _channel_ adalah abstraksi end-to-end.
+> > ![[Pasted image 20250618185514.png]]
 > > 
 > > **Soft State:**
 > > 
@@ -88,7 +89,9 @@ _Back to_ [[IF2230 Jaringan Komputer]]
 > > - Mendefinisikan "adil" itu tidak mudah. Tidak selalu berarti "sama rata".
 > > - **Controlled Unfairness:** Melalui reservasi, kita bisa secara sengaja membuat ketidakadilan yang terkontrol, misal memberikan bandwidth 1 Mbps untuk video stream dan hanya 10 Kbps untuk transfer file di link yang sama.
 > > - **Masalah Panjang Rute:** Apakah adil jika sebuah _flow_ yang melewati 4 router mendapat jatah bandwidth yang sama dengan _flow_ lain yang hanya melewati 1 router di salah satu link? _Flow_ yang lebih panjang menggunakan lebih banyak sumber daya jaringan secara keseluruhan.
-> > - **Jain's Fairness Index:** Sebuah formula matematis untuk mengukur tingkat keadilan dari sekumpulan throughput flow (x1​,x2​,...,xn​): f(x1​,x2​,...,xn​)=n∑i=1n​xi2​(∑i=1n​xi​)2​ Hasilnya selalu antara 0 dan 1. Nilai 1 menunjukkan keadilan sempurna (semua xi​ sama).
+> > - **Jain's Fairness Index:** Sebuah formula matematis untuk mengukur tingkat keadilan dari sekumpulan throughput flow $(x_1​,x_2​,...,x_n​)$
+> >   $$f(x_1​,x_2​,...,x_n​)=\frac{(\sum^{n}_{i=1}​x_i)^2}{​n\sum_{i=1}^n​x_i​^2}​$$ 
+> >   Hasilnya selalu antara 0 dan 1. Nilai 1 menunjukkan keadilan sempurna (semua xi​ sama).
 
 > [!cornell] #### Summary
 > Alokasi sumber daya bertujuan untuk mengelola **kemacetan (congestion)** dengan cara mendistribusikan sumber daya jaringan (bandwidth dan buffer) secara **efektif dan adil**. Pendekatannya dapat diklasifikasikan (misalnya, _host-centric vs. router-centric_, _feedback vs. reservation_). Keberhasilannya dievaluasi berdasarkan dua kriteria utama: **efektivitas**, yang menyeimbangkan _throughput_ dan _delay_ (diukur dengan metrik **Power**), dan **keadilan**, yang konsepnya kompleks namun dapat diukur secara kuantitatif dengan metrik seperti **Jain's Fairness Index**.

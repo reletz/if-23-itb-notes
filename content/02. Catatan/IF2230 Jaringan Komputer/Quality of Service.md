@@ -36,6 +36,7 @@ _Back to_ [[IF2230 Jaringan Komputer]]
 > > QoS sangat penting untuk **aplikasi _real-time_**, yaitu aplikasi yang sensitif terhadap ketepatan waktu (_timeliness_) data. Contohnya termasuk VoIP, video konferensi, dan game online.
 > > 
 > > - **Playback Buffer:** Untuk mengatasi _jitter_ (variasi delay paket), aplikasi penerima sering menggunakan _playback buffer_. Data yang tiba lebih awal akan ditahan di buffer ini dan baru "dimainkan" pada waktu yang seharusnya. Ini menciptakan aliran data yang lebih mulus, meskipun dengan mengorbankan sedikit peningkatan latensi awal.
+> > ![[Pasted image 20250618195548.png]]
 > > 
 > > ### Taksonomi Aplikasi Real-Time
 > > 
@@ -50,6 +51,8 @@ _Back to_ [[IF2230 Jaringan Komputer]]
 > >         - _**Delay-adaptive:**_ Dapat menggeser titik _playback_ untuk beradaptasi dengan perubahan delay jaringan.
 > >     - _**Nonadaptive:**_ Tidak dapat beradaptasi dan membutuhkan jaminan layanan yang kaku dari jaringan.
 > > 
+> > ![[Pasted image 20250618195619.png]]
+> > 
 > > ### Arsitektur QoS: Integrated Services (IntServ)
 > > 
 > > IntServ adalah pendekatan QoS yang bersifat **fine-grained**, yaitu menyediakan jaminan layanan untuk **setiap _flow_ individu**. Setiap aplikasi harus meminta layanan secara eksplisit.
@@ -60,6 +63,21 @@ _Back to_ [[IF2230 Jaringan Komputer]]
 > > - **Token Bucket Filter:** Model untuk mendeskripsikan lalu lintas. Didefinisikan oleh dua parameter: _token rate `r`_ (laju data rata-rata jangka panjang) dan _bucket depth `B`_ (kemampuan untuk mengirim _burst_ atau ledakan data sesaat).
 > > - _**Admission Control:**_ Sebelum menerima permintaan _flow_ baru, setiap router di jalurnya harus memeriksa apakah ia memiliki sumber daya yang cukup (bandwidth, buffer) untuk memenuhi permintaan tersebut tanpa mengganggu layanan yang telah dijamin untuk _flow_ lain.
 > > - **RSVP (Resource Reservation Protocol):** Protokol sinyal yang digunakan untuk membuat reservasi di sepanjang jalur. _Receiver_ mengirim pesan `RESV` ke hulu menuju _sender_ untuk memesan sumber daya di setiap router.
+> > 	- **Langkah 1 - PATH Message:**
+> > 		- Pengirim mengirim PATH message berisi informasi traffic yang akan dikirim
+> > 		- Penerima perlu mengetahui karakteristik traffic untuk membuat reservasi
+> > 	- **Langkah 2 - RESV Message:**
+> > 		- Penerima mengirim RESV message sebagai "reservation back"
+> > 		- Message berisi spesifikasi traffic dan path yang diminta dari pengirim
+> > 		- Setiap router memeriksa:
+> > 			- Permintaan reservasi dan mencoba mengalokasikan resource
+> > 			- Apakah reservasi dapat dipenuhi berdasarkan informasi dari PATH message
+> > 			- Jika berhasil, request diteruskan ke router berikutnya
+> > 	- **Langkah 3 - Konfirmasi:**
+> > 		- Jika ada error, message error dikembalikan ke penerima
+> > 		- Penerima harus mengirim ulang RESV message setiap ~30 detik untuk mempertahankan reservasi
+> > 		
+> > 	 ![[Pasted image 20250618195719.png]]
 > > 
 > > ### Arsitektur QoS: Differentiated Services (DiffServ)
 > > 
