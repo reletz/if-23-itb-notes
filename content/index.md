@@ -25,6 +25,6 @@ Semoga semua catatannya bermanfaat. Selamat belajar, ya!
 	- [[IF2130 Sistem Operasi]]
 	- [[IF2211 Strategi Algoritma]]
 	- [[IF2180 Socio-Informatika dan Profesionalisme]]
-	- [[IF2120 Probabilitas dan Statistika]]
+	- [IF2120 Probabilitas dan Statistika](https://docs.google.com/document/d/1uR4lov6_xJD3Y3KUFWzIyfjVmrOXL0W0PwzFZwtc4zU/edit?usp=sharing)
 	- [[MA2281 Statistika nonparametrik]] (Matkul Pilihan)
 	- [[MA2022 Struktur Bilangan Bulat]] (Matkul Pilihan)
