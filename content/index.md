@@ -3,6 +3,11 @@ cssclasses:
   - dashboard
 ---
 # Overview
+`> ## Halo! Selamat Datang Kembali! 👋🧠` 
+
+Ini dia pusat kendali untuk semua materi perkuliahan. Dari yang bikin kepala ngebul sampai yang bikin bilang "oooh gituuu".
+
+Semoga semua catatannya bermanfaat. Selamat belajar, ya!
 - ## Semester 3
 	- [[IF1220 Matematika Diskrit]]
 	- [[IF1221 Logika Komputasional]]
@@ -10,6 +15,8 @@ cssclasses:
 	- [[IF2123 Aljabar Linier dan Geometri]]
 	- [[IF2150 Rekayasa Perangkat Lunak]]
 	- [[IF2110 Algoritma dan Struktur Data]]
+	- KU2071 Pendidikan Pancasila dan Kewarganegaraan
+	- WI2011 Agama Islam
 - ## Semester 4
 	24 SKS... Agak berat tapi seru HAHAHA
 	- [[IF2010 Pemrograman Berorientasi Objek]]
@@ -17,7 +24,7 @@ cssclasses:
 	- [[IF2240 Basis Data]]
 	- [[IF2130 Sistem Operasi]]
 	- [[IF2211 Strategi Algoritma]]
-	- [[IF2120 Probabilitas dan Statistika]]
 	- [[IF2180 Socio-Informatika dan Profesionalisme]]
+	- [[IF2120 Probabilitas dan Statistika]]
 	- [[MA2281 Statistika nonparametrik]] (Matkul Pilihan)
 	- [[MA2022 Struktur Bilangan Bulat]] (Matkul Pilihan)
