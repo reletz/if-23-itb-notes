@@ -1,11 +1,11 @@
-# Catppuccin
+# AnuPpuccin
 
-- Theme: Catppuccin
-- Author: <a href="https://github.com/catppuccin/obsidian" target="_blank" rel="noopener noreferrer">Marshall Beckrich</a>
+- Theme: AnuPpuccin
+- Author: <a href="https://github.com/AnubisNekhet" target="_blank" rel="noopener noreferrer">Anubis</a>
 
 ## Preview
 
-[Open live preview](https://quartz-themes.github.io/catppuccin/)
+[Open live preview](https://quartz-themes.github.io/anuppuccin/)
 
 ## Usage
 
@@ -13,7 +13,7 @@
 
 ```yaml
 env:
-  THEME_NAME: catppuccin
+  THEME_NAME: anuppuccin
 ```
 
 ```yaml
@@ -26,7 +26,7 @@ env:
 ```bash
 curl -s -S -o action.sh https://raw.githubusercontent.com/saberzero1/quartz-themes/master/action.sh
 
-./action.sh catppuccin
+./action.sh anuppuccin
 ```
 
 ### Manual install
