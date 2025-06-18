@@ -2,6 +2,7 @@
 cssclasses:
   - dashboard
 ---
+_Back to_ [[index]]
 # Overview
 - ## Pengenalan Basis dan Model Data
 	- [[Konsep Fundamental dan Pendekatan Basis Data]]

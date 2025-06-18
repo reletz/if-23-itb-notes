@@ -2,6 +2,7 @@
 cssclasses:
   - dashboard
 ---
+_Back to_ [[index]]
 # Overview
 - ## Sistem Bilangan Bulat Modulo
 	- [[Relasi Ekuivalen]]

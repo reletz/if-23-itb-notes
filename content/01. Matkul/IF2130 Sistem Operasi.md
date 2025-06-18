@@ -2,6 +2,7 @@
 cssclasses:
   - dashboard
 ---
+_Back to_ [[index]]
 # Overview
 - ## Deadlock
 	- [[Pengantar dan Karakteristik Deadlock]]

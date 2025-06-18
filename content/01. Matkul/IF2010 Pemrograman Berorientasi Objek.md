@@ -4,6 +4,7 @@ cssclasses:
 dg-publish: true
 dg-home: true
 ---
+_Back to_ [[index]]
 # Overview
 - ## Intro to C++, Class, & Object
 	- [[Fondasi Kelas dan Objek di C++]]

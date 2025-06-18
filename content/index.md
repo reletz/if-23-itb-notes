@@ -18,6 +18,6 @@ cssclasses:
 	- [[IF2130 Sistem Operasi]]
 	- [[IF2211 Strategi Algoritma]]
 	- [[IF2120 Probabilitas dan Statistika]]
-	- [[IF2180 Socio-informatika dan Profesionalisme]]
+	- [[IF2180 Socio-Informatika dan Profesionalisme]]
 	- [[MA2281 Statistika nonparametrik]] (Matkul Pilihan)
 	- [[MA2022 Struktur Bilangan Bulat]] (Matkul Pilihan)
