@@ -26,7 +26,7 @@ _Back to_ [[IF2230 Jaringan Komputer]]
 > > 
 > > ## Reference Points
 > > 
-> > - Lecture 8, Slides: 129-132, 207-287
+> > - Lecture 8
 > 
 > > ### Konsep Dasar Kontrol Kemacetan
 > > 

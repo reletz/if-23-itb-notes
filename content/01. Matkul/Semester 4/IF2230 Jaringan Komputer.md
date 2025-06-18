@@ -11,6 +11,7 @@ _Back to_ [[index]]
 	- [[TCP Pt. 2 (Keandalan dan Flow Control)]]
 	- [[TCP Pt. 3 (Optimisasi & Algoritma Lanjutan)]]
 - ## Congestion Control
+	- [[Alokasi Sumber Daya]] 
 	- [[Kontrol Kemacetan TCP]]
 	- [[Penghindaran Kemacetan & Disiplin Antrian]]
 	- [[Quality of Service]]
