@@ -1,11 +1,11 @@
-# AnuPpuccin
+# Atom
 
-- Theme: AnuPpuccin
-- Author: <a href="https://github.com/AnubisNekhet" target="_blank" rel="noopener noreferrer">Anubis</a>
+- Theme: Atom
+- Author: kognise
 
 ## Preview
 
-[Open live preview](https://quartz-themes.github.io/anuppuccin/)
+[Open live preview](https://quartz-themes.github.io/atom/)
 
 ## Usage
 
@@ -13,7 +13,7 @@
 
 ```yaml
 env:
-  THEME_NAME: anuppuccin
+  THEME_NAME: atom
 ```
 
 ```yaml
@@ -26,7 +26,7 @@ env:
 ```bash
 curl -s -S -o action.sh https://raw.githubusercontent.com/saberzero1/quartz-themes/master/action.sh
 
-./action.sh anuppuccin
+./action.sh atom
 ```
 
 ### Manual install
