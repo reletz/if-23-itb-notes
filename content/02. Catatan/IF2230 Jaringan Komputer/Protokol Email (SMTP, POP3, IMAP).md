@@ -24,7 +24,7 @@ _Back to_ [[IF2230 Jaringan Komputer]]
 > > 
 > > ## Reference Points
 > > 
-> > - Lecture 10, Slides: 647-650, 654, 656, 658-659, 661, 664, 666
+> > - Lecture 10
 > 
 > > ### Komponen Sistem Email
 > > 
@@ -33,6 +33,7 @@ _Back to_ [[IF2230 Jaringan Komputer]]
 > > 1. **User Agents (UA):** Ini adalah aplikasi klien email yang digunakan oleh pengguna untuk membaca, menulis, mengirim, dan mengelola pesan. Contohnya termasuk Microsoft Outlook, Mozilla Thunderbird, atau antarmuka web seperti GMail.
 > > 2. **Mail Servers:** Merupakan infrastruktur inti yang bekerja di belakang layar. Setiap server memiliki _message queue_ untuk email keluar dan _mailbox_ untuk menyimpan email masuk bagi setiap penggunanya. Server-server ini selalu aktif untuk menerima dan mengirim email kapan saja.
 > > 3. **SMTP (Simple Mail Transfer Protocol):** Protokol standar yang digunakan untuk mentransfer pesan email dari User Agent pengirim ke Mail Server, dan yang terpenting, untuk mentransfer email **antar Mail Server**.
+> > ![[Pasted image 20250618220413.png]]
 > > 
 > > ### Simple Mail Transfer Protocol (SMTP)
 > > 
@@ -42,6 +43,7 @@ _Back to_ [[IF2230 Jaringan Komputer]]
 > >     - Menggunakan **TCP** pada **port 25** untuk memastikan pengiriman yang andal.
 > >     - Interaksinya berupa _command/response_ dalam format teks ASCII. Klien mengirim perintah (misal, `HELO`, `MAIL FROM:`, `RCPT TO:`, `DATA`), dan server merespons dengan kode status.
 > >     - **Batasan:** Protokol SMTP asli dirancang hanya untuk mentransfer teks dalam format **7-bit ASCII**.
+> >     ![[Pasted image 20250618220458.png]]
 > > 
 > > ### Format Pesan Email & MIME
 > > 
@@ -64,6 +66,8 @@ _Back to_ [[IF2230 Jaringan Komputer]]
 > >     - Protokol yang jauh lebih canggih dan modern.
 > >     - Pesan **tetap disimpan di server secara default**. Klien hanya menyinkronkan dan menampilkan salinan dari pesan tersebut.
 > >     - IMAP mengelola status (seperti folder, email sudah dibaca/belum) di server, sehingga semua perubahan akan tersinkronisasi di semua perangkat yang mengakses akun email yang sama. Ini adalah protokol yang ideal untuk era multi-perangkat saat ini.
+> >  
+> >  ![[Pasted image 20250618220552.png]]
 > > 
 > > ### Perbandingan SMTP dengan HTTP
 > > 
@@ -77,6 +81,7 @@ _Back to_ [[IF2230 Jaringan Komputer]]
 > - Sistem email terdiri dari tiga komponen: **User Agents** (klien seperti Outlook), **Mail Servers** (penyimpanan dan relay), dan protokol **SMTP** yang berfungsi untuk "mendorong" (push) email antar server.
 > - **SMTP** memiliki batasan hanya untuk teks ASCII, sehingga ekstensi **MIME** digunakan untuk memungkinkan pengiriman konten multimedia seperti gambar dan lampiran.
 > - Untuk "menarik" (pull) email dari server ke klien, digunakan protokol akses seperti **POP3** (mengunduh dan menghapus) atau **IMAP** (menyinkronkan dan menyimpan email di server), di mana IMAP lebih cocok untuk akses dari berbagai perangkat.
+> - ![[Pasted image 20250618220612.png]]
 
 > [!ad-libitum]- Additional Information (Optional)
 > 

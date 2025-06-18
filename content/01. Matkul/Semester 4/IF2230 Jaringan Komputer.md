@@ -19,7 +19,8 @@ _Back to_ [[index]]
 	- [[Dasar Jaringan Nirkabel & Wi-Fi (802.11)]]
 	- [[Jaringan Seluler (2G hingga 4G LTE)]]
 - ## Application Layer
-	- [[Arsitektur Aplikasi & Domain Name System (DNS)]]
+	- [[Pengantar Application Layer]]
+	- [[Domain Name System (DNS)]]
 	- [[Hypertext Transfer Protocol (HTTP) & Web Caching]]
 	- [[Protokol Email (SMTP, POP3, IMAP)]]
 - ## Keamanan dan SDN

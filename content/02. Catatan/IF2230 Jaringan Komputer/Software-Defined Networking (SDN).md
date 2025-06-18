@@ -24,7 +24,7 @@ _Back to_ [[IF2230 Jaringan Komputer]]
 > > 
 > > ## Reference Points
 > > 
-> > - Lecture 12, Slides: 763-765, 767, 771, 773, 778-784, 797-798, 802
+> > - Lecture 12
 > 
 > > ### Latar Belakang dan Konsep Inti SDN
 > > 

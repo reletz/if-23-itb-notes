@@ -25,7 +25,7 @@ _Back to_ [[IF2230 Jaringan Komputer]]
 > > 
 > > ## Reference Points
 > > 
-> > - Lecture 10, Slides: 611-613, 615, 617-619, 622, 624-630, 632-642
+> > - Lecture 10
 > 
 > > ### Dasar-dasar Hypertext Transfer Protocol (HTTP)
 > > 
@@ -34,6 +34,32 @@ _Back to_ [[IF2230 Jaringan Komputer]]
 > > - **Karakteristik Utama:**
 > >     - Menggunakan **TCP** sebagai protokol transport di bawahnya, biasanya pada port 80.
 > >     - Bersifat _**Stateless**_: Server tidak menyimpan informasi apa pun tentang permintaan klien sebelumnya. Setiap permintaan diperlakukan sebagai transaksi yang sepenuhnya independen. Hal ini menyederhanakan desain server, namun memerlukan mekanisme lain (seperti cookies) untuk mengelola sesi pengguna.
+> > 
+> > ### Response Time Modelling
+> > - Definisi RTT (Round-Trip Time)
+> > 	- **RTT**: Waktu yang dibutuhkan untuk mengirim paket kecil dari client ke server dan kembali lagi
+> > 	- **Fungsi**: Mengukur latensi dasar komunikasi jaringan antara dua titik
+> > - Komponen Response Time
+> > 	1. Inisiasi Koneksi TCP
+> > 		- **Durasi**: Satu RTT untuk memulai koneksi TCP
+> > 		- **Proses**: Handshake antara client dan server
+> > 		- **Tujuan**: Membuat koneksi yang reliable sebelum transfer data
+> > 	1. HTTP Request dan Response Awal
+> > 		- **Durasi**: Satu RTT untuk HTTP request dan beberapa byte pertama HTTP response
+> > 		- **Proses**:
+> > 			- Client mengirim HTTP request
+> > 			- Server merespons dengan header HTTP dan data awal
+> > 		- **Karakteristik**: Response dimulai segera setelah request diterima
+> > 	1. File Transmission Time
+> > 		- **Durasi**: Waktu untuk mentransmisikan seluruh file
+> > 		- **Faktor**: Tergantung pada ukuran file dan bandwidth jaringan
+> > 		- **Proses**: Data file dikirim secara bertahap dari server ke client
+> > -  Rumus Total Response Time
+> > `Total Response Time = 2RTT + Transmit Time`
+> > ![[Pasted image 20250618215719.png]]
+> > - **RTT pertama**: Untuk inisiasi koneksi TCP
+> > - **RTT kedua**: Untuk HTTP request dan response awal
+> > - **Transmit Time**: Waktu aktual pengiriman file
 > > 
 > > ### Tipe Koneksi HTTP
 > > 
@@ -58,6 +84,10 @@ _Back to_ [[IF2230 Jaringan Komputer]]
 > >     - **Status Line:** Berisi versi HTTP, _status code_, dan deskripsi. Contoh: `HTTP/1.1 200 OK`
 > >     - **Header Lines:** Informasi tambahan seperti `Content-Type: text/html`, `Content-Length: 1234`, dll.
 > >     - **Entity Body:** Berisi objek yang diminta, misalnya kode HTML dari sebuah halaman web.
+> >
+> > ### Metode Request HTTP Umum
+> > - **GET:** Digunakan untuk meminta representasi dari sumber daya tertentu. Semua data yang diperlukan dikirim sebagai bagian dari URL (misal: `.../search?q=jaringan_komputer`).
+> > - **POST:** Digunakan untuk mengirimkan data agar diproses oleh sumber daya target. Data dikirimkan di dalam _entity body_ dari pesan request. Umumnya digunakan untuk mengirimkan data formulir.
 > > 
 > > ### Menjaga State: Cookies
 > > 
@@ -72,7 +102,7 @@ _Back to_ [[IF2230 Jaringan Komputer]]
 > > ### Web Caching (Proxy Server)
 > > 
 > > **Web Cache** adalah sebuah server perantara yang menyimpan salinan objek-objek web yang baru saja diminta. Saat klien meminta sebuah objek, permintaan tersebut pertama kali dikirim ke cache.
-> > 
+> > ![[Pasted image 20250618220258.png]]
 > > - **Tujuan dan Manfaat:**
 > >     
 > >     1. **Mengurangi Waktu Respons Klien:** Jika objek yang diminta ada di cache (_cache hit_), objek tersebut dapat segera dikirim ke klien tanpa harus mengambilnya dari server asli yang mungkin berlokasi jauh.
@@ -83,6 +113,9 @@ _Back to_ [[IF2230 Jaringan Komputer]]
 > >     
 > >     - Jika konten di server **tidak berubah**, server akan merespons dengan status `304 Not Modified` dan body kosong. Cache kemudian akan menggunakan salinan yang dimilikinya.
 > >     - Jika konten **telah berubah**, server akan merespons dengan `200 OK` dan mengirimkan versi baru dari objek tersebut.
+> >     - ![[Pasted image 20250618220333.png]]
+> >  
+> >  ![[Pasted image 20250618214243.png]]
 
 > [!cornell] #### Summary
 > 

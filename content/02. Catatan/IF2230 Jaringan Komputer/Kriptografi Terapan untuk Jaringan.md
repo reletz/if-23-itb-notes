@@ -24,7 +24,7 @@ _Back to_ [[IF2230 Jaringan Komputer]]
 > > 
 > > ## Reference Points
 > > 
-> > - Lecture 11, Slides: 725, 731-732, 735-737, 739, 741, 743, 745, 749-752, 754-755, 757
+> > - Lecture 11
 > 
 > > ### Tujuan dan Jenis Kriptografi
 > > 

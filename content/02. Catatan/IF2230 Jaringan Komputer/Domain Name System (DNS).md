@@ -27,23 +27,6 @@ _Back to_ [[IF2230 Jaringan Komputer]]
 > > 
 > > - Lecture 10, Slides: 583, 585-592, 594, 596-600, 603-604, 606-607
 > 
-> > ### Arsitektur Aplikasi Jaringan
-> > 
-> > Ada tiga model arsitektur utama untuk aplikasi jaringan:
-> > 
-> > 1. **Client-Server:**
-> >     - Terdapat sebuah **server** yang selalu aktif (_always-on_), memiliki alamat IP permanen, dan menunggu untuk melayani permintaan.
-> >     - Terdapat banyak **klien** yang memulai komunikasi dengan server untuk meminta layanan. Klien bisa saja tidak selalu aktif dan alamat IP-nya bisa dinamis.
-> >     - Klien tidak berkomunikasi langsung satu sama lain. Contoh klasik: Web (Browser sebagai klien, Web Server sebagai server).
-> > 2. **Peer-to-Peer (P2P):**
-> >     - Tidak ada server pusat yang selalu aktif.
-> >     - Sistem-sistem akhir (disebut _peers_) berkomunikasi secara langsung satu sama lain.
-> >     - Setiap _peer_ dapat bertindak sebagai klien sekaligus server.
-> >     - Sangat skalabel tetapi lebih sulit untuk dikelola. Contoh: Gnutella, BitTorrent.
-> > 3. **Hybrid:**
-> >     - Menggabungkan elemen dari kedua model di atas.
-> >     - Contoh: Instant Messaging. Deteksi kehadiran teman (_presence_) dilakukan secara terpusat melalui server, namun percakapan (chat) berlangsung secara P2P langsung antar pengguna.
-> > 
 > > ### Domain Name System (DNS)
 > > 
 > > **DNS** adalah sebuah sistem database terdistribusi yang berfungsi sebagai "buku telepon" internet. Tugas utamanya adalah menerjemahkan nama domain yang mudah diingat oleh manusia (misalnya, `www.google.com`) menjadi alamat IP numerik (misalnya, `142.250.66.78`) yang digunakan oleh mesin untuk merutekan paket.
@@ -68,6 +51,8 @@ _Back to_ [[IF2230 Jaringan Komputer]]
 > > - **Tipe Query:**
 > >     - **Recursive Query:** Klien meminta server untuk menyelesaikan seluruh proses pencarian dan memberikan jawaban akhir. Beban pencarian ada pada server yang ditanya. (Biasanya antara host Anda dan Local DNS Server).
 > >     - **Iterative Query:** Server yang dikontak hanya memberikan referensi ke server lain yang lebih tahu. "Saya tidak tahu, tapi coba tanyakan ke server ini". (Biasanya antara server-server DNS dalam hierarki).
+> >   
+> >  ![[Pasted image 20250618214437.png]]
 > > - **DNS Caching:** Untuk efisiensi, setiap server DNS yang menerima sebuah jawaban akan menyimpannya dalam _cache_ untuk sementara waktu. Jika ada permintaan lain untuk nama yang sama, server dapat langsung menjawab dari cache tanpa perlu mengulang seluruh proses query ke hierarki atas. Ini secara drastis mengurangi lalu lintas DNS dan mempercepat waktu respons.
 > > 
 > > ### DNS Records
