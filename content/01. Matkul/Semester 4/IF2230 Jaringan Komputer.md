@@ -5,10 +5,11 @@ cssclasses:
 _Back to_ [[index]]
 # Overview
 - ## Transport Layer
-	- [[Dasar-dasar Lapisan Transport dan UDP]]
-	- [[Mekanisme Inti TCP]]
-	- [[Manajemen Koneksi & Keandalan TCP]]
-	- [[Kontrol Aliran & Optimisasi TCP]]
+	- [[Dasar-dasar Lapisan Transport dan End-to-end]]
+	- [[UDP]]
+	- [[TCP Pt. 1 (Koneksi dan Header)]]
+	- [[TCP Pt. 2 (Keandalan dan Flow Control)]]
+	- [[TCP Pt. 3 (Optimisasi & Algoritma Lanjutan)]]
 - ## Congestion Control
 	- [[Kontrol Kemacetan TCP]]
 	- [[Penghindaran Kemacetan & Disiplin Antrian]]
