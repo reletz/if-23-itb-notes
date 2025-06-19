@@ -25,6 +25,7 @@ _Back to_ [[Latihan Prak 6 OOP]]
 
 
 	- **File Pendukung**
-		- [[Customer.java]] (Tidak perlu diubah)
+		- [[Customer.java]]
 		- [[Flashsale.java]] 
+		- [[Producer.java]]
 	- **Black-box Checker:** [[FlashsaleChecker.java]]
