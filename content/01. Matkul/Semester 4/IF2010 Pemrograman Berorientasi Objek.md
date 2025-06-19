@@ -31,3 +31,7 @@ _Back to_ [[index]]
 	- [[Assertion dan Exception]]
 	- [[Reflection dan Plugin]]
 	- [[Multihreading]]
+- ## UAS Praktikum
+	- [[Latihan Prak 4 OOP]]
+	- [[Latihan Prak 5 OOP]]
+	- [[Latihan Prak 6 OOP]]
