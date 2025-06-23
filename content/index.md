@@ -28,3 +28,10 @@ Semoga semua catatannya bermanfaat. Selamat belajar, ya!
 	- [IF2120 Probabilitas dan Statistika](https://docs.google.com/document/d/1uR4lov6_xJD3Y3KUFWzIyfjVmrOXL0W0PwzFZwtc4zU/edit?usp=sharing)
 	- [[MA2281 Statistika nonparametrik]] (Matkul Pilihan)
 	- [[MA2022 Struktur Bilangan Bulat]] (Matkul Pilihan)
+- ## Semester 5
+	- [[IF2224 Teori Bahasa Formal dan Otomata]]
+	- [[IF3170 Intelegensi Artifisial]]
+	- [[IF3140 Sistem Basis Data]]
+	- [[IF3130 Sistem Paralel dan Terdistribusi]]
+	- [[IF3110 Pengembangan Aplikasi Berbasis Web]]
+	- [[WI2022 Manajemen Proyek]]

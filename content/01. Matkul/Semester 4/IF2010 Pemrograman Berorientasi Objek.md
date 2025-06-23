@@ -17,6 +17,8 @@ _Back to_ [[index]]
 - ## Generic & STL
 	- [[Generic Programming dengan Template]]
 	- [[Standard Template Library (STL)]]
+- ## UTS Praktikum
+	- [[Ujian Praktikum - UTS.pdf]]
 - ## Intro to Java, SOLID, & Design Pattern
 	- [[Fondasi Bahasa Java dan Konsep OOP]]
 	- [[Struktur Data Inti, Abstraksi, dan Perbandingan C++]]
@@ -32,6 +34,6 @@ _Back to_ [[index]]
 	- [[Reflection dan Plugin]]
 	- [[Multihreading]]
 - ## UAS Praktikum
-	- [[Latihan Prak 4 OOP]]
+	- [[Ujian Praktikum - UAS.pdf]]
 	- [[Latihan Prak 5 OOP]]
 	- [[Latihan Prak 6 OOP]]
