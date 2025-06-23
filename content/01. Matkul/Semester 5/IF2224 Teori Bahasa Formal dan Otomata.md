@@ -2,7 +2,7 @@
 cssclasses:
   - dashboard
 ---
-_Back to _[[index]]
+_Back to_ [[index]]
 # Overview
 - ## Intro
 	- [[Pengenalan dan Aplikasi Teori Bahasa Formal & Automata (TBFO)]]
