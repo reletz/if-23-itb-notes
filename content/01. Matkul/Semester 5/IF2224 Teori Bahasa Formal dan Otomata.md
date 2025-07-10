@@ -20,3 +20,9 @@ _Back to_ [[index]]
 - ## Regular Expressions and Languages
 	- [[Hukum Aljabar Bahasa]]
 	- [[Regular Expressions dan Ekuivalensinya]]
+- ## Properties of Regular Languages
+	- [[Pumping Lemma]]
+	- [[Closure Properties, Pt 1]]
+	- [[Closure Properties, Pt 2]]
+	- [[Decision Properties (Sifat Keputusan)]]
+	- [[Minimasi DFA]]
