@@ -101,7 +101,7 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > > **Set-former** adalah notasi standar untuk mendefinisikan bahasa secara formal dengan menyatakan properti yang harus dimiliki oleh anggotanya.
 > > 
 > > - **Format Umum:** {w∣sebuah properti tentang w}. Dibaca: "Himpunan semua string w sedemikian sehingga w memiliki properti ...".
-> > - **Format Parameter:** {0i1j∣0≤i≤j}. Dibaca: "Himpunan string yang terdiri dari i buah '0' diikuti j buah '1', sedemikian sehingga jumlah '0' lebih sedikit atau sama dengan jumlah '1'".
+> > - **Format Parameter:** ${0^i1^j∣0≤i≤j}$. Dibaca: "Himpunan string yang terdiri dari i buah '0' diikuti j buah '1', sedemikian sehingga jumlah '0' lebih sedikit atau sama dengan jumlah '1'".
 
 > [!cornell] #### Summary
 > 
