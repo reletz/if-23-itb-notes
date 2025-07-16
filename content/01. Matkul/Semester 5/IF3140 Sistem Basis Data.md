@@ -15,3 +15,26 @@ _Back to_ [[index]]
 	- [[Tuning pada Level Aplikasi (Query dan Transaksi)]]
 	- [[Tuning pada Level Hardware (Memory dan RAID)]]
 	- [[Pengukuran Kinerja (Benchmark)]]
+- ## Storage And File Structure
+	- [[Media Penyimpanan Fisik dan Kinerja Disk]]
+	- [[Akses Blok Disk dan Optimalisasinya]]
+	- [[Organisasi File dan Struktur Record]]
+	- [[Penyimpanan Data Dictionary (Katalog Sistem)]]
+- ## Indexing
+	- [[Konsep Dasar dan Indeks Terurut (Ordered Index)]]
+	- [[B+-Tree Index]]
+	- [[Hash Index]]
+	- [[Bitmap Index dan Definisi Index dalam SQL]]
+- ## Skema dan Index Tuning
+	- [[Pengantar Tuning Desain dan Analisis Workload]]
+	- [[Schema Tuning (Dekomposisi dan Denormalisasi)]]
+	- [[Index Tuning dan Materialized Views]]
+- ## Query Processing dan Optimization
+	- [[Pengantar Query Processing & Ukuran Biaya (Cost)]]
+	- [[Algoritma Operasi Dasar (Seleksi, Sorting, & Agregasi)]]
+	- [[Algoritma Operasi Join]]
+	- [[Dasar Optimasi Query (Transformasi & Estimasi Biaya)]]
+	- [[Strategi Optimasi Query (Pemilihan Rencana & Topik Lanjutan)]]
+- ## SQL Performance Tuning
+	- [[Tuning Indeks dan Ekspresi Kondisional]]
+	- [[Formulasi Query yang Efisien]]
