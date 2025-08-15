@@ -177,17 +177,17 @@ Berikut adalah rekapitulasi dari semua spesifikasi wajib dan bonus yang berhasil
 |**Wajib**|Graphical user interface (GUI)|✅|Ada di video|-|
 |**Wajib**|Kapabilitas audio-visual|✅|Ada di video|-|
 |**Wajib**|Kemampuan terhubung ke internet|✅| Ada di video |-|
-|**Wajib**|Kemampuan manajemen paket|✅|[Screenshot: Terminal menjalankan `sudo` nixos-rebuild `switch`]|-|
-|**Wajib**|User _unprivileged_|✅|[Screenshot: Terminal dengan prompt user `reletz@reletz-nixos`]|-|
+|**Wajib**|Kemampuan manajemen paket|✅|<img width="1010" height="202" alt="image" src="https://github.com/user-attachments/assets/0c96d091-a389-4a66-8278-3dfab972d3a1" />|-|
+|**Wajib**|User _unprivileged_|✅|<img width="741" height="414" alt="image" src="https://github.com/user-attachments/assets/e4ed12e0-6e85-415f-86e0-f57d45d05f35" />|-|
 |**Wajib**|Graphical text editor|✅|Ada di video |-|
 |**Wajib**|Graphical web browser|✅|Ada di video |-|
 |**Wajib**|Wallpaper kustom|✅|Ada di video|-|
 |**Bonus**|Editor & Browser Open-Source|✅|`vscodium` dan `firefox` keduanya open-source.|0.5|
 |**Bonus**|Kustomisasi Bootloader|✅| Ada di video|0.5|
 |**Bonus**|Wine & LINE for PC|✅|Ada di video|0.5|
-|**Bonus**|Menggunakan Wayland|✅|[Screenshot: Output `echo $XDG_SESSION_TYPE` yang menampilkan `wayland`]|1.0|
+|**Bonus**|Menggunakan Wayland|✅|Terlihat di command `neofetch`|1.0|
 |**Bonus**|Nonton anime dari command line|✅|Ada di video|0.5|
-|**Bonus**|Mengemas instalasi ke .iso|✅| Cek di Repository |1.0|
+|**Bonus**|Mengemas instalasi ke .iso|✅| [Ini](https://drive.google.com/file/d/1LW7FIIOQA4TzGT0ouU8YL2_n6BFmsty6/view?usp=sharing) |1.0|
 |**Bonus**|Instalasi di hardware fisik|✅|Tutorial ini mendokumentasikan instalasi dual boot di laptop fisik.|1.0|
 |**Bonus**|Secure Boot|✅| Ada di Video |2.0|
 
