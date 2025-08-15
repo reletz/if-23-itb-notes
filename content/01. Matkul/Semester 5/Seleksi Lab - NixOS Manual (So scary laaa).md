@@ -3,7 +3,14 @@ _Dipublikasikan: 15 Agustus 2025_ _Tags: linux, nixos, dual-boot, tech, tutorial
 
 Selamat datang di catatan digital-ku! Kali ini, aku akan mendokumentasikan salah satu petualangan teknis paling menantang sekaligus memuaskan yang pernah aku lakukan: menginstal NixOS dari nol, tanpa installer grafis, dalam konfigurasi dual boot di samping Windows 11 pada perangkat fisik. Ini adalah bagian dari "Seleksi Bagian B Laboratorium Sistem Terdistribusi 2025."
 
-Kita akan pakai yang *minimal installation*. Bisa lihat di sini.
+## Fase 0: Nguli
+
+Tentunya kita perlu .iso-nya. Kita akan pakai yang *minimal installation*. Bisa lihat di [sini](https://nixos.org/download/).
+Jangan lupa juga [Rufusnya](https://rufus.ie/id/), ini supaya .iso nya bisa di-burn ke *USB stick.*
+
+Kalau di aku pakai Partitition Scheme: GPT dan Target System UEFI. Sesuaikan dengan sistem masing-masing ya.
+
+![[Pasted image 20250815145630.png]]
 
 ## Fase 1: Menyiapkan Lahan di Windows
 
@@ -28,6 +35,9 @@ Setelah itu, nonaktifkan juga Page File dan System Protection melalui System Pro
 ### 1.2. Operasi dengan GParted
 
 Aku membuat USB bootable GParted dan menjalankannya. GParted adalah pisau bedah untuk partisi. Dengan GParted, aku berhasil menyusutkan partisi Windows dan membuat ruang kosong sebesar 70 GB, ukuran yang ideal untuk NixOS.
+
+Download GParted: [here](https://gparted.org/)
+
 ![[Pasted image 20250815143217.png]]
 
 ## Fase 2: Eksekusi dari Terminal NixOS
