@@ -35,3 +35,4 @@ Semoga semua catatannya bermanfaat. Selamat belajar, ya!
 	- [[IF3130 Sistem Paralel dan Terdistribusi]]
 	- [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 	- [[WI2022 Manajemen Proyek]]
+	- [[Seleksi Lab - NixOS Manual (So scary laaa)]]
