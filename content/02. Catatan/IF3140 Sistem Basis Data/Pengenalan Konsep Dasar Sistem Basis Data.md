@@ -5,7 +5,6 @@ type: Note
 cssclasses:
 
 - cornell-notes
-    
 
 ---
 
