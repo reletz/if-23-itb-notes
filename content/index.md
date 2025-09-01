@@ -10,11 +10,11 @@ Ini dia pusat kendali untuk semua materi perkuliahan. Dari yang bikin kepala nge
 Semoga semua catatannya bermanfaat. Selamat belajar, ya!
 - ## Semester 3
 	- [[IF1220 Matematika Diskrit]]
-	- [[IF1221 Logika Komputasional]]
+	- IF1221 Logika Komputasional
 	- [[IF1230 Organisasi dan Arsitektur Komputer]]
 	- [[IF2123 Aljabar Linier dan Geometri]]
 	- [[IF2150 Rekayasa Perangkat Lunak]]
-	- [[IF2110 Algoritma dan Struktur Data]]
+	- [[IF2110 Algoritma dan Struktur Data - IF1210 Dasar Pemrograman]]
 	- KU2071 Pendidikan Pancasila dan Kewarganegaraan
 	- WI2011 Agama Islam
 - ## Semester 4
@@ -29,10 +29,12 @@ Semoga semua catatannya bermanfaat. Selamat belajar, ya!
 	- [[MA2281 Statistika nonparametrik]] (Matkul Pilihan)
 	- [[MA2022 Struktur Bilangan Bulat]] (Matkul Pilihan)
 - ## Semester 5
+	 Kocak malah ngulang 24 SKS
 	- [[IF2224 Teori Bahasa Formal dan Otomata]]
-	- [[IF3170 Intelegensi Artifisial]]
-	- [[IF3140 Sistem Basis Data]]
-	- [[IF3130 Sistem Paralel dan Terdistribusi]]
 	- [[IF3110 Pengembangan Aplikasi Berbasis Web]]
+	- [[IF3130 Sistem Paralel dan Terdistribusi]]
+	- [[IF3140 Sistem Basis Data]]
+	- [[IF3170 Inteligensi Artifisial]]
+	- [[II4023 Forensik Digital]]
 	- [[WI2022 Manajemen Proyek]]
 	- [[Seleksi Lab - NixOS Manual (So scary laaa)]]
