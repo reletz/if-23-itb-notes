@@ -112,7 +112,7 @@ _Back to_ [[II4023 Forensik Digital]]
 > > ### Proses dan Transaksi Digital
 > > 
 > > Di dalam _Cyber Society_, berbagai proses berjalan secara digital dan otomatis, seperti layanan _cloud computing_ dan sistem yang saling terhubung melalui IoT (_smart home_, _smart city_). Transaksi pun beralih ke format digital:
-> > 
+> > ![[Pasted image 20250901163213.png]]
 > > - **Jenis:** _E-commerce_, _digital banking_, hingga _cryptocurrency_.
 > >     
 > > - **Teknologi Pendukung:** _Blockchain_ untuk keamanan, AI untuk personalisasi, _cloud computing_ untuk skalabilitas.

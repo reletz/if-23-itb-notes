@@ -33,7 +33,7 @@ _Back to_ [[II4023 Forensik Digital]]
 > > ### Model Referensi Keamanan Siber
 > > 
 > > Keamanan Siber (_Cyber Security_) dapat dipandang dari tiga lapisan solusi yang saling melengkapi:
-> > 
+> > ![[Pasted image 20250901163054.png]]
 > > 1. **Engineering & Technology Solution Layer:** Lapisan teknis yang berfokus pada perancangan dan implementasi teknologi keamanan.
 > >     
 > > 2. **Managerial Solution Layer:** Lapisan manajemen yang berfokus pada kebijakan, prosedur, dan standar operasional keamanan.
@@ -46,16 +46,16 @@ _Back to_ [[II4023 Forensik Digital]]
 > > ### Siklus Hidup Keamanan Digital (Digital Security Life Cycle)
 > > 
 > > Keamanan digital adalah sebuah proses berkelanjutan yang dapat digambarkan dalam lima tahap siklus:
-> > 
-> > 4. **Digital Security Engineering:** Tahap perancangan dan pembangunan sistem. Kontrol keamanan diintegrasikan ke dalam arsitektur untuk meminimalkan risiko sejak awal.
+> > ![[Pasted image 20250901163035.png]]
+> > 1. **Digital Security Engineering:** Tahap perancangan dan pembangunan sistem. Kontrol keamanan diintegrasikan ke dalam arsitektur untuk meminimalkan risiko sejak awal.
 > >     
-> > 5. **Digital Security Operation & Maintenance:** Tahap operasional sehari-hari. Sistem keamanan yang sudah ada dipantau, dikelola, dan dipelihara secara rutin untuk memastikan perlindungan berkelanjutan.
+> > 2. **Digital Security Operation & Maintenance:** Tahap operasional sehari-hari. Sistem keamanan yang sudah ada dipantau, dikelola, dan dipelihara secara rutin untuk memastikan perlindungan berkelanjutan.
 > >     
-> > 6. **Digital Security Breaches (Pelanggaran Keamanan):** Tahap ketika insiden keamanan terjadi, seperti peretasan, pencurian data, atau akses tidak sah.
+> > 3. **Digital Security Breaches (Pelanggaran Keamanan):** Tahap ketika insiden keamanan terjadi, seperti peretasan, pencurian data, atau akses tidak sah.
 > >     
-> > 7. **Digital Forensics:** Tahap investigasi **setelah** terjadi pelanggaran (_breach_). Tujuannya adalah untuk memahami apa yang terjadi, bagaimana serangan dilakukan, siapa pelakunya, dan mengumpulkan bukti digital.
+> > 4. **Digital Forensics:** Tahap investigasi **setelah** terjadi pelanggaran (_breach_). Tujuannya adalah untuk memahami apa yang terjadi, bagaimana serangan dilakukan, siapa pelakunya, dan mengumpulkan bukti digital.
 > >     
-> > 8. **Digital Security Evaluation:** Tahap evaluasi dan audit. Efektivitas sistem keamanan yang ada dinilai untuk menemukan celah dan kelemahan, sehingga perbaikan dapat dilakukan untuk tahap _Engineering_ berikutnya.
+> > 5. **Digital Security Evaluation:** Tahap evaluasi dan audit. Efektivitas sistem keamanan yang ada dinilai untuk menemukan celah dan kelemahan, sehingga perbaikan dapat dilakukan untuk tahap _Engineering_ berikutnya.
 > >     
 > > 
 > > ### Definisi dan Istilah Forensik Digital
