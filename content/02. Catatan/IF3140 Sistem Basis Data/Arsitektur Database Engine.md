@@ -27,7 +27,7 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >     
 > 
 > > ### Partisi Fungsional Database Engine
-> > 
+> > ![[Pasted image 20250902114536.png]]
 > > Sebuah sistem basis data modern dipartisi menjadi beberapa modul fungsional yang masing-masing memiliki tanggung jawab spesifik. Secara garis besar, komponen fungsional ini dapat dibagi menjadi tiga pilar utama yang membentuk **Database Engine**:
 > > 
 > > - **The Storage Manager**
@@ -39,6 +39,7 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >
 > > ### Storage Manager: Jembatan ke Data Fisik
 > > 
+> > ![[Pasted image 20250902114659.png]]
 > > **Storage Manager** adalah sebuah modul program yang menyediakan antarmuka (interface) antara data level rendah yang tersimpan di disk dengan program aplikasi dan query yang dikirimkan ke sistem. Tanggung jawab utamanya adalah memastikan interaksi dengan file manager sistem operasi berjalan lancar serta proses **penyimpanan, pengambilan, dan pembaruan data** berlangsung secara efisien.
 > >
 > > ### Komponen Internal Storage Manager

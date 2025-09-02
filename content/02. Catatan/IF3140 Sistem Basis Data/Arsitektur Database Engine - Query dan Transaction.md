@@ -24,7 +24,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > - Apa fungsi utama dari Transaction Management?
 > >     
 > 
-> > ### Komponen Query Processor
+> > ### Query Processor
+> > ![[Pasted image 20250902115000.png]]
 > > 
 > > **Query Processor** adalah "otak" dari DBMS yang bertanggung jawab untuk menerjemahkan dan mengeksekusi permintaan data dari pengguna. Ia terdiri dari tiga bagian utama:
 > > 
@@ -44,13 +45,17 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 2. **Optimization:** Optimizer akan menganalisis berbagai rencana eksekusi yang ekuivalen dan, dengan bantuan data statistik tentang database, memilih satu rencana yang dianggap paling efisien (memiliki biaya terendah). Hasil dari tahap ini adalah sebuah _execution plan_ final.
 > >     
 > > 3. **Evaluation:** Query Evaluation Engine akan mengambil _execution plan_ yang telah dioptimalkan dan menjalankannya untuk mengambil data dari Storage Manager dan menghasilkan output akhir.
-> >     
+> >  
+> >  _Contoh_:
+> >  ![[Pasted image 20250902120042.png]]
 > >
 > > ### Manajemen Transaksi untuk Konsistensi Data
 > > 
 > > **Transaksi** adalah sebuah kumpulan operasi yang menjalankan satu fungsi logis tunggal dalam aplikasi basis data. Contoh klasiknya adalah transfer uang dari rekening A ke B, yang terdiri dari serangkaian operasi: baca A, kurangi saldo A, tulis A, baca B, tambah saldo B, dan tulis B.
 > > 
 > > Komponen **Transaction Management** memiliki tugas krusial untuk memastikan basis data tetap dalam keadaan **konsisten (benar)**, bahkan jika terjadi kegagalan sistem (seperti mati listrik) atau kegagalan transaksi itu sendiri. Di dalamnya terdapat **Concurrency-control manager** yang secara spesifik mengatur interaksi antar transaksi yang berjalan bersamaan agar tidak saling mengganggu dan menimbulkan kekacauan data.
+> > 
+> > ![[Pasted image 20250902115525.png]]
 
 > [!cornell] #### Summary
 > 

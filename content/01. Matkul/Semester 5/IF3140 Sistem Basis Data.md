@@ -6,8 +6,8 @@ _Back to_ [[index]]
 # Overview
 - ## Intro To DBS
 	- [[Pengenalan Konsep Dasar Sistem Basis Data]]
-	- [[Arsitektur Database Engine - Komponen Inti]]
-	- [[Proses Query dan Manajemen Transaksi]]
+	- [[Arsitektur Database Engine]]
+	- [[Arsitektur Database Engine - Query dan Transaction]]
 	- [[Pengguna dan Arsitektur Aplikasi Basis Data]]
 - ## Performance Tuning
 	- [[Konsep Dasar dan Bottleneck Performance Tuning]]

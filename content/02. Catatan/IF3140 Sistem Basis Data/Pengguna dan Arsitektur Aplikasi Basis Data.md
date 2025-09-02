@@ -23,6 +23,7 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >     
 > 
 > > ### Jenis-Jenis Pengguna Basis Data
+> > ![[Pasted image 20250902115703.png]]
 > > 
 > > Pengguna basis data dapat dikategorikan ke dalam empat peran berbeda, tergantung pada cara mereka berinteraksi dengan sistem:
 > > 
@@ -55,7 +56,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > - **Two-Tier Architecture:** Ini adalah model client-server yang sederhana. Aplikasi berada di mesin client dan secara langsung memanggil fungsionalitas dari sistem basis data yang berjalan di mesin server.
 > >     
 > > - **Three-Tier Architecture:** Arsitektur yang lebih modern dan menjadi standar untuk aplikasi web. Mesin client hanya bertindak sebagai _front-end_ (misalnya, browser) dan tidak berisi logika database. Client berkomunikasi dengan sebuah **application server**, dan _application server_ inilah yang kemudian berkomunikasi dengan sistem basis data untuk mengakses data.
-> >     
+> > 
+> >  ![[Pasted image 20250902115634.png]]
 
 > [!cornell] #### Summary
 > 
