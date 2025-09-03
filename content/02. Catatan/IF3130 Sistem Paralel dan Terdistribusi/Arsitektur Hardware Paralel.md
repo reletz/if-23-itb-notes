@@ -49,7 +49,7 @@ _Back to_ [[IF3130 Sistem Paralel dan Terdistribusi]]
 > > 		- **Tanpa Pipelining:** Satu penjumlahan butuh 7 ns. Untuk menjumlahkan 1000 pasang angka (`for i=0 to 999, z[i]=x[i]+y[i]`), total waktu yang dibutuhkan adalah `1000 * 7 ns = 7000 ns`. 
 > > 		- **Dengan Pipelining:** Hasil pertama keluar pada nanosekon ke-7. Namun, hasil kedua keluar pada nanosekon ke-8, hasil ketiga pada nanosekon ke-9, dan seterusnya. Total waktu untuk 1000 penjumlahan menjadi `7 ns (untuk hasil pertama) + 999 ns (untuk 999 hasil berikutnya) = 1006 ns`. Ini adalah percepatan hampir 7x lipat.
 > > 	
-> > 			![[Pasted image 20250902081437.png]]
+> > 			![[Pasted image 20250903104939.png]]
 > >     
 > > - **Multiple Issue:** Menyediakan beberapa unit eksekusi fungsional (misalnya, beberapa unit penambahan) sehingga prosesor dapat memulai eksekusi beberapa instruksi yang tidak saling bergantung dalam satu siklus _clock_ yang sama.
 > > 	- _Contoh_: Pada loop `z[i]=x[i]+y[i]`, jika prosesor memiliki dua unit penambahan (*adder*), ia bisa menghitung `z[0]=x[0]+y[0]` dan `z[1]=x[1]+y[1]` pada saat yang bersamaan. 
