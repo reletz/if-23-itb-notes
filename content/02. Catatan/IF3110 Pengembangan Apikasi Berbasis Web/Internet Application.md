@@ -136,6 +136,9 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 > > Selain itu, ada juga **CGI (Common Gateway Interface)**, sebuah standar lama di mana web server menjalankan program eksternal dan menyalurkan outputnya sebagai respons HTTP, serta **Plugin (Applet, Flash)** yang merupakan program eksternal yang dieksekusi oleh browser dengan bantuan perangkat lunak tambahan.
 > > 
 > > ### Arsitektur Aplikasi Web
+> > Sebelum saat ini, arsitektur aplikasi web hanya berkutat pada penyajian file statis.
+> > 
+> > ![[Pasted image 20250903095733.png]]
 > > 
 > > Seiring waktu, arsitektur aplikasi web berevolusi dari sekadar penyajian file statis menjadi sistem multi-lapis (_N-Tier Architecture_) yang kompleks. Arsitektur modern umumnya memisahkan tugas menjadi beberapa lapisan (layer):
 > > 
@@ -144,7 +147,9 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 > > - **Business Layer (Logic):** Berisi logika bisnis inti dari aplikasi. Lapisan ini memproses data, menerapkan aturan, dan membuat keputusan.
 > >     
 > > - **Data Layer (Data Access):** Bertanggung jawab untuk komunikasi dengan penyimpanan data, seperti database. Tugasnya adalah mengambil, menyimpan, memperbarui, dan menghapus data.
-> >     
+> >  
+> >  ![[Pasted image 20250903095641.png]]
+> >  ![[Pasted image 20250903095457.png]]
 > > 
 > > ### Web Stack
 > > 
