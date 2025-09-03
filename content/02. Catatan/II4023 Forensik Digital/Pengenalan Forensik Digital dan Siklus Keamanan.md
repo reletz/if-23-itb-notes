@@ -83,7 +83,8 @@ _Back to_ [[II4023 Forensik Digital]]
 > > - **IoT Forensics:** Analisis data dari perangkat _Internet of Things_ (misal: _smart home devices_).
 > >     
 > > - **Multimedia Forensics:** Analisis keaslian dan asal-usul file gambar, audio, dan video.
-> >     
+> > 
+> > ![[Pasted image 20250903141716.png]]
 > > 
 > > ### Dua Jenis Forensik Digital
 > > 
