@@ -35,6 +35,7 @@ Semoga semua catatannya bermanfaat. Selamat belajar, ya!
 	- [[IF3130 Sistem Paralel dan Terdistribusi]]
 	- [[IF3140 Sistem Basis Data]]
 	- [[IF3170 Inteligensi Artifisial]]
+	- [II2100 Komunikasi Interpersonal dan Publik](https://ii-2100.github.io/2025_KIPP/)
 	- [[II4023 Forensik Digital]]
 	- [[WI2022 Manajemen Proyek]]
 	- [[Seleksi Lab - NixOS Manual (So scary laaa)]]
