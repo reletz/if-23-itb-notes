@@ -79,7 +79,7 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >     
 > > - **World Dynamics ($S \times A \rightarrow S$):** Mendefinisikan bagaimana dunia berubah. Jika dunia berada dalam keadaan _S_ dan agent melakukan aksi _A_, dunia akan bertransisi ke keadaan baru.
 > >     
-> > ![[Pasted image 20250903073350.png]]
+> > ![[Pasted image 20250903075340.png]]
 > > ![[Pasted image 20250903073418.png]]
 > >
 > > **Tujuan Desain Agent:**
