@@ -74,7 +74,10 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > - **Discrete vs Continuous**: Jika ada jumlah persepsi dan aksi yang terbatas dan terdefinisi dengan jelas, lingkungan itu _discrete_. Jika persepsi dan aksi berada dalam rentang nilai yang kontinu, maka _continuous_.
 > >     
 > > - **Single vs Multi-agent**: Apakah agent beroperasi sendiri (_single-agent_) atau ada agent lain di lingkungan yang juga bertindak (_multi-agent_)?
-> >     
+> > 
+> > - **Known vs Unknown**: Jika agent familiar/tahu aturan akan lingkungannya, maka ia berada dalam lingkungan yang diketahui (_Known_). Sebaliknya pun berlaku.
+> >
+> >![[Pasted image 20250903083802.png]]
 > >
 > > ### Tipe-Tipe Struktur Agent
 > >
