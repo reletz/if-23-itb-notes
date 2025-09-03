@@ -90,8 +90,22 @@ _Back to_ [[IF3130 Sistem Paralel dan Terdistribusi]]
 > >
 > > ### Tantangan dalam Pemrograman Paralel
 > >
-> > Menulis program paralel mengenalkan beberapa tantangan unik yang tidak ada dalam pemrograman serial.
+> > - **Langkah-langkah:**
+> >	1. **Bagi pekerjaan di antara proses/thread** 
+> >		(a) sehingga setiap proses/thread mendapatkan jumlah pekerjaan yang kurang lebih sama
+> >		(b) dan komunikasi diminimalkan.
+> >	2.  **Atur agar proses/thread melakukan sinkronisasi.**
+> >	3. **Atur komunikasi di antara proses/thread**
 > >
+> > Penggunaan _thread_ dalam **_Shared Memory_** dapat dibagi dalam dua jenis:
+> > - **Thread Dinamis**
+> > 	- Thread master menunggu pekerjaan, membuat (forks) thread baru, dan ketika thread selesai, mereka berhenti (terminate).
+> > 	- Penggunaan sumber daya yang efisien, tetapi pembuatan dan penghentian thread memakan waktu.
+> > - **Thread Statis**
+> > 	- Sekumpulan (pool) thread dibuat dan dialokasikan pekerjaan, tetapi tidak berhenti sampai proses pembersihan (cleanup).
+> > 	- Performa lebih baik, tetapi berpotensi membuang-buang sumber daya sistem.
+> > 
+> > Namun, menulis program paralel mengenalkan beberapa tantangan unik yang tidak ada dalam pemrograman serial. 
 > > - **Nondeterminism:** Karena setiap _thread_ berjalan dengan kecepatannya sendiri, urutan eksekusi antar _thread_ tidak dapat diprediksi. Jika beberapa _thread_ mencoba mencetak ke layar, urutan outputnya bisa berbeda setiap kali program dijalankan.
 > >     
 > >
@@ -106,7 +120,20 @@ _Back to_ [[IF3130 Sistem Paralel dan Terdistribusi]]
 > > x += my_val; // Critical section
 > > Unlock(&my_lock);
 > > ```
-> >
+> > 
+> > - **Solusi Lain: Busy Waiting:** Salah satu solusi lain yang dapat dipertimbangkan adalah _busy waiting_. Ia memaksa sebuah _thread_ untuk menunggu secara aktif (terus-menerus memeriksa sebuah kondisi dalam _loop_) sampai _thread_ lain memberikan sinyal bahwa ia boleh melanjutkan.
+> > 	- Dengan cara ini, kita **memaksakan sebuah urutan eksekusi yang deterministik** pada bagian kode yang kritis. _Thread_ B tidak akan pernah bisa mendahului _thread_ A dalam mengakses data bersama, sehingga _race condition_ dapat dihindari. Jadi, ia "menyembuhkan" gejala (_race condition_) yang disebabkan oleh sifat dasar (_nondeterminism_).
+> > 	- Kelemahan utama _busy-waiting_ adalah **sangat tidak efisien**. _Thread_ yang sedang menunggu akan menghabiskan 100% siklus CPU-nya hanya untuk berputar dalam _loop_ kosong. Ini sama saja dengan membakar energi dan sumber daya komputasi tanpa melakukan pekerjaan yang produktif.
+> > 
+> > ```c
+> > my_val = Compute_val(my_rank); 
+> > if ( my_rank == 1)
+> > 	while ( ! ok_for_1 ) ; /* Busy−wait loop */ 
+> > x += my_val ; /* Critical section */ 
+> > if ( my_rank == 0) 
+> > 	ok_for_1 = true ; /* Let thread 1 update x */
+> > ```
+> > 
 > > ### Komunikasi dan Manajemen I/O
 > >
 > > - **Message Passing:** Dalam model _distributed memory_, proses berkomunikasi dengan perintah `Send` dan `Receive`. Satu proses mengirim pesan, dan proses lain harus siap menerimanya.
