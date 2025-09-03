@@ -10,3 +10,5 @@ _Back to_ [[index]]
 - ## Hardware Sistem Paralel
 	- [[Arsitektur Hardware Paralel]]
 	- [[Jaringan Interkoneksi dan Koherensi Cache]]
+	- [[Paradigma Software dan Pemrograman Paralel]]
+	- [[Analisis Performa Program Paralel]]
