@@ -7,6 +7,7 @@ _Back to_ [[index]]
 - ## Intro
 	- [[Pengenalan dan Aplikasi Teori Bahasa Formal & Automata (TBFO)]]
 	- [[Teori Inti Automata dan Bahasa Formal]]
+	- [[Soal Model Automata]]
 - ## Finite Automata - DFA
 	- [[Alphabet, String, dan Language]]
 	- [[Pengenalan Deterministic Finite Automata (DFA)]]

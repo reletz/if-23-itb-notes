@@ -34,16 +34,16 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > > - **Temporary Memory:** Memori sementara untuk menyimpan hasil perhitungan antara.
 > > - **Output Memory:** Tempat hasil akhir dari komputasi disimpan.
 > > 
-> > Sebagai contoh, untuk menghitung f(x)=x3 dengan input x=2:
+> > Sebagai contoh, untuk menghitung $f(x)=x^3$ dengan input $x=2$:
 > > 
-> > 1. **Input:** x=2 masuk ke _input memory_.
-> > 2. **Proses 1:** CPU mengikuti instruksi dari _program memory_ untuk menghitung x∗x. Hasilnya (z=4) disimpan di _temporary memory_.
-> > 3. **Proses 2:** CPU mengambil nilai z dari _temporary memory_ dan menghitung z∗x. Hasilnya (f(x)=8) disimpan lagi di _temporary memory_.
-> > 4. **Output:** Hasil akhir f(x)=8 dipindahkan ke _output memory_.
+> > 1. **Input:** $x=2$ masuk ke _input memory_.
+> > 2. **Proses 1:** CPU mengikuti instruksi dari _program memory_ untuk menghitung $x∗x$. Hasilnya $(z=4)$ disimpan di _temporary memory_.
+> > 3. **Proses 2:** CPU mengambil nilai $z$ dari _temporary memory_ dan menghitung $z∗x$. Hasilnya $(f(x)=8)$ disimpan lagi di _temporary memory_.
+> > 4. **Output:** Hasil akhir $f(x)=8$ dipindahkan ke _output memory_.
 > > 
 > > ### Automaton: Inti dari Mesin Komputasi
 > > 
-> > Dalam model di atas, **Automaton** adalah abstraksi dari unit pemrosesan intinya, yang mencakup **CPU** dan **Program Memory**. Automaton inilah yang membaca input, mengikuti serangkaian aturan, dan menghasilkan output.
+> > Dalam model di atas, **Automaton** adalah abstraksi dari unit pemrosesan intinya, yang mencakup **CPU** dan **Program Memory**. Automaton inilah yang membaca input, mengikuti serangkaian aturan transisi, dan menghasilkan output.
 > > 
 > > Perbedaan utama antara jenis-jenis automaton terletak pada **jenis memori temporer** yang mereka miliki.
 > > 
@@ -57,6 +57,8 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > > - **Kemampuan:** Hanya bisa "mengingat" state (keadaan) di mana ia berada saat ini. Tidak bisa menyimpan data tambahan.
 > > - **Kekuatan Komputasi:** Paling rendah.
 > > - **Contoh Aplikasi:** Mengenali pola sederhana, memvalidasi input, _vending machine_, _traffic light_.
+> >
+> >	![[Pasted image 20250904075704.png]]
 > > 
 > > **2. Pushdown Automata (PDA)**
 > > 
@@ -65,12 +67,16 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > > - **Kekuatan Komputasi:** Menengah.
 > > - **Contoh Aplikasi:** _Compiler_ untuk memeriksa sintaks bahasa pemrograman (misalnya, memastikan setiap `begin` punya `end`).
 > > 
+> > 	![[Pasted image 20250904075728.png]]
+> > 
 > > **3. Turing Machine**
 > > 
 > > - **Memori Temporer:** **Random Access Memory (RAM)**. Direpresentasikan sebagai pita tak terbatas yang bisa dibaca dan ditulis di posisi mana pun.
 > > - **Kemampuan:** Dapat mensimulasikan logika algoritma apa pun. Merupakan model teoretis untuk komputer modern.
 > > - **Kekuatan Komputasi:** Paling tinggi.
 > > - **Contoh Aplikasi:** Model untuk algoritma apa pun yang bisa dijalankan di komputer.
+> > 
+> > 	![[Pasted image 20250904075754.png]]
 > > 
 > > **Hirarki Kekuatan:** `Finite Automata` < `Pushdown Automata` < `Turing Machine`.
 > > 

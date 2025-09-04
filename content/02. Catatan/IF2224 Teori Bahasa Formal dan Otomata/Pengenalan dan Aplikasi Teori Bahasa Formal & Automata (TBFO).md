@@ -34,10 +34,10 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > >
 > > ### Aplikasi Praktis Konsep TBFO
 > >
-> > - Regular Expression: Digunakan secara luas di berbagai tools seperti UNIX dan untuk validasi struktur dokumen (DTD).
-> > - Finite Automata (FA): Bermanfaat untuk memodelkan sistem dengan keadaan terbatas, seperti protokol jaringan dan desain sirkuit elektronik.
-> > - Context-Free Grammar (CFG): Menjadi tulang punggung dalam mendefinisikan sintaks atau tata bahasa dari bahasa pemrograman dan juga digunakan dalam pemrosesan bahasa alami manusia.
-> > - Mesin Turing: Merupakan model matematis yang mendasari hampir semua komputasi modern dan membantu kita memahami batasan fundamental dari apa yang bisa dan tidak bisa diselesaikan oleh perangkat lunak.
+> > - _Regular Expression_: Digunakan secara luas di berbagai tools seperti UNIX dan untuk validasi struktur dokumen (DTD).
+> > - _Finite Automata (FA)_: Bermanfaat untuk memodelkan sistem dengan keadaan terbatas, seperti protokol jaringan dan desain sirkuit elektronik.
+> > - _Context-Free Grammar (CFG)_: Menjadi tulang punggung dalam mendefinisikan sintaks atau tata bahasa dari bahasa pemrograman dan juga digunakan dalam pemrosesan bahasa alami manusia.
+> > - _Turing Machine_: Merupakan model matematis yang mendasari hampir semua komputasi modern dan membantu kita memahami batasan fundamental dari apa yang bisa dan tidak bisa diselesaikan oleh perangkat lunak.
 > >
 > > ### Studi Kasus dan Contoh Penerapan
 > > 
