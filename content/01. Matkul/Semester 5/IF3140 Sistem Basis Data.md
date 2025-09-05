@@ -40,3 +40,23 @@ _Back to_ [[index]]
 	- [[Formulasi Query yang Efisien]]
 - ## Latihan Soal Pra-UTS
 	- [[Latihan Soal Intro dan Performance Tuning]]
+- ## Database Security
+	- [[Konsep Dasar Keamanan dan Otorisasi Database]]
+	- [[Model Kontrol Akses (Access Control Models)]]
+	- [[Implementasi Kontrol Akses dengan SQL]]
+	- [[Topik Lanjutan Keamanan (Statistical & Flow Control)]]
+	- [[Enkripsi dan Keamanan Aplikasi]]
+- ## Transactions
+	- TBA
+- ## Concurrency Control
+	- TBA
+- ## Recovery System
+	- TBA
+- ## Database System Architectures
+	- TBA
+- ## Data Management
+	- TBA
+- ## Data Governance
+	- TBA
+- ## Data Integration and Interoperability
+	- TBA
