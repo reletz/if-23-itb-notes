@@ -38,3 +38,5 @@ _Back to_ [[index]]
 - ## SQL Performance Tuning
 	- [[Tuning Indeks dan Ekspresi Kondisional]]
 	- [[Formulasi Query yang Efisien]]
+- ## Latihan Soal Pra-UTS
+	- [[Latihan Soal Intro dan Performance Tuning]]

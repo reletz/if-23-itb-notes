@@ -30,8 +30,10 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >
 > > ### Index Tuning: Membuat Jalan Pintas
 > > 
-> > **Indeks** adalah sebuah struktur data terpisah yang berfungsi untuk mempercepat akses ke data, mirip seperti katalog pengarang di perpustakaan yang menghindarkan kita dari memeriksa setiap buku satu per satu. Indeks berisi `search-key` (nilai dari kolom yang diindeks) dan `pointer` (penunjuk ke lokasi baris data asli). Dengan menggunakan indeks, operasi pencarian, pengurutan, dan join dapat dilakukan secara efisien tanpa harus melakukan _full table scan_, karena file indeks jauh lebih kecil dari file data aslinya.
-> >
+> > **Indeks** adalah sebuah struktur data terpisah yang berfungsi untuk mempercepat akses ke data, mirip seperti katalog pengarang di perpustakaan yang menghindarkan kita dari memeriksa setiap buku satu per satu. Indeks berisi `search-key` (nilai dari kolom yang diindeks) dan `pointer` (penunjuk ke lokasi baris data asli). Dengan menggunakan indeks, operasi **pencarian, pengurutan, dan join** dapat dilakukan secara efisien tanpa harus melakukan _full table scan_, karena file indeks jauh lebih kecil dari file data aslinya.
+> > 
+> > ![[Pasted image 20250905091203.png]]
+> > 
 > > ### Schema Tuning: Memodifikasi Struktur
 > > 
 > > **Schema Tuning** adalah proses memodifikasi desain skema logis untuk memenuhi target performa. Pilihan skema tidak hanya dipandu oleh isu redundansi (normalisasi), tetapi juga oleh workload. Beberapa teknik yang umum digunakan adalah:

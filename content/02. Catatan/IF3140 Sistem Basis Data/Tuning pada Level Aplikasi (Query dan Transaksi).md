@@ -35,6 +35,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > - **Menulis Ulang Query:** Mengubah query kompleks, misalnya dengan mengganti subquery menjadi `JOIN`, agar lebih mudah dioptimalkan.
 > >     
 > > - **Menggunakan Optimizer Hints:** Menyisipkan instruksi khusus di dalam teks SQL (seperti `/*+ INDEX(...) */`) untuk "memaksa" optimizer menggunakan indeks atau metode tertentu.
+> > 
+> >	![[Pasted image 20250905091314.png]]
 > >     
 > >
 > > ### Teknik Set Orientation
