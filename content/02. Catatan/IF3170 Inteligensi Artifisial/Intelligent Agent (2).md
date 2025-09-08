@@ -71,7 +71,7 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >     
 > > - **Static vs Dynamic**: Lingkungan disebut _dynamic_ jika dapat berubah saat agent sedang "berpikir" atau memproses. Jika lingkungan tidak berubah kecuali oleh aksi agent, maka disebut _static_. _Semidynamic_ berarti lingkungan tidak berubah seiring waktu, tetapi skor kinerja agent bisa berubah.
 > >     
-> > - **Discrete vs Continuous**: Jika ada jumlah persepsi dan aksi yang terbatas dan terdefinisi dengan jelas, lingkungan itu _discrete_. Jika persepsi dan aksi berada dalam rentang nilai yang kontinu, maka _continuous_.
+> > - **Discrete vs Continuous**: Jika ada jumlah persepsi (input/output) dan aksi yang terbatas dan terdefinisi dengan jelas, lingkungan itu _discrete_. Jika persepsi dan aksi berada dalam rentang nilai yang kontinu, maka _continuous_.
 > >     
 > > - **Single vs Multi-agent**: Apakah agent beroperasi sendiri (_single-agent_) atau ada agent lain di lingkungan yang juga bertindak (_multi-agent_)?
 > > 

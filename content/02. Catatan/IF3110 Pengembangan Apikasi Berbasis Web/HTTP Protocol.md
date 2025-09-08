@@ -58,6 +58,8 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 >  >   
 > >3. **Message Body (Opsional):** Bagian yang berisi data yang dikirim, seperti data formulir (dalam request POST) atau konten halaman HTML (dalam response). Bagian header dan body dipisahkan oleh satu baris kosong (CRLF).
 >  >   
+>  >   ![[Pasted image 20250908071906.png]]
+>  >   ![[Pasted image 20250908072526.png]]
 > >
 > >### Metode Permintaan (Request Methods)
 > >
@@ -69,13 +71,13 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 >  >   
 > > - **HEAD:** Sama seperti GET, tetapi server hanya mengembalikan header tanpa _response body_. Berguna untuk memeriksa metadata sumber daya (seperti tanggal modifikasi terakhir) tanpa perlu mengunduh seluruh konten.
 >  >   
-> > - **PUT:** Menyimpan (mengunggah atau memperbarui) sebuah sumber daya di URI tertentu. Jika sumber daya sudah ada, ia akan diperbarui.
+> > - **PUT:** Menyimpan (mengunggah atau memperbarui) sebuah sumber daya di URL tertentu. Jika sumber daya sudah ada, ia akan diperbarui.
 >  >   
-> >- **DELETE:** Menghapus sumber daya yang ada di URI tertentu.
+> >- **DELETE:** Menghapus sumber daya yang ada di URL tertentu.
 > >    
 > >- **TRACE:** Mengembalikan pesan request yang diterima oleh server. Berguna untuk _debugging_ dan melihat apakah ada proxy di tengah jalan yang mengubah request.
 > >   
-> > - **OPTIONS:** Menanyakan metode HTTP apa saja yang didukung oleh server untuk URI tertentu.
+> > - **OPTIONS:** Menanyakan metode HTTP apa saja yang didukung oleh server untuk URL tertentu.
 > >    
 > >- **CONNECT:** Mengubah koneksi menjadi terowongan TCP/IP transparan, biasanya digunakan untuk komunikasi SSL/TLS (HTTPS).
 > >   
@@ -84,15 +86,15 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 > > 
 > > ### Perbandingan GET vs POST
 > >
-> > |   |   |   |
-> > |---|---|---|
 > > |**Fitur**|**GET**|**POST**|
+> > |---|---|---|
 > > |**Caching**|Bisa di-cache|Tidak pernah di-cache|
 > > |**History Browser**|Tersimpan di riwayat|Tidak tersimpan di riwayat|
 > > |**Bookmark**|Bisa di-bookmark|Tidak bisa di-bookmark|
 > > |**Visibilitas Data**|Data terlihat di URL|Data tidak terlihat di URL (di body)|
 > > |**Panjang Data**|Ada batasan panjang (tergantung browser/server)|Tidak ada batasan panjang|
 > > |**Tipe Data**|Hanya karakter ASCII|Bisa data biner (misal: upload file)|
+> > |**Request Parameters**|Ditambahkan di URL setelah tanda "?"|Ada di _Request body_|
 > >
 > > ### Kode Status (Status Code)
 > > 
@@ -132,7 +134,9 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 > > ### Evolusi HTTP: HTTP/1.1 vs HTTP/2
 > >
 > > HTTP/1.1, yang telah digunakan sejak lama, memiliki beberapa masalah kinerja seperti _Head-of-Line Blocking_ (satu request lambat menahan request berikutnya). HTTP/2 diperkenalkan untuk mengatasi masalah ini.
-> >
+> > 
+> > ![[Pasted image 20250908082911.png]]
+> > 
 > >**Peningkatan di HTTP/2:**
 > >
 > > 1. **Protokol Biner:** Lebih efisien untuk diproses oleh mesin dibandingkan protokol teks HTTP/1.1.
@@ -147,6 +151,8 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 > > ### HTTPS: HTTP yang Aman
 > >
 > > HTTPS adalah singkatan dari HTTP over TLS (Transport Layer Security) over TCP. Ini bukan protokol yang terpisah, melainkan penggunaan HTTP di atas lapisan enkripsi. Sebelum komunikasi HTTP dimulai, klien dan server melakukan _TCP 3-way handshake_ diikuti oleh _TLS handshake_ untuk membuat saluran komunikasi yang aman dan terenkripsi.
+> > 
+> > ![[Pasted image 20250908082934.png]]
 
 > [!cornell] #### Summary
 > HTTP adalah protokol lapisan aplikasi yang stateless dan bekerja dengan model permintaan-respons untuk komunikasi di World Wide Web. Setiap pesan HTTP, baik permintaan maupun respons, memiliki struktur yang terdiri dari start-line, header, dan body opsional. Metode permintaan seperti GET dan POST mendefinisikan aksi yang diinginkan, sementara kode status memberikan umpan balik atas hasilnya. Evolusi dari HTTP/1.1 ke HTTP/2 membawa perbaikan kinerja signifikan melalui fitur seperti multiplexing dan kompresi header. Untuk keamanan, HTTPS mengenkripsi komunikasi HTTP menggunakan TLS.
