@@ -108,9 +108,9 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >
 > > - **Level 1: Problem Solving Agent**: Agent ini memiliki peta lengkap gua (informasi semua state). Tugasnya adalah **mencari** jalur terpendek ke emas menggunakan algoritma pencarian seperti BFS, DFS, atau A*.
 > >     
-> > - **Level 2: Knowledge-based Agent**: Agent tidak memiliki peta. Ia hanya memiliki **pengetahuan dasar** (aturan), misalnya "jika ada hembusan angin (breeze), maka ada lubang di dekatnya". Agent menggunakan **penalaran (reasoning)** untuk menyimpulkan fakta baru dari apa yang ia persepsikan dan secara bertahap membangun pemahamannya tentang dunia.
+> > - **Level 2: Knowledge-based Agent**: Agent tidak memiliki peta. Ia hanya memiliki **pengetahuan dasar** (aturan), misalnya "jika ada hembusan angin (breeze), maka ada lubang di dekatnya". Agent menggunakan **penalaran (reasoning)** untuk menyimpulkan fakta baru dari apa yang ia persepsikan dan secara bertahap membangun pemahamannya tentang dunia. Solusinya dicari dengan _**premise deduction**_.
 > >     
-> > - **Level 3: Learning Agent**: Agent tidak memiliki peta maupun pengetahuan dasar. Ia **belajar** dari pengalaman. Dengan bermain berkali-kali (dan mungkin mati beberapa kali), agent mengumpulkan data observasi dan menggunakan algoritma pembelajaran (misalnya, _reinforcement learning_) untuk akhirnya mempelajari aturan dunia, seperti "kotak di sebelah lubang itu berangin".
+> > - **Level 3: Learning Agent**: Agent tidak memiliki peta maupun pengetahuan dasar. Ia **belajar** dari pengalaman. Dengan bermain berkali-kali (dan mungkin mati beberapa kali), agent mengumpulkan data observasi dan menggunakan algoritma pembelajaran (misalnya, _reinforcement learning_) untuk akhirnya mempelajari aturan dunia, seperti "kotak di sebelah lubang itu berangin". Setelah belajar, solusinya dicari dengan _**premise deduction**_.
 > >     
 
 > [!cornell] #### Summary
