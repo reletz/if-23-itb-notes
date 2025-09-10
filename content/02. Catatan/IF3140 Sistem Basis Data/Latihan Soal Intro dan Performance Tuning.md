@@ -1,5 +1,5 @@
 _Back to_ [[IF3140 Sistem Basis Data]]
-100/100
+
 ![[Pasted image 20250905094027.png]]
 ![[Pasted image 20250905094531.png]]
 ![[Pasted image 20250905094540.png]]

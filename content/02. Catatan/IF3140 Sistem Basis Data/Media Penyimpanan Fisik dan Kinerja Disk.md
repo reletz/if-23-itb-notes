@@ -74,14 +74,10 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > - **Read-Write Head:** Komponen yang membaca dan menulis data dari/ke permukaan platter.
 > >     
 > >
-> > - **Disk Controller:** Sirkuit elektronik yang menjadi jembatan antara sistem komputer dan perangkat keras disk:
-> > 	- menerima perintah level tinggi untuk membaca/menulis sebuah sector.
-> > 	- menggerakkan lengan dari disk ke sektor data yang benar
-> > 	- mengidentifikasi bad sector
-> > 	- menghitung dan menyertakan _checksum_
+> > - **Disk Controller:** Sirkuit elektronik yang menjadi jembatan antara sistem komputer dan perangkat keras disk, menerima perintah level tinggi untuk membaca/menulis sebuah sector.
 > >     
 > >
-> > ### Metrik Kinerja (Performance Measure) Disk
+> > ### Metrik Kinerja Disk
 > >
 > > Kinerja sebuah disk diukur melalui beberapa metrik penting:
 > >

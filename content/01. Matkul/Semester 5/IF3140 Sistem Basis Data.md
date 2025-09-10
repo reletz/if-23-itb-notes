@@ -40,7 +40,6 @@ _Back to_ [[index]]
 	- [[Formulasi Query yang Efisien]]
 - ## Latihan Soal Pra-UTS
 	- [[Latihan Soal Intro dan Performance Tuning]]
-	- [[Latihan Soal Storage and File Structure]]
 - ## Database Security
 	- [[Konsep Dasar Keamanan dan Otorisasi Database]]
 	- [[Model Kontrol Akses (Access Control Models)]]

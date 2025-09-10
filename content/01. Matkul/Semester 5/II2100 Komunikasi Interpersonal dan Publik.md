@@ -6,6 +6,5 @@ _Back to_ [[index]]
 # Overview
 - ## Materi
 	- [Laman Situs Pak Armein](https://ii-2100.github.io/2025_KIPP/)
-- ## Kuis dan Soal
-	- [[Materi 1 - Kuis 1 II2100]]
-	- [[Materi 2- Aktivitas 2.1]]
+- ## Kuis
+	- [[Kuis 1 II2100]]
