@@ -71,8 +71,8 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > > |  | 0 | 1 |
 > > |:---:|:---:|:---:|
 > > | →*A | A | B |
-> > | B | A | C |
-> > | *C | C | C |
+> > | *B | A | C |
+> > | C | C | C |
 > >
 > > ### Fungsi Transisi Lanjutan ($\hat{\delta}$)
 > >
