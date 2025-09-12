@@ -32,9 +32,9 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > > **Alphabet** (dilambangkan dengan Σ) adalah sebuah **himpunan tak-kosong dan terbatas** yang berisi simbol-simbol. Anggap saja ini sebagai "kumpulan karakter" yang diizinkan untuk membentuk "kata".
 > > 
 > > - **Contoh:**
-> >     - Alfabet Biner: Σ={0,1}
-> >     - Alfabet Huruf Kecil: Σ={a,b,c,...,z}
-> >     - Alfabet untuk Vending Machine: Σ={Koin Rp 5,Koin Rp 10,Tombol Kopi}
+> >     - Alfabet Biner: $Σ=\{0,1\}$
+> >     - Alfabet Huruf Kecil: $Σ={a,b,c,...,z}$
+> >     - Alfabet untuk Vending Machine: $Σ=\{ \text{Koin Rp 5,Koin Rp 10,Tombol Kopi} \}$
 > > 
 > > ### String (Untai)
 > > 
@@ -57,26 +57,26 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > > 
 > > ### Powers of an Alphabet (Pangkat Alfabet)
 > > 
-> > **Pangkat Alfabet** (dilambangkan dengan Σk) adalah himpunan semua string yang memiliki **panjang tepat k**.
+> > **Pangkat Alfabet** (dilambangkan dengan $Σ^k$) adalah himpunan semua string yang memiliki **panjang tepat k**.
 > > 
 > > - **Contoh (dari Σ={0,1}):**
-> >     - Σ0={ϵ} (Himpunan string dengan panjang 0 hanya berisi string kosong).
-> >     - Σ1={0,1} (Himpunan semua string dengan panjang 1).
-> >     - Σ2={00,01,10,11} (Himpunan semua string dengan panjang 2).
-> >     - Σ3={000,001,010,011,100,101,110,111}.
+> >     - $Σ^0=\{ϵ\}$ (Himpunan string dengan panjang 0 hanya berisi string kosong).
+> >     - $Σ^1=\{0,1\}$ (Himpunan semua string dengan panjang 1).
+> >     - $Σ^2=\{00,01,10,11\}$ (Himpunan semua string dengan panjang 2).
+> >     - $Σ^3=\{000,001,010,011,100,101,110,111\}$.
 > > 
 > > ### Kleene Closure dan Positive Closure
 > > 
-> > - **Kleene Closure (Σ∗):** Adalah himpunan **semua kemungkinan string** yang bisa dibentuk dari alphabet Σ dengan panjang berapa pun, **termasuk string kosong**. Secara formal, Σ∗=Σ0∪Σ1∪Σ2∪....
-> > - **Positive Closure (Σ+):** Sama seperti Kleene Closure, tetapi **tidak termasuk string kosong**. Secara formal, Σ+=Σ1∪Σ2∪Σ3∪....
-> > - **Hubungan:** Σ∗=Σ+∪{ϵ}.
+> > - **Kleene Closure ($Σ^∗$):** Adalah himpunan **semua kemungkinan string** yang bisa dibentuk dari alphabet Σ dengan panjang berapa pun, **termasuk string kosong**. Secara formal, Σ∗=Σ0∪Σ1∪Σ2∪....
+> > - **Positive Closure ($Σ^+$):** Sama seperti Kleene Closure, tetapi **tidak termasuk string kosong**. Secara formal, $Σ^+ = Σ^1 \cup Σ^2 \cup Σ^3 \cup ...$
+> > - **Hubungan:** $Σ^∗=Σ^+ \cup \{ϵ\}$.
 > > 
 > > ### Concatenation (Konkatenasi)
 > > 
 > > **Concatenation** adalah operasi menggabungkan dua string (x dan y) menjadi satu string baru (xy) dengan meletakkan string kedua persis setelah string pertama.
 > > 
 > > - **Contoh:** Jika x=01101 dan y=110, maka xy=01101110.
-> > - **Sifat String Kosong:** Untuk string x apa pun, berlaku xϵ=ϵx=x.
+> > - **Sifat String Kosong:** Untuk string x apa pun, berlaku $xϵ=ϵx=x$.
 > > 
 > > ### Language (Bahasa)
 > > 
@@ -84,8 +84,8 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > > 
 > > - **Contoh Bahasa:**
 > >     1. Himpunan semua kata dalam Bahasa Inggris yang valid.
-> >     2. L={w∣w adalah program C yang valid secara sintaksis}.
-> >     3. L={0n1n∣n≥0}={ϵ,01,0011,000111,...} (bahasa dengan jumlah 0 sama dengan jumlah 1, dan semua 0 di depan).
+> >     2. $L = \{w | w \text{ adalah program C yang valid secara sintaksis}\}$.
+> >     3. $L=\{0^n1^n | n\geq0\}=\{ϵ,01,0011,000111,...\}$ (bahasa dengan jumlah 0 sama dengan jumlah 1, dan semua 0 di depan).
 > > 
 > > ### Perbedaan Kunci: ∅ vs. {ϵ}
 > > 

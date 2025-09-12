@@ -56,6 +56,8 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > > 
 > > Misalkan kita punya NFA sederhana dengan state $\{q_0​,q_1​,q_2\}$ di mana $q_2​$ adalah final state.
 > > 
+> > ![[Pasted image 20250912104846.png]]
+> > 
 > > - Dari $q_0$​ dengan input `0`, NFA bisa tetap di $q_0$​ DAN pindah ke $q_1​$.
 > > 
 > > Jika NFA membaca string "001":
@@ -64,7 +66,7 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > > 2. **Baca '0':**
 > >     - Dari $q_0$​, transisi untuk '0' adalah ke $\{q_0​,q_1\}$. State aktif sekarang: $\{q_0​,q_1​\}$.
 > > 1. **Baca '0':**
-> >     - Dari $q_0​$, transisi untuk '0' adalah ke$\{q_0​,q_1\}$.
+> >     - Dari $q_0​$, transisi untuk '0' adalah ke $\{q_0​,q_1\}$.
 > >     - Dari $q_1$​, tidak ada transisi untuk '0' (jalur ini mati).
 > >     - State aktif sekarang adalah gabungannya: $\{q_0​,q_1​\}$.
 > > 1. **Baca '1':**

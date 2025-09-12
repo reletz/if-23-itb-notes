@@ -63,14 +63,16 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > > - **Isi sel** adalah state tujuan dari fungsi transisi delta.
 > > - **Start state** ditandai dengan panah (`→`).
 > > - **Final state** ditandai dengan bintang (`*`).
+> > 
+> > ![[Pasted image 20250623013211.png]]
 > >
 > > _Tabel transisi untuk DFA di atas:_
 > > 
 > > |  | 0 | 1 |
 > > |:---:|:---:|:---:|
 > > | →*A | A | B |
-> > | *B | A | C |
-> > | C | C | C |
+> > | B | A | C |
+> > | *C | C | C |
 > >
 > > ### Fungsi Transisi Lanjutan ($\hat{\delta}$)
 > >

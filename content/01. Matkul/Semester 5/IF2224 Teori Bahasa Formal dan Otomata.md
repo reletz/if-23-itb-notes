@@ -13,6 +13,7 @@ _Back to_ [[index]]
 	- [[Pengenalan Deterministic Finite Automata (DFA)]]
 	- [[Prinsip dan Algoritma Desain DFA]]
 	- [[Pembuktian Kebenaran DFA]]
+	- [[DFA Exercise]]
 - ## Finite Automata - NFA
 	- [[Pengenalan Nondeterministic Finite Automata (NFA)]]
 	- [[Ekuivalensi NFA ke DFA]]
