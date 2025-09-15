@@ -1,3 +1,6 @@
+_Back to _ [[II2100 Komunikasi Interpersonal dan Publik]]
+Naufarrel Zhafif - 13523149
+
 > 1. Jelaskan empat aspek yang memicu dan dipicu perubahan dalam komunikasi. Berikan contoh singkat untuk setiap aspek.
 
 Terdapat empat aspek yang menjadi pemicu dan terpicu untuk perubahan dalam komunikasi:

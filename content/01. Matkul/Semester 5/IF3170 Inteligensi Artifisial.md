@@ -16,4 +16,12 @@ _Back to_ [[index]]
 	- [[Genetic Algorithm]]
 - ## Adversarial Search
 	- [[Adversarial Search]]
+	- [[Minimax Search]]
+	- [[Alpha-beta Search]]
+- ## Constraint Satisfaction Problem (CSP)
 	- [[Constraint Satisfaction Problem (CSP)]]
+	- [[Terminologi dalam CSP]]
+	- [[Inference dalam CSP]]
+	- [[Backtracking Search untuk CSP]]
+	- [[Interleaving Search dan Reference]]
+	- [[Local Search Untuk CSP]]

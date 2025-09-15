@@ -9,6 +9,112 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > [!cornell] Topic
 > 
 > > ## Questions/Cues
+> > 
+> > - Apa itu Pencarian Adversarial?
+> >     
+> > - Bedanya dengan pencarian biasa?
+> >     
+> > - Apa saja komponen formalnya?
+> >     
+> > - Bagaimana game direpresentasikan?
+> >     
+> > - Apa itu fungsi utilitas?
+> >     
+> > 
+> > ## Reference Points
+> > 
+> > - IF3170_Materi04-AdversarialSearch.pdf (Slide 2-5)
+> >     
+> 
+> > ### Definisi Pencarian Adversarial
+> >
+> > Pencarian Adversarial adalah sebuah metode pencarian yang digunakan dalam lingkungan multi-agen yang kompetitif, di mana tujuan satu agen berlawanan langsung dengan tujuan agen lain. Lingkungan ini sering disebut sebagai "permainan" (games).
+> >
+> > Berbeda dengan pencarian non-adversarial (seperti A* atau BFS) yang tujuannya adalah menemukan jalur optimal ke sebuah goal state, tujuan dari pencarian adversarial adalah untuk menemukan **strategi** atau kebijakan (policy) yang akan membawa agen ke kemenangan, dengan asumsi lawan juga bermain secara optimal untuk menang.
+> >
+> > Karakteristik utama dari game yang dibahas di sini adalah:
+> >
+> >- **Deterministik**: Tidak ada elemen acak (seperti lemparan dadu).
+> >  
+> >- **Turn-taking**: Pemain bergerak secara bergiliran.
+> >    
+> >- **Informasi Sempurna (Fully Observable)**: Semua pemain dapat melihat seluruh state permainan (misalnya, papan catur terlihat oleh kedua pemain).
+> >    
+> > 
+> >### Komponen Formal Masalah Game Search
+> >
+> >Sebuah masalah pencarian dalam game dapat didefinisikan secara formal dengan beberapa komponen:
+> >
+> > 1. **Initial State**: Konfigurasi awal permainan saat dimulai.
+> >    
+> > 2. **Player(s)**: Menentukan pemain mana yang akan bergerak pada state tertentu.
+> >    
+> > 3. **Action(s)(s)**: Kumpulan langkah (moves) yang legal dari sebuah state `s`.
+> >    
+> > 4. **Result(s, a)**: State transisi yang dihasilkan setelah pemain melakukan aksi `a` dari state `s`.
+> >    
+> > 5. **Terminal Test(s)**: Sebuah fungsi yang menentukan apakah permainan telah berakhir (menang, kalah, atau seri). State di mana permainan berakhir disebut _terminal state_.
+> >    
+> >6. **Utility(s, p)**: Sebuah fungsi yang memberikan nilai numerik (skor) untuk pemain `p` pada terminal state `s`. Nilai ini merepresentasikan hasil akhir dari permainan. Sebagai contoh:
+> >    
+> >   - `+1`: Pemain `p` menang.
+> >        
+> >    - `-1`: Pemain `p` kalah.
+> >        
+> >    - `0`: Permainan berakhir seri.
+> >        
+> >
+> >### Representasi Game: Game Tree
+> >
+> >Seluruh kemungkinan jalannya sebuah permainan dapat direpresentasikan menggunakan sebuah struktur data yang disebut **Game Tree** (Pohon Permainan).
+> >
+> >- **Nodes (Simpul)**: Merepresentasikan state atau konfigurasi permainan. Simpul akar (root) adalah _initial state_.
+> >    
+> >- **Edges (Sisi)**: Merepresentasikan langkah atau aksi (moves) yang mungkin dari satu state ke state lainnya.
+> >    
+> >- **Leaves (Daun)**: Merepresentasikan _terminal states_, yaitu akhir dari permainan. Setiap daun memiliki nilai utilitas yang terkait dengannya.
+> >    
+> >
+> > Dalam permainan dua pemain seperti catur atau tic-tac-toe, kita sering menamai pemain sebagai **MAX** dan **MIN**. MAX adalah pemain yang berusaha memaksimalkan skor utilitas, sementara MIN berusaha meminimalkan skor utilitas. Level-level pada game tree akan bergantian antara giliran MAX dan MIN.
+
+> [!cornell] #### Summary
+> 
+> **Pencarian Adversarial adalah sebuah pendekatan untuk pengambilan keputusan dalam lingkungan kompetitif (game) dengan merepresentasikannya sebagai sebuah** _**Game Tree**_**, di mana setiap simpul adalah keadaan permainan dan setiap sisi adalah langkah yang mungkin.** Tujuannya bukan untuk mencari path, melainkan untuk menentukan strategi optimal dengan menganalisis hasil akhir permainan (_terminal states_) yang memiliki nilai utilitas, dengan asumsi bahwa lawan juga akan selalu mengambil langkah terbaik untuk kepentingannya sendiri.
+
+> [!ad-libitum]- Additional Information
+> 
+> #### Tipe-Tipe Game Lainnya
+> 
+> Materi ini berfokus pada game deterministik dengan informasi sempurna. Namun, ada juga tipe game lain yang memerlukan pendekatan berbeda:
+> 
+> - **Game dengan Elemen Acak (Stochastic Games)**: Seperti backgammon atau monopoli, di mana ada lemparan dadu. Ini memerlukan algoritma seperti _Expectiminimax_.
+>     
+> - **Game dengan Informasi Tidak Sempurna (Imperfect Information Games)**: Seperti poker atau Scrabble, di mana pemain tidak bisa melihat semua informasi (misalnya, kartu di tangan lawan). Ini memerlukan pemodelan _belief states_ (keadaan keyakinan).
+>     
+> 
+> #### Kompleksitas Game Tree
+> 
+> Ukuran game tree bisa menjadi sangat besar. Kompleksitasnya ditentukan oleh:
+> 
+> - **Branching Factor (b)**: Rata-rata jumlah langkah yang mungkin dari setiap state.
+>     
+> - **Maximum Depth (m)**: Jumlah langkah maksimum dalam satu permainan.
+>     
+> 
+> Ukuran total game tree bisa mencapai O(bm). Untuk game seperti catur, dengan b≈35 dan m≈100, menelusuri seluruh pohon adalah hal yang mustahil. Inilah mengapa kita memerlukan algoritma yang lebih cerdas (seperti Minimax) dan teknik optimisasi (seperti Alpha-Beta Pruning).
+> 
+> #### Eksplorasi Mandiri
+> 
+> - Coba gambarkan game tree lengkap untuk permainan Tic-Tac-Toe yang dimulai dari papan kosong untuk 2-3 langkah pertama. Identifikasi giliran MAX dan MIN.
+>     
+> 
+> #### Sumber & Referensi Lanjutan:
+> 
+> - Buku: "Artificial Intelligence: A Modern Approach" oleh Stuart Russell dan Peter Norvig, Bab 5.
+>
+> [!cornell] Topic
+> 
+> > ## Questions/Cues
 > >
 > > - Apa itu Adversarial Search?
 > >     
@@ -97,7 +203,7 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > - **Space Complexity**: O(bm) (dengan DFS).
 > >     
 > >
-> > Keterbatasan utamanya adalah **kompleksitas waktu yang eksponensial**, membuatnya tidak praktis untuk game kompleks seperti catur (bapprox35,mapprox100).
+> > Keterbatasan utamanya adalah **kompleksitas waktu yang eksponensial**, membuatnya tidak praktis untuk game kompleks seperti catur ($b \approx 35,m \approx 100$).
 > >
 > > ### Optimisasi: Alpha-Beta Pruning
 > >
@@ -110,7 +216,7 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > 	* **Alpha ($\\alpha$)**: Nilai **terbaik** (tertinggi) yang sudah dijamin untuk **MAX** di sepanjang path saat ini.
 > > 	* **Beta ($\\beta$)**: Nilai **terbaik** (terendah) yang sudah dijamin untuk **MIN** di sepanjang path saat ini.
 > >
-> > - **Kondisi Pruning**: Sebuah cabang di level MIN akan di-prune jika nilainya lebih rendah dari atau sama dengan alpha (lealpha), dan cabang di level MAX akan di-prune jika nilainya lebih tinggi dari atau sama dengan beta (gebeta). Dengan kata lain, pemangkasan terjadi ketika alphagebeta.
+> > - **Kondisi Pruning**: Sebuah cabang di level MIN akan di-prune jika nilainya lebih rendah dari atau sama dengan alpha ($\le \alpha$), dan cabang di level MAX akan di-prune jika nilainya lebih tinggi dari atau sama dengan beta ($\ge \beta$). Dengan kata lain, pemangkasan terjadi ketika $\alpha \ge \beta$.
 > >     
 
 > [!cornell] #### Summary
@@ -135,5 +241,5 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > 
 > - Coba visualisasikan proses Alpha-Beta Pruning pada pohon di slide. Lacak nilai alpha dan beta di setiap node untuk memahami mengapa cabang `X` di bawah node `C` bisa dipangkas.
 >     
-> - Rancang sebuah _evaluation function_ sederhana untuk Tic-Tac-Toe. Misalnya, E(s)=(textjumlahbarisXbisamenang)−(textjumlahbarisObisamenang). Bagaimana fungsi ini bisa membantu Minimax membuat keputusan bahkan sebelum mencapai akhir permainan?
+> - Rancang sebuah _evaluation function_ sederhana untuk Tic-Tac-Toe. Misalnya, $E(s)=(\text{jumlahbarisXbisamenang})−(\text{jumlahbarisObisamenang})$. Bagaimana fungsi ini bisa membantu Minimax membuat keputusan bahkan sebelum mencapai akhir permainan?
 >
