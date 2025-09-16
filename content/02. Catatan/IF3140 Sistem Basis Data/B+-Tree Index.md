@@ -30,6 +30,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >
 > > ### Struktur dan Aturan B+-Tree
 > > 
+> > ![[Pasted image 20250916072239.png]]
+> > 
 > > B+-Tree adalah sebuah pohon (_tree_) yang seimbang, terdiri dari:
 > > 
 > > - **Root Node:** Node paling atas.
