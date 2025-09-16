@@ -57,6 +57,21 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > ### Keseimbangan Jumlah Indeks
 > > 
 > > Menambah indeks mempercepat `SELECT` tetapi memperlambat `INSERT`, `UPDATE`, dan `DELETE`. Oleh karena itu, perlu ada keseimbangan. Sistem **OLTP** (banyak transaksi update) biasanya memiliki lebih sedikit indeks dibandingkan sistem **DSS** (_Decision Support System_) yang _read-heavy_. Untuk membantu DBA, beberapa DBMS menyediakan **Index Tuning Wizard** yang dapat menganalisis workload dan merekomendasikan set indeks yang optimal.
+> > 
+> > ### Index Tuning Wizard
+> > 
+> > **Index Tuning Wizard** adalah sebuah alat (tool) yang memungkinkan pengguna, bahkan yang tidak memiliki pemahaman mendalam tentang struktur internal database, untuk memilih dan membuat set indeks dan statistik yang optimal.
+> > - **Tujuan utamanya** adalah menyederhanakan proses _tuning_ performa database. Pengguna tidak perlu menjadi ahli dalam hal:
+> > 	- Struktur database yang kompleks.
+> > 	- _Workload_ atau beban kerja kueri yang berjalan.
+> > 	- Detail internal dari server database.
+> > - **Contoh** dari alat ini adalah yang terdapat pada **Microsoft® SQL Server™ 2000**.
+> > - **Cara Kerja dan Hasil:**
+> > 	1. **Analisis Berbasis Workload Nyata:** Untuk memberikan hasil terbaik, wizard ini menganalisis workload (kumpulan kueri SQL) yang realistis. Data workload ini biasanya ditangkap atau direkam menggunakan alat lain seperti SQL Profiler. Dengan menganalisis kueri yang benar-benar dijalankan, rekomendasi yang diberikan menjadi jauh lebih akurat dan relevan.
+> > 	2. **Rekomendasi Berupa Perintah SQL:** Hasil atau output dari wizard ini bukanlah laporan yang rumit, melainkan langsung berupa perintah-perintah SQL (`CREATE INDEX`, `UPDATE STATISTICS`, dll.). Perintah ini sudah siap pakai dan bisa langsung dijalankan pada database melalui alat seperti SQL Query Analyzer.
+> > 
+> > Secara singkat, Index Tuning Wizard **mengotomasikan** tugas kompleks dalam mengoptimalkan indeks database, membuatnya dapat diakses oleh lebih banyak orang, tidak hanya administrator database (DBA) ahli.
+> > 
 
 > [!cornell] #### Summary
 > 

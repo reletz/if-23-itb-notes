@@ -4,6 +4,7 @@ cssclasses:
 ---
 _Back to_ [[index]]
 # Overview
+Kalau lupa SQL bisa ke [[IF2240 Basis Data]]
 - ## Intro To DBS
 	- [[Pengenalan Konsep Dasar Sistem Basis Data]]
 	- [[Arsitektur Database Engine]]
@@ -25,7 +26,7 @@ _Back to_ [[index]]
 	- [[B+-Tree Index]]
 	- [[Hash Index]]
 	- [[Bitmap Index dan Definisi Index dalam SQL]]
-- ## Skema dan Index Tuning
+- ## Schema dan Index Tuning
 	- [[Pengantar Tuning Desain dan Analisis Workload]]
 	- [[Schema Tuning (Dekomposisi dan Denormalisasi)]]
 	- [[Index Tuning dan Materialized Views]]
@@ -42,6 +43,8 @@ _Back to_ [[index]]
 	- [[Latihan Soal Intro dan Performance Tuning]]
 	- [[Latihan Soal Storage and File Structure]]
 	- [[Latihan Soal Indexing]]
+	- [[Latihan Soal Schema & Index Tuning]]
+	- Latihan Soal Query Processing
 - ## Database Security
 	- [[Konsep Dasar Keamanan dan Otorisasi Database]]
 	- [[Model Kontrol Akses (Access Control Models)]]

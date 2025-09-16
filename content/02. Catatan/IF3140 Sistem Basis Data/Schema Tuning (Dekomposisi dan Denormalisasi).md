@@ -29,8 +29,12 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > **Dekomposisi** atau **Splitting Tables** adalah teknik memecah satu tabel menjadi beberapa tabel terpisah untuk meningkatkan performa. Ada dua jenis utama:
 > > 
 > > - **Horizontal Splitting:** Memecah tabel berdasarkan baris (rows). Ini sangat berguna jika ada pemisahan data yang alami, seperti memisahkan data transaksi aktif dengan data arsip historis yang jarang diakses.
+> > 
+> > 	![[Pasted image 20250916112808.png]]
 > >     
 > > - **Vertical Splitting:** Memecah tabel berdasarkan kolom (columns). Ini efektif jika beberapa kolom sangat sering diakses sementara kolom lain (terutama yang berukuran besar) jarang diakses. Dengan memisahkannya, query yang hanya butuh kolom-kolom penting akan membaca lebih sedikit data page.
+> >
+> > 	![[Pasted image 20250916112851.png]]
 > >     
 > >
 > > ### Schema Tuning: Denormalisasi
@@ -40,11 +44,15 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > Beberapa cara denormalisasi:
 > > 
 > > - **Menambah Kolom Redundan:** Menyalin kolom dari satu tabel ke tabel lain untuk menghindari `JOIN`.
+> > 	![[Pasted image 20250916113110.png]]
 > >     
 > > - **Menambah Kolom Turunan (Derived):** Menyimpan hasil agregat (seperti `SUM` atau `COUNT`) secara precomputed di dalam tabel.
+> > 	![[Pasted image 20250916113132.png]]
 > >     
 > > - **Menggabungkan Tabel (Collapsing):** Menggabungkan dua tabel yang memiliki relasi 1-ke-1 menjadi satu tabel.
-> >     
+> > 
+> > - **Menggandakan Tabel (Duplicating):** Mengambil beberapa bagian dari sebuah tabel yang memiliki relasi 1-ke-1 menjadi dua tabel. Dapat digunakan ketika beberapa orang masih perlu mengakses bagian dari sebuah tabel.
+> >     ![[Pasted image 20250916113450.png]]
 > >
 > > ### Mengelola Integritas pada Denormalisasi
 > > 
