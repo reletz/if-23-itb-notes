@@ -19,7 +19,6 @@ _Back to_ [[index]]
 	- [[Minimax Search]]
 	- [[Alpha-beta Search]]
 - ## Constraint Satisfaction Problem (CSP)
-	- [[Constraint Satisfaction Problem (CSP)]]
 	- [[Terminologi dalam CSP]]
 	- [[Inference dalam CSP]]
 	- [[Backtracking Search untuk CSP]]
