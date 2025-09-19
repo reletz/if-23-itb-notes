@@ -19,6 +19,7 @@ _Back to_ [[index]]
 	- [[Ekuivalensi NFA ke DFA]]
 	- [[NFA dengan Transisi Epsilon (ε-NFA) dan E-Closure]]
 	- [[Ekuivalensi ε-NFA ke DFA]]
+	- [[Latihan Soal NFA]]
 - ## Regular Expressions and Languages
 	- [[Hukum Aljabar Bahasa]]
 	- [[Regular Expressions dan Ekuivalensinya]]

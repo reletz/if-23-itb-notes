@@ -28,6 +28,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 
 > > Proses eksekusi sebuah query di dalam DBMS secara umum dibagi menjadi tiga langkah utama:
 > > 
+> > ![[Pasted image 20250919125637.png]]
+> > 
 > > 1. **Parsing and Translation:** Query SQL dari pengguna diterjemahkan ke dalam bentuk internal, biasanya ekspresi aljabar relasional. Parser juga akan memeriksa sintaks dan memverifikasi nama-nama relasi.
 > >     
 > > 2. **Optimization:** Optimizer mencari rencana evaluasi (_evaluation plan_) dengan estimasi biaya terendah dari berbagai alternatif ekspresi yang ekuivalen. Proses ini menggunakan informasi statistik dari katalog database.
@@ -36,6 +38,7 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >     
 > >
 > > ### Evaluation Plan
+> > ![[Pasted image 20250919125708.png]]
 > > 
 > > Sebuah **Evaluation Plan** adalah sebuah ekspresi aljabar relasional yang diberi anotasi detail. Anotasi ini mendefinisikan strategi evaluasi secara spesifik, seperti algoritma apa yang harus digunakan untuk setiap operasi (misal, menggunakan _index scan_ atau _linear scan_).
 > >
@@ -46,11 +49,13 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > Secara sederhana, biaya diukur berdasarkan:
 > > 
 > > - **Jumlah transfer blok (b):** Berapa banyak blok yang harus dibaca/ditulis dari/ke disk.
-> >     
+> > - **Waktu transfer blok ($t_t$)**
 > > - **Jumlah seek (S):** Berapa kali lengan disk harus bergerak.
+> > - **Waktu seek ($t_s$)**
 > >     
+> > Dengan rumus, $$\text{cost} = b + t_t + t_s + S$$
+> > Dengan catatan, biaya CPU dan biaya untuk menulis hasil akhir ke disk seringkali diabaikan dalam formula estimasi untuk menyederhanakan perhitungan.
 > > 
-> > Biaya CPU dan biaya untuk menulis hasil akhir ke disk seringkali diabaikan dalam formula estimasi untuk menyederhanakan perhitungan.
 
 > [!cornell] #### Summary
 > 

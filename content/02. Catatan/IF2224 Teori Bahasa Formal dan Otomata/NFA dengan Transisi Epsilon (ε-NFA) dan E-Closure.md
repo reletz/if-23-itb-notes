@@ -49,7 +49,7 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > > Kita bisa menggunakan algoritma induktif:
 > > 
 > > 1. **Langkah Basis:** State q itu sendiri selalu ada di dalam `ECLOSE(q)`.
-> > 2. **Langkah Induksi:** Jika sebuah state p ada di dalam `ECLOSE(q)`, dan ada transisi δ(p,ϵ)=r, maka state r juga harus dimasukkan ke dalam `ECLOSE(q)`. Ulangi langkah ini sampai tidak ada state baru yang bisa ditambahkan.
+> > 2. **Langkah Induksi:** Jika sebuah state p ada di dalam `ECLOSE(q)`, dan ada transisi `δ(p,ϵ)=r`, maka state `r` juga harus dimasukkan ke dalam `ECLOSE(q)`. Ulangi langkah ini sampai tidak ada state baru yang bisa ditambahkan.
 > > 
 > > ECLOSE untuk Himpunan State:
 > > 

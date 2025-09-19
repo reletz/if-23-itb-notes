@@ -30,10 +30,13 @@ Kalau lupa SQL bisa ke [[IF2240 Basis Data]]
 	- [[Pengantar Tuning Desain dan Analisis Workload]]
 	- [[Schema Tuning (Dekomposisi dan Denormalisasi)]]
 	- [[Index Tuning dan Materialized Views]]
-- ## Query Processing dan Optimization
+- ## Query Processing
 	- [[Pengantar Query Processing & Ukuran Biaya (Cost)]]
-	- [[Algoritma Operasi Dasar (Seleksi, Sorting, & Agregasi)]]
+	- [[Algoritma Seleksi]]
+	- [[Algoritma Sorting]]
 	- [[Algoritma Operasi Join]]
+	- [[Algoritma Agregasi, Set, dan Outer Join]]
+- ## Query Optimization
 	- [[Dasar Optimasi Query (Transformasi & Estimasi Biaya)]]
 	- [[Strategi Optimasi Query (Pemilihan Rencana & Topik Lanjutan)]]
 - ## SQL Performance Tuning
@@ -44,7 +47,7 @@ Kalau lupa SQL bisa ke [[IF2240 Basis Data]]
 	- [[Latihan Soal Storage and File Structure]]
 	- [[Latihan Soal Indexing]]
 	- [[Latihan Soal Schema & Index Tuning]]
-	- Latihan Soal Query Processing
+	- [[Latihan Soal Query Processing]]
 - ## Database Security
 	- [[Konsep Dasar Keamanan dan Otorisasi Database]]
 	- [[Model Kontrol Akses (Access Control Models)]]

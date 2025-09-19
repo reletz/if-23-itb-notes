@@ -42,7 +42,7 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > >
 > > ### Algoritma Subset Construction
 > >
-> > Diberikan sebuah NFA N=(Q_N,Sigma,delta_N,q_N0,F_N), kita akan membangun sebuah DFA D=(Q_D,Sigma,delta_D,q_D0,F_D) sebagai berikut:
+> > Diberikan sebuah NFA $N=(Q_N,\Sigma,\delta_N,q_{N_0},F_N)$, kita akan membangun sebuah DFA $D=(Q_D,\Sigma,\delta_D,q_{D_0},F_D)$ sebagai berikut:
 > >
 > > 1. **Himpunan State DFA ($Q_D$)**
 > > 	- $Q_D$ adalah himpunan kuasa (powerset) dari $Q_N$, yaitu himpunan dari semua kemungkinan subset dari $Q_N$.
@@ -52,18 +52,18 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > > 	- Start state dari DFA adalah sebuah himpunan yang hanya berisi start state dari NFA.
 > > 	- $q_{D0} = \{q_{N_0}\}$.
 > >
-> > 3. **Himpunan Final State DFA (F_D)**
+> > 1. **Himpunan Final State DFA ($F_D$)**
 > > 	- Sebuah state di DFA (yang merupakan sebuah himpunan) dianggap sebagai final state jika ia mengandung **setidaknya satu** final state dari NFA.
 > > 	> $F_D = {S \mid S \in Q_D \text{ dan } S \cap F_N \neq \emptyset}$.
 > >
-> > 4. **Fungsi Transisi DFA (delta_D)**
+> > 1. **Fungsi Transisi DFA ($\delta_D$)**
 > > 	- Ini adalah langkah paling inti. Untuk menentukan transisi dari sebuah state DFA $S$ (yang merupakan himpunan state NFA) dengan input $a$, kita lakukan:
 > > 	- Ambil **gabungan (union)** dari semua hasil transisi NFA ($\\delta\_N$) untuk setiap state $p$ yang ada di dalam himpunan $S$.
 > > 	> $\delta_D(S, a) = \bigcup_{p \in S} \delta_N(p, a)$.
 > >
 > > ### Metode Praktis: Lazy Construction
 > >
-> > Menghitung semua 2n kemungkinan state di awal sangat tidak efisien. Pendekatan praktis yang digunakan adalah **Lazy Construction**:
+> > Menghitung semua $2^n$ kemungkinan state di awal sangat tidak efisien. Pendekatan praktis yang digunakan adalah **Lazy Construction**:
 > >
 > > 1. **Mulai** dari start state DFA, yaitu $q_{N_0}$. Masukkan ke dalam daftar "yang akan diproses".
 > > 2. **Ambil** satu state himpunan S dari daftar.
