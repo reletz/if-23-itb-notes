@@ -35,6 +35,8 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > ### Konsep Dasar Hill Climbing
 > >
 > > **Hill Climbing** adalah algoritma Local Search yang sederhana dan bersifat "serakah" (_greedy_). Algoritma ini secara terus-menerus bergerak ke arah _state_ yang memiliki nilai lebih tinggi (menanjak) hingga mencapai sebuah "puncak" di mana tidak ada _neighbor_ yang memiliki nilai lebih tinggi.
+> > 
+> > ![[Pasted image 20250921215929.png]]
 > >
 > > - **Analogi**: Prosesnya sering diibaratkan seperti **"mendaki Gunung Everest dalam kabut tebal dan amnesia"**. Anda tidak bisa melihat keseluruhan peta (lanskap), hanya bisa merasakan pijakan di sekitar Anda (_neighbors_). Untuk mencapai puncak, Anda akan selalu melangkah ke arah yang lebih tinggi dari posisi Anda saat ini. Anda tidak ingat jalur yang sudah dilewati (amnesia).
 > >     

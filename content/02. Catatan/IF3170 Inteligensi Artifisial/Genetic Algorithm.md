@@ -44,6 +44,7 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > Dalam GA, sebuah _state_ (individu) direpresentasikan sebagai sebuah string, yang disebut **kromosom**. String ini bisa berupa biner (0 dan 1) atau format lain.
 > > 
 > > - **Contoh (8-Queens)**: Sebuah _state_ direpresentasikan sebagai string dengan 8 angka, misal `32752411`. Angka ke-`i` pada string merepresentasikan posisi baris dari ratu di kolom `i`.
+> > 	![[Pasted image 20250921223530.png]]
 > >     
 > > 
 > > ### Fitness Function
@@ -57,6 +58,8 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >     - Jika `Fitness(state) = 28`, maka itu adalah solusi global (global maximum).
 > >         
 > >     - Untuk `state = 32752411`, ada 5 pasang yang menyerang, jadi `Fitness = 28 - 5 = 23`.
+> >     
+> >     ![[Pasted image 20250921223657.png]]
 > >         
 > > 
 > > ### Proses Evolusi dalam Genetic Algorithm
@@ -70,6 +73,7 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >     - **Tujuan**: Memilih individu ("orang tua") dari populasi saat ini untuk menciptakan generasi berikutnya.
 > >         
 > >     - **Mekanisme**: Individu dengan _fitness score_ yang lebih tinggi memiliki probabilitas lebih besar untuk terpilih. Salah satu metode populer adalah **Roulette Wheel Selection**, di mana setiap individu mendapatkan "potongan kue" proporsional dengan nilai fitness-nya.
+> >     ![[Pasted image 20250921224137.png]]
 > >         
 > > 3. **Crossover (Pindah Silang)**:
 > >     
@@ -90,7 +94,8 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >     - **Tujuan**: Memperkenalkan variasi baru ke dalam populasi untuk mencegah konvergensi dini (terjebak di solusi yang homogen) dan membantu keluar dari _local maximum_.
 > >         
 > >     - **Mekanisme**: Setelah _crossover_, ada probabilitas kecil bahwa satu "gen" (satu karakter dalam string) pada offspring akan diubah secara acak. Misalnya, `32748552` bisa bermutasi menjadi `3274**1**552`.
-> >         
+> >  
+> >  ![[Pasted image 20250921224223.png]]
 > > 
 > > Proses ini diulang terus-menerus, menciptakan populasi baru di setiap generasi, hingga ditemukan individu yang cukup fit atau batas waktu/generasi tercapai.
 

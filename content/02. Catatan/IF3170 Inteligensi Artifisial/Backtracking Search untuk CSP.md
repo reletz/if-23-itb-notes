@@ -62,34 +62,34 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > 
 > > Tujuannya adalah memilih variabel yang paling mungkin menyebabkan kegagalan, sehingga kita bisa memangkas cabang pencarian sedini mungkin.
 > > 
-> > - Minimum Remaining Values (MRV) Heuristic:
+> > - **Minimum Remaining Values (MRV) Heuristic:**
 > >     
-> >     Pilih variabel yang memiliki jumlah nilai legal (valid) paling sedikit di domainnya. Heuristik ini juga dikenal sebagai "most constrained variable".
+> >     - Pilih variabel yang memiliki jumlah nilai legal (valid) paling sedikit di domainnya. Heuristik ini juga dikenal sebagai "_most constrained variable_".
 > >     
-> >     Contoh: Setelah WA=merah dan NT=hijau, domain untuk SA tinggal {biru} (1 nilai) sementara domain Q adalah {merah, biru} (2 nilai). Maka, kita harus memilih SA selanjutnya.
+> >     - **Contoh:** Setelah WA=merah dan NT=hijau, domain untuk SA tinggal `{biru}` (1 nilai) sementara domain Q adalah `{merah, biru}` (2 nilai). Maka, kita harus memilih SA selanjutnya.
 > >     
-> > - Degree Heuristic:
+> > - **Degree Heuristic:**
 > >     
-> >     Digunakan sebagai pemecah seri (tie-breaker) jika ada beberapa variabel dengan MRV yang sama. Pilih variabel yang memiliki jumlah constraint paling banyak dengan variabel lain yang belum diberi nilai. Heuristik ini mencoba mengurangi domain variabel lain secepat mungkin.
+> >     - Digunakan sebagai pemecah seri (_tie-breaker_) jika ada beberapa variabel dengan MRV yang sama. **Pilih variabel yang memiliki jumlah constraint paling banyak** dengan variabel lain yang **belum diberi nilai.**
+> >     - Heuristik ini mencoba mengurangi domain variabel lain secepat mungkin.
 > >     
-> >     Contoh: Pada awal pewarnaan peta, SA adalah pilihan terbaik karena berbatasan dengan 5 wilayah lain.
+> >     - **Contoh:** Pada awal pewarnaan peta, SA adalah pilihan terbaik karena berbatasan dengan 5 wilayah lain.
 > >     
 > > 
 > > ### 2. Value Ordering: Sukses Lebih Cepat
 > > 
 > > Berbeda dengan _variable ordering_, tujuan di sini adalah memilih nilai yang paling mungkin membawa kita ke solusi.
 > > 
-> > - Least Constraining Value (LCV) Heuristic:
+> > - **Least Constraining Value (LCV) Heuristic:**
 > >     
 > >     Pilih nilai yang paling sedikit menghilangkan pilihan untuk variabel-variabel tetangga yang belum diberi nilai.
+> >     - **Contoh:** Setelah WA=merah dan NT=hijau, kita perlu memilih warna untuk Q.
 > >     
-> >     Contoh: Setelah WA=merah dan NT=hijau, kita perlu memilih warna untuk Q.
-> >     
-> >     - Jika `Q=biru`, maka domain SA menjadi `{}` (kosong). Ini sangat membatasi.
-> >         
-> >     - Jika Q=merah, maka domain SA menjadi {biru}. Ini menyisakan satu pilihan.
-> >         
-> >         Maka, kita harus memilih Q=merah terlebih dahulu.
+> > 	    - Jika `Q=biru`, maka domain SA menjadi `{}` (kosong). Ini sangat membatasi.
+> > 	        
+> > 	    - Jika `Q=merah`, maka domain SA menjadi `{biru}`. Ini menyisakan satu pilihan.
+> > 	        
+> > 	 - Maka, kita harus memilih `Q=merah` terlebih dahulu.
 > >         
 
 > [!cornell] #### Summary

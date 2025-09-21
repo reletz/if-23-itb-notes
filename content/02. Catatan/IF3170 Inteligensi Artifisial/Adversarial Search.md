@@ -63,7 +63,8 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >        
 > >    - `0`: Permainan berakhir seri.
 > >        
-> >
+> > ![[Pasted image 20250921224913.png]]
+> > 
 > >### Representasi Game: Game Tree
 > >
 > >Seluruh kemungkinan jalannya sebuah permainan dapat direpresentasikan menggunakan sebuah struktur data yang disebut **Game Tree** (Pohon Permainan).
@@ -74,7 +75,7 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >    
 > >- **Leaves (Daun)**: Merepresentasikan _terminal states_, yaitu akhir dari permainan. Setiap daun memiliki nilai utilitas yang terkait dengannya.
 > >    
-> >
+> >![[Pasted image 20250921224940.png]]
 > > Dalam permainan dua pemain seperti catur atau tic-tac-toe, kita sering menamai pemain sebagai **MAX** dan **MIN**. MAX adalah pemain yang berusaha memaksimalkan skor utilitas, sementara MIN berusaha meminimalkan skor utilitas. Level-level pada game tree akan bergantian antara giliran MAX dan MIN.
 
 > [!cornell] #### Summary

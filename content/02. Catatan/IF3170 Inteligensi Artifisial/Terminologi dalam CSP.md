@@ -41,6 +41,8 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > 
 > > Solusi dari sebuah CSP adalah sebuah _assignment_ (penugasan nilai) yang **lengkap** (semua variabel punya nilai) dan **konsisten** (tidak melanggar constraint).
 > > 
+> > ![[Pasted image 20250921230517.png]]
+> > 
 > > ### Komponen Formal CSP
 > > 
 > > Sebuah CSP secara formal terdiri dari tiga komponen utama:
@@ -53,7 +55,7 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >     
 > > 
 > > ### Contoh: Masalah Pewarnaan Peta (Map Coloring)
-> > 
+> > ![[Pasted image 20250921230546.png]]
 > > - **Variables (X)**: Wilayah pada peta, misal: {WA,NT,Q,NSW,V,SA,T}.
 > >     
 > > - **Domain (D)**: Warna yang bisa digunakan, misal: Di​={merah,hijau,biru}.
@@ -68,7 +70,9 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > - **Constraint Graph**: Representasi sederhana di mana **variabel** menjadi **nodes (simpul)** dan **binary constraints** (batasan antara dua variabel) menjadi **links/arcs (sisi)**.
 > >     
 > > - **Constraint Hypergraph**: Digunakan ketika terdapat _higher-order constraints_ (batasan yang melibatkan lebih dari dua variabel). Constraint ini direpresentasikan sebagai "kotak" atau kontainer yang menghubungkan semua variabel yang terlibat.
-> >     
+> > 
+> > ![[Pasted image 20250921230628.png]]
+> > ![[Pasted image 20250921231322.png]]
 > > 
 > > ### Variasi dalam Formalisme CSP
 > > 

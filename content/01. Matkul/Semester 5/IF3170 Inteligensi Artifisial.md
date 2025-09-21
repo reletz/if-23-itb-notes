@@ -24,3 +24,7 @@ _Back to_ [[index]]
 	- [[Backtracking Search untuk CSP]]
 	- [[Interleaving Search dan Reference]]
 	- [[Local Search Untuk CSP]]
+- ## Kuis 1
+	 _Materi: Pendahuluan - CSP_
+	- [[Pembahasan Kuis 1 2024.pdf]]
+	- [[Pembahasan Kuis 1 2023.pdf]]

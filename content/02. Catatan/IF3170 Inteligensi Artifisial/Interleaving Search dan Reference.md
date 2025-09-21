@@ -70,13 +70,14 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >     
 > > 
 > > **Contoh Ilustrasi**:
-> > 
+> > ![[Pasted image 20250921233518.png]]
+> > ![[Pasted image 20250921233808.png]]
 > > - Dalam gambar di slide 23, setelah beberapa _assignment_, MAC bisa menyimpulkan bahwa `NT` dan `SA` tidak bisa sama-sama biru. Kesimpulan ini mungkin tidak bisa didapat oleh _Forward Checking_ biasa pada tahap yang sama. Jika proses ini menyebabkan domain manapun kosong, algoritma langsung _backtrack_.
 > >     
 
 > [!cornell] #### Summary
 > 
-> Interleaving search and inference adalah strategi untuk mendeteksi kegagalan lebih awal dengan menjalankan inference setiap kali sebuah nilai ditetapkan selama pencarian. Forward Checking (FC) melakukan ini dengan memeriksa dan menyaring domain dari tetangga langsung variabel yang baru ditetapkan. **Sementara itu, Maintaining Arc Consistency (MAC) mengambil langkah lebih jauh dengan menjalankan algoritma arc consistency penuh untuk merambatkan (propagate) constraint ke seluruh masalah, membuatnya lebih kuat dalam mendeteksi ketidakkonsistenan.
+> Interleaving search and inference adalah strategi untuk mendeteksi kegagalan lebih awal dengan menjalankan inference setiap kali sebuah nilai ditetapkan selama pencarian. Forward Checking (FC) melakukan ini dengan memeriksa dan menyaring domain dari tetangga langsung variabel yang baru ditetapkan. Sementara itu, Maintaining Arc Consistency (MAC) mengambil langkah lebih jauh dengan menjalankan algoritma arc consistency penuh untuk merambatkan (propagate) constraint ke seluruh masalah, membuatnya lebih kuat dalam mendeteksi ketidakkonsistenan.
 
 > [!ad-libitum]- Additional Information
 > 

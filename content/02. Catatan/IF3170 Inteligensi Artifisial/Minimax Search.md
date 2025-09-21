@@ -61,7 +61,7 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >         
 > > 4. **Pilih Langkah**: Di simpul akar, MAX akan memilih langkah (edge) yang menuju ke simpul anak dengan nilai tertinggi. Nilai ini adalah _nilai Minimax_ dari state awal.
 > >     
-> > ![[Pasted image 20250915102844.png]]
+> > ![[Pasted image 20250921230119.png]]
 > > _Contoh_: Pada gambar di atas, di level MIN, simpul B memilih nilai `min(3, 12, 8) = 3`. Simpul C memilih `min(2, 4, 6) = 2`, dan D memilih `min(14, 5, 2) = 2`. Kemudian di level MAX, simpul A akan memilih `max(3, 2, 2) = 3`. Jadi, langkah optimal untuk MAX adalah menuju simpul B.
 > > 
 > > ### Properti Algoritma Minimax

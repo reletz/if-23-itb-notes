@@ -31,7 +31,9 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > ### Konsep State dalam Local Search
 > >
 > > Dalam konteks Local Search, sebuah **state** merepresentasikan sebuah **konfigurasi solusi yang lengkap (**_**complete configuration**_**)**. Ini berbeda fundamental dari Classical Search di mana state bisa bersifat parsial atau inkremental.
-> >
+> > 
+> > ![[Pasted image 20250921215929.png]]
+> > 
 > > - **Prinsip**: Algoritma hanya menyimpan satu _current state_ dan berupaya memperbaikinya.
 > >     
 > > - **Contoh (8-Queens Problem)**: Sebuah _state_ bukanlah papan catur dengan 1, 2, atau 3 ratu, melainkan sebuah papan catur di mana **selalu ada 8 ratu** yang sudah ditempatkan (misalnya, satu ratu di setiap kolom). Solusi akhir (_final state_) adalah tujuan dari pencarian ini.
@@ -68,9 +70,10 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > 		- **Penggunaan**: Umumnya digunakan dalam algoritma **Steepest-Ascent Hill Climbing**.
 > > 	2.  **Neighbor sebagai Random Successor**:
 > > 		- **Definisi**: Algoritma tidak mengevaluasi semua *successor*, melainkan hanya memilih **satu *successor* secara acak** sebagai *neighbor*.
-> > 		- *Karakteristik**: Pendekatan ini tidak *greedy* dan memungkinkan eksplorasi yang lebih luas, meskipun tidak selalu memilih langkah terbaik.
+> > 		- **Karakteristik**: Pendekatan ini tidak *greedy* dan memungkinkan eksplorasi yang lebih luas, meskipun tidak selalu memilih langkah terbaik.
 > > 		- **Penggunaan**: Umumnya digunakan dalam algoritma **Stochastic Hill Climbing** dan **Simulated Annealing**.
-> >
+> > 
+> > ![[Pasted image 20250921220341.png]]
 
 > [!cornell] #### Summary
 > Dalam Local Search, sebuah _**state**_ adalah konfigurasi solusi yang lengkap dan dievaluasi menggunakan _**nilai heuristik (h)**_. Perpindahan antar-_**state**_ terjadi dengan memilih sebuah _**neighbor**_, yang merupakan _**state**_ terpilih dari himpunan semua kemungkinan _**successor**_ (hasil dari satu langkah perubahan). Cara pemilihan _**neighbor**_ ini—apakah sebagai _**successor**_ dengan nilai terbaik atau sebagai _**successor**_ acak—menentukan strategi dan sifat dari algoritma pencarian yang digunakan.
