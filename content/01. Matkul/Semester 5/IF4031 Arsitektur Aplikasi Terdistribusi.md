@@ -19,3 +19,8 @@ _Back to_ [[index]]
 	- [[Kelebihan HTTP dan Alternatif RPC]]
 	- [[Autentikasi dan Otorisasi API]]
 	- [[Apache Thrift]]
+	- [[Protocol Buffer dan gRPC]]
+	- [[GraphQL]]
+- ## API Gateway dan Service Mesh
+	- [[API Getaway]]
+	- [[Service Mesh]]

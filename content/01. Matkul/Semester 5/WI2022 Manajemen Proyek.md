@@ -8,3 +8,15 @@ _Back to_ [[index]]
 	- [[Konsep Dasar dan Fundamental Manajemen]]
 	- [[Pengenalan Proyek dan Manajemen Proyek]]
 	- [[Konteks Lanjutan dan Aplikasi Manajemen]]
+- ## Pengertian Manajemen Proyek
+	- [[Pengantar Manajemen Proyek dan Kerangka Kerja PMBOK]]
+	- [[Siklus Hidup dan Metodologi Proyek]]
+	- [[10 Area Pengetahuan (Knowledge Areas)]]
+	- [[Detail Proses Manajemen Proyek dan Keterkaitannya]]
+- ## Project Initiating
+	- [[Pra-Inisiasi dan Penyusunan Business Case]]
+	- [[Inisiasi Formal - Stakeholder, Project Charter, dan Kick-off Meeting]]
+- ## Project Planning
+	- [[Dasar-Dasar Perencanaan Proyek dan Dokumen Awal]]
+	- [[Perencanaan Lingkup dan Jadwal Proyek (WBS & Scheduling)]]
+	- [[Dokumen Perencanaan Lanjutan dan Software Project Management Plan (SPMP)]]
