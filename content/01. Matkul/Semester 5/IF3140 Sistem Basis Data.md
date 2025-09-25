@@ -37,17 +37,21 @@ Kalau lupa SQL bisa ke [[IF2240 Basis Data]]
 	- [[Algoritma Operasi Join]]
 	- [[Algoritma Agregasi, Set, dan Outer Join]]
 - ## Query Optimization
-	- [[Dasar Optimasi Query (Transformasi & Estimasi Biaya)]]
-	- [[Strategi Optimasi Query (Pemilihan Rencana & Topik Lanjutan)]]
-- ## SQL Performance Tuning
-	- [[Tuning Indeks dan Ekspresi Kondisional]]
-	- [[Formulasi Query yang Efisien]]
-- ## Latihan Soal Pra-UTS
+	- [[Fondasi Optimisasi dan Aturan Transformasi]]
+	- [[Estimasi Biaya Berbasis Statistik]]
+	- [[Algoritma Optimisasi Berbasis Biaya]]
+	- [[Optimisasi Heuristik dan Struktur Optimizer]]
+	- [[Teknik Tambahan untuk Subkueri dan View]]
+- ## Latihan Soal Pra-Kuis 1
 	- [[Latihan Soal Intro dan Performance Tuning]]
 	- [[Latihan Soal Storage and File Structure]]
 	- [[Latihan Soal Indexing]]
 	- [[Latihan Soal Schema & Index Tuning]]
 	- [[Latihan Soal Query Processing]]
+	- [[Latihan Soal Query Optimization]]
+- ## SQL Performance Tuning
+	- [[Tuning Indeks dan Ekspresi Kondisional]]
+	- [[Formulasi Query yang Efisien]]
 - ## Database Security
 	- [[Konsep Dasar Keamanan dan Otorisasi Database]]
 	- [[Model Kontrol Akses (Access Control Models)]]

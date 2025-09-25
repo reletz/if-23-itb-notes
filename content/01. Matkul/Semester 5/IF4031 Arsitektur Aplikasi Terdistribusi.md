@@ -24,3 +24,7 @@ _Back to_ [[index]]
 - ## API Gateway dan Service Mesh
 	- [[API Getaway]]
 	- [[Service Mesh]]
+- ## Microservice
+	- [[Dasar-dasar Arsitektur Microservice]]
+	- [[Prinsip Desain Aplikasi Modern (The 12-Factor App)]]
+	- [[Pola Dekomposisi dan Komposisi Service]]

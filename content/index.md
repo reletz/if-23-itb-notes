@@ -35,8 +35,7 @@ Semoga semua catatannya bermanfaat. Selamat belajar, ya!
 	- [[IF3130 Sistem Paralel dan Terdistribusi]]
 	- [[IF3140 Sistem Basis Data]]
 	- [[IF3170 Inteligensi Artifisial]]
-	- [[IF4031 Arsitektur Aplikasi Terdistribusi]]
-	- [[II2100 Komunikasi Interpersonal dan Publik]]  (Matkul Pilihan)
-	- [[II4023 Forensik Digital]] (Matkul Pilihan)
+	- [[IF4031 Arsitektur Aplikasi Terdistribusi]] (Matkul Spesialisasi)
+	- [[II2100 Komunikasi Interpersonal dan Publik]] (Matkul Pilihan)
 	- [[WI2022 Manajemen Proyek]]
 	- [[ZZXXXX Seleksi Labsister]] (Arsip aja ^^)

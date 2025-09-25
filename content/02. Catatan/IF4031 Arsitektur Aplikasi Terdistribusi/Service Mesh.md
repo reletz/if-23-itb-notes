@@ -71,7 +71,7 @@ _Back to_ [[IF4031 Arsitektur Aplikasi Terdistribusi]]
 > >     
 > >     - **Karakteristik**: Volume trafik tinggi, mengutamakan **kecepatan dan ketersediaan**.
 > >         
-> > 
+> > ![[Pasted image 20250922162623.png]]
 > > Pemisahan ini sangat penting untuk skalabilitas dan ketahanan. Jalur konfigurasi (Control Plane) tidak mengganggu jalur data (Data Plane).
 > > 
 > > ### Arsitektur & Pola Sidecar Proxy

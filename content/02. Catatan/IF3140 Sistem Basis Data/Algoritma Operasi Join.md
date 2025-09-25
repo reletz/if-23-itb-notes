@@ -102,10 +102,9 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >     2. **Fase Build & Probe (Matching Phase):**
 > >         
 > >         - Untuk setiap partisi i:
+> > 	        1.  Build: Baca partisi $s_i$ ke memori dan bangun hash table di memori menggunakan fungsi hash kedua ($h_2$).
 > >             
-> >             a. Build: Baca partisi $s_i$ ke memori dan bangun hash table di memori menggunakan fungsi hash kedua (h2).
-> >             
-> >             b. Probe: Baca partisi $r_i$ blok per blok, dan untuk setiap tuple, gunakan h2 untuk mencari pasangannya di hash table $s_i$.
+> > 	        2. Probe: Baca partisi $r_i$ blok per blok, dan untuk setiap tuple, gunakan h2 untuk mencari pasangannya di hash table $s_i$.
 > >             
 > > - **Penanganan Overflow:** Jika partisi $s_i$ tidak muat di memori, partisi tersebut dapat dipartisi ulang secara rekursif menggunakan fungsi hash lain, atau gunakan Block Nested-Loop Join untuk partisi yang meluap tersebut.
 > >     
