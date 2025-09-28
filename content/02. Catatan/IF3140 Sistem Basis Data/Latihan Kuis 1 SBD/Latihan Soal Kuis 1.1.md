@@ -126,15 +126,15 @@ WHERE P.uid = T.uid AND P.kota = 'Jakarta' AND T.pid = 123;
 
 Seorang DBA junior mengusulkan rencana eksekusi (evaluation plan) berikut dalam bentuk pohon aljabar relasional:
 ```
-Πnama_pelanggan​
+		Πnama_pelanggan​
 
-|
+					|
 
 (σ_kota=′Jakarta′∧pid=123​)
-
-|
-
-(Pelanggan⋈uid​Transaksi)
+					|
+				⋈uid​
+					/\
+(Pelanggan)(Transaksi)
 ```
 a. Terjemahkan pohon di atas menjadi urutan langkah-langkah evaluasi.
 
@@ -202,12 +202,9 @@ c. Merge Join: Superior ketika kedua relasi sudah terurut berdasarkan atribut jo
 
 a. Urutan Langkah:
 
-1. Lakukan natural join antara seluruh relasi Pelanggan dan Transaksi pada atribut uid.
-
+1. Lakukan theta join antara seluruh relasi Pelanggan dan Transaksi pada atribut uid.
 2. Simpan hasilnya ke tabel temporer.
-
 3. Lakukan seleksi pada tabel temporer dengan kondisi kota = 'Jakarta' DAN pid = 123.
-
 4. Lakukan proyeksi untuk mengambil kolom nama_pelanggan dari hasil seleksi.
 
 b. Estimasi Biaya Join:
@@ -237,12 +234,14 @@ c. Estimasi Tuple Hasil:
 ### Jawaban Soal 4
 
 a. **Pohon Aljabar Relasional Baru:**
-
+```
 Πnama_pelanggan​
 
 |
 
-(σpid=123​(Transaksi)⋈uid​σkota=′Jakarta′​(Pelanggan))
+(σ_{pid=123}​(Transaksi)⋈_{uid}​σ_{kota=′Jakarta′}​(Pelanggan))
+```
+
 
 b. Aturan Heuristik:
 
@@ -254,9 +253,8 @@ b. Aturan Heuristik:
 
 a. **Evaluation Plan Rinci:**
 
-|   |   |   |   |   |
-|---|---|---|---|---|
 |**Langkah**|**Operasi**|**Algoritma & Penjelasan**|**Estimasi Biaya (Blok)**|**Estimasi Tuple**|
+|---|---|---|---|---|
 |1|σkota=′Jakarta′​(Pelanggan)|**A4 (Index Scan)** pada `Pelanggan.kota`.|1003|1000|
 |2|σpid=123​(Transaksi)|**Linear Scan**, karena tidak ada indeks pada `Transaksi.pid`.|50.000|50|
 |3|(Hasil #1) ⋈uid​ (Hasil #2)|**Indexed Nested-Loop Join**. Hasil #2 (50 tuple) sangat kecil, ideal sebagai relasi luar. Gunakan indeks pada `Pelanggan.uid` (asumsi ada karena PK).|bluar​+nluar​×c≈1+50×(hi​+1)≈1+50×(2+1)=151|1|

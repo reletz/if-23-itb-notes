@@ -45,6 +45,7 @@ Kalau lupa SQL bisa ke [[IF2240 Basis Data]]
 - ## Latihan Soal Pra-Kuis 1 
 	Topik Kuis 1: _Query Processing; Query Optimization_
 	- [[Latihan Soal Kuis 1.1]]
+	- [[Latihan Soal Kuis 1.2]]
 - ## SQL Performance Tuning
 	- [[Tuning Indeks dan Ekspresi Kondisional]]
 	- [[Formulasi Query yang Efisien]]

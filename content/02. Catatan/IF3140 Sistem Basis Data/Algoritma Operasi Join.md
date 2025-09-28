@@ -48,7 +48,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > - **Kekurangan:** Sangat tidak efisien dan mahal.
 > >     
 > > - **Estimasi Biaya (Worst Case):** $n_r * b_s + b_r$ transfer blok, di mana $n_r$ adalah jumlah record di relasi r dan $b_s$ adalah jumlah blok di relasi s.
-> >     
+> > - **Best Case**: Jika relasi luar $r$ sangat kecil.
+> > - **Worst Case**:  Jika $r$ dan $s$ sama-sama besar.
 > > 
 > > ### Block Nested-Loop Join
 > > 
@@ -59,7 +60,9 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > - **Estimasi Biaya (Worst Case):** $b_r * b_s + b_r$ transfer blok.
 > >     
 > > - **Optimasi:** Alokasikan $M-2$ blok memori untuk relasi luar, sehingga dapat membaca $M-2$ blok sekaligus dan mengurangi jumlah pemindaian relasi dalam. Biaya menjadi $\lceil b_r / (M-2) \rceil * b_s + b_r$.
-> >     
+> >
+> > - **Best Case**: Jika relasi luar $r$ yang dipilih sangat kecil, sehingga muat dalam memori yang tersedia ($b_r \leq M  - 2$).
+> > - **Worst Case**:  Jika $r$ dan $s$ sama-sama besar.
 > > 
 > > ### Indexed Nested-Loop Join
 > > 
@@ -70,7 +73,9 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > - **Cara Kerja:** Untuk setiap tuple di relasi luar (r), gunakan indeks pada relasi dalam (s) untuk langsung menemukan tuple yang cocok, tanpa perlu memindai seluruh relasi s.
 > >     
 > > - **Estimasi Biaya:** $b_r + n_r * c$, di mana `c` adalah biaya untuk mencari dan mengambil semua tuple yang cocok di `s` untuk satu tuple `r` menggunakan indeks.
-> >     
+> >   
+> > - **Best Case**: Jika relasi luar $r$ sangat kecil DAN indeks yang dipilih sangat **selektif** pada atribut join di relasi dalam $s$.
+> > - **Worst Case**:  Jika indeks relasi dalam $s$ TIDAK selektif.
 > > 
 > > ### Merge-Join
 > > 
@@ -83,7 +88,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >     2. **Merge:** Pindai kedua relasi yang sudah terurut secara bersamaan (mirip fase merge pada External Sort-Merge) untuk menemukan tuple yang cocok. Pointer akan bergerak maju secara sinkron di kedua relasi.
 > >         
 > > - **Estimasi Biaya (jika relasi sudah terurut):** $b_r + b_s$ transfer blok, karena setiap blok hanya perlu dibaca sekali. Jika belum terurut, biaya sorting harus ditambahkan.
-> >     
+> > - **Best Case**: Jika relasi luar $r$ dan relasi dalam $s$ sudah terurut.
+> > - **Worst Case**:  Jika $r$ dan $s$ tidak terurut.
 > > 
 > > ### Hash-Join
 > > 
@@ -109,7 +115,9 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > - **Penanganan Overflow:** Jika partisi $s_i$ tidak muat di memori, partisi tersebut dapat dipartisi ulang secara rekursif menggunakan fungsi hash lain, atau gunakan Block Nested-Loop Join untuk partisi yang meluap tersebut.
 > >     
 > > - **Estimasi Biaya (tanpa rekursi):** Sekitar $3(b_r + b_s)$ transfer blok (baca+tulis saat partisi, baca saat build/probe).
-> >     
+> > 
+> > - **Best Case**: Paling baik untuk **operasi _equi-join_ pada data besar dengan memori yang cukup**, dan ketika **fungsi hash mampu mendistribusikan kunci join secara merata** ke semua partisi. Distribusi yang merata memastikan tidak ada partisi yang "meluap" (_overflow_) dan setiap partisi dari relasi _build_ ($s_i$​) bisa dimuat ke memori saat fase _probe_. Varian _Hybrid Hash-Join_ memberikan optimasi lebih lanjut dalam skenario ini.
+> > - **Worst Case**: Ketika terjadi **kemiringan data (_data skew_) yang signifikan** pada atribut join. Ini berarti banyak sekali _record_ memiliki nilai atribut join yang sama. Akibatnya, fungsi hash akan menempatkan semua _record_ tersebut ke dalam satu partisi yang sama.
 > > 
 > > #### Hybrid Hash-Join
 > > 
