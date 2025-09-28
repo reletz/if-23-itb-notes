@@ -1,3 +1,5 @@
+_Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
+
 Bacalah Subab dibawah ini, dari buku **Automata Theory, Language, and Computation Introduction** _(terlampir):_
 
 - Algebraic Laws for Regular Expressions (Ch. 3.4)

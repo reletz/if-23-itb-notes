@@ -12,22 +12,20 @@ _Back to_ [[index]]
 	- [[Jaringan Interkoneksi dan Koherensi Cache]]
 	- [[Paradigma Software dan Pemrograman Paralel]]
 	- [[Analisis Performa Program Paralel]]
-- ## Distributed Memory System
-	_MPI_
+- ## Distributed Memory System - MPI
 	- [[Pengenalan MPI dan Komunikasi Point-to-Point]]
 	- [[Aplikasi Praktis MPI dan Penanganan IO]]
 	- [[Komunikasi Kolektif Fundamental]]
 	- [[Distribusi Data dan Operasi Vektor Paralel]]
 	- [[Tipe Data Turunan dan Evaluasi Kinerja]]
 	- [[Algoritma Paralel Lanjutan dan Keamanan Komunikasi]]
-- ## Shared Memory System
-	_Pthreads_
+- ## Shared Memory System - PThreads
 	- [[Pengenalan Shared Memory dan Pthreads]]
 	- [[Race Condition dan Critical Section]]
 	- [[Sinkronisasi dengan Mutex]]
 	- [[Produsen-Konsumen dan Semaphore]]
-	
-	 _OpenMP_
+
+- ## Shared Memory System - OpenMP
 	 - [[Pengenalan OpenMP dan Paralelisasi Sederhana]]
 	 - [[Paralelisasi Loop]]
 	 - [[Mengelola Data dan Sinkronisasi Sederhana]]

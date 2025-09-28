@@ -42,13 +42,9 @@ Kalau lupa SQL bisa ke [[IF2240 Basis Data]]
 	- [[Algoritma Optimisasi Berbasis Biaya]]
 	- [[Optimisasi Heuristik dan Struktur Optimizer]]
 	- [[Teknik Tambahan untuk Subkueri dan View]]
-- ## Latihan Soal Pra-Kuis 1
-	- [[Latihan Soal Intro dan Performance Tuning]]
-	- [[Latihan Soal Storage and File Structure]]
-	- [[Latihan Soal Indexing]]
-	- [[Latihan Soal Schema & Index Tuning]]
-	- [[Latihan Soal Query Processing]]
-	- [[Latihan Soal Query Optimization]]
+- ## Latihan Soal Pra-Kuis 1 
+	Topik Kuis 1: _Query Processing; Query Optimization_
+	- [[Latihan Soal Kuis 1.1]]
 - ## SQL Performance Tuning
 	- [[Tuning Indeks dan Ekspresi Kondisional]]
 	- [[Formulasi Query yang Efisien]]
@@ -60,6 +56,13 @@ Kalau lupa SQL bisa ke [[IF2240 Basis Data]]
 	- [[Enkripsi dan Keamanan Aplikasi]]
 - ## Transactions
 	- TBA
+- ## Latihan Soal Edunex Pra-UTS
+	- [[Latihan Soal Intro dan Performance Tuning]]
+	- [[Latihan Soal Storage and File Structure]]
+	- [[Latihan Soal Indexing]]
+	- [[Latihan Soal Schema & Index Tuning]]
+	- [[Latihan Soal Query Processing]]
+	- [[Latihan Soal Query Optimization]]
 - ## Concurrency Control
 	- TBA
 - ## Recovery System
