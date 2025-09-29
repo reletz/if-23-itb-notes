@@ -15,7 +15,7 @@ _Back to_ [[index]]
 	- [[Simulated Annealing]]
 	- [[Genetic Algorithm]]
 - ## Adversarial Search
-	- [[Adversarial Search]]
+	- [[Pengantar Adversarial Search]]
 	- [[Minimax Search]]
 	- [[Alpha-beta Search]]
 - ## Constraint Satisfaction Problem (CSP)
@@ -28,3 +28,13 @@ _Back to_ [[index]]
 	 _Materi: Pendahuluan - CSP_
 	- [[Pembahasan Kuis 1 2024.pdf]]
 	- [[Pembahasan Kuis 1 2023.pdf]]
+- ## Knowledge-Based System
+	- [[Pengantar Knowledge-Based System (KBS)]]
+	- [[Knowledge-Based Agent]]
+	- [[Arsitektur KBS]]
+	- [[Representasi Pengetahuan dalam KBS]]
+- ## Rule-Based System
+	 Bagian dari _Knowledge-Based System_
+	- [[Pengantar Rule-Based System (RBS)]]
+	- [[Forward Chaining]]
+	- [[Backward Chaining]]
