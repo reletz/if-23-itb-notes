@@ -1,5 +1,5 @@
 # Problem Set: Query Processing & Optimization
-_Back to _ [[IF3140 Sistem Basis Data]]
+_Back to_  [[IF3140 Sistem Basis Data]]
 
 Level: Menengah - Lanjutan
 
@@ -213,7 +213,7 @@ b. Estimasi Biaya Join:
 
 - Biaya Hash Join = 3×(bPelanggan​+bTransaksi​)=3×(5.000+50.000)=3×55.000=165.000 blok transfer.
 
-- Biaya Seleksi & Proyeksi: Biaya seleksi pada hasil join akan memerlukan pembacaan hasil join tersebut. Ukuran hasil join (kasus terburuk) adalah nTransaksi​ karena setiap transaksi pasti memiliki satu pelanggan. bhasil_join​≈bTransaksi​=50.000 blok.
+- Biaya Seleksi & Proyeksi: Biaya seleksi pada hasil join akan memerlukan pembacaan hasil join tersebut. Ukuran hasil join (kasus terburuk) adalah $n_{Transaksi}$​ karena setiap transaksi pasti memiliki satu pelanggan. $b_{hasil\_join}​≈b_{Transaksi​}=50.000$ blok.
 
 - Total Biaya: 165.000 (join) + 50.000 (seleksi) = 215.000 blok transfer. (Proyeksi dianggap pipelined).
 
@@ -236,10 +236,10 @@ c. Estimasi Tuple Hasil:
 a. **Pohon Aljabar Relasional Baru:**
 ```
 Πnama_pelanggan​
-
-|
-
-(σ_{pid=123}​(Transaksi)⋈_{uid}​σ_{kota=′Jakarta′}​(Pelanggan))
+			|
+		⋈uid
+		 / \
+(σ_{pid=123}​(Transaksi)) (​σ_{kota=′Jakarta′}​(Pelanggan))
 ```
 
 

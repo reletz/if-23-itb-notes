@@ -45,25 +45,25 @@ Anda adalah bagian dari tim pengembang Sistem Informasi Akademik (SIAK) di sebua
 
 - **Relasi Mahasiswa:**
     
-    - nMahasiswa​ = 40.000 tuple
+    - $n_{Mahasiswa}​ = 40.000$ tuple
         
-    - bMahasiswa​ = 4.000 blok
+    - $b_{Mahasiswa}​ = 4.000$ blok
         
-    - V(angkatan, Mahasiswa) = 10 (terdapat 10 angkatan unik)
+    - $V(angkatan, Mahasiswa) = 10$ (terdapat 10 angkatan unik)
         
 - **Relasi MataKuliah:**
     
-    - nMataKuliah​ = 500 tuple
+    - $n_{MataKuliah}​ = 500$ tuple
         
-    - bMataKuliah​ = 50 blok
+    - $b_{MataKuliah}​ = 50$ blok
         
 - **Relasi Nilai:**
     
-    - nNilai​ = 800.000 tuple
+    - $n_{Nilai}​ = 800.000$ tuple
         
-    - bNilai​ = 40.000 blok
+    - $b_{Nilai}​ = 40.000$ blok
         
-    - V(nilai_huruf, Nilai) = 5 (A, B, C, D, E)
+    - $V(nilai\_huruf, Nilai) = 5$ (A, B, C, D, E)
         
 - Distribusi data untuk semua atribut diasumsikan seragam.
     
@@ -80,7 +80,8 @@ Anda adalah bagian dari tim pengembang Sistem Informasi Akademik (SIAK) di sebua
 
 Seorang analis data ingin menjalankan query non-equi join untuk membandingkan IPK mahasiswa. Query-nya adalah:
 
-SELECT A.nama, B.nama FROM Mahasiswa A, Mahasiswa B WHERE A.ipk > B.ipk;
+
+`SELECT A.nama, B.nama FROM Mahasiswa A, Mahasiswa B WHERE A.ipk > B.ipk;`
 
 Dari tiga algoritma join utama (Nested-Loop Join, Hash Join, Merge Join), manakah yang **paling tidak cocok** (atau bahkan tidak bisa digunakan) untuk query ini? Jelaskan alasan teknisnya secara singkat.
 
@@ -90,11 +91,11 @@ Hitung dan bandingkan estimasi biaya (dalam jumlah blok transfer) untuk dua quer
 
 a. Mencari data mahasiswa spesifik berdasarkan NIM.
 
-SELECT * FROM Mahasiswa WHERE nim = '13523149';
+`SELECT * FROM Mahasiswa WHERE nim = '13523149';`
 
 b. Mencari semua mahasiswa dari angkatan 2023 ke atas.
 
-SELECT * FROM Mahasiswa WHERE angkatan >= 2023; (Asumsikan angkatan 2023 dan 2024 ada dalam data).
+`SELECT * FROM Mahasiswa WHERE angkatan >= 2023; (Asumsikan angkatan 2023 dan 2024 ada dalam data).`
 
 ## Bagian B: Soal Menengah (2 Soal)
 
@@ -131,7 +132,7 @@ Anda ditugaskan untuk mengoptimalkan query pencarian nama mahasiswa angkatan 202
 
 Query aljabar relasionalnya setelah mendorong seleksi ke bawah adalah:
 
-Πnama​((σangkatan=2022​(Mahasiswa))⋈(σnilai_huruf=′A′​(Nilai))⋈(σkode_mk=′IF3140′​(MataKuliah)))
+$$Π_{nama}​((σ_{angkatan=2022​}(Mahasiswa))⋈(σ_{nilai\_huruf=′A′}​(Nilai))⋈(σ_{kode\_mk=′IF3140′}​(MataKuliah)))$$
 
 Sebagai optimizer, Anda harus menentukan urutan join terbaik.
 
