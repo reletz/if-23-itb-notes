@@ -37,4 +37,5 @@ _Back to_ [[index]]
 	 Bagian dari _Knowledge-Based System_
 	- [[Pengantar Rule-Based System (RBS)]]
 	- [[Forward Chaining]]
+	- [[Latihan Forward Chaining]]
 	- [[Backward Chaining]]

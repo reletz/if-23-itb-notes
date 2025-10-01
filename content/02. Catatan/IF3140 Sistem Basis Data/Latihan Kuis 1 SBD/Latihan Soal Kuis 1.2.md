@@ -197,7 +197,9 @@ b. Estimasi Biaya:
 
 a. Query Versi JOIN:
 
-sql SELECT M.nama FROM Mahasiswa M JOIN Nilai N ON M.nim = N.nim WHERE N.kode_mk = 'IF3140';
+```sql 
+SELECT M.nama FROM Mahasiswa M JOIN Nilai N ON M.nim = N.nim WHERE N.kode_mk = 'IF3140';
+```
 
 b. Pohon Aljabar Relasional Optimal:
 

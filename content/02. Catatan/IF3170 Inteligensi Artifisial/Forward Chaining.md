@@ -57,6 +57,8 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > 
 > > Siklus ini akan berhenti jika _Conflict Set_ kosong (tidak ada lagi aturan yang bisa dieksekusi) atau jika kondisi terminasi tertentu terpenuhi.
 > > 
+> > ![[Pasted image 20251001073737.png]]
+> > 
 > > ### Strategi Resolusi Konflik (Conflict-Resolution Strategy)
 > > 
 > > Strategi ini sangat penting untuk menentukan perilaku sistem. Strategi ini dibagi menjadi dua kategori:
@@ -65,15 +67,20 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > 
 > > Strategi ini berlaku secara umum untuk semua aturan.
 > > 
-> > - **Refractoriness**: Strategi paling dasar. Sebuah aturan tidak akan dieksekusi lebih dari satu kali dengan set fakta yang persis sama. Ini mencegah sistem masuk ke dalam _infinite loop_ yang trivial.
+> > 1. **Refractoriness**: Strategi paling dasar. 
+> > > Sebuah aturan tidak akan dieksekusi lebih dari satu kali dengan set fakta yang persis sama. Ini mencegah sistem masuk ke dalam _infinite loop_ yang trivial.
 > >     
-> > - **Selection by Order**: Memilih aturan berdasarkan urutan.
+> > 2. **Selection by Order**:
+> > > Memilih aturan berdasarkan urutan.
 > >     
-> > - **Rule Order (FIFO)**: Aturan yang pertama kali masuk ke _Conflict Set_ yang akan dieksekusi. Urutan aturan di _Knowledge Base_ menjadi penting.
+> > 3. **Rule Order (FIFO)**:
+> > > Aturan yang pertama kali masuk ke _Conflict Set_ yang akan dieksekusi. Urutan aturan di _Knowledge Base_ menjadi penting.
 > >     
-> > - **Fact Recency (LIFO)**: Aturan yang dipicu oleh fakta yang paling baru ditambahkan ke _Working Memory_ yang akan dieksekusi. Ini membuat sistem lebih responsif terhadap perubahan terbaru.
+> > 4. **Fact Recency (LIFO)**:
+> > > Aturan yang dipicu oleh fakta yang paling baru ditambahkan ke _Working Memory_ yang akan dieksekusi. Ini membuat sistem lebih responsif terhadap perubahan terbaru.
 > >     
-> > - **Specificity**: Memilih aturan yang paling spesifik. Aturan yang memiliki lebih banyak kondisi di bagian LHS-nya dianggap lebih spesifik dan akan diprioritaskan. Tujuannya adalah mendahulukan kasus-kasus khusus sebelum menangani kasus umum.
+> > 5. **Specificity**: 
+> > > Memilih aturan yang paling spesifik. Aturan yang memiliki lebih banyak kondisi di bagian LHS-nya dianggap lebih spesifik dan akan diprioritaskan. Tujuannya adalah mendahulukan kasus-kasus khusus sebelum menangani kasus umum.
 > >     
 > > 
 > > #### 2. Local Control (Strategi Khusus)
