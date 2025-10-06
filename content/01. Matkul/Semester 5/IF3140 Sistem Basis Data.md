@@ -64,6 +64,9 @@ Kalau lupa SQL bisa ke [[IF2240 Basis Data]]
 	- [[Latihan Soal Schema & Index Tuning]]
 	- [[Latihan Soal Query Processing]]
 	- [[Latihan Soal Query Optimization]]
+- ## Cheatsheet PostgreSQL
+	- [[Cheatsheet Praktikum 0]]
+	- [[Cheatsheet Praktikum 1]]
 - ## Concurrency Control
 	- TBA
 - ## Recovery System
