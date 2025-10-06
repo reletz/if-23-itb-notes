@@ -24,7 +24,6 @@ _Back to_ [[index]]
 	- [[Race Condition dan Critical Section]]
 	- [[Sinkronisasi dengan Mutex]]
 	- [[Produsen-Konsumen dan Semaphore]]
-
 - ## Shared Memory System - OpenMP
 	 - [[Pengenalan OpenMP dan Paralelisasi Sederhana]]
 	 - [[Paralelisasi Loop]]
@@ -32,3 +31,5 @@ _Back to_ [[index]]
 	 - [[Penjadwal Loop dan Sinkronisasi Eksplisit]]
 	 - [[Paralelisme Tingkat Lanjut (Task & Sections)]]
 	 - [[Optimisasi dan Direktif Tambahan]]
+ - ## Latihan Soal
+	 - [[Latihan Soal Rabu - Paralelisasi]]
