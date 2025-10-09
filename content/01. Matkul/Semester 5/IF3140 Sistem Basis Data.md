@@ -46,6 +46,8 @@ Kalau lupa SQL bisa ke [[IF2240 Basis Data]]
 	Topik Kuis 1: _Query Processing; Query Optimization_
 	- [[Latihan Soal Kuis 1.1]]
 	- [[Latihan Soal Kuis 1.2]]
+	- [[Latihan Soal Query Processing]]
+	- [[Latihan Soal Query Optimization]]
 - ## SQL Performance Tuning
 	- [[Tuning Indeks dan Ekspresi Kondisional]]
 	- [[Formulasi Query yang Efisien]]
@@ -53,7 +55,7 @@ Kalau lupa SQL bisa ke [[IF2240 Basis Data]]
 	- [[Konsep Dasar Keamanan dan Otorisasi Database]]
 	- [[Model Kontrol Akses (Access Control Models)]]
 	- [[Implementasi Kontrol Akses dengan SQL]]
-	- [[Topik Lanjutan Keamanan (Statistical & Flow Control)]]
+	- [[Statistical & Flow Control]]
 	- [[Enkripsi dan Keamanan Aplikasi]]
 - ## Transactions
 	- TBA
@@ -64,9 +66,12 @@ Kalau lupa SQL bisa ke [[IF2240 Basis Data]]
 	- [[Latihan Soal Schema & Index Tuning]]
 	- [[Latihan Soal Query Processing]]
 	- [[Latihan Soal Query Optimization]]
-- ## Cheatsheet PostgreSQL
+	- [[Latihan Soal Database Security]]
+	- [[Latihan Soal Transactions]]
+- ## Cheatsheet Dan Latihan PostgreSQL
 	- [[Cheatsheet Praktikum 0]]
 	- [[Cheatsheet Praktikum 1]]
+	- [[Mock-up Praktikum 1]]
 - ## Concurrency Control
 	- TBA
 - ## Recovery System

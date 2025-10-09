@@ -46,20 +46,26 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >         
 > >     2. **Relation Level:** Hak istimewa yang berlaku spesifik untuk tabel atau view tertentu, seperti izin `SELECT` hanya pada tabel `MAHASISWA`.
 > >         
-> > - **Access Matrix Model:** Konsep ini secara logis merepresentasikan DAC. Matriks ini memiliki baris untuk **subjek** (pengguna, program) dan kolom untuk **objek** (tabel, view). Sel `M(i, j)` berisi daftar hak akses yang dimiliki subjek `i` terhadap objek `j`.
-> >     
+> > - **Access Matrix Model:** Konsep ini secara logis merepresentasikan DAC. Matriks ini memiliki baris untuk **subjek** (pengguna, program) dan kolom untuk **objek** (tabel, view). Sel `M(i, j)` berisi daftar hak akses yang dimiliki subjek `i` terhadap objek `j`. Contoh:
+> > 	
+> > |Subject / Object|Relasi Pegawai|Relasi Departemen|Relasi Lokasi|Relasi Jabatan|View PEGAWAI_DEVAN|View PEGAWAI_JABAR|View INFORMASI_SIP|
+> > |---|---|---|---|---|---|---|---|
+> > |**User Devan**|-|-|-|-|Read, Update (`SELECT`, `UPDATE`)|-|-|
+> > |**User Jimmy**|-|-|-|-|-|Read, Insert, Update (`SELECT`, `INSERT`, `UPDATE`)|-|
+> > |**User Karin**|Read (`SELECT`)|Read (`SELECT`)|Read (`SELECT`)|Read (`SELECT`)|-|-|Read (`SELECT`)|
+> > |**Program SIP**|-|-|-|-|-|-|Read (`SELECT`)|
 > > 
 > > ### Mandatory Access Control (MAC)
 > > 
 > > **Mandatory Access Control (MAC)** adalah model keamanan yang lebih ketat di mana hak akses tidak ditentukan oleh pemilik data, melainkan oleh kebijakan (_policy_) keamanan yang berlaku di seluruh sistem. Model ini biasa digunakan di lingkungan yang membutuhkan keamanan multilevel (misalnya, militer).
 > > 
-> > - **Klasifikasi Keamanan:** Setiap subjek (pengguna) dan objek (data) diberi label klasifikasi keamanan, seperti `Top Secret (TS)`, `Secret (S)`, `Confidential (C)`, dan `Unclassified (U)`.
+> > - **Klasifikasi Keamanan:** Setiap subjek (pengguna) dan objek (data) diberi label klasifikasi keamanan, seperti `Top Secret (TS)`, `Secret (S)`, `Confidential (C)`, dan `Unclassified (U)`.  Bentuk umum hirarkinya adalah `TS >= S >= C >= U`
 > >     
 > > - **Bell-LaPadula Model:** Model formal yang paling umum untuk MAC, dengan dua aturan utama:
 > >     
 > >     1. **Simple Security Property (No Read Up):** Seorang subjek hanya boleh membaca data dari level keamanan yang sama atau lebih rendah (`class(Subjek) ≥ class(Objek)`). Ini mencegah pengguna melihat data yang lebih rahasia dari levelnya.
 > >         
-> >     2. **Star Property (*-property / No Write Down):** Seorang subjek hanya boleh menulis data ke level keamanan yang sama atau lebih tinggi (`class(Subjek) ≤ class(Objek)`). Ini mencegah informasi rahasia bocor ke level yang kurang aman.
+> >     2. **Star Property (\*-property / No Write Down):** Seorang subjek hanya boleh menulis data ke level keamanan yang sama atau lebih tinggi (`class(Subjek) ≤ class(Objek)`). Ini mencegah informasi rahasia bocor ke level yang kurang aman.
 > >         
 > > 
 > > ### Role-Based Access Control (RBAC)
@@ -69,7 +75,14 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > - **Konsep Inti:** Permissions → Roles → Users.
 > >     
 > > - **Manajemen Terpusat:** Admin hanya perlu mengelola hak akses untuk setiap peran. Ketika pengguna berganti tugas, admin cukup mengubah peran pengguna tersebut, tanpa perlu mengubah satu per satu hak aksesnya.
-> >     
+> > 
+> > - **Pembuatan:** Role bisa dibuat dengan _keyword_ `GRANT` dan `REVOKE`. 
+> > 	```sql
+> > 	CREATE ROLE full_time;
+> > 	GRANT ROLE full_time TO employee1;
+> > 	REVOKE ROLE full_time FROM employee1;
+> > 	```
+> > 
 > > - **Hierarki Peran:** Peran dapat diorganisir secara hierarkis. Misalnya, peran `Manager` bisa mewarisi semua hak akses dari peran `Supervisor`, ditambah hak akses lainnya.
 > >     
 > > - **Keunggulan:** RBAC merupakan alternatif yang sangat baik karena lebih fleksibel daripada MAC dan lebih mudah dikelola dalam skala besar daripada DAC, terutama untuk aplikasi enterprise dan web.

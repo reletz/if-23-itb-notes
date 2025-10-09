@@ -31,5 +31,7 @@ _Back to_ [[index]]
 	 - [[Penjadwal Loop dan Sinkronisasi Eksplisit]]
 	 - [[Paralelisme Tingkat Lanjut (Task & Sections)]]
 	 - [[Optimisasi dan Direktif Tambahan]]
- - ## Latihan Soal
-	 - [[Latihan Soal Rabu - Paralelisasi]]
+ - ## Latihan Soal UTS
+	 - [[Latihan Soal 1 - Paralelisasi]]
+	 - [[Latihan Soal 2 - Paralelisasi]]
+	 - [[Latihan Soal 3 - Paralelisasi]]

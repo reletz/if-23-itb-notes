@@ -9,7 +9,7 @@ cssclasses:
 ---
 _Back to_ [[IF3140 Sistem Basis Data]]
 
-> [!cornell] Topic: Topik Lanjutan Keamanan (Statistical & Flow Control)
+> [!cornell] Topic: Statistical & Flow Control
 > 
 > > ## Questions/Cues
 > > 
@@ -25,7 +25,7 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >     
 > > - Apa saja dua jenis Covert Channel?
 > >     
-> 
+> >
 > > ## Reference Points
 > > 
 > > - Slides 37-43: Database Security.pdf

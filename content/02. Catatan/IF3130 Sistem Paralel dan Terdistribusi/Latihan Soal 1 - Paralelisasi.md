@@ -57,28 +57,9 @@ Jawab:
 		Dalam beberapa kasus, sulit untuk membagi pekerjaan secara merata (_perfectly balanced_) di antara semua _thread_. Beberapa _thread_ mungkin menyelesaikan tugas mereka lebih cepat daripada yang lain.
 		
         > **Manfaat:** Jika kita memiliki banyak _thread_ kecil (disebut juga _fine-grained threading_), pekerjaan dapat dialokasikan lebih dinamis. Setelah satu _thread_ selesai, ia bisa segera mengambil pekerjaan baru yang tersisa, daripada menunggu _thread_ lain yang memegang pekerjaan besar.
-
-3. Kode MPI di atas mengimplementasikan algoritma **pengurangan (reduction) paralel** untuk menghitung **jumlah total (_sum_) dari semua _rank_** prosesor (dari 0 hingga P−1). Ini adalah contoh dari pola komunikasi **Binary Tree Reduction** atau **Butterfly Communication Pattern** yang sering digunakan untuk operasi kolektif dalam komputasi paralel.
-	1. **Inisialisasi Nilai Awal:**
-	    
-	    - Setiap prosesor (berjumlah P) menginisialisasi variabel lokalnya, `myvalue`, dengan nilai **rank**-nya sendiri (`myvalue = rank`).
-	        
-	    - Tujuan akhir: Menghitung 0+1+2+..+(P−1).
-	        
-	2. **_Loop_ Logaritmik (Butterfly Pattern):**
-	    
-	    - Kode menggunakan _loop_ yang variabel `step`-nya berlipat ganda (`step = step * 2`) di setiap iterasi (1,2,4,8,…). Ini menunjukkan bahwa algoritma ini berjalan dalam **waktu logaritmik** terhadap jumlah prosesor.
-	        
-	    - Setiap langkah, pasangan prosesor dengan jarak `step` berkomunikasi dan menggabungkan hasilnya.
-	        
-	3. **Logika Pengiriman dan Penerimaan Data:**
-	    
-	    - Pengecekan `if((rank % (step * 2)) == 0)` memastikan hanya prosesor pada interval tertentu yang aktif di setiap langkah (misalnya, pada `step=1`, hanya rank genap; pada `step=2`, hanya rank kelipatan 4, dst.).
-	        
-	    - **Prosesor Pengirim:** Jika `isEven(rank/step)` bernilai **ganjil** (false), prosesor tersebut adalah pengirim (`MPI_Send`) dan mengirim `myvalue` ke rekannya. Setelah mengirim, prosesor tersebut keluar dari _loop_ (`break`).
-	        
-	    - **Prosesor Penerima:** Jika `isEven(rank/step)` bernilai **genap** (true), prosesor tersebut adalah penerima (`MPI_Recv`) dan menerima `myvalue` dari rekannya (`rank + step`). Nilai yang diterima kemudian **dijumlahkan** ke `myvalue` lokalnya (`myvalue += received`).
         
-	Setelah _loop_ selesai, hanya prosesor dengan `rank == 0` yang akan memegang hasil akhir dari penjumlahan tersebut (karena semua hasil diakumulasikan dan dikirim ke prosesor dengan rank terendah dalam setiap pasangan).
-	
-	Oleh karena itu, kode ini menghitung **jumlah total dari semua _rank_ prosesor** yang berpartisipasi dan mencetaknya hanya di prosesor `rank 0`.
+      > Secara umum, kalau threadnya kebanyakan (1000 thread banding 4 core, bisa overhead di *context switching* -> Kurang ada manfaatnya
+
+1. Ambil contoh P = 2. Berarti, P0 untuk step 1 akan menerima dari `rank+step`, yang mana adalah P1. Namun, P1 akan mengirim ke `rank+step`, yang artinya kirim ke P2 -> Blocking.
+	Kodenya error bruh!
+	Tapi kalau di blok else nya kita pakai `rank-step`, ini bisa berfungsi jadi Binary Tree Reduction.

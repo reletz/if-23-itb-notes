@@ -14,6 +14,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > 
 > > ## Questions/Cues
 > > 
+> > - Mengapa harus mempelajari keamanan database?
+> > 
 > > - Apa saja isu utama dalam keamanan database?
 > >     
 > > - Apa 3 ancaman utama terhadap database?
@@ -32,11 +34,23 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > - Slides 5-12: Database Security.pdf
 > >     
 > 
+> > 
+> > ### Tujuan
+> > - Memahami properti penting dalam keamanan database
+> > - Meninjau _access control_ menggunakan _authorization-grant graph_
+> > - Memanajemen pengguna database 
+> > 
+> > ### Apa Saja Yang Dibahas Pada Keamanan Database?
+> > Keamanan database adalah serangkaian tindakan untuk melindungi database dari penggunaan yang tidak sah, penyalahgunaan, atau kerusakan. Isu yang ditangani mencakup aspek legal & etis, kebijakan institusional, hingga implementasi teknis pada level sistem, seperti:
+> > - Berbagai isu hukum dan etika terkait hak untuk mengakses informasi tertentu
+> > - Isu kebijakan di tingkat pemerintahan, kelembagaan, atau perusahaan mengenai jenis informasi apa yang tidak boleh dipublikasikan
+> > - Isu terkait sistem seperti tingkat sistem di mana berbagai fungsi keamanan harus ditegakkan
+> > - Kebutuhan di beberapa organisasi untuk mengidentifikasi beberapa tingkat keamanan dan mengkategorikan data dan pengguna berdasarkan klasifikasi tersebut
+> > 
 > > ### Isu dan Ancaman dalam Keamanan Database
 > > 
-> > Keamanan database adalah serangkaian tindakan untuk melindungi database dari penggunaan yang tidak sah, penyalahgunaan, atau kerusakan. Isu yang ditangani mencakup aspek legal & etis, kebijakan institusional, hingga implementasi teknis pada level sistem.
-> > 
 > > Ada tiga ancaman utama yang harus dimitigasi:
+> > ![[Pasted image 20251008211349.png]]
 > > 
 > > 1. **Loss of Confidentiality (Kehilangan Kerahasiaan):** Perlindungan data dari pengungkapan yang tidak sah. Contoh: Data gaji karyawan tidak boleh bisa diakses oleh semua orang.
 > >     
@@ -48,6 +62,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > ### Jenis-jenis Kontrol dan Mekanisme Keamanan
 > > 
 > > Untuk mengatasi ancaman, ada empat jenis tindakan kontrol utama:
+> > 
+> > ![[Pasted image 20251008211438.png]]
 > > 
 > > - **Access Control:** Mekanisme utama yang membatasi akses ke database, biasanya melalui akun pengguna dan kata sandi.
 > >     
