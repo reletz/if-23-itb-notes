@@ -79,11 +79,13 @@ Gambaran data:
 |---|---|---|---|
 |1234567891|Jonathan Christie|15 September 1997|Sangat Baik|
 |1235674120|Anthony Sinisuka|20 Oktober 1996|Baik|
+
 b. Edward sebagai U, berdasarkan Simple Security Property, hanya akan melihat (Read) atribut `Nama` dengan isi `Jonathan Christie`
 
 |Nama|
 |---|
 |Jonathan Christie|
+
 c. Tidak bisa, berdasarkan Star Property, Harry hanya diperbolehkan menulis dengan tingkatan yang setara atau lebih tinggi, yakni ke S atau TS.
 
 ![[Pasted image 20251009203005.png]]
