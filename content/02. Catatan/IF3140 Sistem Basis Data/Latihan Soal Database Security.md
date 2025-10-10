@@ -87,37 +87,35 @@ b. Edward sebagai U, berdasarkan Simple Security Property, hanya akan melihat (R
 c. Tidak bisa, berdasarkan Star Property, Harry hanya diperbolehkan menulis dengan tingkatan yang setara atau lebih tinggi, yakni ke S atau TS.
 
 ![[Pasted image 20251009203005.png]]
-1. 
-   ```sql
-   GRANT SELECT ON Instruktur, Pelajaran, Pengajaran TO User_A;
-   ```
 
-2. 
-   ```sql
-   CREATE ROLE head_instructor;
-   
-   GRANT INSERT, UPDATE, DELETE ON Instruktur TO head_instructor WITH GRANT OPTION;
-   
-   GRANT ROLE head_instructor TO User_B;
-   GRANT ROLE head_instructor TO User_C;
-   ```
+```sql
+GRANT SELECT ON Instruktur, Pelajaran, Pengajaran TO User_A;
+```
 
-3. 
-   ```sql
-   CREATE VIEW Pengajaran_Instruktur_12345_2014 AS (
-	   SELECT *
-	   FROM Pengajaran
-	   WHERE IDInstruktur = 12345 AND Tahun = 2014
-	 );
-	 GRANT SELECT ON Pengajaran_Instruktur_12345_2014 TO User_D;
-	   ```
+```sql
+CREATE ROLE head_instructor;
 
-4. 
-   ```sql
-   REVOKE SELECT ON Pengajaran FROM User_A
-   ```
+GRANT INSERT, UPDATE, DELETE ON Instruktur TO head_instructor WITH GRANT OPTION;
 
-5. 
-   ```sql
-   REVOKE INSERT, UPDATE, DELETE ON Instruktur FROM User_B CASCADE;
-   ```
+GRANT ROLE head_instructor TO User_B;
+GRANT ROLE head_instructor TO User_C;
+```
+
+```sql
+CREATE VIEW Pengajaran_Instruktur_12345_2014 AS (
+	SELECT *
+	FROM Pengajaran
+	WHERE IDInstruktur = 12345 AND Tahun = 2014
+);
+GRANT SELECT ON Pengajaran_Instruktur_12345_2014 TO User_D;
+```
+
+
+```sql
+REVOKE SELECT ON Pengajaran FROM User_A
+```
+
+
+```sql
+REVOKE INSERT, UPDATE, DELETE ON Instruktur FROM User_B CASCADE;
+```
