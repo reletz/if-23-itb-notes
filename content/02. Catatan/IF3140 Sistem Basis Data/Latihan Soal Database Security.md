@@ -108,9 +108,9 @@ c. Tidak bisa, berdasarkan Star Property, Harry hanya diperbolehkan menulis deng
 	   SELECT *
 	   FROM Pengajaran
 	   WHERE IDInstruktur = 12345 AND Tahun = 2014
-);
-GRANT SELECT ON Pengajaran_Instruktur_12345_2014 TO User_D;
-   ```
+	 );
+	 GRANT SELECT ON Pengajaran_Instruktur_12345_2014 TO User_D;
+	   ```
 
 4. 
    ```sql
