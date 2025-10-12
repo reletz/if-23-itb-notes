@@ -72,6 +72,8 @@ Kalau lupa SQL bisa ke [[IF2240 Basis Data]]
 	- [[Cheatsheet Praktikum 0]]
 	- [[Cheatsheet Praktikum 1]]
 	- [[Mock-up Praktikum 1]]
+	- [[Cheatsheet Praktikum 2]]
+	- [[Mock-up Praktikum 2]]
 - ## Concurrency Control
 	- TBA
 - ## Recovery System
