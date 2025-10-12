@@ -4,7 +4,7 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 
 **Petunjuk Pengerjaan:**
 
-1. Gunakan database `dvdrental` yang telah disediakan.
+1. Gunakan database [dvdrental](dvdrental.sql) yang telah disediakan.
     
 2. Untuk setiap soal, sertakan query SQL yang Anda gunakan.
     
