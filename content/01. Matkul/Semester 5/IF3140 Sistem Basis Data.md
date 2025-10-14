@@ -58,7 +58,11 @@ Kalau lupa SQL bisa ke [[IF2240 Basis Data]]
 	- [[Statistical & Flow Control]]
 	- [[Enkripsi dan Keamanan Aplikasi]]
 - ## Transactions
-	- TBA
+	- [[Konsep Transaksi dan Properti ACID]]
+	- [[Transaction State, Concurrency, dan Scheduling]]
+	- [[Serializability]]
+	- [[Pemulihan dan Level Isolasi]]
+	- [[Implementasi Concurrency Control]]
 - ## Latihan Soal Edunex Pra-UTS
 	- [[Latihan Soal Intro dan Performance Tuning]]
 	- [[Latihan Soal Storage and File Structure]]
