@@ -3,9 +3,7 @@ cssclasses:
   - dashboard
 ---
 # Overview
-`> ## Halo! Selamat Datang Kembali! 👋🧠` 
-
-Ini dia pusat kendali untuk semua materi perkuliahan. Dari yang bikin kepala ngebul sampai yang bikin bilang "oooh gituuu".
+`> ## Rest In Peace, Dan ^^` 
 
 Semoga semua catatannya bermanfaat. Selamat belajar, ya!
 - ## Semester 3

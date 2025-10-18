@@ -31,6 +31,21 @@ _Back to_ [[index]]
 	 - [[Penjadwal Loop dan Sinkronisasi Eksplisit]]
 	 - [[Paralelisme Tingkat Lanjut (Task & Sections)]]
 	 - [[Optimisasi dan Direktif Tambahan]]
+- ## GPU - Fondasi dan Model Pemrograman
+	- [[Dasar GPGPU dan Arsitektur Heterogen]]
+	- [[Model Pemrograman CUDA - Host, Device, Kernel]]
+	- [[Hirarki Thread CUDA - Grid, Block, Thread]]
+	- [[Hirarki Memori CUDA - Global, Shared, Register, Constant]]
+- ## GPU - Model Eksekusi dan Hardware
+	- [[Model Eksekusi - SM, Warp, dan SIMT]]
+	- [[Kinerja Eksekusi dan Control Divergence]]
+	- [[Kinerja Memori dan Coalescing]]
+- ## GPU - Pola Algoritma Paralel dan Optimasi
+	- [[Tiled Algorithm dan Barrier Synchronization]]
+	- [[Reduksi]]
+	- [[Konvolusi]]
+	- [[Histogram dan Operasi Atomik]]
+
  - ## Latihan Soal UTS
 	 - [[Latihan Soal 1 - Paralelisasi]]
 	 - [[Latihan Soal 2 - Paralelisasi]]
