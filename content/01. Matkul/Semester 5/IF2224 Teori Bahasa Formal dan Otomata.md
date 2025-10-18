@@ -29,4 +29,12 @@ _Back to_ [[index]]
 	- [[Closure Properties, Pt 2]]
 	- [[Decision Properties (Sifat Keputusan)]]
 	- [[Minimasi DFA]]
-	- [[Latihan Soal Regex]]
+- ## Context-Free Grammar dan Parse Tree
+	- [[Pengenalan Context-Free Grammar (CFG) dan Derivasi]]
+	- [[Parse Tree (Pohon Penurunan)]]
+	- [[Ekuivalensi Parse Tree dan Derivasi]]
+- ## Lexical, Syntax, dan Semantic Analysis
+	- [[Fondasi Formal dan Hirarki Chomsky]]
+	- [[Struktur Compiler dan Fase Analisis]]
+	- [[Parsing Top-Down dan Masalah Rekursif Kiri]]
+	- [[Analisis Semantik]]
