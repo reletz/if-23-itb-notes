@@ -14,17 +14,37 @@ _Back to_ [[index]]
 	- [[Multiplexing dan Event Handling]]
 	- [[Thread vs Event]]
 	- [[Arsitektur Server di Dunia Nyata]]
+- ## Asynchronous Library
+	- [[Dasar-dasar Library Pemrograman Asynchronous]]
+	- [[Python Asyncio]]
 - ## API dan RPC
 	- [[Pengantar API, REST, dan Format Data]]
 	- [[Kelebihan HTTP dan Alternatif RPC]]
 	- [[Autentikasi dan Otorisasi API]]
 	- [[Apache Thrift]]
-	- [[Protocol Buffer dan gRPC]]
+	- [[Protobuf dan gRPC]]
 	- [[GraphQL]]
-- ## API Gateway dan Service Mesh
 	- [[API Getaway]]
 	- [[Service Mesh]]
-- ## Microservice
-	- [[Dasar-dasar Arsitektur Microservice]]
+- ## Microservices
+	- [[Monolith vs Microservices]]
 	- [[Prinsip Desain Aplikasi Modern (The 12-Factor App)]]
 	- [[Pola Dekomposisi dan Komposisi Service]]
+	- [[Pola Pengelolaan Data dan Ketahanan (Resiliency)]]
+	- [[Implementasi, Operasional, dan Tools of the Trade]]
+- ## Kubernetes
+	- [[Pengenalan dan Konsep Dasar Kubernetes]]
+	- [[Arsitektur Kubernetes - Control Plane dan Node]]
+	- [[API Kubernetes dan Pengelolaan Objek]]
+	- [[Namespace, Label, dan Metadata Objek]]
+- ## Message Orientation/Publish-Subscribe
+	- [[Fondasi Sistem Messaging dan Publish-Subscribe]]
+	- [[AMQP dan RabbitMQ - Arsitektur Smart Broker]]
+	- [[Apache Kafka - Arsitektur Log Terdistribusi]]
+	- [[Perbandingan Platform dan Protokol MQTT]]
+- ## Data Model dan Database
+	- [[Dari Model Relasional ke Dokumen]]
+	- [[Model Data Berbasis Graf]]
+	- [[Pengenalan Dunia NoSQL]]
+	- [[Mekanisme Scaling Database - Replikasi dan Partisi]]
+	- [[Konsekuensi Scaling - Konsistensi dan NoSQL]]
