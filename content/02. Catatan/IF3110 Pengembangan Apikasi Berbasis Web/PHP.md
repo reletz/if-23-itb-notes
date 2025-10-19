@@ -103,13 +103,17 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 > > 
 > > Array di PHP sebenarnya adalah sebuah **peta terurut (ordered map)**, yaitu tipe data yang mengasosiasikan _nilai_ dengan _kunci_. Ini membuatnya sangat fleksibel dan bisa digunakan sebagai:
 > > 
-> > - Array Terindeks (Indexed Array): Kunci berupa integer (otomatis).
+> > - **Array Terindeks (Indexed Array):** Kunci berupa integer (otomatis).
 > >     
+> >     ```php
 > >     $buah = array("Apel", "Jeruk", "Mangga"); atau $buah = ["Apel", "Jeruk"];
+> >     ```
 > >     
-> > - Array Asosiatif (Associative Array): Kunci berupa string.
-> >     
+> > - **Array Asosiatif (Associative Array):** Kunci berupa string.
+> > 
+> >     ```php
 > >     $pengguna = array("nama" => "Budi", "umur" => 25);
+> >     ```
 > >     
 > > - **Array Multidimensi:** Array yang berisi array lain.
 > >     

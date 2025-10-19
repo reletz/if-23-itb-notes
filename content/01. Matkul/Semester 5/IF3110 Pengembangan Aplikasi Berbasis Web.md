@@ -19,3 +19,9 @@ _Back to_ [[index]]
 	- [[Akses Data]]
 	- [[Otentikasi Pengguna]]
 	- [[Web Service]]
+- ## Client-Side Technique
+	- [[Responsive Web Design (RWD)]]
+	- [[Progressive Web App (PWA)]]
+	- [[Web Accessibility]]
+- ## Latihan UTS
+	- [[03. Attachments/WBD/WBD UTS.pdf]]

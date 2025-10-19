@@ -118,6 +118,8 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 > >
 > > CSS Box Model: Setiap elemen HTML pada dasarnya adalah sebuah "kotak". Kotak ini terdiri dari empat lapisan dari dalam ke luar: Content (konten teks/gambar), Padding (ruang di sekitar konten, di dalam batas), Border (garis batas), dan Margin (ruang di luar batas, memisahkan elemen dengan yang lain).
 > >
+> >![[Pasted image 20251019221744.png]]
+> >
 > > **Display Property:** Mengontrol bagaimana elemen ditampilkan dan berinteraksi dengan elemen lain. Nilai yang umum adalah:
 > >
 > > - `block`: Memulai di baris baru dan mengambil lebar penuh.
@@ -134,6 +136,8 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 > > **Flexbox:** Sebuah model layout _satu dimensi_ (baik baris atau kolom) yang sangat efektif untuk mengatur, menyelaraskan, dan mendistribusikan ruang di antara item dalam sebuah container.
 > >
 > > **Grid:** Sebuah model layout _dua dimensi_ (baris dan kolom), yang dirancang untuk layout halaman yang lebih kompleks dan terstruktur.
+> > 
+> > ![[Pasted image 20251019221837.png]]
 
 > [!cornell] #### Summary
 > **CSS** adalah bahasa styling yang bekerja dengan menargetkan elemen HTML di dalam DOM dan menerapkan aturan visual pada mereka. Browser menggunakan algoritma Cascade dan Specificity untuk menentukan aturan mana yang akan diterapkan jika terjadi konflik. Konsep fundamental dalam layout CSS adalah Box Model, yang mendefinisikan setiap elemen sebagai sebuah kotak dengan content, padding, border, dan margin. Untuk menciptakan layout yang **modern dan responsif, CSS menyediakan sistem layout yang kuat seperti Flexbox (untuk layout satu dimensi) dan Grid (untuk layout dua dimensi).**

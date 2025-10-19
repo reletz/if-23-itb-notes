@@ -72,13 +72,15 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 > >     
 > >     - Di dalam form HTML:
 > >         
+> >         ```html
 > >         <input type="hidden" name="user_id" value="99">
+> >         ```
 > >         
 > >     - Di skrip PHP yang memproses form, data diambil menggunakan $_POST (jika method="post"):
-> >         
+> > 
+> >         ```php
 > >         $userId = $_POST['user_id']; // $userId akan berisi '99'
-> >
-> >		![[Pasted image 20250929075504.png]]
+> >         ```
 > >         
 > > 
 > > ### Teknik 3: Cookies

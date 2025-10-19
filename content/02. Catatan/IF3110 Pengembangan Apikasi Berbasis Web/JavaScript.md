@@ -149,17 +149,17 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 > > 
 > > - JavaScript pada dasarnya _single-threaded_. Untuk mencegah operasi yang lama (seperti request network) memblokir seluruh halaman, JS menggunakan model _asynchronous_ dengan **Event Loop**.
 > >     
-> > - **Event Loop:** Sebuah proses yang terus-menerus memeriksa **message queue** (antrian tugas). Jika **call stack** (tumpukan eksekusi) kosong, ia akan mengambil tugas dari antrian dan menjalankannya.
-> >     
+> > - **Event Loop:** Sebuah proses yang terus-menerus memeriksa **message queue** (antrian tugas). Jika **call stack** (tumpukan eksekusi) kosong, ia akan mengambil tugas dari antrian dan menjalankannya.     
 > >
 > > ### Mengelola Asynchronous: Callback, Promise, Async/Await
 > > 
-> > - **Callback:** Sebuah fungsi yang dilewatkan sebagai argumen ke fungsi lain, untuk dieksekusi nanti setelah operasi selesai. Penggunaan callback yang berlebihan dapat menyebabkan "Callback Hell" (kode yang sulit dibaca).
+> > - **Callback:** Sebuah fungsi yang dilewatkan sebagai argumen ke fungsi lain, untuk dieksekusi nanti setelah operasi selesai. Penggunaan callback yang berlebihan dapat menyebabkan "Callback Hell"/"Pyramid of Doom" (kode yang sulit dibaca).
 > >     
 > > - **Promise:** Sebuah objek yang merepresentasikan hasil dari operasi asynchronous yang akan selesai di masa depan. Sebuah Promise memiliki tiga state: _pending_ (menunggu), _fulfilled_ (berhasil), atau _rejected_ (gagal). `then()` digunakan untuk menangani hasil sukses, dan `catch()` untuk menangani kegagalan. Ini membuat kode lebih rapi daripada callback.
 > >     
 > > - **`async/await`:** Sintaks modern yang dibangun di atas Promise. Kata kunci `async` membuat sebuah fungsi mengembalikan Promise. Kata kunci `await` digunakan di dalam fungsi `async` untuk menunggu sebuah Promise selesai, membuat kode asynchronous terlihat dan terasa seperti kode synchronous, sehingga jauh lebih mudah dibaca dan dikelola.
-> >     
+> > 
+> > ![[Pasted image 20251019224222.png]]
 
 > [!cornell] #### Summary
 > JavaScript adalah bahasa dinamis single-threaded yang menghidupkan web melalui manipulasi DOM dan penanganan event. Untuk menangani operasi yang memakan waktu tanpa memblokir antarmuka pengguna, JS menggunakan model asynchronous berbasis Event Loop. Pola modern untuk mengelola asynchronous telah berevolusi dari Callback menjadi Promise yang lebih terstruktur, dan disederhanakan lebih lanjut dengan sintaks `async/await` yang intuitif, memungkinkan penulisan kode non-blocking yang bersih dan mudah dibaca.

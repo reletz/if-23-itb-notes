@@ -48,7 +48,36 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 > >     
 > > - Menyediakan akses terprogram ke data atau fungsionalitas.
 > >     
+> > ### Web Service Protocol Stack
+> > ![[Pasted image 20251020022814.png]]
 > > 
+> > **1. Transport Protocol (Lapisan Transportasi)**
+> > - Ini adalah lapisan terbawah dan paling dasar. Fungsinya adalah untuk **mengirimkan pesan** antar aplikasi melalui jaringan. Protokol pada lapisan ini bertanggung jawab atas koneksi dan transfer data aktual.
+> > - **Contoh Protokol:**
+> > 	- **HTTP** (Hypertext Transfer Protocol): Paling umum digunakan dalam layanan web (terutama REST dan SOAP).
+> > 	- **SMTP** (Simple Mail Transfer Protocol): Digunakan untuk mengirim pesan melalui email.
+> > 	- **FTP** (File Transfer Protocol): Digunakan untuk transfer file.
+> > 
+> > **2. Messaging Protocol (Lapisan Pesan)**
+> > - Lapisan ini menentukan **format** data dan **struktur** pesan yang dipertukarkan. Lapisan ini menggunakan layanan dari protokol Transportasi di bawahnya untuk mengirimkan pesan.
+> > - **Contoh Protokol:**
+> > 	- **SOAP** (Simple Object Access Protocol): Protokol berbasis XML yang mendefinisikan struktur pesan, _encoding_, dan bagaimana pesan dikirim.
+> > 	- **XML-RPC:** Protokol panggilan prosedur jarak jauh yang juga berbasis XML, tetapi lebih sederhana dari SOAP.
+> > 	- **WS-Addressing:** Spesifikasi untuk menambahkan informasi _addressing_ ke header pesan.
+> > 
+> > **3. Description Protocol (Lapisan Deskripsi)**
+> > - Lapisan ini menyediakan cara standar bagi penyedia layanan web untuk **menggambarkan** layanan yang mereka tawarkan (metode apa yang tersedia, parameter apa yang dibutuhkan, dan format _response_ apa yang akan diberikan).
+> > - **Contoh Protokol:**
+> > 	- **WSDL** (Web Services Description Language): Bahasa berbasis XML yang digunakan untuk mendeskripsikan layanan web dan bagaimana cara berinteraksi dengannya. Ini seperti "kontrak" layanan tersebut.
+> > 
+> > **4. Discovery Protocol (Lapisan Penemuan)**
+> > - Ini adalah lapisan teratas. Fungsinya adalah untuk memungkinkan _client_ **menemukan** layanan web yang mereka butuhkan. Penyedia layanan mendaftarkan layanan mereka ke direktori publik agar dapat ditemukan.
+> > - **Contoh Protokol:**
+> > 	- **UDDI** (Universal Description, Discovery, and Integration): Direktori standar yang memungkinkan perusahaan mendaftarkan layanan web mereka dan bagi _client_ untuk mencari layanan berdasarkan kategori.
+> > 
+> > 
+> > **Singkatnya:** Stack ini bergerak dari koneksi fisik (**Transport**), menentukan format komunikasi (**Messaging**), mendefinisikan kemampuan layanan (**Description**), hingga memungkinkan layanan ditemukan di jaringan (**Discovery**).
+> >
 > > ### Arsitektur Berorientasi Layanan (SOA)
 > > 
 > > Web service adalah implementasi dari **SOA (Service-Oriented Architecture)**. Model ini memisahkan peran menjadi tiga:

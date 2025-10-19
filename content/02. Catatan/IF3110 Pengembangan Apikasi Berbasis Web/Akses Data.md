@@ -97,7 +97,7 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 > >     
 > > - Read (SELECT): Mengambil data.
 > >     
-> >     ```
+> >     ```php
 > >     $q = $db->query('SELECT dish_name, price FROM dishes');
 > >     ```
 > >     
@@ -112,9 +112,9 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 > > 
 > > Contoh Bahaya:
 > > 
-> > Misalkan `$_POST['name'] berisi ' OR '1'='1'. Jika query-nya adalah "SELECT * FROM users WHERE name = '{$_POST['name']}'`", maka query finalnya menjadi SELECT * FROM users WHERE name = '' OR '1'='1', yang akan mengembalikan semua data pengguna.
+> > Misalkan `$_POST['name'] berisi ' OR '1'='1'`. Jika query-nya adalah `"SELECT * FROM users WHERE name = '{$_POST['name']}'`", maka query finalnya menjadi `SELECT * FROM users WHERE name = '' OR '1'='1'`, yang akan mengembalikan semua data pengguna.
 > > 
-> > Solusi: Prepared Statements
+> > **Solusi: Prepared Statements**
 > > 
 > > Prepared statements adalah cara paling aman untuk menjalankan query.
 > > 
@@ -122,13 +122,17 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 > >     
 > > - **Implementasi di PDO:**
 > >     
-> >     1. prepare(): Menyiapkan template query dengan placeholder (?).
+> >     1. `prepare()`: Menyiapkan template query dengan placeholder (?).
 > >         
-> >         `$stmt = $db->prepare('INSERT INTO dishes (dish_name) VALUES (?)');`
+> >         ```php
+> >         $stmt = $db->prepare('INSERT INTO dishes (dish_name) VALUES (?)');
+> >         ```
 > >         
-> >     2. execute(): Menjalankan query dengan menyertakan data input dalam sebuah array.
+> >     1. `execute()`: Menjalankan query dengan menyertakan data input dalam sebuah array.
 > >         
-> >         `$stmt->execute(array($_POST['dish_name']));`
+> >         ```php
+> >         $stmt->execute(array($_POST['dish_name']));
+> >         ```
 > >         
 > > 
 > > ### Mengakses File System

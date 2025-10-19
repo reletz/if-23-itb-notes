@@ -134,7 +134,7 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 > > ```js
 > > async function getData() {
 > > 	try {
-> > 		const response = await fetch('[https://api.example.com/data.json](https://api.example.com/data.json)');
+> > 		const response = await fetch('https://api.example.com/data.json');
 > >     
 > > 		if (!response.ok) {
 > > 			throw new Error(`HTTP error! status: ${response.status}`);

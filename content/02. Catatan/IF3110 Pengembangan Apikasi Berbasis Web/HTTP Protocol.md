@@ -122,6 +122,18 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 > >- **Response Headers:** Spesifik untuk response (misal: `Server`, `Location`, `Set-Cookie`).
 > >   
 > > - **Entity Headers:** Mendeskripsikan _message body_ (misal: `Content-Type`, `Content-Length`, `Last-Modified`).
+> >
+> > |**Header Variable**|**Fungsi Utama**|**HTTP Request **|**HTTP Response **|
+> >|---|---|---|---|
+> >|**Content-Length**|Menunjukkan ukuran _body_ pesan (penting saat mengirim POST/PUT atau respons).|✅|✅|
+> >|**Content-Type**|Menunjukkan format data di _body_ (misalnya, `application/json`, `text/html`).|✅|✅|
+> >|**Set-Cookie**|Menginstruksikan _browser_ untuk menyimpan _cookie_ baru.|❌|✅|
+> >|**User-Agent**|Mengidentifikasi _client_ (jenis _browser_, sistem operasi).|✅|❌|
+> >|**Cookie**|Mengirimkan _cookie_ yang tersimpan kembali ke _server_.|✅|❌|
+> >|**Last-Modified**|Menunjukkan kapan sumber daya terakhir dimodifikasi di _server_.|❌|✅|
+> >|**Accept**|Memberi tahu _server_ format data apa yang diterima _client_ (misalnya, `application/json`).|✅|❌|
+> >|**Authorization**|Mengirimkan kredensial otentikasi (misalnya, _Bearer Token_).|✅|❌|
+> >|**Location**|Digunakan untuk pengalihan (_redirect_).|❌|✅|
 > >    
 > >
 > > ### Caching Control & Persistent Connection

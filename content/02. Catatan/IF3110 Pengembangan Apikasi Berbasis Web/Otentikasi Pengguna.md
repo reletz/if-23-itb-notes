@@ -52,17 +52,17 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 > > 
 > > Proses otentikasi paling umum di aplikasi web, terutama yang berbasis database, mengikuti alur berikut:
 > > 
-> > 4. **Tampilkan Form Login:** Pengguna melihat halaman dengan input untuk username dan password.
+> > 1. **Tampilkan Form Login:** Pengguna melihat halaman dengan input untuk username dan password.
 > >     
-> > 5. **Kirim Kredensial:** Pengguna mengirimkan form. Data dikirim ke server.
+> > 2. **Kirim Kredensial:** Pengguna mengirimkan form. Data dikirim ke server.
 > >     
-> > 6. **Verifikasi di Server:** Server memeriksa kredensial yang dikirim dengan data yang tersimpan di database.
+> > 3. **Verifikasi di Server:** Server memeriksa kredensial yang dikirim dengan data yang tersimpan di database.
 > >     
-> > 7. **Buat Sesi (Session):** Jika kredensial valid, server memulai sebuah sesi dan menyimpan penanda identitas pengguna (misalnya, username atau ID) di `$_SESSION`.
+> > 4. **Buat Sesi (Session):** Jika kredensial valid, server memulai sebuah sesi dan menyimpan penanda identitas pengguna (misalnya, username atau ID) di `$_SESSION`.
 > >     
-> > 8. **Pemeriksaan Sesi:** Pada setiap permintaan berikutnya dari pengguna ke halaman yang dilindungi, server akan memeriksa apakah ada sesi yang valid.
+> > 5. **Pemeriksaan Sesi:** Pada setiap permintaan berikutnya dari pengguna ke halaman yang dilindungi, server akan memeriksa apakah ada sesi yang valid.
 > >     
-> > 9. **Logout:** Saat pengguna keluar, sesi dihancurkan (`session_destroy()`) untuk menghapus status login.
+> > 6. **Logout:** Saat pengguna keluar, sesi dihancurkan (`session_destroy()`) untuk menghapus status login.
 > >     
 > > 
 > > ### Keamanan Password: Hashing dan Salting
@@ -78,7 +78,7 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 > > 
 > > Di PHP, fungsi `password_hash()` sudah secara otomatis menangani hashing dan salting dengan aman. Untuk memverifikasi, gunakan `password_verify()`.
 > > 
-> > ### Otentikasi Berbasis Database
+> > ### Otentikasi Berbasis Database: LDAP
 > > 
 > > Ini adalah metode di mana aplikasi memvalidasi kredensial pengguna terhadap tabel pengguna di databasenya sendiri.
 > > 
@@ -89,7 +89,21 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 > >     2. Gunakan `password_verify()` untuk membandingkan password yang dikirim dengan hash yang tersimpan di database.
 > >         
 > >     3. Jika cocok, buat sesi. Jika tidak, tampilkan pesan error.
-> >         
+> >   
+> > ```php
+> > $ldap = ldap_connect("ldap://ldap.mydomain.com") or die("Could not connect to LDAP server.");
+> > ldap_set_option($ldap, LDAP_OPT_PROTOCOL_VERSION, 3);
+> > ldap_set_option($ldap, LDAP_OPT_REFERRALS, 0);
+> > 
+> > $bind = @ldap_bind($ldap, $ldapuser, $ldappass);
+> > if ($bind) {
+> > 	$filter="(sAMAccountName=$username)";
+> > 	$result = ldap_search($ldap,"dc=MYDOMAIN,dc=COM",$filter);
+> > 	ldap_sort($ldap,$result,"sn");
+> > 	$info = ldap_get_entries($ldap, $result);
+> > 	if($info['count'] > 0)
+> > 		// exists entries
+> > ```
 > > 
 > > ### Otentikasi Eksternal: OAuth
 > > 
@@ -106,6 +120,8 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 > >     - **Authorization Server:** Server yang mengotentikasi pengguna (misal: Google).
 > >         
 > >     - **Resource Server:** Server yang menyimpan data pengguna (misal: Google).
+> >     
+> >     ![[Pasted image 20251019232319.png]]
 > >         
 > > - **Alur Sederhana:** Aplikasi Anda mengarahkan pengguna ke Google. Pengguna login di Google dan memberikan izin. Google kemudian memberikan "token" kepada aplikasi Anda yang bisa digunakan untuk mengakses data yang diizinkan.
 > >     
