@@ -7,7 +7,7 @@ _Back to_ [[index]]
 - ## Dasar Sistem Paralel
 	- [[Konsep Dasar dan Motivasi Komputasi Paralel]]
 	- [[Arsitektur dan Model Pemrograman Paralel]]
-- ## Hardware Sistem Paralel
+- ## Hardware Dan Software Sistem Paralel
 	- [[Arsitektur Hardware Paralel]]
 	- [[Jaringan Interkoneksi dan Koherensi Cache]]
 	- [[Paradigma Software dan Pemrograman Paralel]]
@@ -40,13 +40,21 @@ _Back to_ [[index]]
 	- [[Model Eksekusi - SM, Warp, dan SIMT]]
 	- [[Kinerja Eksekusi dan Control Divergence]]
 	- [[Kinerja Memori dan Coalescing]]
+
 - ## GPU - Pola Algoritma Paralel dan Optimasi
 	- [[Tiled Algorithm dan Barrier Synchronization]]
 	- [[Reduksi]]
 	- [[Konvolusi]]
 	- [[Histogram dan Operasi Atomik]]
-
+	- [[Rangkuman GPU]]
  - ## Latihan Soal UTS
 	 - [[Latihan Soal 1 - Paralelisasi]]
 	 - [[Latihan Soal 2 - Paralelisasi]]
 	 - [[Latihan Soal 3 - Paralelisasi]]
+ - ## Pembahasan UTS Terdahulu
+	 - [[UTS IF3130 2024-2025]]
+	 - [[UTS IF3130 2020-2021]]
+	 - [[UTS IF3130 2019-2020]]
+	 - [[UTS IF3130 2018-2019]]
+	 - [[UTS IF3130 2016-2017]]
+	 - [[UTS IF3130 2013-2016]]

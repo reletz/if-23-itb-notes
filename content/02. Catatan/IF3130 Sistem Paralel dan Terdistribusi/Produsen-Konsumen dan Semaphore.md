@@ -85,7 +85,26 @@ _Back to_ [[IF3130 Sistem Paralel dan Terdistribusi]]
 > > - **`sem_post(&my_sem);`**: Memberi sinyal atau menaikkan nilai.
 > >     
 > > - **`sem_destroy(&my_sem);`**: Membersihkan semaphore setelah selesai.
-> >     
+> > 
+> > ### Rangkuman:  Tabel Fungsi-Fungsi Penting Pthreads
+> > 
+> > |**Fungsi**|**Keterangan**|**Kapan Digunakan**|**Parameter Penting**|
+> > |---|---|---|---|
+> > |**Manajemen Thread**||||
+> > |`pthread_create`|Membuat dan memulai eksekusi sebuah _thread_ baru.|Ini adalah titik awal dari paralelisasi, di mana _main thread_ "melahirkan" _worker thread_ baru.|&thread_handle: Pointer ke pthread_t untuk menyimpan ID thread baru.<br><br>NULL: Atribut thread (biasanya default/NULL).<br><br>nama_fungsi: Pointer ke fungsi yang akan dijalankan oleh thread (harus void* func(void*)).<br><br>&args: Pointer ke argumen yang akan diberikan ke nama_fungsi.|
+> > |`pthread_join`|Memblokir _thread_ pemanggil (misal, _main_) sampai _thread_ yang dituju selesai.|**Wajib** dipanggil oleh _main thread_ untuk menunggu semua _worker thread_ selesai, memastikan semua pekerjaan tuntas sebelum program berakhir.|thread_handle: ID dari thread yang akan ditunggu.<br><br>NULL: Pointer untuk menyimpan nilai kembalian dari thread (opsional).|
+> > |**Sinkronisasi: Mutex**||||
+> > |`pthread_mutex_init`|Menginisialisasi variabel _mutex_ sebelum digunakan.|Harus dipanggil sekali untuk setiap _mutex_ sebelum _thread-thread_ dibuat.|&my_mutex: Pointer ke variabel pthread_mutex_t.<br><br>NULL: Atribut mutex (biasanya default/NULL).|
+> > |`pthread_mutex_lock`|Mengunci _mutex_. Jika _mutex_ sudah dikunci oleh _thread_ lain, _thread_ ini akan diblokir (menunggu).|Dipanggil **sebelum** memasuki _Critical Section_ untuk melindungi data bersama dari _race condition_.|`&my_mutex`: Pointer ke _mutex_ yang ingin dikunci.|
+> > |`pthread_mutex_unlock`|Melepaskan kunci _mutex_, memungkinkan _thread_ lain yang menunggu untuk mengambilnya.|Dipanggil **setelah** keluar dari _Critical Section_. Lupa memanggil ini akan menyebabkan _deadlock_.|`&my_mutex`: Pointer ke _mutex_ yang ingin dilepaskan.|
+> > |`pthread_mutex_destroy`|Membersihkan sumber daya yang digunakan oleh _mutex_.|Dipanggil setelah semua _thread_ selesai dan _mutex_ tidak lagi dibutuhkan.|`&my_mutex`: Pointer ke _mutex_ yang akan dihancurkan.|
+> > |**Sinkronisasi: Semaphore**||||
+> > |`sem_init`|Menginisialisasi sebuah _semaphore_ dengan nilai awal.|Untuk menyiapkan _semaphore_, misalnya dalam masalah Produsen-Konsumen, di mana kita perlu menghitung "slot kosong" dan "item terisi".|&my_sem: Pointer ke variabel sem_t.<br><br>0: Menandakan semaphore hanya untuk thread dalam proses ini.<br><br>initial_value: Nilai awal penghitung semaphore.|
+> > |`sem_wait`|Menunggu _semaphore_. Jika nilai _semaphore_ > 0, nilainya dikurangi 1 dan lanjut. Jika 0, _thread_ diblokir.|Digunakan oleh _thread_ yang perlu menunggu sebuah kondisi terpenuhi. Contoh: Konsumen memanggil `sem_wait` pada _semaphore_ "item terisi".|`&my_sem`: Pointer ke _semaphore_ yang akan ditunggu.|
+> > |`sem_post`|Memberi sinyal pada _semaphore_ (menaikkan nilainya sebanyak 1). Jika ada _thread_ yang menunggu, salah satunya akan dibangunkan.|Digunakan oleh _thread_ yang telah memenuhi sebuah kondisi. Contoh: Produsen memanggil `sem_post` pada _semaphore_ "item terisi" setelah menaruh item.|`&my_sem`: Pointer ke _semaphore_ yang akan diberi sinyal.|
+> > |`sem_destroy`|Membersihkan sumber daya yang digunakan oleh _semaphore_.|Dipanggil setelah _semaphore_ tidak lagi dibutuhkan.|`&my_sem`: Pointer ke _semaphore_ yang akan dihancurkan.|
+
+**Catatan Kompilasi:** Jangan lupa untuk menambahkan flag `-lpthread` saat mengompilasi program yang menggunakan Pthreads. Contoh: `gcc program.c -o program -lpthread`.
 
 > [!cornell] #### Summary
 > Ketika Mutex tidak cukup untuk mengatur masalah sinkronisasi yang bergantung pada urutan, Semaphores hadir sebagai solusi yang lebih kuat. Semaphore adalah penghitung atomik yang menggunakan operasi `sem_wait` (untuk menunggu/mengurangi) dan `sem_post` (untuk memberi sinyal/menambah) untuk mengelola akses ke sumber daya secara terkontrol, sehingga ideal untuk menyelesaikan masalah klasik seperti Produsen-Konsumen di mana satu thread harus menunggu sinyal dari thread lain.

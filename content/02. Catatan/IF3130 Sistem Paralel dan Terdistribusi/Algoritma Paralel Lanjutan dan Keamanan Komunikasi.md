@@ -69,6 +69,30 @@ _Back to_ [[IF3130 Sistem Paralel dan Terdistribusi]]
 > >     
 > > 3. **`MPI_Sendrecv`:** Ini adalah solusi yang paling elegan dan aman untuk pola komunikasi tukar data. Fungsi ini melakukan operasi `Send` dan `Receive` dalam satu panggilan atomik. MPI akan mengatur jadwal komunikasi secara internal untuk memastikan tidak terjadi deadlock. Ini sangat ideal untuk algoritma seperti Odd-Even Sort di mana setiap proses perlu mengirim dan menerima dari partnernya secara bersamaan.
 > >     
+> >  ### Rangkuman: Tabel Fungsi-Fungsi Penting MPI
+> >  
+>  > |**Fungsi**|**Keterangan**|**Kapan Digunakan**|**Parameter Penting**|
+>  > |---|---|---|---|
+>  > |**Manajemen Lingkungan**||||
+>  > |`MPI_Init`|Menginisialisasi lingkungan MPI.|**Wajib** dipanggil sekali di awal setiap program MPI.|`(NULL, NULL)`: Biasanya cukup diisi NULL.|
+>  > |`MPI_Finalize`|Membersihkan dan mematikan lingkungan MPI.|**Wajib** dipanggil sekali di akhir program, setelah semua fungsi MPI selesai.|-|
+>  > |**Identifikasi Proses**||||
+>  > |`MPI_Comm_size`|Mendapatkan total jumlah proses yang berjalan dalam sebuah komunikator.|Untuk mengetahui berapa banyak "pekerja" yang ada, biasanya untuk membagi tugas.|comm: Komunikator (hampir selalu MPI_COMM_WORLD).<br><br>&size: Pointer ke integer untuk menyimpan jumlah proses.|
+>  > |`MPI_Comm_rank`|Mendapatkan ID unik (rank) dari proses yang sedang menjalankan kode.|Kunci dari model SPMD. Digunakan dalam `if-else` untuk membedakan tugas proses master (rank 0) dan worker.|comm: Komunikator (MPI_COMM_WORLD).<br><br>&rank: Pointer ke integer untuk menyimpan rank proses ini.|
+>  > |**Komunikasi Point-to-Point**||||
+>  > |`MPI_Send`|Mengirim pesan dari satu proses ke satu proses lain (blocking).|Untuk mengirim data secara spesifik, misal worker mengirim hasil parsial ke master.|&data: Pointer ke variabel yang akan dikirim.<br><br>count: Jumlah elemen yang dikirim.<br><br>datatype: Tipe data (misal, MPI_INT, MPI_DOUBLE).<br><br>dest: Rank proses tujuan.<br><br>tag: "Label" pesan (integer) untuk membedakan jenis komunikasi.<br><br>comm: Komunikator.|
+>  > |`MPI_Recv`|Menerima pesan dari satu proses lain (selalu blocking).|Untuk menerima data spesifik, misal master menerima hasil dari worker.|&buffer: Pointer ke variabel untuk menyimpan data yang diterima.<br><br>count: Ukuran maksimal buffer.<br><br>datatype: Tipe data yang diharapkan.<br><br>source: Rank proses pengirim (bisa MPI_ANY_SOURCE).<br><br>tag: Tag yang diharapkan (bisa MPI_ANY_TAG).<br><br>comm: Komunikator.<br><br>&status: Informasi tentang pesan yang diterima (bisa MPI_STATUS_IGNORE).|
+>  > |**Komunikasi Kolektif**||||
+>  > |`MPI_Bcast`|(_Broadcast_) Mengirim satu pesan dari satu proses (root) ke semua proses lain.|Untuk distribusi data awal, seperti parameter input (`a`, `b`, `n`) dari master ke semua worker.|&data: Pointer ke data.<br><br>count: Jumlah elemen.<br><br>datatype: Tipe data.<br><br>root: Rank proses yang menjadi sumber data.<br><br>comm: Komunikator.|
+>  > |`MPI_Reduce`|Mengumpulkan data dari semua proses, melakukan operasi (misal, SUM), dan menyimpan hasil akhir di satu proses (root).|Untuk agregasi hasil akhir. Jauh lebih efisien daripada `Send/Recv` dalam loop.|&send_data: Data lokal dari setiap proses.<br><br>&recv_data: Variabel di proses root untuk menyimpan hasil.<br><br>count: Jumlah elemen.<br><br>datatype: Tipe data.<br><br>op: Operasi reduksi (MPI_SUM, MPI_MAX, MPI_MIN).<br><br>root: Rank proses tujuan.<br><br>comm: Komunikator.|
+>  > |`MPI_Scatter`|(_Sebar_) Memecah sebuah array di proses root dan mengirim setiap potongan ke setiap proses.|Untuk mempartisi data input (misal, sebuah vektor besar) agar setiap proses bisa mengerjakan bagiannya masing-masing.|&send_buf: Array lengkap di proses root.<br><br>send_count: Jumlah elemen yang dikirim ke setiap proses.<br><br>&recv_buf: Buffer di setiap proses untuk menerima potongan data.<br><br>recv_count: Jumlah elemen yang diterima.<br><br>root: Rank proses sumber.<br><br>comm: Komunikator.|
+>  > |`MPI_Gather`|(_Kumpul_) Kebalikan dari Scatter. Mengumpulkan potongan data dari setiap proses dan menyatukannya di proses root.|Untuk mengumpulkan hasil parsial dari setiap proses menjadi satu array utuh di proses master.|&send_data: Data lokal yang akan dikirim setiap proses.<br><br>send_count: Jumlah elemen yang dikirim.<br><br>&recv_buf: Array di root untuk menampung semua data.<br><br>recv_count: Jumlah elemen yang diterima dari setiap proses.<br><br>root: Rank proses tujuan.<br><br>comm: Komunikator.|
+>  > |`MPI_Allgather`|(_Kumpul Semua_) Seperti `MPI_Gather`, tetapi semua proses menerima salinan lengkap dari data yang terkumpul.|Ketika **semua proses** (bukan hanya master) butuh data lengkap untuk komputasi selanjutnya, contoh: perkalian matriks-vektor.|`&send_data`: Data lokal setiap proses. `send_count`: Jumlah elemen dikirim. `&recv_buf`: Buffer di **setiap** proses untuk menampung semua data. `recv_count`: Jumlah elemen diterima dari setiap proses. `comm`: Komunikator.|
+>  > |**Sinkronisasi & Keamanan**||||
+>  > |`MPI_Barrier`|Memblokir eksekusi. Tidak ada proses yang bisa lanjut sebelum semua proses dalam komunikator mencapai barrier ini.|Sangat penting saat mengukur waktu eksekusi untuk memastikan semua proses memulai "timer" secara bersamaan.|`comm`: Komunikator yang akan disinkronkan.|
+>  > |`MPI_Sendrecv`|Melakukan operasi `Send` dan `Recv` secara bersamaan dalam satu panggilan.|Solusi paling aman untuk menghindari **deadlock** pada pola komunikasi tukar data, seperti pada algoritma _Odd-Even Sort_.|Menggabungkan parameter dari `Send` dan `Recv` dalam satu fungsi.|
+>  > |**Lain-lain**||||
+>  > |`MPI_Wtime`|Mengembalikan waktu saat ini dalam detik (tipe `double`).|Untuk mengukur performa. Panggil sebelum dan sesudah kode yang ingin diukur, lalu hitung selisihnya.|-|
 
 > [!cornell] #### Summary
 > 
