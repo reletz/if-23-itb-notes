@@ -8,168 +8,134 @@ cssclasses:
 
 _Back to_ [[IF3130 Sistem Paralel dan Terdistribusi]]
 
-> [!cornell] Kinerja Eksekusi: Control Divergence dan Dampaknya pada Performa
+> [!cornell] Kinerja Memori Global: DRAM, Bursting, dan Memory Coalescing
 > 
 > > ## Questions/Cues
 > >
-> > - Apa itu Control Divergence?
+> > - Mengapa bandwidth DRAM penting?
 > >     
-> > - Mengapa Divergence buruk untuk performa?
+> > - Bagaimana cara kerja DRAM?
 > >     
-> > - Bagaimana GPU menangani Divergence?
+> > - Apa itu DRAM Bursting?
 > >     
-> > - Apa penyebab umum Divergence?
+> > - Apa itu DRAM Banks & Channels?
 > >     
-> > - Kapan sebuah `if` tidak menyebabkan Divergence?
+> > - Apa itu Memory Coalescing?
 > >     
-> > - Analisis Divergence: Penjumlahan Vektor
+> > - Mengapa Coalescing penting?
 > >     
-> > - Analisis Divergence: Perkalian Matriks
+> > - Bagaimana cara mengetahui akses _coalesced_?
 > >     
-> > - Apakah boundary check harus dihindari?
+> > - Contoh akses coalesced vs. non-coalesced
+> >     
+> > - Apa solusi untuk akses non-coalesced?
 > >     
 > >
 > > ## Reference Points
 > >
 > > - `7 - IF-3230-07-GPU-04-2022.pdf`
 > >     
-> > - `7 - IF-3230-07-GPU-07-2023.pdf`
-> >     
 > 
-> > ### Apa itu Control Divergence?
+> > ### Pentingnya Bandwidth Global Memory (DRAM)
 > >
-> > **Control Divergence** terjadi ketika _thread-thread_ di dalam satu **Warp** yang sama mengambil jalur eksekusi yang berbeda. Karena model eksekusi SIMT mengharuskan semua thread dalam satu Warp menjalankan instruksi yang sama pada satu waktu, perbedaan alur kontrol ini menciptakan masalah.
+> > Kinerja aplikasi GPU seringkali dibatasi oleh **bandwidth memori**—seberapa cepat data dapat dipindahkan antara DRAM (Global Memory) dan Streaming Multiprocessor (SM).
 > >
-> > Ini biasanya terjadi dalam struktur kontrol seperti:
-> >
-> > - Pernyataan `if-then-else`.
-> >     
-> > - Loop (`for`, `while`) yang jumlah iterasinya berbeda untuk setiap thread.
+> > - **Ideal vs. Realita**: Secara ideal, kita ingin data mengalir deras seperti air dari bendungan. Namun, pada kenyataannya, mengakses setiap data secara individual lebih mirip seperti menyedot minuman melalui sedotan. Kuncinya adalah mengambil data dalam jumlah besar sekaligus untuk memaksimalkan throughput.
 > >     
 > >
-> > ### Mengapa Divergence Buruk untuk Performa?
+> > ### Cara Kerja Perangkat Keras DRAM
 > >
-> > Control Divergence secara efektif **menghancurkan paralelisme** pada tingkat Warp. Ketika thread-thread dalam satu Warp "tidak setuju" ke mana harus pergi, GPU tidak dapat mengeksekusi semua jalur secara bersamaan. Akibatnya, eksekusi menjadi **tersialisasi**, yang berarti:
+> > Untuk memahami mengapa akses memori GPU memiliki karakteristik tertentu, kita perlu melihat cara kerja DRAM:
 > >
-> > - **Idle Threads**: Saat satu jalur dieksekusi, thread-thread yang seharusnya mengambil jalur lain menjadi tidak aktif (idle), menunggu giliran mereka.
+> > 1. **Core Array yang Lambat**: Inti chip DRAM (tempat data disimpan dalam kapasitor kecil) sebenarnya sangat lambat. Kecepatan antarmuka (pin) DRAM jauh lebih cepat daripada kecepatan inti internalnya (bisa 8x lebih cepat atau lebih).
 > >     
-> > - **Penurunan Throughput**: Unit komputasi tidak dimanfaatkan sepenuhnya karena hanya sebagian dari 32 thread dalam Warp yang bekerja pada satu waktu. Ini secara langsung mengurangi efisiensi dan performa.
+> > 2. **DRAM Bursting**: Untuk mengatasi kelambatan ini, DRAM dirancang untuk tidak membaca satu data, melainkan satu **blok data besar** sekaligus dari baris yang sama. Data ini dibaca dari inti yang lambat ke buffer internal berkecepatan tinggi, lalu dikirim keluar melalui antarmuka yang cepat secara berurutan. Proses ini disebut _bursting_. Artinya, mengambil satu `float` sama mahalnya dengan mengambil beberapa `float` di sekitarnya.
 > >     
-> >
-> > ### Bagaimana GPU Menangani Divergence?
-> >
-> > Perangkat keras menangani divergence dengan **mengeksekusi setiap jalur kontrol secara sekuensial**.
-> >
-> > 1. GPU pertama-tama akan mengeksekusi jalur pertama (misalnya, blok `then`), dengan hanya mengaktifkan thread-thread yang memenuhi kondisi tersebut. Thread lain di dalam Warp yang sama akan dinonaktifkan.
-> >     
-> > 2. Setelah jalur pertama selesai, GPU akan beralih dan mengeksekusi jalur kedua (misalnya, blok `else`), dengan mengaktifkan thread-thread yang mengambil jalur ini. Thread dari jalur pertama kini dinonaktifkan.
-> >     
-> > 3. Proses ini berlanjut sampai semua jalur yang berbeda di dalam Warp telah dieksekusi.
+> > 3. **DRAM Banks & Channels**: Untuk meningkatkan paralelisme akses, memori DRAM dibagi menjadi beberapa _channel_, dan setiap _channel_ dibagi lagi menjadi beberapa _bank_. Ini memungkinkan beberapa permintaan akses memori dilayani secara bersamaan, asalkan permintaan tersebut ditujukan ke bank yang berbeda.
 > >     
 > >
-> > Total waktu eksekusi untuk Warp yang divergen adalah **jumlah waktu dari semua jalur yang diambil**.
+> > ### Apa itu Memory Coalescing?
 > >
-> > ### Penyebab Umum Control Divergence
+> > **Memory Coalescing** adalah situasi ideal di mana **semua 32 thread dalam satu Warp** mengakses lokasi memori yang berdekatan dan selaras, sehingga permintaan akses mereka dapat dipenuhi oleh **satu transaksi DRAM burst tunggal**.
 > >
-> > Penyebab utamanya adalah kondisi percabangan (`if`) atau loop yang bergantung pada **ID unik thread**, seperti `threadIdx`.
-> >
-> > - **Contoh Penyebab Divergence**:
+> > - **Akses Coalesced (Efisien)**: Ketika 32 thread meminta 32 `float` yang berurutan, GPU dapat mengambil satu segmen memori 128-byte (32 * 4 byte) dalam satu kali permintaan. Seluruh data yang diambil digunakan. Bandwidth dimanfaatkan 100%.
 > >     
-> > ```cpp
-> > if (threadIdx.x > 2) { ... } 
+> >
+> > - **Akses Non-Coalesced / Un-coalesced (Tidak Efisien)**: Ketika 32 thread meminta data dari lokasi yang terpencar-pencar, GPU terpaksa mengeluarkan **beberapa transaksi DRAM burst**. Sebagian besar data yang diambil dalam setiap _burst_ akan dibuang karena tidak diminta oleh thread mana pun. Bandwidth terbuang sia-sia dan performa turun drastis.
+> >     
+> >
+> > ### Bagaimana Mengetahui Sebuah Akses Coalesced?
+> >
+> > Aturan praktis yang paling umum untuk array 1D adalah:
+> >
+> > Sebuah akses dikatakan _coalesced_ jika indeks yang diakses oleh thread-thread dalam satu warp berbentuk:
+> >
+> > ```
+> > A[ (ekspresi_dasar) + threadIdx.x ];
 > > ```
 > >
-> > Di dalam Warp pertama (thread 0-31), thread 0, 1, dan 2 akan mengambil jalur `else` (atau tidak melakukan apa-apa), sementara thread 3 hingga 31 akan mengambil jalur `then`. Ini menciptakan dua jalur berbeda dalam satu Warp, menyebabkan divergence.
+> > Di mana `ekspresi_dasar` adalah nilai yang **sama (warp-uniform)** untuk semua thread dalam warp tersebut. Ini memastikan bahwa `threadIdx.x` yang berurutan (0, 1, 2, ...) akan mengakses lokasi memori yang juga berurutan.
 > >
-> > - **Contoh TANPA Divergence**:
+> > ### Studi Kasus: Perkalian Matriks Naif
+> >
+> > Mari kita analisis pola akses memori pada kernel perkalian matriks dasar. Ingat bahwa matriks 2D disimpan dalam memori 1D secara _row-major_.
+> >
+> > `P[Row][Col] = M[Row][k] * N[k][Col];`
+> >
+> > - **Akses ke Matriks N (Coalesced)**:
+> >     
+> > 	- Indeks linear: `N[k * Width + Col]`.
+> > 	- `Col` dihitung sebagai `blockIdx.x * blockDim.x + threadIdx.x`.
+> > 	- `k * Width` dan `blockIdx.x * blockDim.x` adalah *ekspresi dasar* yang sama untuk semua thread dalam warp.
+> > 	- Karena `threadIdx.x` bertambah secara berurutan, thread-thread dalam warp akan mengakses **elemen-elemen yang berdekatan dalam satu baris** matriks N. Ini adalah akses yang **coalesced**.
+> > 
+> >
+> > - **Akses ke Matriks M (Non-Coalesced)**:
+> >     
+> > 	- Indeks linear: `M[Row * Width + k]`.
+> > 	- `Row` dihitung menggunakan `threadIdx.y` dan `blockIdx.y`. `k` adalah variabel loop.
+> > 	- Untuk thread-thread dalam satu warp, `threadIdx.x` berubah-ubah, tetapi `Row` tetap relatif konstan.
+> > 	- Akibatnya, thread-thread dalam satu warp akan mengakses elemen-elemen yang **terpencar dengan jarak `Width` byte** (mengakses kolom yang sama di baris yang berbeda). Ini adalah akses *strided* yang sangat **tidak efisien dan non-coalesced**.
+> > 
+> > ### Solusi: "Corner Turning" Menggunakan Shared Memory
+> >
+> > Pola akses yang buruk pada matriks M adalah penyebab utama performa rendah pada kernel naif. Teknik _tiling_ yang dibahas sebelumnya memecahkan masalah ini dengan sebuah strategi yang disebut **"corner turning"**:
+> >
+> > 1. **Muat secara Coalesced**: Muat _tile_ dari matriks M dan N ke dalam _shared memory_. Lakukan pemuatan ini dengan pola akses yang **selalu coalesced**. Ini mungkin berarti setiap thread memuat elemen yang berbeda dari yang akan ia proses nanti.
+> >     
+> > 2. **Sinkronisasi**: Gunakan `__syncthreads()` untuk memastikan seluruh _tile_ sudah ada di _shared memory_.
+> >     
+> > 3. **Akses dari Shared Memory**: Lakukan komputasi perkalian dengan mengakses data dari _shared memory_ yang super cepat. Karena data sudah ada di on-chip, pola akses (misalnya, mengakses kolom dari _tile_ M) tidak lagi menjadi masalah performa.
 > >     
 > >
-> > ```cpp
-> > if (blockIdx.x > 2) { ... }
-> > ```
-> >
-> > Kondisi ini tidak menyebabkan divergence karena `blockIdx.x` memiliki nilai yang **sama** untuk semua 32 thread di dalam satu Warp (karena semua thread dalam satu Warp berasal dari block yang sama). Oleh karena itu, semua thread dalam Warp tersebut akan mengambil keputusan yang sama serempak.
-> >
-> > ### Analisis Divergence: Penjumlahan Vektor
-> >
-> > Mari kita analisis kernel penjumlahan vektor dengan _boundary check_:
-> >
-> > ```CPP
-> > __global__ void vecAdd(float* C, ..., int n) {
-> >     int i = blockIdx.x * blockDim.x + threadIdx.x;
-> >     if (i < n) { // Potensi Divergence
-> >         C[i] = A[i] + B[i];
-> >     }
-> > }
-> > ```
-> >
-> > - **Skenario**: Vektor berukuran 1000 elemen, dengan block size 256. Ini membutuhkan 4 block (Block 0, 1, 2, 3).
-> >     
-> > - **Block 0, 1, 2**: Semua thread (i = 0..767) memenuhi kondisi `i < 1000`. **Tidak ada divergence** di sini.
-> >     
-> > - **Block 3**:
-> >     
-> >     - **Warp 0-6** (i = 768..991): Semua thread memenuhi kondisi `i < 1000`. **Tidak ada divergence**.
-> >         
-> >     - **Warp 7** (i = 992..1023): Thread dengan `i` dari 992 hingga 999 akan masuk ke blok `if`. Thread dengan `i` dari 1000 hingga 1023 **tidak** akan masuk. **Terjadi divergence** di sini.
-> >         
-> > - **Dampak**: Dari total 32 Warp yang dieksekusi (8 Warp/block * 4 block), hanya **satu Warp terakhir** yang mengalami divergence. Dampak performanya sangat kecil, kemungkinan di bawah 3%.
-> >     
-> >
-> > ### Analisis Dampak pada Perkalian Matriks
-> >
-> > Dalam perkalian matriks _tiled_ dengan ukuran arbitrer, _boundary check_ sangat diperlukan saat memuat data ke _shared memory_.
-> >
-> > ```cpp
-> > // Contoh boundary check saat loading tile
-> > if (Row < Height && Col < Width) {
-> >     ds_M[ty][tx] = M[...];
-> > } else {
-> >     ds_M[ty][tx] = 0.0;
-> > }
-> > ```
-> >
-> > - **Analisis**: Dampak divergence terjadi terutama pada **block-block di tepi matriks**. Block yang berada di tengah matriks tidak akan mengalami divergence sampai fase pemrosesan tile terakhir.
-> >     
-> > - **Hasil**: Untuk matriks berukuran besar, jumlah _warp_ yang memproses bagian tengah matriks (tanpa divergence) jauh lebih banyak daripada jumlah _warp_ yang memproses bagian tepi (dengan divergence).
-> >     
-> > - **Kesimpulan**: Seperti pada penjumlahan vektor, meskipun ada banyak pernyataan `if`, proporsi _warp_ yang benar-benar mengalami divergence relatif kecil. Untuk matriks 100x100 dengan tile 16x16, estimasi dampak performa kurang dari 12%. Untuk matriks yang lebih besar, persentasenya akan semakin kecil.
-> >     
-> >
-> > ### Apakah Boundary Check Harus Dihindari?
-> >
-> > **Tidak.** Pelajaran utamanya adalah:
-> >
-> > - _Boundary check_ sangat **penting** untuk memastikan fungsionalitas dan kebenaran program (robustness), terutama untuk menangani data dengan ukuran yang tidak pas.
-> >     
-> > - Dampak performa dari _control divergence_ yang disebabkan oleh _boundary check_ seringkali **tidak signifikan** untuk dataset yang besar.
-> >     
-> > - **Jangan ragu** untuk menggunakan _boundary check_ demi kebenaran kode. Manfaat dari kode yang benar jauh lebih besar daripada kerugian performa yang biasanya kecil.
-> >     
+> > Dengan cara ini, kita mengubah akses global memory yang lambat dan non-coalesced menjadi akses _shared memory_ yang cepat, meskipun pola aksesnya sendiri tidak berubah.
 
 > [!cornell] #### Summary
 > 
-> Control Divergence terjadi ketika thread-thread dalam satu Warp mengambil jalur eksekusi yang berbeda, yang memaksa GPU untuk menserialisasi eksekusi setiap jalur dan secara signifikan mengurangi paralelisme serta performa. Fenomena ini umumnya disebabkan oleh kondisi percabangan yang bergantung pada threadIdx. Meskipun merupakan masalah performa yang serius, dampak dari divergence yang disebabkan oleh boundary check yang esensial seringkali dapat diabaikan pada dataset besar, sehingga memprioritaskan kebenaran dan robustnes kode adalah pendekatan yang tepat.
+> Kinerja GPU sangat bergantung pada pemanfaatan bandwidth memori global (DRAM) secara efisien, yang dicapai melalui memory coalescing. Coalescing terjadi ketika semua thread dalam satu Warp mengakses lokasi memori yang berurutan, memungkinkan permintaan mereka dipenuhi oleh satu transaksi DRAM burst. Akses yang non-coalesced atau strided akan menyebabkan pemborosan bandwidth yang parah. Oleh karena itu, merancang kernel dengan pola akses data yang coalesced, atau menggunakan shared memory untuk memperbaiki pola akses yang buruk (corner turning), adalah salah satu teknik optimasi paling fundamental dan penting dalam pemrograman CUDA.
 
 > [!ad-libitum]- Additional Information
 > 
-> #### Predication
+> #### Aturan Coalescing pada Arsitektur Berbeda
 > 
-> GPU modern seringkali tidak benar-benar "menghentikan" thread yang tidak aktif selama divergence. Sebaliknya, mereka menggunakan teknik yang disebut **predication**. Instruksi untuk _kedua_ jalur (`then` dan `else`) akan dieksekusi oleh semua 32 thread dalam Warp. Namun, setiap thread memiliki "predicate flag" internal. Hasil dari sebuah instruksi hanya akan ditulis kembali ke register atau memori jika _predicate flag_ untuk thread tersebut aktif. Ini menghindari kompleksitas mengubah _program counter_ bolak-balik, tetapi tetap membuang-buang slot eksekusi karena instruksi yang dijalankan tidak menghasilkan output yang berguna untuk thread yang "tidak aktif".
+> Aturan untuk memory coalescing telah berevolusi seiring dengan arsitektur GPU:
 > 
-> #### Warp Uniformity
-> 
-> Sebuah nilai atau ekspresi dikatakan **warp-uniform** jika ia dievaluasi menghasilkan nilai yang sama untuk semua 32 thread di dalam satu Warp.
-> 
-> - `blockIdx`, `gridDim`, `blockDim` selalu warp-uniform.
+> - **Compute Capability 1.x (GPU Tua)**: Aturannya sangat ketat. Thread pertama dalam _half-warp_ (16 thread) harus mengakses alamat yang merupakan kelipatan dari ukuran segmen memori, dan semua thread lain harus mengakses lokasi yang berurutan setelahnya.
 >     
-> - Variabel yang dibaca dari _constant memory_ juga seringkali warp-uniform.
->     
-> - Variabel yang bergantung pada `threadIdx` **tidak** warp-uniform.
+> - **Compute Capability 2.x (Fermi) dan Lebih Baru**: Aturannya jauh lebih fleksibel. Selama thread-thread dalam satu Warp mengakses data yang berada dalam segmen L1 cache line (biasanya 128-byte), perangkat keras dapat "menggabungkan" permintaan tersebut. Urutan akses tidak lagi penting. Ini membuat pemrograman menjadi lebih mudah karena pola akses yang sedikit tidak teratur masih bisa mencapai coalescing penuh.
 >     
 > 
-> Aturan praktisnya: Jika kondisi dalam `if` atau loop Anda adalah ekspresi yang _warp-uniform_, maka tidak akan terjadi control divergence.
+> #### Aligned vs. Unaligned Access
 > 
-> #### Divergence dalam Algoritma Lain
+> Meskipun aturan coalescing modern lebih fleksibel, performa terbaik tetap dicapai ketika akses selaras (_aligned_). Ini berarti alamat awal dari segmen memori yang diakses oleh sebuah Warp adalah kelipatan dari ukuran segmen tersebut (misalnya, kelipatan 128). Jika aksesnya _unaligned_ (misalnya, dimulai dari alamat 4-byte), maka Warp tersebut mungkin perlu mengakses _dua_ segmen cache line 128-byte, yang mengakibatkan dua transaksi memori, meskipun semua thread mengakses data yang berdekatan.
 > 
-> Sementara _boundary check_ adalah sumber divergence yang jinak, ada beberapa pola algoritma paralel di mana divergence adalah masalah inti dan lebih sulit diatasi. Contoh klasiknya adalah **parallel reduction** (akan dibahas di catatan mendatang). Dalam implementasi reduksi yang naif, setelah setiap langkah, setengah dari thread menjadi tidak aktif. Ini menyebabkan divergence yang parah di setiap langkah dan utilisasi sumber daya yang sangat buruk. Mengatasi divergence semacam ini seringkali memerlukan perancangan ulang algoritma secara mendasar.
+> #### Eksplorasi Mandiri
+> 
+> - Coba modifikasi kernel penjumlahan vektor sederhana. Buat dua versi:
+>     
+>     1. **Coalesced**: `C[i] = A[i] + B[i];`
+>         
+>     2. **Strided (Non-coalesced)**: `C[i] = A[i * 2] + B[i * 2];` atau `C[i * 2] = A[i * 2] + B[i * 2];`
+>         
+> - Gunakan **NVIDIA Nsight Compute** (profiler) untuk menjalankan kedua kernel tersebut. Lihat metrik "Global Memory Load/Store Efficiency". Anda akan melihat efisiensi mendekati 100% untuk versi coalesced dan angka yang jauh lebih rendah untuk versi strided. Ini memberikan bukti nyata dampak dari coalescing.
+>
