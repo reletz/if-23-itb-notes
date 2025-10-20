@@ -20,3 +20,12 @@ _Back to_ [[index]]
 	- [[Dasar-Dasar Perencanaan Proyek dan Dokumen Awal]]
 	- [[Perencanaan Lingkup dan Jadwal Proyek (WBS & Scheduling)]]
 	- [[Dokumen Perencanaan Lanjutan dan Software Project Management Plan (SPMP)]]
+- ## Project Scope Management
+	- [[Pengantar, Perencanaan, dan Pengumpulan Kebutuhan]]
+	- [[Mendefinisikan Scope]]
+	- [[Membuat WBS]]
+	- [[Validasi dan Pengendalian Scope]]
+- ## Project Time Management
+	- [[Perencanaan Aktivitas Proyek]]
+	- [[Estimasi dan Jalur Kritis]]
+	- [[Pengembangan dan Pengendalian Jadwal]]
