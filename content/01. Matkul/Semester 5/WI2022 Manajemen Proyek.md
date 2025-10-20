@@ -29,3 +29,9 @@ _Back to_ [[index]]
 	- [[Perencanaan Aktivitas Proyek]]
 	- [[Estimasi dan Jalur Kritis]]
 	- [[Pengembangan dan Pengendalian Jadwal]]
+- ## Project Quality Management
+	- [[Fondasi dan Perencanaan]]
+	- [[Penjaminan, Pengendalian, dan Quality Tools]]
+- ## Project Risk Management
+	- [[Perencanaan dan Identifikasi Risiko Proyek]]
+	- [[Analisis, Respons, dan Pengendalian Risiko]]
