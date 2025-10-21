@@ -95,21 +95,21 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > 
 > > - **Kesesuaian dengan domain masalah**:
 > >     
-> > - _Decision Tree_ cocok untuk masalah klasifikasi.
-> >     
-> > - _Rule_ (aturan) bersifat umum dan bisa digunakan di banyak domain.
-> >     
+> > 	- _Decision Tree_ cocok untuk masalah klasifikasi.
+> > 	    
+> > 	- _Rule_ (aturan) bersifat umum dan bisa digunakan di banyak domain.
+> > 	    
 > > - **Kesesuaian dengan tugas (inferensi)**:
 > >     
-> > - _Decision Tree_ cocok untuk proses wawancara atau diagnosis bertahap.
-> >     
-> > - Model probabilitas cocok untuk pengambilan keputusan dalam ketidakpastian.
+> > 	- _Decision Tree_ cocok untuk proses wawancara atau diagnosis bertahap.
+> > 	    
+> > 	- Model probabilitas cocok untuk pengambilan keputusan dalam ketidakpastian.
 > >     
 > > - **Kesesuaian dengan pengguna (manusia atau mesin)**:
 > >     
-> > - _Semantic network_ lebih mudah dipahami oleh manusia secara visual.
-> >     
-> > - _Rule_ lebih mudah diproses oleh mesin.
+> > 	- _Semantic network_ lebih mudah dipahami oleh manusia secara visual.
+> > 	    
+> > 	- _Rule_ lebih mudah diproses oleh mesin.
 > >     
 
 > [!cornell] #### Summary

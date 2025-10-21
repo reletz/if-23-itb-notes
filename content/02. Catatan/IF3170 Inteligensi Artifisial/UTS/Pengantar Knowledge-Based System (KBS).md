@@ -77,23 +77,23 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > 
 > > - **Well-formed Problem (Masalah Terstruktur Baik)**:
 > >     
-> > - Solusinya pasti dan eksak.
-> >     
-> > - Tujuannya jelas (_explicit goal_).
-> >     
-> > - Operator atau langkah-langkah untuk mencapai tujuan sudah jelas (_explicit operator_).
-> >     
-> > - Contoh: Mengurutkan daftar angka, mencari rute terpendek di peta yang jelas.
+> > 	- Solusinya pasti dan eksak.
+> > 	    
+> > 	- Tujuannya jelas (_explicit goal_).
+> > 	    
+> > 	- Operator atau langkah-langkah untuk mencapai tujuan sudah jelas (_explicit operator_).
+> > 	    
+> > 	- Contoh: Mengurutkan daftar angka, mencari rute terpendek di peta yang jelas.
 > >     
 > > - **Ill-structured Problem (Masalah Tidak Terstruktur)**:
 > >     
-> > - Solusinya tidak pasti atau bisa ada banyak kemungkinan (_uncertain solution_).
-> >     
-> > - Tujuannya tidak terdefinisi dengan jelas (_undefined goal_).
-> >     
-> > - Operator atau cara untuk mencapai solusi tidak diketahui di awal (_unknown operator_).
-> >     
-> > - Contoh: Mendiagnosis penyakit berdasarkan gejala, memprediksi pergerakan pasar saham, atau merancang sebuah bangunan.
+> > 	- Solusinya tidak pasti atau bisa ada banyak kemungkinan (_uncertain solution_).
+> > 	    
+> > 	- Tujuannya tidak terdefinisi dengan jelas (_undefined goal_).
+> > 	    
+> > 	- Operator atau cara untuk mencapai solusi tidak diketahui di awal (_unknown operator_).
+> > 	    
+> > 	- Contoh: Mendiagnosis penyakit berdasarkan gejala, memprediksi pergerakan pasar saham, atau merancang sebuah bangunan.
 > >     
 
 > [!cornell] #### Summary

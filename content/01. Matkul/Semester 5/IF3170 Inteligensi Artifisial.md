@@ -17,7 +17,7 @@ _Back to_ [[index]]
 - ## Adversarial Search
 	- [[Pengantar Adversarial Search]]
 	- [[Minimax Search]]
-	- [[Alpha-beta Search]]
+	- [[Alpha-beta Pruning]]
 - ## Constraint Satisfaction Problem (CSP)
 	- [[Terminologi dalam CSP]]
 	- [[Inference dalam CSP]]
@@ -37,13 +37,14 @@ _Back to_ [[index]]
 	 Bagian dari _Knowledge-Based System_
 	- [[Pengantar Rule-Based System (RBS)]]
 	- [[Forward Chaining]]
-	- [[Latihan Forward Chaining]]
 	- [[Backward Chaining]]
-- ## KBA With Learning
+	- [[Latihan Forward Chaining]]
+- ## Intro to Learning
 	- [[Pengenalan dan Arsitektur Learning Agent]]
 	- [[Desain Learning Element dan Tipe Feedback]]
 	- [[Konsep Supervised Learning]]
 	- [[Studi Kasus Supervised Learning]]
+- ## Persiapan UTS
 - ## Data Science
 	- [[Pengantar dan Fase Pemahaman Bisnis]]
 	- [[Fase Pemahaman Data (Bagian A)]]

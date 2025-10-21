@@ -57,15 +57,15 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >     
 > > - **Sensors**: Sensor untuk menangkap persepsi di setiap ruangan:
 > >     
-> > - **Stench** (bau busuk): Jika berada di ruangan yang bersebelahan (atas, bawah, kiri, kanan) dengan Wumpus.
-> >     
-> > - **Breeze** (angin sepoi-sepoi): Jika berada di ruangan yang bersebelahan dengan Pit.
-> >     
-> > - **Glitter** (kilau): Jika berada di ruangan yang sama dengan emas.
-> >     
-> > - **Bump** (benturan): Jika agen berjalan menabrak dinding.
-> >     
-> > - **Scream** (teriakan): Jika panah berhasil membunuh Wumpus.
+> > 	- **Stench** (bau busuk): Jika berada di ruangan yang bersebelahan (atas, bawah, kiri, kanan) dengan Wumpus.
+> > 	    
+> > 	- **Breeze** (angin sepoi-sepoi): Jika berada di ruangan yang bersebelahan dengan Pit.
+> > 	    
+> > 	- **Glitter** (kilau): Jika berada di ruangan yang sama dengan emas.
+> > 	    
+> > 	- **Bump** (benturan): Jika agen berjalan menabrak dinding.
+> > 	    
+> > 	- **Scream** (teriakan): Jika panah berhasil membunuh Wumpus.
 > >     
 > > 
 > > ### Contoh Penalaran Agen di Wumpus World
@@ -78,9 +78,9 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >     
 > > - **Penalaran & Pengetahuan Baru**:
 > >     
-> > - Karena tidak ada Stench di [1,1], maka **tidak ada Wumpus** di [1,2] dan [2,1].
-> >     
-> > - Karena tidak ada Breeze di [1,1], maka **tidak ada Pit** di [1,2] dan [2,1].
+> > 	- Karena tidak ada Stench di [1,1], maka **tidak ada Wumpus** di [1,2] dan [2,1].
+> > 	    
+> > 	- Karena tidak ada Breeze di [1,1], maka **tidak ada Pit** di [1,2] dan [2,1].
 > >     
 > > - **Kesimpulan**: Ruangan [1,2] dan [2,1] aman (OK).
 > >     
@@ -93,9 +93,9 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >     
 > > - **Penalaran & Pengetahuan Baru**:
 > >     
-> > - Karena ada Breeze di [2,1], maka **pasti ada Pit** di salah satu ruangan tetangga, yaitu [1,1], [2,2], atau [3,1].
-> >     
-> > - Kita sudah tahu dari langkah sebelumnya bahwa [1,1] aman.
+> > 	- Karena ada Breeze di [2,1], maka **pasti ada Pit** di salah satu ruangan tetangga, yaitu [1,1], [2,2], atau [3,1].
+> > 	    
+> > 	- Kita sudah tahu dari langkah sebelumnya bahwa [1,1] aman.
 > >     
 > > - **Kesimpulan**: Pit pasti ada di [2,2] atau [3,1]. Kita belum tahu yang mana, jadi kita tandai `P?`.
 > >     
@@ -108,19 +108,19 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >     
 > > - **Penalaran & Pengetahuan Baru**:
 > >     
-> > - Karena ada Stench di [1,2], maka **pasti ada Wumpus** di [1,1], [2,2], atau [1,3]. Kita tahu [1,1] aman.
-> >     
-> > - Dari langkah sebelumnya, kita juga tahu bahwa tidak ada Stench di [2,1], yang berarti tidak ada Wumpus di [2,2].
-> >     
-> > - Karena tidak ada Breeze di [1,2], maka ruangan [2,2] dan [1,3] **aman dari Pit**.
+> > 	- Karena ada Stench di [1,2], maka **pasti ada Wumpus** di [1,1], [2,2], atau [1,3]. Kita tahu [1,1] aman.
+> > 	    
+> > 	- Dari langkah sebelumnya, kita juga tahu bahwa tidak ada Stench di [2,1], yang berarti tidak ada Wumpus di [2,2].
+> > 	    
+> > 	- Karena tidak ada Breeze di [1,2], maka ruangan [2,2] dan [1,3] **aman dari Pit**.
 > >     
 > > - **Kesimpulan Logis**:
 > >     
-> > - Wumpus **pasti ada di [1,3]** (`W!`).
-> >     
-> > - Karena kita tahu ada Pit di [2,2] atau [3,1], dan sekarang kita tahu [2,2] aman dari Pit, maka Pit **pasti ada di [3,1]** (`P!`).
-> >     
-> > - Ruangan [2,2] sekarang terbukti aman sepenuhnya.
+> > 	- Wumpus **pasti ada di [1,3]** (`W!`).
+> > 	    
+> > 	- Karena kita tahu ada Pit di [2,2] atau [3,1], dan sekarang kita tahu [2,2] aman dari Pit, maka Pit **pasti ada di [3,1]** (`P!`).
+> > 	    
+> > 	- Ruangan [2,2] sekarang terbukti aman sepenuhnya.
 > >     
 > > - **Aksi**: Pindah ke [2,2].
 > >     
