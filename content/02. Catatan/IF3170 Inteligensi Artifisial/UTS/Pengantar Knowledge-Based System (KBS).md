@@ -45,9 +45,9 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >     
 > > 2. **Inference Engine**: "Otak" yang melakukan penalaran berdasarkan pengetahuan yang ada.
 > >     
-> > 3. User Interface: Jembatan antara pengguna non-ahli dan sistem, di mana pengguna bisa bertanya (query) dan sistem memberikan nasihat (advice).
+> > 3. **User Interface**: Jembatan antara pengguna non-ahli dan sistem, di mana pengguna bisa bertanya (query) dan sistem memberikan nasihat (advice).
 > >     
-> >     KBS adalah konsep yang lebih luas dan tidak selalu memiliki arsitektur yang berfokus pada interaksi pengguna non-ahli seperti ini.
+> >  KBS adalah konsep yang lebih luas dan tidak selalu memiliki arsitektur yang berfokus pada interaksi pengguna non-ahli seperti ini.
 > >     
 > > 
 > > ### Alasan Penggunaan KBS (Why KBS)

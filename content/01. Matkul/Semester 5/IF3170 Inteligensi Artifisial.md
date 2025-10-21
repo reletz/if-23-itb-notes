@@ -33,6 +33,7 @@ _Back to_ [[index]]
 	- [[Knowledge-Based Agent]]
 	- [[Arsitektur KBS]]
 	- [[Representasi Pengetahuan dalam KBS]]
+	- [[Knowledge Engineering]]
 - ## Rule-Based System
 	 Bagian dari _Knowledge-Based System_
 	- [[Pengantar Rule-Based System (RBS)]]

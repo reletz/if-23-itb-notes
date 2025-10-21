@@ -87,7 +87,21 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > - **Manipulasi yang efisien**: Harus bisa diproses oleh komputer secara efisien.
 > >     
 > > 
-> > Contoh metode KR yang umum adalah _production rules_ (aturan if-then), _semantic networks_, dan _frames_.
+> > ### Contoh Metode Representasi Pengetahuan
+> > 
+> > Berikut adalah beberapa metode populer yang digunakan untuk merepresentasikan pengetahuan dalam KBS:
+> > 
+> > 1. **Logika Proposisional & Predikat**: Fondasi dari penalaran logis. Logika proposisional menggunakan variabel yang bernilai benar/salah, sedangkan logika predikat lebih ekspresif karena dapat mendeskripsikan properti objek dan relasi antar objek.
+> >     
+> > 2. **Aturan Produksi (Production Rules)**: Bentuk paling umum dalam _expert systems_. Pengetahuan direpresentasikan dalam format `IF [kondisi] THEN [aksi/konsekuensi]`. Sangat intuitif dan modular.
+> >     
+> > 3. **Jaringan Semantik (Semantic Networks)**: Merepresentasikan pengetahuan sebagai sebuah graf, di mana **simpul (node)** mewakili objek atau konsep, dan **tepi (edge)** mewakili relasi antar konsep tersebut (misalnya, "adalah_sebuah", "memiliki_bagian").
+> >     
+> > 4. **Frame**: Struktur data yang merepresentasikan konsep atau objek stereotipikal. Sebuah frame memiliki **slot** untuk berbagai atribut dan dapat diisi dengan nilai spesifik. Mendukung pewarisan (inheritance) dari frame lain.
+> >     
+> > 5. **Pohon Keputusan (Decision Trees)**: Model berbentuk pohon yang digunakan untuk masalah klasifikasi dan pengambilan keputusan. Setiap simpul internal merepresentasikan sebuah tes pada atribut, dan setiap cabang adalah hasil tes, yang mengarah ke keputusan akhir di daun.
+> > 6. **Bayesian Network**: Model graf probabilistik yang merepresentasikan variabel dan kebergantungan kondisionalnya. Sangat baik untuk **penalaran dalam ketidakpastian** (reasoning under uncertainty). Contoh: memprediksi kemungkinan suatu penyakit berdasarkan gejala-gejala yang ada.
+> > 7. **Case-Based Reasoning (CBR)**: Bukan hanya representasi, tapi juga metode penalaran. Solusi untuk masalah baru ditemukan dengan mencari dan mengadaptasi solusi dari **kasus-kasus lampau** yang mirip. Prosesnya mengikuti siklus: _Retrieve_ (ambil kasus serupa), _Reuse_ (gunakan solusinya), _Revise_ (sesuaikan solusinya), dan _Retain_ (simpan sebagai kasus baru).
 > > 
 > > ### Pemilihan Metode Representasi Pengetahuan
 > > 
