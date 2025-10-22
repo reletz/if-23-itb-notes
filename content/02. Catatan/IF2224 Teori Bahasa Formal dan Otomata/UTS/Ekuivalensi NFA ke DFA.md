@@ -58,7 +58,7 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > >
 > > 1. **Fungsi Transisi DFA ($\delta_D$)**
 > > 	- Ini adalah langkah paling inti. Untuk menentukan transisi dari sebuah state DFA $S$ (yang merupakan himpunan state NFA) dengan input $a$, kita lakukan:
-> > 	- Ambil **gabungan (union)** dari semua hasil transisi NFA ($\\delta\_N$) untuk setiap state $p$ yang ada di dalam himpunan $S$.
+> > 	- Ambil **gabungan (union)** dari semua hasil transisi NFA ($\delta_N$) untuk setiap state $p$ yang ada di dalam himpunan $S$.
 > > 	> $\delta_D(S, a) = \bigcup_{p \in S} \delta_N(p, a)$.
 > >
 > > ### Metode Praktis: Lazy Construction

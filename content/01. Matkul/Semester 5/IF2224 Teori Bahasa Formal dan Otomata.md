@@ -33,8 +33,11 @@ _Back to_ [[index]]
 	- [[Pengenalan Context-Free Grammar (CFG) dan Derivasi]]
 	- [[Parse Tree (Pohon Penurunan)]]
 	- [[Ekuivalensi Parse Tree dan Derivasi]]
-- ## Lexical, Syntax, dan Semantic Analysis
+- ## Compiler (Lexical, Syntax, dan Semantic Analysis)
 	- [[Fondasi Formal dan Hirarki Chomsky]]
 	- [[Struktur Compiler dan Fase Analisis]]
 	- [[Parsing Top-Down dan Masalah Rekursif Kiri]]
 	- [[Analisis Semantik]]
+- ## Persiapan UTS
+	_Pantesan 4 sks ya... I'M SO COOKED_
+	- [[Dasar banget ini buat ngejar pemahaman]]

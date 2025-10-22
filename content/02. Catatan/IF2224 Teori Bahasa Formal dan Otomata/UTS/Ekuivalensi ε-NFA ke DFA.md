@@ -31,7 +31,7 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > >
 > > ### Algoritma Konversi ε-NFA ke DFA
 > >
-> > Diberikan sebuah ε-NFA E=(Q_E,Sigma,delta_E,q_E0,F_E), kita akan membangun sebuah DFA D=(Q_D,Sigma,delta_D,q_D0,F_D) dengan aturan yang telah dimodifikasi:
+> > Diberikan sebuah ε-NFA $E=(Q_E,\Sigma,\delta_E,q_{E_0},F_E)$, kita akan membangun sebuah DFA $D=(Q_D,\Sigma,\delta_D,q_{D_0},F_D)$ dengan aturan yang telah dimodifikasi:
 > >
 > > 1. **Himpunan State DFA (Q_D)**
 > > 
