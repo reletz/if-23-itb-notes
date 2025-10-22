@@ -6,8 +6,8 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 
 Jelaskan perbedaan utama antara fungsi transisi ($\delta$) pada DFA dan NFA!
 
-DFA -> Transisi ke satu state
-NFA -> Transisi bisa lebih dari satu state
+- DFA -> Transisi ke satu state
+- NFA -> Transisi bisa lebih dari satu state
 
 (b) Tracing DFA:
 
@@ -21,11 +21,11 @@ Diberikan DFA berikut ($\Sigma=\{0,1\}$, $q_0=A$, $F=\{C\}$):
 
 Tentukan state akhir setelah DFA membaca string `10110`! Apakah string tersebut diterima?
 
-$\delta{(A, 1)} = A$
-$\delta{(A, 0)} = B$
-$\delta{(B, 1)} = C$
-$\delta{(C, 1)} = A$
-$\delta{(A, 0)} = B$
+1. $\delta{(A, 1)} = A$
+2. $\delta{(A, 0)} = B$
+3. $\delta{(B, 1)} = C$
+4. $\delta{(C, 1)} = A$
+5. $\delta{(A, 0)} = B$
 
 Bukan di final state -> Ditolak
 
@@ -84,8 +84,8 @@ Tuliskan Regular Expression (RE) untuk bahasa $L$ pada $\Sigma=\{a,b\}$ yang ter
 - Diakhiri dengan 'a'.
     
 
-Contoh string diterima: aa, aba, abba, abbba.
-Contoh string ditolak: a, b, ba, baa.
+1. Contoh string diterima: aa, aba, abba, abbba.
+2. Contoh string ditolak: a, b, ba, baa.
 
 > ab*a
 
@@ -98,6 +98,7 @@ Apa tujuan utama dari Pumping Lemma? Sebutkan 3 kondisi yang harus dipenuhi oleh
 Jawaban:
 
 > Bertujuan utama menunjukkan bahwa sebuah bahasa BUKAN bahasa reguler.
+> 
 > 3 Kondisi:
 > 1. |xy| < n
 > 2. |y| > 0
@@ -110,9 +111,14 @@ Untuk membuktikan bahasa $L = \{ a^k b^{2k} \mid k \ge 0 \}$ bukan reguler mengg
 (iii) $(ab)^{2n}$
 (iv) $b^{2n} a^n$
 
-> (ii). Ini bentuk umum string di L. Kalau kita pecah ke x, y, dan z, kan xy < n, berarti xy tuh pasti kumpulan string a. Kita definisikan $x = a^j,  y = a^k, z = a^{n-j-k}b^{2n}$
+> (ii). Ini bentuk umum string di L. Kalau kita pecah ke x, y, dan z, kan xy < n, berarti xy tuh pasti kumpulan string a. 
+> 
+> Kita definisikan $x = a^j,  y = a^k, z = a^{n-j-k}b^{2n}$
+> 
 > Misalkan kita pilih $i=0$:
+> 
 > Artinya tercipta string baru $w = xz = a^ja^{n-j-k}b^{2n} = a^{n-k}b^{2n}$
+> 
 > Padahal, $2(n-k) \neq 2n$. Maka kontradiksi terjadi. L bukan bahasa reguler.
 
 
@@ -199,7 +205,7 @@ Lakukan _leftmost derivation_ untuk menghasilkan string `011`!
 
 Gambarkan Parse Tree yang sesuai dengan derivasi yang kamu lakukan di soal (b)!
 ```
-	 S
+   S
 /  |  \
 0  A   1
    | \
