@@ -119,14 +119,12 @@ Untuk membuktikan bahasa $L = \{ a^k b^{2k} \mid k \ge 0 \}$ bukan reguler mengg
 > 
 > Artinya tercipta string baru $w = xz = a^ja^{n-j-k}b^{2n} = a^{n-k}b^{2n}$
 > 
-> Padahal, $2(n-k) \neq 2n$. Maka kontradiksi terjadi. L bukan bahasa reguler.
+> Padahal, $n-k \neq n$. Maka kontradiksi terjadi. L bukan bahasa reguler.
 
 
 (b) Closure Properties:
 
 Jika $L_1$ adalah bahasa reguler (diterima oleh DFA $M_1$) dan $L_2$ adalah bahasa reguler (diterima oleh DFA $M_2$), apakah bahasa $L = L_1 \cup L_2$ (gabungan $L_1$ dan $L_2$) juga dijamin reguler? Jelaskan secara singkat mengapa!
-
-Jawaban:
 
 > Ya, dijamin reguler. Karena jika $L_1$ punya RE $R_1$ dan $L_2$ punya RE $R_2$, maka $L_1 \cup L_2$ memiliki RE $R_1 + R_2$, yang juga merupakan RE valid. 
 
@@ -137,8 +135,6 @@ Diketahui $L_1 = \{ \text{string biner dengan jumlah 0 genap} \}$ dan $L_2 = \{ 
 (c) Minimasi DFA:
 
 Apa tujuan dari minimasi DFA? Kriteria dasar apa yang digunakan oleh Algoritma Table-Filling untuk menandai pasangan state yang distinguishable (dapat dibedakan) pada langkah awalnya?
-
-Jawaban:
 
 > - **Tujuan:** Mendapatkan DFA dengan jumlah state _paling sedikit_ yang menerima bahasa yang sama (efisien dan representasi standar).
 > - **Kriteria Dasar (Basis):** Menandai semua pasangan state $\{p, q\}$ di mana **salah satunya adalah final state dan yang lainnya bukan final state**. Pasangan ini jelas dapat dibedakan oleh string kosong ($\epsilon$).

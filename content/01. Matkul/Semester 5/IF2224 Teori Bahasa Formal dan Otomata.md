@@ -41,3 +41,5 @@ _Back to_ [[index]]
 - ## Persiapan UTS
 	_Pantesan 4 sks ya... I'M SO COOKED_
 	- [[Dasar banget ini buat ngejar pemahaman]]
+	- [[Naik dikit - FA dan Regex]]
+	- [[Naik dikit lagi - CFG dan Compiler]]
