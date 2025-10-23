@@ -47,7 +47,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >     
 > > - **Kekurangan:** Sangat tidak efisien dan mahal.
 > >     
-> > - **Estimasi Biaya (Worst Case):** $n_r * b_s + b_r$ transfer blok, di mana $n_r$ adalah jumlah record di relasi r dan $b_s$ adalah jumlah blok di relasi s.
+> > - **Estimasi Biaya (Worst Case):** $(n_r * b_s + b_r)$ blok $+ (n_r +b_r)$ seek time,
+> > 	di mana $n_r$ adalah jumlah record di relasi r dan $b_s$ adalah jumlah blok di relasi s.
 > > - **Best Case**: Jika relasi luar $r$ sangat kecil.
 > > - **Worst Case**:  Jika $r$ dan $s$ sama-sama besar.
 > > 
@@ -57,7 +58,7 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 
 > > - **Cara Kerja:** Untuk **setiap blok** di relasi luar (r), pindai **seluruh blok** di relasi dalam (s). Kemudian, untuk setiap pasang blok, semua kombinasi tuple di dalamnya akan diperiksa.
 > >     
-> > - **Estimasi Biaya (Worst Case):** $b_r * b_s + b_r$ transfer blok.
+> > - **Estimasi Biaya (Worst Case):** $(b_r * b_s + b_r) + (2*b_r)$
 > >     
 > > - **Optimasi:** Alokasikan $M-2$ blok memori untuk relasi luar, sehingga dapat membaca $M-2$ blok sekaligus dan mengurangi jumlah pemindaian relasi dalam. Biaya menjadi $\lceil b_r / (M-2) \rceil * b_s + b_r$.
 > >
@@ -72,7 +73,7 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >     
 > > - **Cara Kerja:** Untuk setiap tuple di relasi luar (r), gunakan indeks pada relasi dalam (s) untuk langsung menemukan tuple yang cocok, tanpa perlu memindai seluruh relasi s.
 > >     
-> > - **Estimasi Biaya:** $b_r + n_r * c$, di mana `c` adalah biaya untuk mencari dan mengambil semua tuple yang cocok di `s` untuk satu tuple `r` menggunakan indeks.
+> > - **Estimasi Biaya:** $b_r (t_t + t_s) + n_r * c$, di mana `c` adalah biaya untuk mencari dan mengambil semua tuple yang cocok di `s` untuk satu tuple `r` menggunakan indeks.
 > >   
 > > - **Best Case**: Jika relasi luar $r$ sangat kecil DAN indeks yang dipilih sangat **selektif** pada atribut join di relasi dalam $s$.
 > > - **Worst Case**:  Jika indeks relasi dalam $s$ TIDAK selektif.
@@ -90,6 +91,7 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > - **Estimasi Biaya (jika relasi sudah terurut):** $b_r + b_s$ transfer blok, karena setiap blok hanya perlu dibaca sekali. Jika belum terurut, biaya sorting harus ditambahkan.
 > > - **Best Case**: Jika relasi luar $r$ dan relasi dalam $s$ sudah terurut.
 > > - **Worst Case**:  Jika $r$ dan $s$ tidak terurut.
+> > - **Secara umum**: $b_r + b_s + \lceil b_r/b_b \rceil + \lceil b_s/b_b \rceil$
 > > 
 > > ### Hash-Join
 > > 
@@ -112,9 +114,11 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >             
 > > 	        2. Probe: Baca partisi $r_i$ blok per blok, dan untuk setiap tuple, gunakan h2 untuk mencari pasangannya di hash table $s_i$.
 > >             
+> > ![[Pasted image 20251024023653.png]]
+> > 
 > > - **Penanganan Overflow:** Jika partisi $s_i$ tidak muat di memori, partisi tersebut dapat dipartisi ulang secara rekursif menggunakan fungsi hash lain, atau gunakan Block Nested-Loop Join untuk partisi yang meluap tersebut.
 > >     
-> > - **Estimasi Biaya (tanpa rekursi):** Sekitar $3(b_r + b_s)$ transfer blok (baca+tulis saat partisi, baca saat build/probe).
+> > - **Estimasi Biaya (tanpa rekursi):** Sekitar $(3(b_r + b_s) + 4n_h) + 2(\lceil b_r/b_b \rceil + \lceil b_s/b_b \rceil)$
 > > 
 > > - **Best Case**: Paling baik untuk **operasi _equi-join_ pada data besar dengan memori yang cukup**, dan ketika **fungsi hash mampu mendistribusikan kunci join secara merata** ke semua partisi. Distribusi yang merata memastikan tidak ada partisi yang "meluap" (_overflow_) dan setiap partisi dari relasi _build_ ($s_i$​) bisa dimuat ke memori saat fase _probe_. Varian _Hybrid Hash-Join_ memberikan optimasi lebih lanjut dalam skenario ini.
 > > - **Worst Case**: Ketika terjadi **kemiringan data (_data skew_) yang signifikan** pada atribut join. Ini berarti banyak sekali _record_ memiliki nilai atribut join yang sama. Akibatnya, fungsi hash akan menempatkan semua _record_ tersebut ke dalam satu partisi yang sama.

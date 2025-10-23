@@ -25,6 +25,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > ### Konsep Bitmap Index
 > > 
 > > **Bitmap Index** adalah jenis indeks khusus yang dirancang untuk atribut dengan jumlah nilai unik yang relatif sedikit (_low cardinality_), seperti 'gender' (Pria, Wanita), 'negara', atau 'status' (Aktif, Non-aktif). Untuk setiap nilai unik, sebuah **bitmap** (serangkaian bit 0 dan 1) dibuat. Panjang bitmap ini sama dengan jumlah baris di tabel. Bit ke-i akan bernilai 1 jika baris ke-i memiliki nilai tersebut, dan 0 jika tidak.
+> > 
+> > ![[Pasted image 20251023233112.png]]
 > >
 > > ### Query Menggunakan Operasi Bitwise
 > > 

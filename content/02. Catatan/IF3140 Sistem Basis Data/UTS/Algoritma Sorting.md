@@ -53,13 +53,13 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 
 > > #### Fase 1: Membuat Run Terurut (Create Sorted Runs)
 > > 
-> > 4. Baca **M** blok dari relasi ke dalam memori.
+> > 1. Baca **M** blok dari relasi ke dalam memori.
 > >     
-> > 5. Urutkan **M** blok tersebut di dalam memori (misalnya, menggunakan Quicksort).
+> > 2. Urutkan **M** blok tersebut di dalam memori (misalnya, menggunakan Quicksort).
 > >     
-> > 6. Tulis kembali hasil yang sudah terurut ke disk sebagai satu file sementara yang disebut **"run"**.
+> > 3. Tulis kembali hasil yang sudah terurut ke disk sebagai satu file sementara yang disebut **"run"**.
 > >     
-> > 7. Ulangi langkah 1-3 sampai semua blok dari relasi telah diproses, menghasilkan sejumlah **N** _runs_ yang masing-masing sudah terurut secara internal.
+> > 4. Ulangi langkah 1-3 sampai semua blok dari relasi telah diproses, menghasilkan sejumlah **N** _runs_ yang masing-masing sudah terurut secara internal.
 > >     
 > > 
 > > #### Fase 2: Menggabungkan Run (Merge the Runs)

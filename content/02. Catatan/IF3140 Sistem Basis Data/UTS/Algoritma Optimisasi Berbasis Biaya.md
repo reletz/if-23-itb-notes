@@ -89,7 +89,7 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 
 > > Konsep ini mengakui bahwa pilihan algoritma yang "lebih mahal" secara lokal bisa jadi menguntungkan secara global.
 > > 
-> > - **Skenario:** Misalkan _hash join_ lebih murah daripada _merge join_ untuk `R1 $\bowtie$ R2`. Namun, _merge join_ menghasilkan output yang sudah terurut berdasarkan atribut join.
+> > - **Skenario:** Misalkan _hash join_ lebih murah daripada _merge join_ untuk $R1 \bowtie R2$. Namun, _merge join_ menghasilkan output yang sudah terurut berdasarkan atribut join.
 > >     
 > > - **Manfaat:** Jika operasi berikutnya juga join dengan `R3` pada atribut yang sama, atau ada `ORDER BY` atau `GROUP BY` pada atribut tersebut, maka output yang sudah terurut dari _merge join_ pertama membuat operasi berikutnya menjadi jauh lebih murah.
 > >     

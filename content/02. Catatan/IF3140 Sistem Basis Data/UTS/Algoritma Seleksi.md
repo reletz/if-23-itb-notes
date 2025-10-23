@@ -63,21 +63,27 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 
 > > **A2 (Primary Index, pada Key):** Digunakan untuk mengambil satu record unik yang memenuhi kondisi kesetaraan pada atribut kunci utama.
 > > 
-> > - **Estimasi Biaya:** $(h_i + 1) * (t_T + t_S)$, di mana $h_i$ adalah tinggi (level) dari indeks. Biaya ini mencakup penelusuran indeks ($h_i$) ditambah satu akses untuk mengambil blok data.
+> > - **Estimasi Biaya:** $$(h_i + 1) * (t_T + t_S)$$
+> > 
+> > 	di mana $h_i$ adalah tinggi (level) dari indeks. Biaya ini mencakup penelusuran indeks ($h_i$) ditambah satu akses untuk mengambil blok data.
 > >     
 > > 
 > > **A3 (Primary Index, pada Non-Key):** Digunakan untuk mengambil beberapa record yang memenuhi kondisi kesetaraan pada atribut yang bukan kunci unik. Karena ini adalah _primary index_, record-record yang cocok akan berada di blok-blok yang berurutan.
 > > 
-> > - **Estimasi Biaya:** $(h_i * (t_T + t_S)) + t_S + (b * t_T)$, di mana _b_ adalah jumlah blok yang berisi record yang cocok. Biaya ini mencakup penelusuran indeks, satu seek ke blok data pertama, dan transfer _b_ blok data secara sekuensial.
+> > - **Estimasi Biaya:** $$(h_i * (t_T + t_S)) + t_S + (b * t_T)$$
+> >  
+> > 	di mana _b_ adalah jumlah blok yang berisi record yang cocok. Biaya ini mencakup penelusuran indeks, satu seek ke blok data pertama, dan transfer _b_ blok data secara sekuensial.
 > >     
 > > 
 > > **A4 (Secondary Index, pada Non-Key):** Digunakan untuk mengambil record melalui indeks sekunder.
 > > 
-> > - **Jika Search-Key adalah Candidate Key:** Mengambil satu record. Biayanya sama seperti A2: $(h_i + 1) * (t_T + t_S)$.
+> > - **Jika Search-Key adalah Candidate Key:** Mengambil satu record. Biayanya sama seperti A2: $$(h_i + 1) * (t_T + t_S)$$
 > >     
 > > - **Jika Search-Key bukan Candidate Key:** Mengambil banyak record. Setiap record yang cocok bisa berada di blok yang berbeda-beda.
 > >     
-> >     - **Estimasi Biaya:** $(h_i + n) * (t_T + t_S)$, di mana _n_ adalah jumlah record yang cocok. Biaya ini bisa menjadi **sangat mahal** karena setiap record mungkin memerlukan I/O (seek + transfer) terpisah.
+> >     - **Estimasi Biaya:** $$(h_i + n) * (t_T + t_S)$$
+> >      
+> > 	    di mana _n_ adalah jumlah record yang cocok. Biaya ini bisa menjadi **sangat mahal** karena setiap record mungkin memerlukan I/O (seek + transfer) terpisah.
 > >         
 > > 
 > > #### B. Seleksi dengan Kondisi Perbandingan ($\geq$, $\leq$)

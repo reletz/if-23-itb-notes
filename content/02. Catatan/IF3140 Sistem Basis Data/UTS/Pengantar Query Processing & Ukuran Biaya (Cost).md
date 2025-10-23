@@ -53,7 +53,7 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > - **Jumlah seek (S):** Berapa kali lengan disk harus bergerak.
 > > - **Waktu seek ($t_s$)**
 > >     
-> > Dengan rumus, $$\text{cost} = b + t_t + t_s + S$$
+> > Dengan rumus, $$\text{cost} = b \times t_t + t_s \times S$$
 > > Dengan catatan, biaya CPU dan biaya untuk menulis hasil akhir ke disk seringkali diabaikan dalam formula estimasi untuk menyederhanakan perhitungan.
 > > 
 
