@@ -92,7 +92,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > - **Privilege Revocation:** Mencabut hak akses jika sudah tidak diperlukan atau disalahgunakan.
 > >     
 > > - **Security Level Assignment:** Menentukan klasifikasi keamanan untuk data dan pengguna dalam model Mandatory Security.
-> >     
+> >   
+> >   ![[Pasted image 20251024031114.png]]
 > > 
 > > ### Proteksi Akses Dasar: Akun dan Audit
 > > 

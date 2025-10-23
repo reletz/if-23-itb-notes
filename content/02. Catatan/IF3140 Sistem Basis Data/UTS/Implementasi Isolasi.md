@@ -8,7 +8,7 @@ cssclasses:
 
 _Back to_ [[IF3140 Sistem Basis Data]]
 
-> [!cornell] Implementasi Kontrol Konkurensi
+> [!cornell] Implementasi Isolasi
 > 
 > > ## Questions/Cues
 > > 

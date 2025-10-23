@@ -69,7 +69,9 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 
 > > Sintaks Dasar:
 > > 
+> > ```sql
 > > GRANT <privilege_list> ON <object_name> TO <user_list>;
+> > ```
 > > 
 > > - `<user_list>` bisa berupa ID pengguna, `PUBLIC` (semua pengguna), atau sebuah `ROLE`.
 > >     
@@ -82,7 +84,9 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 
 > > Sintaks Dasar:
 > > 
+> > ```sql
 > > REVOKE <privilege_list> ON <object_name> FROM <user_list>;
+> > ```
 > > 
 > > - **Efek Berantai (Cascading):** Jika pengguna U1 memberikan hak ke U2, dan kemudian hak U1 dicabut, maka hak U2 juga akan otomatis tercabut.
 > >     
@@ -105,12 +109,16 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >     
 > > 
 > > Role juga bisa diberikan ke role lain untuk menciptakan hierarki.
+> >
+> > ![[Pasted image 20251024031510.png]]
 > > 
 > > ### Otorisasi pada Views dan Authorization-Grant Graph
 > > 
 > > - **Views:** Memberikan hak akses pada sebuah `VIEW` tidak secara otomatis memberikan hak akses pada tabel dasarnya. Keamanan `VIEW` bergantung pada hak akses yang dimiliki oleh _pembuat_ `VIEW` saat `VIEW` itu dibuat.
 > >     
 > > - **Authorization-Grant Graph:** Adalah sebuah graf berarah yang memvisualisasikan alur pemberian hak akses. Node merepresentasikan pengguna (atau DBA), dan panah dari U1 ke U2 berarti U1 memberikan hak akses kepada U2. Ini membantu melacak dependensi saat melakukan `REVOKE`.
+> > 
+> > 	 ![[Pasted image 20251024031554.png]]
 > >     
 
 > [!cornell] #### Summary

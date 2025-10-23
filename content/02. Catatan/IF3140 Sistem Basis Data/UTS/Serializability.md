@@ -51,9 +51,10 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 
 > > Dua instruksi dari dua transaksi yang berbeda (Ii​ dari Ti​ dan Ij​ dari Tj​) dikatakan berkonflik jika keduanya mengakses item data **yang sama** (Q), dan **setidaknya salah satu** dari instruksi tersebut adalah operasi `write(Q)`.
 > > 
-> > |   |   |   |   |
-> > |---|---|---|---|
+> > ![[Pasted image 20251024032704.png]]
+> > 
 > > |**Ii​ dari Ti​**|**Ij​ dari Tj​**|**Konflik?**|**Alasan**|
+> > |---|---|---|---|
 > > |`read(Q)`|`read(Q)`|Tidak|Keduanya hanya membaca, urutan tidak berpengaruh.|
 > > |`read(Q)`|`write(Q)`|Ya|Hasil `read` akan berbeda jika urutannya diubah.|
 > > |`write(Q)`|`read(Q)`|Ya|Hasil `read` akan berbeda jika urutannya diubah.|
@@ -67,6 +68,9 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 
 > > **Contoh:** Schedule 3 pada slide dapat diubah menjadi Schedule 1 (sebuah schedule serial T1 → T2) dengan menukar instruksi-instruksi yang tidak berkonflik. Oleh karena itu, Schedule 3 adalah _conflict serializable_.
 > > 
+> > ![[Pasted image 20251024032800.png]]
+> > ![[Pasted image 20251024032822.png]]
+> > 
 > > ### View Serializability
 > > 
 > > Sebuah schedule S disebut **view serializable** jika ia _view equivalent_ dengan sebuah schedule serial. Konsep ini lebih longgar daripada _conflict serializability_.
@@ -79,6 +83,7 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >     
 > > 3. **Final Write:** Transaksi yang melakukan operasi `write(Q)` terakhir di schedule S harus juga menjadi transaksi yang melakukan `write(Q)` terakhir di schedule S'.
 > >     
+> >     ![[Pasted image 20251024032926.png]]
 > > 
 > > ### Testing for Conflict Serializability: Precedence Graph
 > > 
@@ -87,7 +92,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > - **Vertices (Node):** Setiap transaksi dalam schedule direpresentasikan sebagai satu node.
 > >     
 > > - **Edges (Panah):** Sebuah panah digambar dari Ti​ ke Tj​ jika ada instruksi di Ti​ yang berkonflik dengan instruksi di Tj​, dan instruksi Ti​ tersebut muncul **lebih dulu** dalam schedule.
-> >     
+> >   
+> >   ![[Pasted image 20251024033106.png]]
 > > 
 > > **Aturan Kunci:**
 > > 

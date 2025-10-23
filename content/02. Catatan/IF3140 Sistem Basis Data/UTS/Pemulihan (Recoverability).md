@@ -8,7 +8,7 @@ cssclasses:
 
 _Back to_ [[IF3140 Sistem Basis Data]]
 
-> [!cornell] Recoverability & Level Isolasi SQL Praktis
+> [!cornell] Recoverability
 > 
 > > ## Questions/Cues
 > > 
@@ -40,7 +40,11 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 >
 > > ### Recoverable Schedules (Jadwal yang Dapat Dipulihkan)
 > > 
-> > Sebuah schedule disebut **recoverable** jika memenuhi aturan berikut: untuk setiap pasangan transaksi Ti​ dan Tj​, jika Tj​ membaca data yang sebelumnya ditulis oleh Ti​, maka operasi `commit` dari Ti​ harus muncul **sebelum** operasi `commit` dari Tj​.
+> > Sebuah schedule disebut **recoverable** jika memenuhi aturan berikut: 
+> > 
+> > > Untuk setiap pasangan transaksi Ti​ dan Tj​, jika Tj​ membaca data yang sebelumnya ditulis oleh Ti​, maka operasi `commit` dari Ti​ harus muncul **sebelum** operasi `commit` dari Tj​.
+> > 
+> > ![[Pasted image 20251024033458.png]]
 > > 
 > > **Tujuan:** Untuk memastikan tidak terjadi situasi di mana sebuah transaksi (Tj​) melakukan `commit` berdasarkan data dari transaksi lain (Ti​) yang ternyata kemudian gagal (_abort_). Jika ini terjadi, Tj​ akan menjadi "yatim piatu" karena perubahannya didasarkan pada data yang tidak pernah benar-benar ada, menyebabkan inkonsistensi.
 > > 
@@ -51,6 +55,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > Untuk menghindarinya, digunakan **cascadeless schedule**. Aturannya lebih ketat: jika Tj​ membaca data yang ditulis oleh Ti​, maka `commit` dari Ti​ harus muncul **sebelum** operasi `read` dari Tj​.
 > > 
 > > Dengan kata lain, sebuah transaksi **hanya boleh membaca data yang sudah di-commit**. Ini secara efektif mencegah _cascading rollback_ dan merupakan properti yang sangat diinginkan.
+> > 
+> > ![[Pasted image 20251024033602.png]]
 > > 
 > > ### Weak Levels of Consistency in SQL (Level Konsistensi Lemah)
 > > 
@@ -66,16 +72,20 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >     
 > > 4. **Serializable:** Paling ketat. Menjamin hasil yang setara dengan eksekusi serial. Mencegah semua anomali baca (_dirty, non-repeatable, phantom_). Ini adalah level default dalam banyak sistem basis data.
 > >     
+> >  ![[Pasted image 20251024033700.png]]
 > > 
 > > ### Read Phenomena (Anomali Pembacaan)
 > > 
 > > Anomali ini terjadi ketika isolasi tidak sempurna:
 > > 
 > > - **Dirty Read:** Transaksi T1 membaca data yang telah dimodifikasi oleh T2, tetapi T2 belum melakukan `commit`. Jika T2 kemudian melakukan `rollback`, maka data yang dibaca T1 menjadi tidak valid ("kotor").
+> > 	![[Pasted image 20251024033849.png]]
 > >     
 > > - **Non-Repeatable Read:** T1 membaca sebuah baris data. Kemudian, T2 memodifikasi atau menghapus baris tersebut dan melakukan `commit`. Ketika T1 membaca kembali baris yang sama, nilainya sudah berbeda atau tidak ada. Pembacaan tidak dapat diulang.
+> > 	![[Pasted image 20251024033907.png]]
 > >     
 > > - **Phantom Read:** T1 menjalankan sebuah query yang menghasilkan sekumpulan baris (misalnya, `SELECT ... WHERE age > 20`). Kemudian, T2 menyisipkan baris baru yang memenuhi kriteria query tersebut dan melakukan `commit`. Ketika T1 menjalankan kembali query yang sama, ia melihat baris "hantu" (phantom) yang sebelumnya tidak ada.
+> > 	![[Pasted image 20251024033928.png]]
 > >     
 > > 
 > > ### Transaction Definition in SQL

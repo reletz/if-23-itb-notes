@@ -32,6 +32,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > ### Transaction State (Status Transaksi)
 > >
 > > Sebuah transaksi selama siklus hidupnya akan melewati beberapa state atau status. Diagram ini menggambarkan alur yang mungkin terjadi:
+> > 
+> > ![[Pasted image 20251024032228.png]]
 > >
 > > 1. **Active:** Status awal saat transaksi mulai dieksekusi. Transaksi berada dalam state ini selama instruksi-instruksinya sedang berjalan.
 > >     
@@ -69,11 +71,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > Ini adalah bentuk schedule yang paling sederhana, di mana transaksi-transaksi dieksekusi secara berurutan, satu per satu. Transaksi T2 baru dimulai setelah T1 selesai sepenuhnya.
 > >
 > > **Contoh (Schedule 1 dari slide):** T1 menyelesaikan semua 6 langkahnya, baru kemudian T2 memulai.
-> >
-> > ```sql
-> > T1: read(A), A:=A-50, write(A), read(B), B:=B+50, write(B), commit
-> > T2:                                                            read(A), temp:=A*0.1, ...
-> > ```
+> > 
+> > ![[Pasted image 20251024032317.png]]
 > >
 > > Schedule serial **selalu menjamin konsistensi basis data**, tetapi performanya tidak optimal.
 > >
@@ -81,15 +80,11 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >
 > > Dalam schedule ini, instruksi dari beberapa transaksi dijalankan secara berselang-seling.
 > >
-> > **Contoh (Schedule 3 dari slide):**
-> >
-> > ```sql
-> > T1: read(A), A:=A-50, write(A)
-> > T2:                         read(A), temp:=A*0.1, A:=A-temp, write(A)
-> > T1:                                                                read(B), B:=B+50, ...
-> > ```
+> > ![[Pasted image 20251024032413.png]]
 > >
 > > Schedule konkuren dapat meningkatkan performa, tetapi **berisiko menghasilkan hasil yang salah** jika tidak diatur dengan baik, seperti yang terlihat pada **Schedule 4** di slide, di mana nilai akhir `A+B` menjadi tidak konsisten. Tantangan utamanya adalah membuat schedule konkuren yang "aman" atau setara dengan schedule serial.
+> > 
+> > ![[Pasted image 20251024032453.png]]
 
 > [!cornell] #### Summary
 > 
