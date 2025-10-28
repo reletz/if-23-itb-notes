@@ -40,7 +40,6 @@ _Back to_ [[index]]
 	- [[Model Eksekusi - SM, Warp, dan SIMT]]
 	- [[Kinerja Eksekusi dan Control Divergence]]
 	- [[Kinerja Memori dan Coalescing]]
-
 - ## GPU - Pola Algoritma Paralel dan Optimasi
 	- [[Tiled Algorithm dan Barrier Synchronization]]
 	- [[Reduksi]]
@@ -58,3 +57,12 @@ _Back to_ [[index]]
 	 - [[UTS IF3130 2018-2019]]
 	 - [[UTS IF3130 2016-2017]]
 	 - [[UTS IF3130 2013-2016]]
+ - ## Dasar Sistem Terdistribusi
+	 - [[Definisi, Karakteristik, dan Tujuan]]
+	 - [[Model, Masalah, dan Batasan]]
+	 - [[Arsitektur, Prinsip Desain, dan Skalabilitas]]
+	 - [[8 Fallacies of Distributed System]]
+ - ## Model Sistem Terdistribusi
+	 - [[Model Fundamental Sistem Terdistribusi]]
+	 - [[Correctness, Konsensus, dan FLP Impossibility]]
+	 - [[Teorema CAP dan Model Konsistensi Data]]

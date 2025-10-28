@@ -79,15 +79,53 @@ Kalau lupa SQL bisa ke [[IF2240 Basis Data]]
 	- [[Mock-up Praktikum 1]]
 	- [[Cheatsheet Praktikum 2]]
 	- [[Mock-up Praktikum 2]]
-- ## Concurrency Control
-	- TBA
+- ## Concurrency Control  - 1
+	_Lock-Based Protocol_
+	- [[Pengantar Concurrency Control dan Jenis Kunci]]
+	- [[Two-Phase Locking]]
+	- [[Multiple Granularity]]
+	- [[Graph-Based Protocol]]
+- ## Concurrency Control  - 2
+	_Deadlock Handling_
+	- [[Konsep dan Deadlock Prevention]]
+	- [[Deadlock Avoidance]]
+	- [[Deteksi dan Deadlock Recovery]]
+- ## Concurrency Control  - 3
+	_Non-Locking Protocol_
+	- [[Timestamp-Based Protocol]]
+	- [[Validation-Based Protocol]]
+- ## Concurrency Control  - 4
+	_Multiversion Two-Phase Locking_ & _Advanced Topic_
+	- [[Konsep dan Multiversion Timestamp Ordering]]
+	- [[Multiversion Two-Phase Locking]]
+	- [[Snapshot Isolation]]
+	- [[Fenomena Lanjutan dan Weak Consistency]]
 - ## Recovery System
-	- TBA
+	- [[Fondasi Recovery & Penyimpanan]]
+	- [[Prinsip Log-Based Recovery]]
+	- [[Algoritma Recovery dan Buffering]]
+	- [[Recovery Alternatif - Shadow Paging]]
+	- [[Disaster Recovery dan Backup]]
 - ## Database System Architectures
-	- TBA
+	- [[Arsitektur Dasar (Centralized dan Client-Server)]]
+	- [[Arsitektur Server (Transaction vs. Data Server)]]
+	- [[Sistem Paralel (Konsep & Metrik Kinerja)]]
+	- [[Arsitektur Hardware Paralel (Shared Everything s.d. Nothing)]]
+	- [[Sistem Terdistribusi (Distributed Systems)]]
 - ## Data Management
-	- TBA
+	- [[Pengantar Data Management]]
+	- [[Prinsip & Tantangan Data Management]]
+	- [[Kerangka Kerja (Framework) Data Management]]
+	- [[Etika Penanganan Data (Data Handling Ethics)]]
 - ## Data Governance
-	- TBA
+	- [[Fondasi dan Prinsip Data Governance]]
+	- [[Struktur Organisasi dan Tata Kelola DG]]
+	- [[Aktivitas dan Implementasi Praktis DG]]
+	- [[Pengukuran Kinerja dan Kematangan DG]]
 - ## Data Integration and Interoperability
-	- TBA
+	- [[Fondasi Integrasi Data - ETL & ELT]]
+	- [[Konsep Kunci Integrasi - Mapping & Latency]]
+	- [[Pola dan Arsitektur Integrasi]]
+	- [[Arsitektur Modern, Standar, dan Alat Bantu]]
+- ## Latihan Soal Edunex Pra-UAS
+	- [[Latihan Soal Concurrency Control - 1]]
