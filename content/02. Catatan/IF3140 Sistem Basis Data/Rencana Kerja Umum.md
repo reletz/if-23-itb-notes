@@ -31,7 +31,7 @@ Buat _branch_ baru dari `main` untuk tugas Anda. Gunakan format penamaan yang te
 
 - **Tipe:** `feat` (fitur baru), `fix` (perbaikan bug), `docs` (dokumentasi).
     
-- **Komponen:** `query-processor`, `storage-manager`, `query-optimizer`, `concurrency-control`, `failure-recovery`, atau `common`.
+- **Komponen:** `query-processor`, `storage-manager`, `query-optimizer`, `concurrency-control-manager`, `failure-recovery-manager`, atau `common`.
     
 
 **Contoh untuk Grup "Bash" (QP):**
@@ -91,11 +91,9 @@ git push -u origin feat/query-processor/implement-nested-loop-join
 
 ### Langkah 6: Proses Review Otomatis (CODEOWNERS)
 
-Ini adalah bagian "ajaib" dari alur kerja kita.
-
 - Saat PR dibuat, GitHub akan membaca file `.github/CODEOWNERS`.
     
-- Jika Anda mengubah file di `query-processor/`, GitHub akan **secara otomatis** meminta _review_ dari `@apacy-mdbms/team-qp`.
+- Jika Anda mengubah file di `query-processor/`, GitHub akan **secara otomatis** meminta _review_ dari `@apacy-mdbms/qp-Bash`.
     
 - Jika Anda mengubah file di `common/`, GitHub akan **secara otomatis** meminta _review_ dari **SEMUA 5 TIM**.
     
