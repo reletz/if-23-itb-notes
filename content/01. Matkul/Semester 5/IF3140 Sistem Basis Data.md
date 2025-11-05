@@ -5,6 +5,10 @@ cssclasses:
 _Back to_ [[index]]
 # Overview
 Kalau lupa SQL bisa ke [[IF2240 Basis Data]]
+- ## Tugas Besar 
+	- [Spesifikasi Tugas Besar IF3140 Sistem Basis Data: Mini DBMS](https://docs.google.com/document/d/12DxBtpNncscjHNeEAbLfvd-rtF1g1FDJuojGs6z5UUM/edit?tab=t.0#heading=h.fol9bbsqfedq)
+	- [[Rencana Kerja Kelompok Bash (Query Processor)]]
+	- [Repository Apacy](https://github.com/reletz/apacy)
 - ## Intro To DBS
 	- [[Pengenalan Konsep Dasar Sistem Basis Data]]
 	- [[Arsitektur Database Engine]]
@@ -128,4 +132,4 @@ Kalau lupa SQL bisa ke [[IF2240 Basis Data]]
 	- [[Pola dan Arsitektur Integrasi]]
 	- [[Arsitektur Modern, Standar, dan Alat Bantu]]
 - ## Latihan Soal Edunex Pra-UAS
-	- [[Latihan Soal Concurrency Control - 1]]
+	- [[Latihan Soal Concurrency Control Protocol (Bag. 1).pdf|Latihan Soal Concurrency Control - 1 (Credit: Riko)]]

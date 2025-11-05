@@ -28,13 +28,13 @@ _Back to_ [[index]]
 	 _Materi: Pendahuluan - CSP_
 	- [[Pembahasan Kuis 1 2024.pdf]]
 	- [[Pembahasan Kuis 1 2023.pdf]]
-- ## Knowledge-Based System
+- ## Knowledge-Based System (KBS)
 	- [[Pengantar Knowledge-Based System (KBS)]]
 	- [[Knowledge-Based Agent]]
 	- [[Arsitektur KBS]]
 	- [[Representasi Pengetahuan dalam KBS]]
 	- [[Knowledge Engineering]]
-- ## Rule-Based System
+- ## Rule-Based System (RBS)
 	 Bagian dari _Knowledge-Based System_
 	- [[Pengantar Rule-Based System (RBS)]]
 	- [[Forward Chaining]]
@@ -45,7 +45,6 @@ _Back to_ [[index]]
 	- [[Desain Learning Element dan Tipe Feedback]]
 	- [[Konsep Supervised Learning]]
 	- [[Studi Kasus Supervised Learning]]
-- ## Persiapan UTS
 - ## Data Science
 	- [[Pengantar dan Fase Pemahaman Bisnis]]
 	- [[Fase Pemahaman Data (Bagian A)]]
@@ -53,3 +52,7 @@ _Back to_ [[index]]
 	- [[Fase Persiapan Data (Bagian A)]]
 	- [[Fase Persiapan Data (Bagian B)]]
 	- [[Fase Pemodelan dan Evaluasi]]
+- ## Supervised Learning
+	- [[k-Nearest Neighbour (kNN)]]
+	- [[Prediction Measurement]]
+	- [[Decision Tree Learning (DTL)]]
