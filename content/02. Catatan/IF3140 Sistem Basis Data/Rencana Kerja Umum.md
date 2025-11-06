@@ -71,6 +71,141 @@ graph TD
     QP -- "(19) ExecutionResult (Final)" --> USER
 ```
 ---
+## Class Diagram
+```mermaid
+classDiagram
+    direction TD
+
+    %% Common Package
+    class DBMSComponent {
+        <<Abstract>>
+        +String componentName
+        +initialize()*
+        +shutdown()*
+    }
+
+    class IStorageManager {
+        <<Interface>>
+        +readBlock(DataRetrieval data) List~Row~
+        +writeBlock(DataWrite data) int
+        +getStats() Statistic
+        +setIndex(String, String, String) void
+    }
+
+    class IQueryOptimizer {
+        <<Interface>>
+        +parseQuery(String query) ParsedQuery
+        +optimizeQuery(ParsedQuery query, Statistic stats) ParsedQuery
+        +getCost(ParsedQuery query, Statistic stats) int
+    }
+
+    class IConcurrencyControlManager {
+        <<Interface>>
+        +beginTransaction() int
+        +validateObject(String, int, Action) Response
+        +logObject(Row, int) void
+        +endTransaction(int, boolean) void
+    }
+
+    class IFailureRecoveryManager {
+        <<Interface>>
+        +writeLog(ExecutionResult info) void
+        +saveCheckpoint() void
+        +recover(RecoveryCriteria criteria) void
+    }
+    
+    %% Query Processor Package (Grup Bash)
+    class QueryProcessor {
+        -IStorageManager sm
+        -IQueryOptimizer qo
+        -IConcurrencyControlManager ccm
+        -IFailureRecoveryManager frm
+        +executeQuery(String query) ExecutionResult
+    }
+    
+    class PlanTranslator {
+        +translateToRetrieval(...) DataRetrieval
+        +translateToWrite(...) DataWrite
+    }
+    
+    class JoinStrategy {
+        +nestedLoopJoin(...) List~Row~
+    }
+    
+    class SortStrategy {
+        +sort(...) List~Row~
+    }
+
+    %% Storage Manager Package
+    class StorageManager {
+        -BlockManager blockManager
+        -Serializer serializer
+        -StatsCollector statsCollector
+        +readBlock(DataRetrieval data) List~Row~
+        +writeBlock(DataWrite data) int
+    }
+    
+    class BlockManager
+    class Serializer
+    class StatsCollector
+    class HashIndex
+
+    %% Query Optimizer Package
+    class QueryOptimizer {
+        -QueryParser parser
+        -HeuristicOptimizer optimizer
+        -CostEstimator estimator
+        +parseQuery(String query) ParsedQuery
+    }
+    
+    class QueryParser
+    class HeuristicOptimizer
+    class CostEstimator
+    class WhereConditionNode
+
+    %% Concurrency Control Package
+    class ConcurrencyControlManager {
+        -LockManager lockManager
+        -Map~int, Transaction~ transactionMap
+        +beginTransaction() int
+        +validateObject(...) Response
+    }
+    
+    class LockManager
+    class Transaction
+
+    %% Failure Recovery Package
+    class FailureRecoveryManager {
+        -LogWriter logWriter
+        -LogReplayer logReplayer
+        -CheckpointManager checkpointManager
+        +writeLog(ExecutionResult info) void
+    }
+    
+    class LogWriter
+    class LogReplayer
+    class CheckpointManager
+
+    %% Implementation relationships
+    StorageManager ..|> IStorageManager : implements
+    QueryOptimizer ..|> IQueryOptimizer : implements
+    ConcurrencyControlManager ..|> IConcurrencyControlManager : implements
+    FailureRecoveryManager ..|> IFailureRecoveryManager : implements
+
+    %% Inheritance relationships
+    QueryProcessor --|> DBMSComponent : extends
+    StorageManager --|> DBMSComponent : extends
+    QueryOptimizer --|> DBMSComponent : extends
+    ConcurrencyControlManager --|> DBMSComponent : extends
+    FailureRecoveryManager --|> DBMSComponent : extends
+
+    %% Dependencies (Uses)
+    QueryProcessor ..> IStorageManager : uses
+    QueryProcessor ..> IQueryOptimizer : uses
+    QueryProcessor ..> IConcurrencyControlManager : uses
+    QueryProcessor ..> IFailureRecoveryManager : uses
+```
+---
 
 ## Alur Kerja Langkah-demi-Langkah
 
@@ -85,7 +220,7 @@ git checkout main
 
 # Tarik perubahan terbaru dari GitHub
 git pull origin main
-````
+```
 
 ### Langkah 2: Buat Branch Baru
 
@@ -119,9 +254,7 @@ Kerjakan tugas Anda di _branch_ ini.
 - **Testing:** Jika Anda Grup QP, gunakan _Mock Components_ di `src/test/java/` untuk menguji _logic_ Anda secara independen. Jika Anda grup lain, buat _unit test_ di folder `src/test/` modul Anda.
     
 - **Commit:** Buat _commit_ secara berkala dengan pesan yang jelas.
-    
-    Bash
-    
+
     ```Bash
     git add .
     git commit -m "feat(qp): implement nested loop join logic"
