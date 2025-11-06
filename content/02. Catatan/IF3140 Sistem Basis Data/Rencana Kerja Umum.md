@@ -9,6 +9,68 @@ Dokumen ini adalah panduan wajib bagi **setiap anggota** Super Group Apacy. Kare
 4.  Setiap PR **WAJIB** di-*review* dan di-*approve* oleh pemilik kode (CODEOWNERS).
 
 ---
+## Diagram Dependensi
+
+```mermaid
+graph TD
+	QP["Query Processor"] --> QO["Query Optimizer"];
+	QP --> SM["Storage Manager"];
+	QP --> CCM["Concurrency Control"];
+	QP --> FRM["Failure Recovery"];
+	
+	QO --> COMMON["common"];
+	SM --> COMMON;
+	QP --> COMMON;
+	CCM --> COMMON;
+	FRM --> COMMON;
+```
+---
+## DFD
+
+```mermaid
+graph TD
+    USER["User (CLI)"] -- "(1) String Query" --> QP[Query Processor]
+    
+    subgraph "Alur Parsing & Optimasi"
+        QP -- "(2) String Query" --> QO[Query Optimizer]
+        QO -- "(3) ParsedQuery" --> QP
+        
+        QP -- "(4) Minta Statistik" --> SM[Storage Manager]
+        SM -- "(5) Statistic" --> QP
+        
+        QP -- "(6) (ParsedQuery, Statistic)" --> QO
+        QO -- "(7) Optimized ParsedQuery" --> QP
+    end
+
+    subgraph "Alur Transaksi & Eksekusi (Tulis)"
+        QP -- "(8) beginTransaction()" --> CCM[Concurrency Control]
+        CCM -- "(9) txId" --> QP
+        
+        QP -- "(10) logObject(Row)" --> CCM
+        
+        QP -- "(11) validateObject(WRITE)" --> CCM
+        CCM -- "(12) Response(allowed=true)" --> QP
+        
+        QP -- "(13) DataWrite" --> SM
+        SM -- "(14) Menulis Data" --> DATA[(Physical Data Store *.dat)]
+        SM -- "(15) int affectedRows" --> QP
+        
+        QP -- "(16) endTransaction(commit=true)" --> CCM
+    end
+
+    subgraph "Alur Logging & Recovery"
+        QP -- "(17) ExecutionResult (Sukses)" --> FRM[Failure Recovery]
+        FRM -- "(18) Menulis Log" --> LOG[(Write-Ahead Log *.log)]
+
+        QP -- "Gagal! -> 17b. recover(criteria)" --> FRM
+        FRM -- "(18b) Membaca Log" --> LOG
+        FRM -- "(19b) Perintah UNDO (DataWrite)" --> SM
+        SM -- "(20b) Menulis Data Lama" --> DATA
+    end
+    
+    QP -- "(19) ExecutionResult (Final)" --> USER
+```
+---
 
 ## Alur Kerja Langkah-demi-Langkah
 

@@ -1,4 +1,6 @@
-Dokumen ini merinci rencana eksekusi, pembagian tugas, dan _milestone_ untuk komponen **Query Processor (QP)** dalam proyek mDBMS Apacy.
+# Rencana Kerja & Roadmap: Grup Query Processor
+
+Dokumen ini merinci rencana eksekusi, pembagian tugas, prasyarat, dan _milestone_ untuk komponen **Query Processor (QP)**. Versi ini telah direvisi untuk mempercepat pengerjaan, meratakan beban kerja, dan mengakomodasi pengerjaan fitur bonus.
 
 ## 1. Tinjauan Umum & Misi
 
@@ -8,24 +10,22 @@ Dokumen ini merinci rencana eksekusi, pembagian tugas, dan _milestone_ untuk kom
 
 - `apacy/query-processor/src/main/java/com/apacy/queryprocessor/QueryProcessor.java`: Koordinator utama.
     
-- `apacy/query-processor/src/main/java/com/apacy/queryprocessor/PlanTranslator.java` : Penerjemah rencana QO.
+- `apacy/query-processor/src/main/java/com/apacy/queryprocessor/PlanTranslator.java`: Penerjemah rencana QO.
     
-- `apacy/query-processor/src/main/java/com/apacy/queryprocessor/execution/` : Eksekutor algoritma (JOIN, ORDER BY).
+- `apacy/query-processor/src/main/java/com/apacy/queryprocessor/execution/`: Eksekutor algoritma (JOIN, ORDER BY).
     
-- `apacy/query-processor/src/main/java/com/apacy/queryprocessor/Main.java` : Titik masuk CLI.
+- `apacy/query-processor/src/main/java/com/apacy/queryprocessor/Main.java`: Titik masuk CLI.
     
 
 ## 2. Prasyarat & Strategi "Sandbox"
 
-Kita adalah satu-satunya grup yang bergantung pada 4 grup lainnya. Kita tidak bisa menunggu mereka selesai.
-
 ### Prasyarat #1: Kontrak `common` yang Stabil
 
-Kita berasumsi _semua interface_ dan DTO di `apacy/common/`  sudah **FINAL** dan tidak akan berubah.
+Kita berasumsi _semua interface_ dan DTO di `apacy/common/`sudah **FINAL**.
 
 ### Prasyarat #2 (TUGAS PERTAMA): Membuat _Mock Components_
 
-Kita **wajib** membuat "Komponen Palsu" (Mocks) untuk menguji _logic_ kita secara independen. Ini adalah tugas pertama dan terpenting kita.
+Kita **wajib** membuat "Komponen Palsu" (Mocks) untuk menguji _logic_ kita secara independen.
 
 - **Tugas:** Buat _package_ baru: `apacy/query-processor/src/test/java/com/apacy/queryprocessor/mocks/`
     
@@ -39,59 +39,51 @@ Kita **wajib** membuat "Komponen Palsu" (Mocks) untuk menguji _logic_ kita secar
         
     - `MockFailureRecovery implements IFailureRecoveryManager`
         
-- **Contoh:** `MockStorageManager.readBlock()` akan selalu mengembalikan `List<Row>` berisi 3 baris data _dummy_ agar kita bisa menguji `JoinStrategy` dan `SortStrategy` kita.
+- **Contoh Implementasi:**
     
+    - `MockQueryOptimizer.parseQuery(...)` akan mengembalikan `ParsedQuery` _dummy_ untuk `SELECT * FROM users JOIN ...`.
+        
+    - `MockStorageManager.readBlock(...)` akan selalu mengembalikan `List<Row>` _dummy_ untuk kita tes.
+        
+    - `MockConcurrencyControl.validateObject(...)` akan selalu mengembalikan `new Response(true, "Mock OK")`.
+        
 
 ## 3. Aturan Kerja & Naming Convention
 
-Karena kita bekerja di _monorepo_.
+(Tidak ada perubahan)
 
 ### Format Penamaan Branch
 
-Gunakan `feat/<komponen>/<fitur>`
-
 - **Format:** `feat/query-processor/<nama-fitur-singkat>`
     
-- **Contoh:**
+- **Contoh:** `feat/query-processor/implement-nested-loop-join`
     
-    - `feat/query-processor/implement-nested-loop-join`
-        
-    - `feat/query-processor/setup-mock-components`
-        
-    - `feat/query-processor/fix-translator-select-bug`
-        
-    - `fix/query-processor/null-pointer-in-execute-query`
-        
 
 ### Aturan Emas `common/`
 
-Jika ada _bug_ atau perubahan yang diperlukan di modul `common` (misal: menambah _field_ di `ParsedQuery.java` [cite: apacy/common/src/main/java/com/apacy/common/dto/ParsedQuery.java]), **JANGAN** diubah di _branch_ QP.
+Jika ada perubahan di `common` (misal: `ParsedQuery.java`):
 
 1. Buat _branch_ baru: `feat/common/add-field-to-parsed-query`.
     
 2. Lakukan perubahan.
     
-3. Minta _review_ dan _approval_ dari **SEMUA 5 PIC GRUP** sebelum _merge_ ke `main`.
+3. Minta _review_ dan _approval_ dari **SEMUA 5 PIC GRUP** sebelum _merge_.
     
 
 ## 4. Pembagian Tugas & Arsitektur Internal (Tim 4-5 Orang)
 
-Arsitektur _boilerplate_ kita sudah membagi tugas dengan rapi:
+(Peran tetap sama, tugas di _milestone_ yang berubah)
 
-
-|**Peran**|**PIC (Orang)**|**File Utama yang Dipegang**|**Deskripsi Tugas**|
+|   |   |   |   |
 |---|---|---|---|
-|**Koordinator / PIC Integrasi**|Person 1|`QueryProcessor.java`|Memegang alur `executeQuery()` utama. Menjahit semua komponen (asli atau _mock_). Mengimplementasikan _logic_ transaksi `try-catch-finally`.|
-|**Penerjemah Rencana**|Person 2|`PlanTranslator.java`|Menerjemahkan `ParsedQuery` (dari QO) menjadi DTOs (`DataRetrieval`, `DataWrite`) untuk SM.|
-|**Spesialis Join**|Person 3|`execution/JoinStrategy.java`|Fokus murni pada implementasi algoritma `nestedLoopJoin`, `hashJoin` (bonus), dll.|
-|**Spesialis Sort**|Person 4|`execution/SortStrategy.java`|Fokus murni pada implementasi algoritma `ORDER BY` (termasuk `externalSort` sebagai bonus).|
-|**QA & CLI** (Jika 5 org)|Person 5|`Main.java`, `*Test.java`, `mocks/*`|Bertanggung jawab membuat & merawat _Mock Components_. Membuat CLI interaktif. Menulis _test case_ untuk menguji _logic_ Person 1-4.|
+|**Peran**|**PIC (Orang)**|**File Utama yang Dipegang**|**Deskripsi Tugas**|
+|**Koordinator / PIC Integrasi**|Person 1|`QueryProcessor.java`|Memegang alur `executeQuery()`. Menjahit semua komponen. Implementasi _logic_ transaksi `try-catch-finally`. Mengerjakan bonus `LIMIT` & `BEGIN/COMMIT`.|
+|**Penerjemah Rencana**|Person 2|`PlanTranslator.java`|Menerjemahkan `ParsedQuery` (dari QO) menjadi DTOs (`DataRetrieval`, `DataWrite`) untuk SM. Mengerjakan bonus `INSERT`, `DELETE`, `CREATE/DROP TABLE`, `AS`.|
+|**Spesialis Join**|Person 3|`execution/JoinStrategy.java`|Fokus murni pada implementasi algoritma `JOIN` (wajib: Nested Loop, bonus: Hash Join, Sort-Merge Join).|
+|**Spesialis Sort**|Person 4|`execution/SortStrategy.java`|Fokus murni pada implementasi algoritma `ORDER BY` (wajib: _in-memory sort_, bonus: _external sort_).|
+|**QA & CLI** (Jika 5 org)|Person 5|`Main.java`, `*Test.java`, `mocks/*`|Bertanggung jawab membuat & merawat _Mock Components_. Membuat CLI interaktif. Menulis _test case_ untuk fitur wajib & bonus.|
 
-_(Jika 4 orang, tugas "QA & CLI" dipegang oleh "Koordinator")_
-
-## 5. Roadmap & Kejaran per Milestone
-
-Kita menggunakan asumsi "keleletan 1 hari", jadi target internal kita selalu H-1 dari _deadline_ resmi.
+## 5. Roadmap & Kejaran per Milestone (REVISI V2.0)
 
 ### Minggu 0: Persiapan (Sekarang s/d 7 Nov)
 
@@ -101,7 +93,7 @@ Kita menggunakan asumsi "keleletan 1 hari", jadi target internal kita selalu H-1
     
     - (Person 5/1) Membuat 4 _Mock Components_ di `src/test/java/`.
         
-    - `MockQueryOptimizer.parseQuery()` harus bisa mengembalikan `ParsedQuery` _dummy_ untuk `SELECT`, `UPDATE`, `JOIN`.
+    - `MockQueryOptimizer.parseQuery()` harus bisa mengembalikan `ParsedQuery` _dummy_ untuk _semua_ skenario (SELECT, UPDATE, JOIN, INSERT, DELETE, CREATE).
         
     - `MockStorageManager.readBlock()` harus bisa mengembalikan `List<Row>` _dummy_.
         
@@ -110,7 +102,7 @@ Kita menggunakan asumsi "keleletan 1 hari", jadi target internal kita selalu H-1
 
 ### Milestone 1 (Target: 12 Nov, Deadline Asli: 13 Nov)
 
-- **Tujuan:** Alur "Read Path" (`SELECT ... FROM ... WHERE ...`) berfungsi menggunakan _Mocks_.
+- **Tujuan:** Alur "Read Path" (`SELECT`) berfungsi & Algoritma Inti (`JOIN`, `SORT`) Wajib Selesai.
     
 - **Tugas:**
     
@@ -118,87 +110,99 @@ Kita menggunakan asumsi "keleletan 1 hari", jadi target internal kita selalu H-1
         
         - Isi `QueryProcessor.java` untuk meng-inisialisasi 4 _Mock Components_.
             
-        - Isi `QueryProcessor.executeQuery()` untuk alur `SELECT` sederhana.
+        - Isi `QueryProcessor.executeQuery()` untuk alur `SELECT` **Wajib** (`SELECT...FROM...WHERE...`).
             
-        - **Alur:** `QO.parseQuery()` -> `QO.optimizeQuery()` -> `CCM.beginTransaction()` -> `PlanTranslator.translateToRetrieval()` -> `CCM.validateObject(..., READ)` -> `SM.readBlock()` -> `CCM.endTransaction(true)` -> Kembalikan `ExecutionResult`.
+        - **Alur:** `QO.parseQuery()` -> `QO.optimizeQuery()` -> `CCM.beginTransaction()` -> `PlanTranslator.translateToRetrieval()` -> `CCM.validateObject(..., READ)`-> `SM.readBlock()` -> `CCM.endTransaction(true)` -> Kembalikan `ExecutionResult`.
             
     - **Person 2 (Penerjemah):**
         
-        - Implementasi `PlanTranslator.translateToRetrieval()` [cite: apacy/query-processor/src/main/java/com/apacy/queryprocessor/PlanTranslator.java] secara penuh.
+        - Implementasi `PlanTranslator.translateToRetrieval()`(Hanya untuk `SELECT` Wajib).
+            
+    - **Person 3 (Join):**
+        
+        - Implementasi `JoinStrategy.nestedLoopJoin()` (Fitur **Wajib**).
+            
+        - Buat _unit test_ sendiri menggunakan `List<Row>` _dummy_ dari `MockStorageManager`.
+            
+    - **Person 4 (Sort):**
+        
+        - Implementasi `SortStrategy.sort()`  (Fitur **Wajib** `ORDER BY`).
+            
+        - Buat _unit test_ sendiri menggunakan `List<Row>` _dummy_.
             
     - **Person 5 (QA/CLI):**
         
-        - Implementasi _loop_ CLI dasar di `Main.java` [cite: apacy/query-processor/src/main/java/com/apacy/queryprocessor/Main.java] yang menerima input `String` dan memanggil `QueryProcessor.executeQuery()`.
+        - Implementasi _loop_ CLI dasar di `Main.java`.
             
-- **Kejaran:** Pengguna bisa mengetik `SELECT * FROM users` di CLI, dan data _dummy_ dari `MockStorageManager` muncul di layar.
+- **Kejaran:** (1) CLI bisa menjalankan `SELECT` _dummy_. (2) Algoritma **wajib** `nestedLoopJoin` dan `sort` lolos _unit test_.
     
 
 ### Milestone 2 (Target: 19 Nov, Deadline Asli: 20 Nov)
 
-- **Tujuan:** Alur "Write Path" (`UPDATE`, `DELETE`) & _Post-Processing_ (`JOIN`, `ORDER BY`).
+- **Tujuan:** Alur "Write Path" (Wajib & Bonus) & Mulai Kerjakan Bonus Algoritma.
     
 - **Tugas:**
     
     - **Person 1 (Koordinator):**
         
-        - Integrasikan `JoinStrategy` dan `SortStrategy` ke alur `SELECT` (dipanggil _setelah_ data diterima dari `SM.readBlock()`).
+        - Integrasikan `JoinStrategy` dan `SortStrategy` **yang sudah jadi** ke alur `SELECT` (dipanggil _setelah_ data diterima dari `SM.readBlock()`).
             
-        - Tambahkan `if/else` di `executeQuery` untuk menangani `ParsedQuery.queryType()` "UPDATE" dan "DELETE".
+        - Tambahkan `if/else` di `executeQuery` untuk menangani `ParsedQuery.queryType()`:
             
+            - `UPDATE` (Wajib)
+                
+            - `INSERT` (Bonus)
+                
+            - `DELETE` (Bonus)
+                
     - **Person 2 (Penerjemah):**
         
-        - Implementasi `PlanTranslator.translateToWrite()` dan `translateToDeletion()`.
+        - Implementasi `PlanTranslator.translateToWrite()` (untuk `UPDATE` dan `INSERT`).
+            
+        - Implementasi `PlanTranslator.translateToDeletion()`.
             
     - **Person 3 (Join):**
         
-        - Implementasi `JoinStrategy.nestedLoopJoin()` [cite: apacy/query-processor/src/main/java/com/apacy/queryprocessor/execution/JoinStrategy.java].
+        - Mulai implementasi bonus `hashJoin` atau `sortMergeJoin`.
             
     - **Person 4 (Sort):**
         
-        - Implementasi `SortStrategy.sort()` (logika `ORDER BY` dasar) [cite: apacy/query-processor/src/main/java/com/apacy/queryprocessor/execution/SortStrategy.java].
+        - Mulai implementasi bonus `externalSort`.
             
-- **Kejaran:** `SELECT ... JOIN ... ORDER BY ...` berfungsi (di-eksekusi di _memory_ QP). Alur `UPDATE` dan `DELETE` berhasil memanggil _method_ yang benar di _Mock_ SM.
+- **Kejaran:** `SELECT ... JOIN ... ORDER BY ...` (fitur wajib) berfungsi penuh di _memory_ QP. Alur `UPDATE` (wajib) serta `INSERT` & `DELETE` (bonus) berhasil memanggil _method_ yang benar di _Mock_ SM.
     
 
 ### Milestone 3 (Target: 26 Nov, Deadline Asli: 27 Nov)
 
-- **Tujuan:** Integrasi Penuh Transaksi (CCM & FRM) & _Error Handling_ (Fitur Wajib).
+- **Tujuan:** Integrasi Penuh Transaksi (ACID) & Pengerjaan Bonus Lanjutan.
     
 - **Tugas:**
     
     - **Person 1 (Koordinator):**
         
-        - **Refaktor Besar `executeQuery()`:** Ini adalah tugas terpenting. Bungkus _seluruh_ alur eksekusi dalam _block_ `try-catch-finally`.
+        - **Refaktor Besar `executeQuery()`:** Implementasi `try-catch-finally` untuk _full transaction handling_ (dijelaskan di v1).
             
-        - `int txId = CCM.beginTransaction()` (di luar `try`).
+        - Implementasi bonus `LIMIT` (mudah, `List.stream().limit(...)` sebelum `return`).
             
-        - **`try { ... }`**:
+        - Implementasi bonus `BEGIN TRANSACTION` / `COMMIT` (_advanced stateful transaction_).
             
-            1. Panggil `QO.parseQuery()` (bisa `throw`).
-                
-            2. Panggil `QO.optimizeQuery()`.
-                
-            3. (Untuk `UPDATE/DELETE`): Panggil `CCM.logObject()` (mencatat _before-image_).
-                
-            4. Panggil `CCM.validateObject()` (bisa `throw` jika `Response.isAllowed()` == `false`).
-                
-            5. Panggil `SM.readBlock/writeBlock/deleteBlock()` (bisa `throw`).
-                
-            6. Panggil `CCM.endTransaction(txId, true)` (Commit).
-                
-            7. Panggil `FRM.writeLog()` (mencatat `ExecutionResult` sukses).
-                
-            8. `return` `ExecutionResult` (sukses).
-                
-        - **`catch (Exception e) { ... }`**:
+    - **Person 2 (Penerjemah):**
+        
+        - Implementasi bonus `CREATE TABLE` / `DROP TABLE` (alur DDL baru).
             
-            1. Panggil `CCM.endTransaction(txId, false)` (Abort).
-                
-            2. Panggil `FRM.recover(new RecoveryCriteria("UNDO_TRANSACTION", ...))`
-                
-            3. `return` `ExecutionResult` (gagal, dengan `e.getMessage()`).
-                
-- **Kejaran:** Alur transaksi ACID (Atomicity, Consistency) terimplementasi penuh. _Error_ apa pun (parsing, _lock_ ditolak, I/O) akan memicu _rollback_ (UNDO).
+        - Handle bonus `AS` (alias) yang datang dari `ParsedQuery`.
+            
+    - **Person 3 & 4 (Join & Sort):**
+        
+        - Finalisasi fitur bonus algoritma.
+            
+    - **Person 5 (QA/CLI):**
+        
+        - Buat _test case_ untuk _semua_ fitur bonus (`INSERT`, `DELETE`, `CREATE`, `LIMIT`, dll).
+            
+        - Perbarui `MockConcurrencyControl` agar bisa `return new Response(false, ...)` untuk menguji alur `catch` (rollback) di `executeQuery`.
+            
+- **Kejaran:** Alur transaksi ACID (Atomicity, Consistency) terimplementasi penuh. _Error_ apa pun akan memicu _rollback_.
     
 
 ### Milestone 4 (Target: 3 Des, Deadline Asli: 4 Des)
@@ -209,21 +213,13 @@ Kita menggunakan asumsi "keleletan 1 hari", jadi target internal kita selalu H-1
     
     - **Person 1 (Koordinator):**
         
-        - **Integrasi Final:** Ganti `new MockStorageManager()` dengan `new StorageManager()`. Ganti `new MockQueryOptimizer()` dengan `new QueryOptimizer()`, dst.
+        - **Integrasi Final:** Ganti `new MockStorageManager()` dengan `new StorageManager()`. Ganti `new MockQueryOptimizer()` dengan `new QueryOptimizer()`, dst. 
             
-        - Lakukan _testing end-to-end_ besar-besaran dengan komponen _asli_. Ini akan memakan waktu.
-            
-    - **Person 2 (Penerjemah):**
-        
-        - Implementasi bonus `CREATE TABLE` / `DROP TABLE`. (Ini butuh alur baru & memanggil `CCM.validateObject("TABLE::nama", ..., WRITE)`).
-            
-    - **Person 3 & 4 (Join & Sort):**
-        
-        - Implementasi bonus `hashJoin`, `sortMergeJoin`, `externalSort`.
+        - Lakukan _testing end-to-end_ besar-besaran dengan komponen _asli_.
             
     - **Semua:**
         
-        - _Bug fixing_ hasil integrasi.
+        - _Bug fixing_ hasil integrasi (pasti ada).
             
         - Menulis bagian Laporan Akhir untuk komponen Query Processor.
             
