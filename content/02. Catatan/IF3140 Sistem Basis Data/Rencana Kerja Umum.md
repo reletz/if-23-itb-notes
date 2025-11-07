@@ -25,6 +25,7 @@ graph TD
 	QP --> COMMON;
 	CCM --> COMMON;
 	FRM --> COMMON;
+	FRM --> SM;
 ```
 ---
 ## DFD
