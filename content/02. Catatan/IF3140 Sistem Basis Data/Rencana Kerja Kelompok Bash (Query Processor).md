@@ -72,15 +72,12 @@ Jika ada perubahan di `common` (misal: `ParsedQuery.java`):
 
 ## 4. Pembagian Tugas & Arsitektur Internal (Tim 4-5 Orang)
 
-(Peran tetap sama, tugas di _milestone_ yang berubah)
-
-|   |   |   |   |
-|---|---|---|---|
 |**Peran**|**PIC (Orang)**|**File Utama yang Dipegang**|**Deskripsi Tugas**|
+|---|---|---|---|
 |**Koordinator / PIC Integrasi**|Person 1|`QueryProcessor.java`|Memegang alur `executeQuery()`. Menjahit semua komponen. Implementasi _logic_ transaksi `try-catch-finally`. Mengerjakan bonus `LIMIT` & `BEGIN/COMMIT`.|
 |**Penerjemah Rencana**|Person 2|`PlanTranslator.java`|Menerjemahkan `ParsedQuery` (dari QO) menjadi DTOs (`DataRetrieval`, `DataWrite`) untuk SM. Mengerjakan bonus `INSERT`, `DELETE`, `CREATE/DROP TABLE`, `AS`.|
-|**Spesialis Join**|Person 3|`execution/JoinStrategy.java`|Fokus murni pada implementasi algoritma `JOIN` (wajib: Nested Loop, bonus: Hash Join, Sort-Merge Join).|
-|**Spesialis Sort**|Person 4|`execution/SortStrategy.java`|Fokus murni pada implementasi algoritma `ORDER BY` (wajib: _in-memory sort_, bonus: _external sort_).|
+|**Spesialis Join**|Person 3|`execution/JoinStrategy.java`|Fokus murni pada implementasi algoritma `JOIN` (Nested Loop, Hash Join, Sort-Merge Join).|
+|**Spesialis Sort**|Person 4|`execution/SortStrategy.java`|Fokus murni pada implementasi algoritma `ORDER BY` (In-memory sort)|
 |**QA & CLI** (Jika 5 org)|Person 5|`Main.java`, `*Test.java`, `mocks/*`|Bertanggung jawab membuat & merawat _Mock Components_. Membuat CLI interaktif. Menulis _test case_ untuk fitur wajib & bonus.|
 
 ## 5. Roadmap & Kejaran per Milestone (REVISI V2.0)
