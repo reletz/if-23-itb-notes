@@ -11,5 +11,4 @@ Semangat semua
 	- [[Rencana Kerja Umum]]
 	- [[Rencana Kerja Kelompok Bash (Query Processor)]]
 	- [Repository Apacy](https://github.com/apacy-mdbms/apacy)
-	- [[Class Diagram]]
 	- [[Class Diagram 1 - Apacy Dengan Bash]]
