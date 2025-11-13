@@ -25,3 +25,25 @@ _Back to_ [[index]]
 	- [[Web Accessibility]]
 - ## Latihan UTS
 	- [[03. Attachments/WBD/WBD UTS.pdf]]
+- ## Single Page Application (SPA)
+	- [[Single Page Application (SPA)]]
+- ## Client-side Framework dan Library
+	- [[Konsep Dasar Framework dan Library]]
+	- [[jQuery]]
+	- [[ReactJS]]
+- ## Server-side Framework (Laravel)
+	- [[Pengantar Laravel, MVC, dan Struktur Proyek]]
+	- [[Routing]]
+	- [[Views dan Blade Templating]]
+	- [[Eloquent ORM]]
+	- [[Eloquent Relationships]]
+	- [[Controller]]
+- ## Cloud Computing
+	- [[Pengantar dan Karakteristik Cloud Computing]]
+	- [[Model Layanan & Deployment Cloud]]
+	- [[Komponen Infrastruktur Cloud Esensial]]
+	- [[Penyedia Layanan Cloud & Perbandingan]]
+- ## Microservices
+	- [[Fondasi & Konsep Kunci Microservices]]
+	- [[Pembanding - Arsitektur Monolith]]
+	- [[Analisis Komparatif - Keuntungan, Kerugian, & Kesimpulan]]

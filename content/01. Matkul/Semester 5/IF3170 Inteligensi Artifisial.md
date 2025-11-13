@@ -52,7 +52,14 @@ _Back to_ [[index]]
 	- [[Fase Persiapan Data (Bagian A)]]
 	- [[Fase Persiapan Data (Bagian B)]]
 	- [[Fase Pemodelan dan Evaluasi]]
-- ## Supervised Learning
+- ## Supervised Learning - 1
+	Bagian dari Fase Pemodelan & Evaluasi *Data Science*
 	- [[k-Nearest Neighbour (kNN)]]
 	- [[Prediction Measurement]]
 	- [[Decision Tree Learning (DTL)]]
+	- [[Isu di DTL]]
+- ## Supervised Learning - 2
+	Bagian dari Fase Pemodelan & Evaluasi *Data Science*
+	- [[Regresi Linear]]
+	- [[Regresi Logistik]]
+	- [[Pelatihan Regresi Logistik]]

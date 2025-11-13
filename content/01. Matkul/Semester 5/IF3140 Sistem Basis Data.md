@@ -99,7 +99,7 @@ Kalau lupa SQL bisa ke [[IF2240 Basis Data]]
 	- [[Deteksi dan Deadlock Recovery]]
 - ## Concurrency Control  - 3
 	_Non-Locking Protocol_
-	- [[Timestamp-Based Protocol]]
+	- [[Timestamp-Based Protocol (TImestamp Ordering)]]
 	- [[Validation-Based Protocol]]
 - ## Concurrency Control  - 4
 	_Multiversion Two-Phase Locking_ & _Advanced Topic_
@@ -136,3 +136,4 @@ Kalau lupa SQL bisa ke [[IF2240 Basis Data]]
 	- [[Arsitektur Modern, Standar, dan Alat Bantu]]
 - ## Latihan Soal Edunex Pra-UAS
 	- [[Latihan Soal Concurrency Control Protocol (Bag. 1).pdf|Latihan Soal Concurrency Control - 1 (Credit: Riko)]]
+	- [[Latihan Soal Concurrency Control Protocol - 2]]

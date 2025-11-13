@@ -66,3 +66,17 @@ _Back to_ [[index]]
 	 - [[Model Fundamental Sistem Terdistribusi]]
 	 - [[Correctness, Konsensus, dan FLP Impossibility]]
 	 - [[Teorema CAP dan Model Konsistensi Data]]
+ - ## Arsitektur Sistem Terdistribusi
+	 - [[Pengantar Arsitektur Dalam Sistem]]
+	 - [[Pola Arsitektur dan Arsitektur Terpusat]]
+	 - [[Arsitektur Service-Based]]
+	 - [[Arsitektur Event-Driven]]
+	 - [[Arsitektur Terdesentralisasi (P2P) & Hibrida]]
+ - ## Komunikasi
+	 - [[Tipe & Lapisan Komunikasi]]
+	 - [[Model - Message-Oriented (MOM)]]
+	 - [[Model - Remote Procedure Call (RPC)]]
+	 - [[Model - Stream-Oriented]]
+ - ## Tugas Pra-UAS
+	 - [[Tugas Model Sistem Terdistribusi]]
+	 - [[Tugas Arsitektur Sistem Terdistribusi]]

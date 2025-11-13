@@ -32,6 +32,7 @@ _Back to_ [[index]]
 	- [[Pola Dekomposisi dan Komposisi Service]]
 	- [[Pola Pengelolaan Data dan Ketahanan (Resiliency)]]
 	- [[Implementasi, Operasional, dan Tools of the Trade]]
+	- [[Tugas Asinkron Arsitektur Microservices]]
 - ## Kubernetes
 	- [[Pengenalan dan Konsep Dasar Kubernetes]]
 	- [[Arsitektur Kubernetes - Control Plane dan Node]]

@@ -129,8 +129,34 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >     
 > > - **Analogi**: Deteksi Medis (misal, Kanker). Kita ingin _Recall_ tinggi. Kita tidak mau ada pasien yang sakit (Realitas: Positif) diprediksi sehat (Prediksi: Negatif). Sebuah **FN** di sini berarti pasien tidak mendapat pengobatan dan bisa berakibat fatal. Lebih baik ada pasien sehat diprediksi "mungkin sakit" (FP) untuk tes lebih lanjut.
 > >
-> > ### 4. F1 (jujur lupa)
-> > ntar gue cari lagi
+> > ### 4. F1-Score
+> > **F1-Score** (atau F-Score) adalah sebuah metrik evaluasi untuk model klasifikasi. Sederhananya, F1-Score adalah **rata-rata harmonik (harmonic mean) dari Precision dan Recall**. Nilainya berkisar antara 0 (sangat buruk) hingga 1 (sangat baik). F1-Score mencoba menemukan **keseimbangan** antara dua metrik yang seringkali bertolak belakang:
+> > 
+> > 1. **Precision (Presisi):** Seberapa _akurat_ prediksi positif kita? (Dari semua yang kita tebak 'Positif', berapa yang benar?)
+> > 2. **Recall (Perolehan):** Seberapa _banyak_ kasus positif yang berhasil kita temukan? (Dari semua yang _sebenarnya_ 'Positif', berapa yang berhasil kita tebak?)
+> > 	
+> > Akurasi saja tidak cukup, terutama jika datanya tidak seimbang. F1-Score adalah cara yang jauh lebih baik untuk mengukur performa pada kasus-kasus tersebut.
+> > 	
+> > - **Formula**: Ini adalah rata-rata harmonik dari Precision dan Recall:
+> > 	$$F1 = 2 \times \frac{Precision \times Recall}{Precision + Recall}$$
+> > 		
+> > 	Atau jika dijabarkan langsung:
+> > 	
+> > 	$$F1 = \frac{2 \times TP}{2 \times TP + FP + FN}$$
+> >
+> > - **Kapan digunakan?**
+> > 	F1-Score adalah metrik "pilihan utama" (go-to metric) dalam dua skenario berikut:
+> > 	1. **Saat Kumpulan Data Tidak Seimbang (Imbalanced Dataset)**
+> > 		- Ini adalah kasus penggunaan paling penting.
+> > 		- **Contoh:** Deteksi penipuan (fraud). Dari 1000 transaksi, mungkin hanya 5 yang penipuan (0.5%) dan 995 yang valid (99.5%).
+> > 		- Model bodoh yang _selalu_ memprediksi "Valid" akan memiliki **Akurasi 99.5%** (terlihat hebat!), tapi sama sekali tidak berguna karena gagal menemukan satu pun kasus penipuan.
+> > 		- Dalam kasus ini, **Recall** model bodoh itu 0% (gagal menemukan penipuan), sehingga **F1-Score-nya akan 0** (menunjukkan model itu sampah). F1-Score tidak tertipu oleh akurasi yang tinggi.
+> > 	2. **Saat False Positive (FP) dan False Negative (FN) Sama-Sama Merugikan**
+> > 		- Saat kita tidak bisa memutuskan mana yang lebih penting: Precision atau Recall.
+> > 		- **Contoh:** Diagnosis medis untuk penyakit serius.
+> > 			- **False Positive (FP) itu buruk:** Salah mendiagnosis orang sehat sebagai 'sakit'. Ini menyebabkan stres, biaya pengobatan yang tidak perlu, dan tes lebih lanjut (Butuh Precision tinggi).
+> > 			- **False Negative (FN) itu buruk:** Salah mendiagnosis orang sakit sebagai 'sehat'. Ini menyebabkan penyakitnya tidak diobati dan bisa berakibat fatal (Butuh Recall tinggi).
+> > 		- Karena keduanya sama-sama buruk, kita perlu metrik yang menyeimbangkan keduanya. Itulah F1-Score.
 > >
 > > ### Latihan 
 > >
