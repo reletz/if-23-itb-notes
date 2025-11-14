@@ -46,6 +46,7 @@ _Back to_ [[index]]
 - ## Pushdown Automata (PDA)
 	- [[Definisi Formal PDA]]
 	- [[Metode Penerimaan PDA]]
+	- [[PPT PDA, Pt. 1]]
 	- [[Ekuivalensi CFG ke PDA]]
 	- [[Ekuivalensi PDA ke CFG]]
 	- [[Deterministic PDA (DPDA)]]

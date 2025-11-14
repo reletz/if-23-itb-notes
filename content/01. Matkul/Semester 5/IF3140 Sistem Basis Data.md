@@ -132,3 +132,4 @@ Kalau lupa SQL bisa ke [[IF2240 Basis Data]]
 - ## Latihan Soal Edunex Pra-UAS
 	- [[Latihan Soal Concurrency Control Protocol (Bag. 1).pdf|Latihan Soal Concurrency Control - 1 (Credit: Riko)]]
 	- [[Latihan Soal Concurrency Control Protocol - 2]]
+	- [[Latihan Soal Recovery System]]

@@ -48,7 +48,7 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 
 > > Algoritma recovery dasar (seperti yang digunakan di ARIES) terdiri dari 3 fase, namun slide ini menyederhanakannya menjadi 2 fase utama setelah crash: **Redo Phase** dan **Undo Phase**. Algoritma ini juga bergantung pada prosedur `rollback` standar.
 > > 
-> > Transaction Rollback (Saat Operasi Normal):
+> > **Transaction Rollback (Saat Operasi Normal):**
 > > 
 > > Ini adalah proses abort yang diminta oleh transaksi itu sendiri (bukan karena crash).
 > > 
