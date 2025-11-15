@@ -75,8 +75,6 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >
 > > ### Pengukuran Jarak (Distance Measurement)
 > >
-> > Ini adalah bagian inti yang hilang dari catatan sebelumnya (dari PDF hal 3, 8, 9). Cara menghitung jarak bergantung pada tipe data (atribut) Anda:
-> >
 > > 1. **Untuk Atribut Simbolik (Kategorikal)**:
 > > 	
 > > 	* Contoh: `Outlook` (Sunny, Overcast, Rainy), `Hobi` (Game, Baca, Olahraga).

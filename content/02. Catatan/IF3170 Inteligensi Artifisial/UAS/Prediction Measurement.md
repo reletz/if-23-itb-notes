@@ -61,38 +61,38 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >
 > > - **True Positive (TP)**:
 > >     
-> > - Realitas: Positif, Prediksi Model: Positif.
-> >     
-> > - **(Tebakan 'Positif' yang Benar)**.
-> >     
-> > - Contoh: Pasien _sebenarnya_ sakit, model memprediksi _sakit_.
+> > 	- Realitas: Positif, Prediksi Model: Positif.
+> > 	    
+> > 	- **(Tebakan 'Positif' yang Benar)**.
+> > 	    
+> > 	- Contoh: Pasien _sebenarnya_ sakit, model memprediksi _sakit_.
 > >     
 > >
 > > - **True Negative (TN)**:
 > >     
-> > - Realitas: Negatif, Prediksi Model: Negatif.
-> >     
-> > - **(Tebakan 'Negatif' yang Benar)**.
-> >     
-> > - Contoh: Pasien _sebenarnya_ sehat, model memprediksi _sehat_.
+> > 	- Realitas: Negatif, Prediksi Model: Negatif.
+> > 	    
+> > 	- **(Tebakan 'Negatif' yang Benar)**.
+> > 	    
+> > 	- Contoh: Pasien _sebenarnya_ sehat, model memprediksi _sehat_.
 > >     
 > >
 > > - **False Positive (FP) -** _**Error Tipe I**_:
 > >     
-> > - Realitas: Negatif, Prediksi Model: Positif.
-> >     
-> > - **(Tebakan 'Positif' yang Salah)**.
-> >     
-> > - Contoh: Pasien _sebenarnya_ sehat, tapi model memprediksi _sakit_.
+> > 	- Realitas: Negatif, Prediksi Model: Positif.
+> > 	    
+> > 	- **(Tebakan 'Positif' yang Salah)**.
+> > 	    
+> > 	- Contoh: Pasien _sebenarnya_ sehat, tapi model memprediksi _sakit_.
 > >     
 > >
 > > - **False Negative (FN) -** _**Error Tipe II**_:
 > >     
-> > - Realitas: Positif, Prediksi Model: Negatif.
-> >     
-> > - **(Tebakan 'Negatif' yang Salah)**.
-> >     
-> > - Contoh: Pasien _sebenarnya_ sakit, tapi model memprediksi _sehat_. (Ini seringkali berbahaya!)
+> > 	- Realitas: Positif, Prediksi Model: Negatif.
+> > 	    
+> > 	- **(Tebakan 'Negatif' yang Salah)**.
+> > 	    
+> > 	- Contoh: Pasien _sebenarnya_ sakit, tapi model memprediksi _sehat_. (Ini seringkali berbahaya!)
 > >     
 > >
 > > ### Metrik Pengukuran Performa
@@ -103,7 +103,7 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >
 > > - **Apa itu?** Fraksi dari **total prediksi yang benar** (baik positif maupun negatif) dibagi dengan total seluruh data.
 > >     
-> > - **Formula**: `$$Accuracy = \frac{TP + TN}{TP + TN + FP + FN}$$`
+> > - **Formula**: $$Accuracy = \frac{TP + TN}{TP + TN + FP + FN}$$
 > >     
 > > - **Kapan digunakan?** Ini adalah metrik paling umum dan intuitif. Bekerja dengan baik ketika jumlah kelas **seimbang** (misalnya, 50% data Positif dan 50% data Negatif).
 > >     
@@ -112,7 +112,8 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >
 > > - **Apa itu?** Dari semua instans yang **ditebak Positif** oleh model, berapa persen yang **benar-benar Positif**?
 > >     
-> > - **Formula**: `$$Precision = \frac{TP}{TP + FP}$$`
+> > - **Formula**: 
+> > $$Precision = \frac{TP}{TP + FP}$$
 > >     
 > > - **Kapan digunakan?** Saat biaya **False Positive (FP) sangat tinggi**.
 > >     
@@ -123,7 +124,7 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >
 > > - **Apa itu?** Dari semua instans yang **seharusnya Positif**, berapa persen yang **berhasil ditemukan** (ter-retrieved/caught) oleh model?
 > >     
-> > - **Formula**: `$$Recall = \frac{TP}{TP + FN}$$`
+> > - **Formula**: $$Recall = \frac{TP}{TP + FN}$$
 > >     
 > > - **Kapan digunakan?** Saat biaya **False Negative (FN) sangat tinggi**.
 > >     

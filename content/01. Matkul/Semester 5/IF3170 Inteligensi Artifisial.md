@@ -63,3 +63,12 @@ _Back to_ [[index]]
 	- [[Regresi Linear]]
 	- [[Regresi Logistik]]
 	- [[Pelatihan Regresi Logistik]]
+- ## Kuis 2 - Latsol Dosen
+	_Materi: kNN - Logres_
+	- [[Latihan KNN-Performance Metrics.pdf|Latihan KNN dan Performance Metrics]]
+	- [[Latihan Dec Tree.pdf|Latihan DTL 1]]
+	- [[Latihan DTL 2.pdf|Latihan DTL 2]]
+	- [[Latihan LogReg.pdf|Latihan LogRes]]
+- ## Kuis 2 - Latsol Mandiri
+	_Materi: kNN - Logres_
+	- [[Latihan Kuis 2 - 1]]
