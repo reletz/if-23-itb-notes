@@ -69,6 +69,12 @@ _Back to_ [[index]]
 	- [[Latihan Dec Tree.pdf|Latihan DTL 1]]
 	- [[Latihan DTL 2.pdf|Latihan DTL 2]]
 	- [[Latihan LogReg.pdf|Latihan LogRes]]
-- ## Kuis 2 - Latsol Mandiri
-	_Materi: kNN - Logres_
+- ## Kuis 2 - Latsol Mandiri - 1
+	_kNN, Prediction Measurement, DTL, DTL Issues_
 	- [[Latihan Kuis 2 - 1]]
+	- [[Latihan Kuis 2 - 2]]
+	- [[Latihan Kuis 2 - 3]]
+	- [[Latihan Kuis 2 - 4]]
+- ## Kuis 2 - Latsol Mandiri - 2
+	_Linear and Logistic Regression_
+	- OTW

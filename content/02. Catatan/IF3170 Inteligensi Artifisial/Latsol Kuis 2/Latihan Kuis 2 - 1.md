@@ -209,9 +209,89 @@ Algoritma ID3 dasar dirancang untuk atribut kategorikal. Jelaskan bagaimana DTL 
 >     
 > 2. **Identifikasi Kandidat** _**Threshold**_**:** _Threshold_ kandidat $c$ diidentifikasi di tengah-tengah dua nilai yang berdekatan yang memiliki **kelas target yang berbeda**.
 >     
-> 3. **Evaluasi** _**Gain**_**:** Untuk setiap kandidat _threshold_ $c$, atribut kontinu $A$ diperlakukan sebagai atribut biner (`A $\le c$` vs. `A $> c$`). Information Gain dihitung untuk setiap _threshold_ kandidat.
+> 3. **Evaluasi** _**Gain**_**:** Untuk setiap kandidat _threshold_ $c$, atribut kontinu $A$ diperlakukan sebagai atribut biner (A $\le c$ vs. A $> c$). Information Gain dihitung untuk setiap _threshold_ kandidat.
 >     
 > 4. **Pemilihan** _**Threshold**_ **Terbaik:** _Threshold_ $c$ yang memberikan **Information Gain tertinggi** dipilih. Gain maksimal ini kemudian dibandingkan dengan Gain dari atribut-atribut kategorikal lain untuk menentukan _split_ terbaik.
+> 
+> Contoh kalau belum kebayang:
+> #### **Contoh Diskretisasi Atribut Kontinu: Suhu**
+> Misalkan kita memiliki 6 data latih dengan atribut **Suhu** (kontinu) dan target biner **Play** (Ya/No).
+> 
+> |**No.**|**Suhu (∘C)**|**Play (Target)**|
+> |---|---|---|
+> |1|22|**Ya**|
+> |2|26|**Ya**|
+> |3|29|**No**|
+> |4|33|**Ya**|
+> |5|37|**No**|
+> |6|40|**No**|
+> 
+> ---
+> #### **Langkah 1: Pengurutan Nilai**
+> 
+> Data sudah diurutkan berdasarkan Suhu: $22, 26, 29, 33, 37, 40$.
+> 
+> #### **Langkah 2: Identifikasi Kandidat _Threshold_ ($c$ Terbaik)**
+> 
+> Kita hanya mencari _threshold_ di antara pasangan data yang memiliki **kelas target berbeda**.
+> 
+> |**Pasangan Data**|**Kelas Target**|**Nilai Tengah (Kandidat c)**|
+> |---|---|---|
+> |Data 1 (22, Ya) & Data 2 (26, Ya)|Kelas **Sama**|_Diabaikan_|
+> |Data 2 (26, Ya) & Data 3 (29, No)|Kelas **Berbeda** (Ya $\to$ No)|$c_1 = (26 + 29) / 2 = \mathbf{27.5}$|
+> |Data 3 (29, No) & Data 4 (33, Ya)|Kelas **Berbeda** (No $\to$ Ya)|$c_2 = (29 + 33) / 2 = \mathbf{31.0}$|
+> |Data 4 (33, Ya) & Data 5 (37, No)|Kelas **Berbeda** (Ya $\to$ No)|$c_3 = (33 + 37) / 2 = \mathbf{35.0}$|
+> |Data 5 (37, No) & Data 6 (40, No)|Kelas **Sama**|_Diabaikan_|
+> 
+> Kita punya tiga kandidat _threshold_ yang harus diuji: **27.5, 31.0, dan 35.0**.
+> 
+> #### **Langkah 3: Evaluasi _Information Gain_ untuk Setiap Kandidat**
+> 
+> Pertama, hitung **Entropy Awal (Parent $S$)**:
+> - Total Data (S): 6 data
+> - Kelas: [3 Ya, 3 No].
+> - $P(\text{Ya}) = 3/6 = 0.5$; $P(\text{No}) = 3/6 = 0.5$.
+> - $\text{Entropy}(S) = - (0.5 \log_2 0.5) - (0.5 \log_2 0.5) = 1.0$ (Impure Maksimal).
+> 
+> Sekarang, kita hitung _Gain_ untuk setiap kandidat
+> ##### **A. Uji $c_1 = 27.5 \implies$ Tes: $\text{Suhu} < 27.5$**
+> 
+> | Cabang | Data | Kelas [Ya, No] | Entropy Cabang | Bobot ($\|S_v\|/\|S\|$ ) |
+> | :---: | :---: | :---: | :---: | :---: |
+> | $\text{Suhu} < 27.5$ | (22, 26) | [2 Ya, 0 No] | 0.0 (Pure) | 2/6 |
+> | $\text{Suhu} \ge 27.5$ | (29, 33, 37, 40) | [1 Ya, 3 No] | $-(1/4 \log_2 1/4) - (3/4 \log_2 3/4) = 0.81$ | 4/6 |
+> | Gain | | | $\mathbf{1.0} - [(2/6 \times 0.0) + (4/6 \times 0.81)] \approx \mathbf{0.46}$ | |
+> 
+> #### **B. Uji $c_2 = 31.0 \implies$ Tes: $\text{Suhu} < 31.0$**
+> 
+> | Cabang | Data | Kelas [Ya, No] | Entropy Cabang | Bobot ($\|S_v\|/\|S\|$ )|
+> | :---: | :---: | :---: | :---: | :---: |
+> | $\text{Suhu} < 31.0$ | (22, 26, 29) | [2 Ya, 1 No] | $-(2/3 \log_2 2/3) - (1/3 \log_2 1/3) \approx 0.92$ | 3/6 |
+> | $\text{Suhu} \ge 31.0$ | (33, 37, 40) | [1 Ya, 2 No] | $-(1/3 \log_2 1/3) - (2/3 \log_2 2/3) \approx 0.92$ | 3/6 |
+> | Gain | | | $\mathbf{1.0} - [(3/6 \times 0.92) + (3/6 \times 0.92)] \approx \mathbf{0.08}$ | |
+> 
+> #### **C. Uji $c_3 = 35.0 \implies$ Tes: $\text{Suhu} < 35.0$**
+> 
+> | Cabang | Data | Kelas [Ya, No] | Entropy Cabang | Bobot ($\|S_v\|/\|S\|$ ) | 
+> | :---: | :---: | :---: | :---: | :---: |
+> | $\text{Suhu} < 35.0$ | (22, 26, 29, 33) | [3 Ya, 1 No] | $-(3/4 \log_2 3/4) - (1/4 \log_2 1/4) \approx 0.81$ | 4/6 |
+> | $\text{Suhu} \ge 35.0$ | (37, 40) | [0 Ya, 2 No] | 0.0 (Pure) | 2/6 |
+> | Gain | | | $\mathbf{1.0} - [(4/6 \times 0.81) + (2/6 \times 0.0)] \approx \mathbf{0.46}$ | |
+> 
+> ### **Langkah 4: Pemilihan _Threshold_ Terbaik**
+> 
+> Bandingkan semua _Gain_ yang dihitung:
+> 
+> - $\text{Gain}(\text{Suhu} \le 27.5) \approx \mathbf{0.46}$
+>     
+> - $\text{Gain}(\text{Suhu} \le 31.0) \approx 0.08$
+>     
+> - $\text{Gain}(\text{Suhu} \le 35.0) \approx \mathbf{0.46}$
+>     
+> 
+> _Threshold_ **$c=27.5$** dan **$c=35.0$** sama-sama memberikan _Gain_ tertinggi (0.46). Algoritma akan memilih salah satunya (misal: $c=27.5$).
+> 
+> **Kesimpulan:** Atribut **Suhu** akan diwakili oleh pertanyaan biner: **"Apakah Suhu $\le 27.5$?"** yang memiliki Information Gain $\approx 0.46$. Nilai 0.46 ini kemudian dibandingkan dengan _Gain_ dari atribut-atribut lain (misal: _Outlook_, _Windy_, jika ada) untuk menentukan _node_ terbaik.
 
 
 > ## Tips untuk Yang Sedang Mengerjakan
