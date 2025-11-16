@@ -106,7 +106,7 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > |**Varians Error**|Konstan (Homoscedasticity)|Tidak konstan|
 > > |**Estimator**|Least Squares (LSE)|Maximum Likelihood (MLE)|
 > >
-> > Fungsi Logistik (Sigmoid):
+> > **Fungsi Logistik (Sigmoid):**
 > > 
 > > Regresi Logistik mengambil output dari model linear ($z = b_0 + b_1 x$) dan memasukkannya ke dalam fungsi logistik (sigmoid).
 > >
@@ -136,7 +136,7 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >
 > > Jika kita membalik formula fungsi logistik, kita mendapatkan:
 > >
-> > $\hat{y} = \log(\frac{p}{1-p}) = b_0 + b_1 x_1 + ... + b_d x_d = b^T x$  
+> > $$\hat{y} = \log(\frac{p}{1-p}) = b_0 + b_1 x_1 + ... + b_d x_d = b^T x$$
 > >
 > > **Interpretasi Emas:**
 > >

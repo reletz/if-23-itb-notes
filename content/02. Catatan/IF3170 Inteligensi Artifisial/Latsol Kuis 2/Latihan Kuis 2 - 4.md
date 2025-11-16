@@ -174,9 +174,8 @@ II.15. Jelaskan mengapa Rule Post-Pruning (C4.5) seringkali tidak memerlukan Val
 > 
 > ### A. True/False
 > 
-> |   |   |   |
-> |---|---|---|
 > |**No.**|**Pernyataan**|**Jawaban**|
+> |---|---|---|
 > |**I.1**|_Rule Post-Pruning_ (C4.5) meningkatkan _interpretability_ model karena aturan (_rules_) dapat dipangkas secara independen, yang tidak mungkin dilakukan pada cabang (_branches_) _Decision Tree_.|**True**|
 > |**I.2**|Algoritma ID3 menggunakan _Information Gain_ yang cenderung bias memilih atribut _Ordinal_ karena mereka memiliki urutan yang jelas.|**False**|
 > |**I.3**|_Pre-Pruning_ adalah pendekatan yang lebih aman terhadap risiko _overfitting_ karena menghentikan pertumbuhan _tree_ berdasarkan ambang batas statistik, tanpa perlu _Validation Set_.|**False**|

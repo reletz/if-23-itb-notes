@@ -385,5 +385,5 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > 2. Nunez (1988):
 >     
 >     $$\frac{2^{Gain(S,A)} - 1}{(Cost(A) + 1)^w}$$
->     - $w$ adalah koefisien antara 0 dan 1 yang menentukan pentingnya biaya. Jika $w=0$, biaya diabaikan. Jika $w=1$, biaya sangat dipertimbangkan.
+>     $w$ adalah koefisien antara 0 dan 1 yang menentukan pentingnya biaya. Jika $w=0$, biaya diabaikan. Jika $w=1$, biaya sangat dipertimbangkan.
 >         
