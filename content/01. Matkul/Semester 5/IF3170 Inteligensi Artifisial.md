@@ -75,6 +75,7 @@ _Back to_ [[index]]
 	- [[Latihan Kuis 2 - 2]]
 	- [[Latihan Kuis 2 - 3]]
 	- [[Latihan Kuis 2 - 4]]
+	- [[Simulasi Kuis 2 - 1]]
 - ## Kuis 2 - Latsol Mandiri - 2
 	_Linear and Logistic Regression_
 	- [[Latihan Kuis 2 - 5]]
