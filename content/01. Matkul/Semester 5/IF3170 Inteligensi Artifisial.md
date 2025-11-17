@@ -71,10 +71,10 @@ _Back to_ [[index]]
 	- [[Latihan LogReg.pdf|Latihan LogRes]]
 - ## Kuis 2 - Latsol Mandiri - 1
 	_kNN, Prediction Measurement, DTL, DTL Issues_
-	- [[Latihan Kuis 2 - 1]]
-	- [[Latihan Kuis 2 - 2]]
-	- [[Latihan Kuis 2 - 3]]
-	- [[Latihan Kuis 2 - 4]]
+	- [[02. Catatan/IF3170 Inteligensi Artifisial/Latsol Kuis 2/Latihan Kuis 2 - 1]]
+	- [[02. Catatan/IF3170 Inteligensi Artifisial/Latsol Kuis 2/Latihan Kuis 2 - 2]]
+	- [[02. Catatan/IF3170 Inteligensi Artifisial/Latsol Kuis 2/Latihan Kuis 2 - 3]]
+	- [[02. Catatan/IF3170 Inteligensi Artifisial/Latsol Kuis 2/Latihan Kuis 2 - 4]]
 	- [[Simulasi Kuis 2 - 1]]
 - ## Kuis 2 - Latsol Mandiri - 2
 	_Linear and Logistic Regression_

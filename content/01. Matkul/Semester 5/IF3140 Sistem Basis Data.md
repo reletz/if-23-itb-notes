@@ -92,6 +92,10 @@ Kalau lupa SQL bisa ke [[IF2240 Basis Data]]
 	- [[Konsep dan Deadlock Prevention]]
 	- [[Deadlock Avoidance]]
 	- [[Deteksi dan Deadlock Recovery]]
+- ## Latihan Soal Kuis 2
+	_Lock-based Protocol (Pengantar dan 2PL), Deadlock Handling_
+	- [[02. Catatan/IF3140 Sistem Basis Data/Latihan Kuis 2 SBD/Latihan Kuis 2 - 3|Latihan Kuis 2 - 3]]
+	- [[02. Catatan/IF3140 Sistem Basis Data/Latihan Kuis 2 SBD/Latihan Kuis 2 - 1|Latihan Kuis 2 - 1]]
 - ## Concurrency Control  - 3
 	_Non-Locking Protocol_
 	- [[Timestamp-Based Protocol (TImestamp Ordering)]]
