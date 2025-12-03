@@ -77,6 +77,27 @@ _Back to_ [[index]]
 	 - [[Model - Message-Oriented (MOM)]]
 	 - [[Model - Remote Procedure Call (RPC)]]
 	 - [[Model - Stream-Oriented]]
+ - ## RPC
+	 - [[Dasar Komunikasi dan Middleware]]
+	 - [[Konsep Dasar RPC, Parameter, dan Binding]]
+	 - [[Semantik Eksekusi, Async RPC, dan Implementasi Praktis]]
+ - ## Naming
+	 - [[Konsep Dasar Penamaan dan Binding]]
+	 - [[Algoritma Pencarian Terdistribusi]]
+ - ## Clock Synchronization
+	 - [[Physical Clock & Algoritma Sinkronisasi]]
+	 - [[Logical Clocks & Vector Clocks]]
+ - ## Distributed Filesystem
+	 - [[Konsep Dasar DFS dan Network File System]]
+	 - [[Andrew File System]]
+	 - [[Google File System dan HDFS]]
+ - ## Consensus
+	 - [[Fundamental Fault Tolerance & Replikasi]]
+	 - [[Masalah Konsensus & Algoritma Paxos]]
+	 - [[Algoritma Raft]]
+ - ## Mutual Exclusion
+	 - [[Distributed Mutex]]
+	 - [[Election Algorithms]]
  - ## Tugas Pra-UAS
 	 - [[Tugas Model Sistem Terdistribusi]]
 	 - [[Tugas Arsitektur Sistem Terdistribusi]]
