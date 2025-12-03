@@ -52,17 +52,31 @@ _Back to_ [[index]]
 	- [[Fase Persiapan Data (Bagian A)]]
 	- [[Fase Persiapan Data (Bagian B)]]
 	- [[Fase Pemodelan dan Evaluasi]]
-- ## Supervised Learning - 1
-	Bagian dari Fase Pemodelan & Evaluasi *Data Science*
+- ## Supervised Learning - kNN & DTL
 	- [[k-Nearest Neighbour (kNN)]]
 	- [[Prediction Measurement]]
 	- [[Decision Tree Learning (DTL)]]
 	- [[Isu di DTL]]
-- ## Supervised Learning - 2
-	Bagian dari Fase Pemodelan & Evaluasi *Data Science*
+- ## Supervised Learning - Linear-Logres
 	- [[Regresi Linear]]
 	- [[Regresi Logistik]]
 	- [[Pelatihan Regresi Logistik]]
+- ## Supervised Learning - SVM
+	- [[Pengenalan dan Konsep Dasar SVM]]
+	- [[SVM Untuk Linearly Separable Data]]
+	- [[SVM Untuk Non-Linearly Separable Data]]
+	- [[Multi-class SVM]]
+- ## Supervised Learning - Bayesian Networks
+	- [[Naive Bayes Classifier]]
+	- [[Introduction to Bayesian Networks]]
+	- [[Connection and Interdependence in BN]]
+	- [[Inference and Classifications in BN]]
+	- [[Learning in BN]]
+- ## Pengukuran Kinerja Model
+	- [[Skema Validasi Model]]
+	- [[Metrik Evaluasi Kinerja]]
+	- [[Analisis Komparatif dan Uji Statistik]]
+	- [[Strategi Evaluasi dan Etika]]
 - ## Kuis 2 - Latsol Dosen
 	_Materi: kNN - Logres_
 	- [[Latihan KNN-Performance Metrics.pdf|Latihan KNN dan Performance Metrics]]
@@ -71,10 +85,10 @@ _Back to_ [[index]]
 	- [[Latihan LogReg.pdf|Latihan LogRes]]
 - ## Kuis 2 - Latsol Mandiri - 1
 	_kNN, Prediction Measurement, DTL, DTL Issues_
-	- [[02. Catatan/IF3170 Inteligensi Artifisial/Latsol Kuis 2/Latihan Kuis 2 - 1]]
-	- [[02. Catatan/IF3170 Inteligensi Artifisial/Latsol Kuis 2/Latihan Kuis 2 - 2]]
-	- [[02. Catatan/IF3170 Inteligensi Artifisial/Latsol Kuis 2/Latihan Kuis 2 - 3]]
-	- [[02. Catatan/IF3170 Inteligensi Artifisial/Latsol Kuis 2/Latihan Kuis 2 - 4]]
+	- [[02. Catatan/IF3170 Inteligensi Artifisial/Latsol Kuis 2/Latihan Kuis 2 - 1|Latihan Kuis 2-1]]
+	- [[02. Catatan/IF3170 Inteligensi Artifisial/Latsol Kuis 2/Latihan Kuis 2 - 2|Latihan Kuis 2-2]]
+	- [[02. Catatan/IF3170 Inteligensi Artifisial/Latsol Kuis 2/Latihan Kuis 2 - 3|Latihan Kuis 2-3]]
+	- [[02. Catatan/IF3170 Inteligensi Artifisial/Latsol Kuis 2/Latihan Kuis 2 - 4|Latihan Kuis 2-4]]
 	- [[Simulasi Kuis 2 - 1]]
 - ## Kuis 2 - Latsol Mandiri - 2
 	_Linear and Logistic Regression_
