@@ -60,6 +60,8 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > ### 4. Struktur & Komponen BN
 > >
 > > BN merepresentasikan ketergantungan kausal secara grafis.
+> > 
+> > ![[Pasted image 20251208093747.png]]
 > >
 > > - **Struktur:** Harus berupa **DAG (Directed Acyclic Graph)**. Tidak boleh ada _cycle_ (loop).
 > >     
@@ -75,6 +77,8 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > 			
 > >
 > > ### 5. Topologi Jaringan
+> >
+> > ![[Pasted image 20251208093704.png]]
 > >
 > > Topologi menentukan asumsi independensi. Node $X$ dipengaruhi langsung oleh _Parents_-nya. BN encoding informasi: "Diberikan _parents_-nya, sebuah node independen terhadap _non-descendants_-nya".
 

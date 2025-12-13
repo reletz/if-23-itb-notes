@@ -69,7 +69,7 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >         
 > >
 > > ### 3. Skema Validasi 2: K-Fold Cross Validation
-> 
+> >
 > > Metode yang lebih robust (kokoh) untuk estimasi kinerja, terutama jika data terbatas.
 > >
 > > - **Konsep:**

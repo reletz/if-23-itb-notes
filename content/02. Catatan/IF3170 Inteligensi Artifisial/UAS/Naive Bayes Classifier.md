@@ -35,6 +35,8 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > ### 1. Konsep Dasar Naive Bayes
 > >
 > > **Naive Bayes** adalah _Probabilistic Classifier_ dalam _Supervised Learning_.
+> > 
+> > ![[Pasted image 20251208100104.png]]
 > >
 > > - **Target Fungsi:** Memetakan input ke kelas dari himpunan terbatas $V$.
 > >     
@@ -74,6 +76,8 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > ### 4. Studi Kasus: Play Tennis
 > >
 > > Diberikan data cuaca (Outlook, Temp, Humidity, Windy) untuk menentukan Play=Yes/No.
+> > 
+> > ![[Pasted image 20251208100214.png]]
 > >
 > > - **Learning:** Hitung tabel probabilitas.
 > >     
@@ -83,13 +87,14 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >         
 > > - **Query:** $\langle Sunny, Cool, High, True \rangle$ ?
 > >     
-> > - Hitung Yes: $P(Yes) \times P(Sunny|Yes) \times P(Cool|Yes) \times P(High|Yes) \times P(True|Yes)$
+> > - Hitung Yes: 
+> > 	$$P(Yes) \times P(Sunny|Yes) \times P(Cool|Yes) \times P(High|Yes) \times P(True|Yes)$$
 > >     
-> >     $= \frac{9}{14} \times \frac{2}{9} \times \frac{3}{9} \times \frac{3}{9} \times \frac{3}{9} \approx 0.0053$
+> >     $$= \frac{9}{14} \times \frac{2}{9} \times \frac{3}{9} \times \frac{3}{9} \times \frac{3}{9} \approx 0.0053$$
 > >     
-> > - Hitung No: $P(No) \times P(Sunny|No) \times P(Cool|No) \times P(High|No) \times P(True|No)$
+> > - Hitung No: $$P(No) \times P(Sunny|No) \times P(Cool|No) \times P(High|No) \times P(True|No)$$
 > >     
-> >     $= \frac{5}{14} \times \frac{3}{5} \times \frac{1}{5} \times \frac{4}{5} \times \frac{3}{5} \approx 0.0206$
+> >     $$= \frac{5}{14} \times \frac{3}{5} \times \frac{1}{5} \times \frac{4}{5} \times \frac{3}{5} \approx 0.0206$$
 > >     
 > > - **Keputusan:** $0.0206 > 0.0053$, maka prediksi **Play = No**.
 > >     

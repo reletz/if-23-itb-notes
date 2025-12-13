@@ -37,6 +37,8 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > ### 1. Tipe Koneksi & Aliran Informasi
 > >
 > > Untuk menentukan apakah dua variabel independen atau dependen, kita melihat jalur (_path_) dan status pengetahuannya (_evidence_).
+> > 
+> > ![[Pasted image 20251208093838.png]]
 > >
 > > **A. Serial (Linear):** $A \rightarrow B \rightarrow C$  
 > >
@@ -65,10 +67,11 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > - **Jika B (atau turunannya) DIKETAHUI:** A dan C menjadi **DEPENDENT**. Ini disebut **"Explaining Away"**.
 > >     
 > >     - _Contoh:_ A=Hujan, C=Sprinkler, B=Rumput Basah. Jika kita tahu Rumput Basah (B=True), dan kita tahu Hujan (A=True), maka peluang Sprinkler (C=True) turun (karena hujan sudah menjelaskan basahnya rumput).
-> >         
+> >
 > >
 > > ### 2. D-Separation (Direction-dependent Separation)
 > >
+> > ![[Pasted image 20251208093917.png]]
 > > Dua variabel d-separated (independen) jika SEMUA jalur di antara mereka terblokir.
 > > 
 > > Sebuah jalur terblokir jika ada node perantara $V$ di mana:
@@ -76,11 +79,13 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > 1. Koneksi Serial/Diverging DAN $V$ diketahui.
 > >     
 > > 2. Koneksi Converging DAN $V$ (maupun turunannya) **TIDAK** diketahui.
-> >     
+> >  
+> >  ![[Pasted image 20251208095939.png]]
 > >
 > > ### 3. Contoh Kasus: Holmes & Watson
 > >
 > > - **Struktur:**
+> >  ![[Pasted image 20251208100006.png]]
 > >     
 > > 	- Burglary $\rightarrow$ Alarm $\leftarrow$ Earthquake (Converging di Alarm).
 > > 			

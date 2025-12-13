@@ -42,17 +42,17 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >     
 > > - **Subjective:** Estimasi probabilitas seringkali tidak akurat atau bias.
 > >     
-> > - **Solusi:** Gunakan data untuk mengisi angka (Numerical Parameters) dan bahkan menentukan struktur. "Manusia bagus di struktur, Data bagus di angka".
+> > **Solusi:** Gunakan data untuk mengisi angka (Numerical Parameters) dan bahkan menentukan struktur. "Manusia bagus di struktur, Data bagus di angka".
 > >     
 > >
 > > ### 2. Parameter Estimation (Mengisi CPT)
 > >
 > > Jika struktur BN sudah diketahui, kita tinggal menghitung probabilitas dari dataset $D$.
 > >
-> > - Node tanpa parent ($V_i$):
+> > - **Node tanpa parent ($V_i$):**
 > >     
 > >     $$P(V_i=T) \approx \frac{\text{Jumlah kasus } V_i=T}{\text{Total data } k}$$
-> > - Node dengan parent ($V_i$ punya parent $V_j$):
+> > - **Node dengan parent ($V_i$ punya parent $V_j$):**
 > >     
 > >     $$P(V_i=T | V_j=T) \approx \frac{\text{Jumlah kasus } V_i=T \text{ DAN } V_j=T}{\text{Jumlah kasus } V_j=T}$$
 > >
@@ -60,7 +60,7 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >
 > > Jika dalam data latih sebuah kejadian tidak pernah muncul (count = 0), probabilitasnya menjadi 0. Ini berbahaya karena jika dikalikan dalam Chain Rule, akan menolkan seluruh prediksi.
 > >
-> > - Solusi: Laplace Smoothing (+1).
+> > - **Solusi: Laplace Smoothing (+1).**
 > >     
 > >     Menambahkan angka 1 pada pembilang dan menyesuaikan penyebut.
 > >     

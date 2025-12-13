@@ -43,18 +43,21 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >     $$P(x_1, ..., x_n) = \prod_{i=1}^{n} P(x_i | parents(x_i))$$
 > >
 > > ### 2. Contoh Perhitungan Inference
+> > 
+> > ![[Pasted image 20251208094239.png]]
 > >
 > > Kasus: Ikan (Fish).
 > >
 > > - Variables: A (Time), B (Loc), X (Fish Type: Salmon/Seabass), C (Lightness), D (Thickness).
 > >     
-> > - Query: $P(a3, b1, x2, c3, d2)$.
+> > - Query: ![[Pasted image 20251208094454.png]]
+> > $$P(a3, b1, x2, c3, d2)$$
 > >     
 > > - Hitung: $P(a3) P(b1) P(x2|a3,b1) P(c3|x2) P(d2|x2)$.
 > >     
 > > 	(Ambil nilai dari CPT yang tersedia).
 > > 	
-> > 	$= 0.25 \times 0.6 \times 0.6 \times 0.5 \times 0.4 = 0.018$.
+> > 	$= 0.25 \times 0.6 \times 0.6 \times 0.5 \times 0.4 = 0.012$.
 > >     
 > >
 > > ### 3. Classification dengan BN
@@ -65,15 +68,16 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > >     
 > > - Rumus:
 > >     
-> > 	$$P(X|e) = \alpha P(X, e) = \alpha \sum_{y} P(X, e, y)$$
+> > 	$$P(X|e) = P(X, e)/ P(e) =\alpha P(X, e) = \alpha \sum_{y} P(X, e, y)$$
 > > 	
-> > 	Dimana $y$ adalah variabel hidden (tidak diketahui) yang harus dijumlahkan (summed out). $\alpha$ adalah konstanta normalisasi.
+> > 	Dimana $y$ adalah variabel hidden (tidak diketahui) yang harus dijumlahkan (summed out). $\alpha$ adalah konstanta normalisasi ($1/P(e)$).
 > >     
 > >
 > > ### 4. Langkah Klasifikasi (Contoh Ikan)
 > >
 > > Diketahui: Light ($c1$), South Atlantic ($b2$). Apa jenis ikannya ($X$)?
-> >
+> > 
+> > ![[Pasted image 20251208094928.png]]
 > > - Target: Bandingkan $P(x1 | c1, b2)$ dan $P(x2 | c1, b2)$.
 > >     
 > >
@@ -83,7 +87,7 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > 	
 > > 	$$P(x1, c1, b2) = \sum_A \sum_D P(A) P(b2) P(x1|A,b2) P(c1|x1) P(D|x1)$$
 > > 	
-> > 	Karena $\sum P(D|x1) = 1$, variabel D bisa diabaikan dalam penjumlahan.
+> > 	Karena $\sum P(D|x1) = 1$ (karena $x$ parent $D$), variabel D bisa diabaikan dalam penjumlahan.
 > > 	
 > > 	Fokus pada penjumlahan terhadap A:
 > > 	

@@ -52,12 +52,13 @@ _Back to_ [[index]]
 	- [[Fase Persiapan Data (Bagian A)]]
 	- [[Fase Persiapan Data (Bagian B)]]
 	- [[Fase Pemodelan dan Evaluasi]]
-- ## Supervised Learning - kNN & DTL
-	- [[k-Nearest Neighbour (kNN)]]
+- ## Supervised Learning - kNN, DTL, dan Prediction Measurement
 	- [[Prediction Measurement]]
-	- [[Decision Tree Learning (DTL)]]
+	- ---
+	- [[k-Nearest Neighbour (kNN)]]
+	- [[Decision Tree Learning (DTL) (ID3)]]
 	- [[Isu di DTL]]
-- ## Supervised Learning - Linear-Logres
+- ## Supervised Learning - Linear & Logres
 	- [[Regresi Linear]]
 	- [[Regresi Logistik]]
 	- [[Pelatihan Regresi Logistik]]
@@ -66,12 +67,18 @@ _Back to_ [[index]]
 	- [[SVM Untuk Linearly Separable Data]]
 	- [[SVM Untuk Non-Linearly Separable Data]]
 	- [[Multi-class SVM]]
-- ## Supervised Learning - Bayesian Networks
-	- [[Naive Bayes Classifier]]
+- ## Supervised Learning - BN & NB
 	- [[Introduction to Bayesian Networks]]
 	- [[Connection and Interdependence in BN]]
 	- [[Inference and Classifications in BN]]
 	- [[Learning in BN]]
+	- ---
+	- [[Naive Bayes Classifier]]
+- ## Unsupervised Learning - Clustering
+	- [[Dasar Clustering]]
+	- [[Partitioning Clustering (K-Means)]]
+	- [[Density-based Clustering (DBSCAN)]]
+	- [[Cluster Evaluation]]
 - ## Pengukuran Kinerja Model
 	- [[Skema Validasi Model]]
 	- [[Metrik Evaluasi Kinerja]]
