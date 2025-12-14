@@ -53,22 +53,36 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > 	* $\xi_i = 0$: Data terklasifikasi benar dan di luar margin (aman).
 > > 	* $0 < \xi_i \le 1$: Data berada di dalam margin tetapi masih di sisi yang benar.
 > > 	* $\xi_i > 1$: Data salah diklasifikasikan (misclassified).
+> > 
+> > 	![[Pasted image 20251214000903.png]]
 > >
 > > - Fungsi Objektif Baru: Kita tidak hanya meminimalkan $||w||^2$, tapi juga meminimalkan total kesalahan ($\sum \xi$).
 > >     
 > >     $$Minimize: \frac{1}{2}||w||^2 + C \sum_{i=1}^{N} \xi_i$$
+> > 
+> > - Formulasi Dual Baru:
+> > 
+> > $$Q(\alpha) = \sum \alpha_i - \frac{1}{2} \sum \sum \alpha_i \alpha_j y_i y_j x_i^T x_j$$
+> > 
+> > Subject to: $0 \le \alpha_i \le C$
+> >
+> > _Perhatikan:_ Rumus Dual-nya **SAMA PERSIS** dengan Hard Margin. Bedanya hanya pada batas atas $\alpha_i$ yang sekarang dibatasi oleh $C$.
 > >
 > > ### 3. Peran Parameter C (Regularization)
 > >
 > > Parameter **C** adalah konstanta yang ditentukan pengguna untuk mengontrol _trade-off_ antara margin yang lebar vs. kesalahan klasifikasi.
 > >
-> > - **C Besar:** Memberi hukuman berat pada kesalahan ($\xi$). Model akan berusaha keras mengklasifikasikan semua data latih dengan benar.
+> > - **C Besar (Strict):**
 > >     
-> >     - _Risiko:_ Margin sempit, rentan Overfitting (terlalu sensitif terhadap noise).
+> >     - Memberi hukuman berat pada setiap $\xi$. Model berusaha keras agar error = 0.
 > >         
-> > - **C Kecil:** Lebih mentoleransi kesalahan. Model lebih mementingkan margin yang lebar.
+> >     - _Akibat:_ Margin sempit, garis batas berlekuk-lekuk mengikuti data (potensi **Overfitting**).
+> >         
+> > - **C Kecil (Tolerant):**
 > >     
-> >     - _Efek:_ Margin lebar, pola lebih umum (Underfitting jika terlalu kecil), tapi lebih tahan noise.
+> >     - Lebih santai terhadap error. Mengutamakan margin yang lebar meskipun ada beberapa data yang salah.
+> >         
+> >     - _Akibat:_ Margin lebar, batas lebih sederhana (potensi **Underfitting** jika terlalu kecil, tapi lebih _robust_).
 > >         
 > >
 > > ### 4. Solusi 2: Non-Linear Boundary Transformation
@@ -80,32 +94,31 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > - **Contoh:** Data 2D melingkar ($x_1, x_2$) dipetakan ke 3D ($z_1, z_2, z_3$) di mana $z_3 = x_1^2 + x_2^2$. Di dimensi 3D, data tersebut mungkin menjadi terpisah secara linear oleh sebuah bidang datar. Saat dikembalikan ke 2D, bidang datar itu menjadi garis lengkung (lingkaran).
 > >     
 > >
+> >
 > > ### 5. The Kernel Trick
 > >
-> > Memetakan data ke dimensi tinggi secara eksplisit sangat mahal secara komputasi (masalah "Curse of Dimensionality").
+> > Menghitung transformasi $\phi(x)$ ke dimensi sangat tinggi (bahkan tak hingga) itu mahal dan lambat.
 > >
-> > - **Trik:** SVM sebenarnya hanya membutuhkan hasil **Dot Product** antar data $(x_i \cdot x_j)$ dalam optimasinya (lihat Dual Problem di Catatan 2).
-> >     
-> > - Fungsi Kernel: Kita bisa menggunakan fungsi $K(x_i, x_j)$ yang menghitung dot product di dimensi tinggi tanpa harus benar-benar mengubah koordinat data ke dimensi tinggi tersebut.
-> >     
-> >     $$K(x_i, x_j) = \phi(x_i) \cdot \phi(x_j)$$
-> > - **Keuntungan:** Komputasi tetap ringan seolah-olah di dimensi rendah, tapi kemampuan pemisahan setara dimensi tinggi.
-> >     
+> > Triknya:
+> > 
+> > Dalam optimasi Dual Problem, kita hanya butuh hasil Dot Product $(x_i \cdot x_j)$. Kita tidak butuh koordinat aslinya.
 > >
-> > ### 6. Jenis-Jenis Fungsi Kernel Umum
+> > Maka, kita definisikan **Fungsi Kernel** $K(x_i, x_j)$ yang bisa langsung menghitung hasil dot product di dimensi tinggi TANPA kita perlu tahu bentuk transformasi $\phi(x)$-nya.
 > >
-> > - **Linear Kernel:** $K(x_i, x_j) = x_i^T x_j$ (Sama seperti SVM biasa).
-> >     
-> > - **Polynomial Kernel:** $K(x_i, x_j) = (\gamma \cdot x_i^T x_j + r)^p$. Baik untuk data yang batasnya melengkung polinomial.
-> >     
-> > - RBF (Radial Basis Function) / Gaussian: Kernel paling populer.
-> >     
-> >     $$K(x_i, x_j) = exp(-\gamma ||x_i - x_j||^2)$$
-> >     
-> >     Dapat menangani batas yang sangat kompleks dan tak terbatas dimensinya.
-> >     
-> > - **Sigmoid Kernel:** Mirip dengan fungsi aktivasi pada Neural Network.
-> >     
+> > $$K(x_i, x_j) = \phi(x_i) \cdot \phi(x_j)$$
+> > 
+> > Jadi, 
+> >
+> > $$f(x) = \sum_{i=1}^{ns}\alpha_iy_iK(x_i,x) + b$$
+> >
+> > ### 6. Jenis-Jenis Kernel Populer
+> >
+> > |**Kernel**|**Rumus Matematika**|**Karakteristik**|
+> > |---|---|---|
+> > |**Linear**|$K(x, z) = x^T z$|Sama seperti SVM biasa. Cepat. Bagus untuk data teks/dimensi sangat tinggi.|
+> > |**Polynomial**|$K(x, z) = (\gamma x^T z + r)^d$|Membentuk batas melengkung polinomial. Parameter $d$ (derajat) menentukan kompleksitas.|
+> > |**RBF (Gaussian)**|$K(x, z) = \exp(-\gamma \|{x_i-x_j}\|^2)$|-|
+> > |**Sigmoid**|$K(x, z) = \tanh(\gamma x^T z + r)$|Mirip perilaku Neural Network.|
 
 > [!cornell] #### Summary
 > 
@@ -191,12 +204,24 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > 
 > <details>
 > 
-> <summary><strong>5. Apa perbedaan batasan nilai Alpha ($\alpha$) pada Hard Margin SVM dan Soft Margin SVM?</strong></summary>
+> <summary><strong>5. Apa bedanya batasan nilai Alpha pada Soft Margin vs Hard Margin?</strong></summary>
 > 
->   
+> Pada Hard Margin, $\alpha_i \ge 0$ (tanpa batas atas). Pada Soft Margin, $0 \le \alpha_i \le C$. Nilai C membatasi seberapa besar pengaruh satu data outlier terhadap model.
 > 
-> Pada Hard Margin, $\alpha_i \ge 0$ (tidak ada batas atas).
+> </details>
+>
+> <details>
 > 
-> Pada Soft Margin, $0 \le \alpha_i \le C$ (dibatasi oleh parameter C).
+> <summary><strong>6. Mengapa kita menggunakan Kernel Trick daripada mentransformasi data secara manual?</strong></summary>
+> 
+> Karena transformasi manual ke dimensi tinggi sangat boros memori dan komputasi (Curse of Dimensionality). Kernel Trick memungkinkan kita mendapatkan hasil yang sama (dot product di dimensi tinggi) hanya dengan operasi matematika sederhana di dimensi rendah.
+> 
+> </details>
+>
+> <details>
+> 
+> <summary><strong>7. Jika model SVM Anda terlalu kaku (Underfitting) pada data pelatihan, parameter apa yang harus diubah?</strong></summary>
+> 
+> Anda bisa mencoba menaikkan nilai C (agar model lebih ketat/sedikit toleransi error) atau menaikkan nilai Gamma (jika pakai RBF, agar model lebih sensitif terhadap detail lokal).
 > 
 > </details>

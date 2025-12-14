@@ -50,6 +50,8 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > SVM fokus pada pemisahan data menjadi dua kelas ($+1$ dan $-1$).
 > >
 > > - **Linearly Separable:** Kondisi di mana data dari dua kelas yang berbeda dapat dipisahkan secara sempurna oleh sebuah garis lurus (pada 2D) atau bidang datar (pada dimensi tinggi).
+> > 
+> > 	![[Pasted image 20251213215511.png]]
 > >     
 > > - **Fungsi Keputusan:** Kita mencari fungsi $f(x)$ di mana:
 > >     
@@ -61,6 +63,8 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > ### 3. Konsep Hyperplane (Bidang Pemisah)
 > >
 > > Batas keputusan dalam SVM disebut **Hyperplane**.
+> > 
+> > ![[Pasted image 20251213215838.png]]
 > >
 > > - **Dimensi:** Garis (di 2D), Bidang (di 3D), atau Hyperplane (di dimensi $n$).
 > >     
@@ -92,6 +96,8 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > - **Margin:** Jarak tegak lurus antara hyperplane dengan titik data terdekat dari masing-masing kelas.
 > >     
 > > - **Filosofi:** "Zona aman" yang lebar (margin besar) memberikan toleransi kesalahan yang lebih baik saat menghadapi data baru yang belum pernah dilihat sebelumnya.
+> > 
+> > ![[Pasted image 20251213220346.png]]
 > >     
 > >
 > > ### 6. Support Vectors

@@ -104,3 +104,5 @@ _Back to_ [[index]]
 	- [[Latihan Kuis 2 - 7]]
 	- [[Latihan Kuis 2 - 8]]
 	- [[Simulasi Kuis 2 - 2]]
+- ## UAS
+	- [[Latihan UAS IF3170]]
