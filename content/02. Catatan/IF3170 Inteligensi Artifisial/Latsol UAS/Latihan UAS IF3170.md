@@ -20,7 +20,10 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 	- [[Latihan UAS IF3170-4 Bagian I]]
 	- [[Latihan UAS IF3170-4 Bagian II]]
 	- [[Latihan UAS IF3170-4 Bagian III]]
-
+- ## Pendalaman SVM
+	- [[Latihan UAS IF3170-SVM Bagian I]]
+	- [[Latihan UAS IF3170-SVM Bagian II]]
+	- [[Latihan UAS IF3170-SVM Bagian III]]
 ---
 # Susunan (Perkiraan)
 

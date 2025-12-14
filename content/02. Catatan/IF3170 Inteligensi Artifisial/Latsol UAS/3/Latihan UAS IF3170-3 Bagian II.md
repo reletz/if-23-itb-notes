@@ -227,13 +227,9 @@ Berikan tanda centang ($\checkmark$) jika model memiliki karakteristik tersebut,
 > Tabel Model:
 > 
 > | Nama Model | Deskripsi | Persamaan Hyperplane (Contoh) |
-> 
 > |:---:|:---:|:---:|
-> 
 > | M1 | R vs G | $x_1 + x_2 - 5 = 0$ |
-> 
 > | M2 | R vs B | $x_2 - 3 = 0$ |
-> 
 > | M3 | G vs B | $3x_1 - x_2 - 3 = 0$ (Aproksimasi) |
 > 
 > **Prediksi Data Baru (2, 2):**

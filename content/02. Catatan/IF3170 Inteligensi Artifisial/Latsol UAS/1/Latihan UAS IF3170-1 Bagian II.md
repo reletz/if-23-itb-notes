@@ -66,7 +66,7 @@ c. **(Evaluasi Kinerja - Recall)** Misalkan setelah pelatihan selesai, model dig
 
 |   |   |   |
 |---|---|---|
-|**Pasien**|**Status Asli (y)**|**Prediksi Model (y^​)**|
+|**Pasien**|**Status Asli (y)**|**Prediksi Model ($\hat{y}$​)**|
 |P1|1|1|
 |P2|1|0|
 |P3|0|0|

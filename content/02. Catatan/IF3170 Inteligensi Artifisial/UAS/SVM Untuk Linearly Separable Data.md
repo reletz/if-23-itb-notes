@@ -223,8 +223,158 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > |$x_1(3,3)$|$0.5(3)+0.5(3)-2$|**1**|+1|**Support Vector**|
 > > |$x_2(4,3)$|$0.5(4)+0.5(3)-2$|**1.5**|+1|**Benar (>1)**|
 > > |$x_3(1,1)$|$0.5(1)+0.5(1)-2$|**-1**|-1|**Support Vector**|
+> > 
+> > ### 7. Studi Kasus 2 (PPT)
+> > 
+> > 
+> > #### Dataset
+> > 
+> > |x1|x2|Kelas|
+> > |---|---|---|
+> > |3|1|+1|
+> > |3|-1|+1|
+> > |6|1|+1|
+> > |6|-1|+1|
+> > |1|0|-1|
+> > |0|1|-1|
+> > |0|-1|-1|
+> > |-1|0|-1|
+> > 
+> > ---
+> > 
+> > #### Identifikasi Support Vectors
+> > 
+> > Dari visualisasi data, titik-titik yang paling dekat antar kelas (yang berada di perbatasan) adalah:
+> > 
+> > **Support Vectors yang dipilih:**
+> > 
+> > - **SV1:** (1, 0) dengan kelas -1
+> > - **SV2:** (3, 1) dengan kelas +1
+> > - **SV3:** (3, -1) dengan kelas +1
+> > 
+> > Titik-titik ini ditandai dengan lingkaran kuning pada plot.
+> > 
+> > ---
+> > 
+> > #### Langkah 1: Menyusun Persamaan dari Syarat Support Vector
+> > 
+> > Untuk Support Vector, berlaku:
+> > 
+> > $$f(\vec{x}) = \sum_{i=1}^{nsv} (\alpha_i y_i \vec{x}_i \cdot \vec{x}) + b = y$$
+> > 
+> > Kita akan menyusun persamaan untuk ketiga support vector:
+> > 
+> > ##### Persamaan 1: Titik (1, 0) → Kelas -1
+> > 
+> > $$f\begin{pmatrix}1\\0\end{pmatrix} \Rightarrow -1 = \alpha_1 \cdot (-1) \begin{pmatrix}1\\0\end{pmatrix} \cdot \begin{pmatrix}1\\0\end{pmatrix} + \alpha_2 \cdot 1 \begin{pmatrix}3\\1\end{pmatrix} \cdot \begin{pmatrix}1\\0\end{pmatrix} + \alpha_3 \cdot 1 \begin{pmatrix}3\\-1\end{pmatrix} \cdot \begin{pmatrix}1\\0\end{pmatrix} + b$$
+> > 
+> > $$= -\alpha_1 + 3\alpha_2 + 3\alpha_3 + b \quad \dots (1)$$
+> > 
+> > ##### Persamaan 2: Titik (3, 1) → Kelas +1
+> > 
+> > $$f\begin{pmatrix}3\\1\end{pmatrix} \Rightarrow 1 = \alpha_1 \cdot (-1) \begin{pmatrix}1\\0\end{pmatrix} \cdot \begin{pmatrix}3\\1\end{pmatrix} + \alpha_2 \cdot 1 \begin{pmatrix}3\\1\end{pmatrix} \cdot \begin{pmatrix}3\\1\end{pmatrix} + \alpha_3 \cdot 1 \begin{pmatrix}3\\-1\end{pmatrix} \cdot \begin{pmatrix}3\\1\end{pmatrix} + b$$
+> > 
+> > $$= -3\alpha_1 + 10\alpha_2 + 8\alpha_3 + b \quad \dots (2)$$
+> > 
+> > ##### Persamaan 3: Titik (3, -1) → Kelas +1
+> > 
+> > $$f\begin{pmatrix}3\\-1\end{pmatrix} \Rightarrow 1 = \alpha_1 \cdot (-1) \begin{pmatrix}1\\0\end{pmatrix} \cdot \begin{pmatrix}3\\-1\end{pmatrix} + \alpha_2 \cdot 1 \begin{pmatrix}3\\1\end{pmatrix} \cdot \begin{pmatrix}3\\-1\end{pmatrix} + \alpha_3 \cdot 1 \begin{pmatrix}3\\-1\end{pmatrix} \cdot \begin{pmatrix}3\\-1\end{pmatrix} + b$$
+> > 
+> > $$= -3\alpha_1 + 8\alpha_2 + 10\alpha_3 + b \quad \dots (3)$$
+> > 
+> > ##### Persamaan 4: Constraint SVM
+> > 
+> > $$\sum \alpha_i y_i = 0$$
+> > 
+> > $$-\alpha_1 + \alpha_2 + \alpha_3 = 0 \quad \dots (4)$$
+> > 
+> > ---
+> > 
+> > #### Langkah 2: Penyelesaian Sistem Persamaan Linear
+> > 
+> > **Sistem persamaan yang harus diselesaikan:**
+> > 
+> > $$-\alpha_1 + 3\alpha_2 + 3\alpha_3 + b = -1 \quad \dots (1)$$ $$-3\alpha_1 + 10\alpha_2 + 8\alpha_3 + b = 1 \quad \dots (2)$$ $$-3\alpha_1 + 8\alpha_2 + 10\alpha_3 + b = 1 \quad \dots (3)$$ $$-\alpha_1 + \alpha_2 + \alpha_3 = 0 \quad \dots (4)$$
+> > 
+> > ##### Eliminasi (2) dan (3):
+> > 
+> > $$(2) - (3): 2\alpha_2 - 2\alpha_3 = 0 \rightarrow \alpha_2 = \alpha_3 \quad \dots (5)$$
+> > 
+> > ##### Substitusi (5) ke (1) dan (2):
+> > 
+> > **Dari (1):** $$-\alpha_1 + 3\alpha_2 + 3\alpha_2 + b = -1$$ $$-\alpha_1 + 6\alpha_2 + b = -1 \quad \dots (6)$$
+> > 
+> > **Dari (2):** $$-3\alpha_1 + 10\alpha_2 + 8\alpha_2 + b = 1$$ $$-3\alpha_1 + 18\alpha_2 + b = 1 \quad \dots (7)$$
+> > 
+> > ##### Eliminasi (6) dan (7):
+> > 
+> > $$(6) - (7): 2\alpha_1 - 12\alpha_2 = -2$$ $$\alpha_1 - 6\alpha_2 = -1$$ $$\alpha_1 = 6\alpha_2 - 1 \quad \dots (8)$$
+> > 
+> > ##### Substitusi (5) dan (8) ke constraint (4):
+> > 
+> > $$-(6\alpha_2 - 1) + \alpha_2 + \alpha_2 = 0$$ $$-6\alpha_2 + 1 + 2\alpha_2 = 0$$ $$-4\alpha_2 = -1$$ $$\alpha_2 = \frac{1}{4} = 0.25$$
+> > 
+> > ##### Cari variabel lainnya:
+> > 
+> > $$\alpha_3 = \alpha_2 = 0.25$$ $$\alpha_1 = 6(0.25) - 1 = 1.5 - 1 = 0.5$$
+> > 
+> > ##### Substitusi ke (6) untuk mencari b:
+> > 
+> > $$-0.5 + 6(0.25) + b = -1$$ $$-0.5 + 1.5 + b = -1$$ $$1 + b = -1$$ $$b = -2$$
+> > 
+> > ---
+> > 
+> > ##### Hasil Akhir
+> > 
+> > $$\alpha_1 = 0.5; \quad \alpha_2 = 0.25; \quad \alpha_3 = 0.25$$ $$b = -2$$
+> > 
+> > **Fungsi Hipotesis:**
+> > 
+> > $$f(\vec{x}) = \sum_{i=1}^{nsv} (\alpha_i y_i \vec{x}_i \cdot \vec{x}) - 2$$
+> > 
+> > dengan:
+> > 
+> > - α₁ = 0.5
+> > - α₂ = α₃ = 0.25
+> > 
+> > ---
+> > 
+> > #### Langkah 3: Pengujian Hipotesis
+> > 
+> > **Uji dengan data baru:** x = (6, 1)
+> > 
+> > $$f\begin{pmatrix}6\\1\end{pmatrix} = sign\left((0.5)(-1)\begin{pmatrix}1\\0\end{pmatrix} \cdot \begin{pmatrix}6\\1\end{pmatrix} + (0.25)(1)\begin{pmatrix}3\\1\end{pmatrix} \cdot \begin{pmatrix}6\\1\end{pmatrix} + (0.25)(1)\begin{pmatrix}3\\-1\end{pmatrix} \cdot \begin{pmatrix}6\\1\end{pmatrix} - 2\right)$$
+> > 
+> > **Hitung dot products:**
+> > 
+> > - $(1, 0) \cdot (6, 1) = 6$
+> > - $(3, 1) \cdot (6, 1) = 18 + 1 = 19$
+> > - $(3, -1) \cdot (6, 1) = 18 - 1 = 17$
+> > 
+> > **Substitusi:**
+> > 
+> > $$f\begin{pmatrix}6\\1\end{pmatrix} = sign(-3 + 4.75 + 4.25 - 2) = sign(4) = 1$$
+> > 
+> > **Hasil:** Data (6, 1) diprediksi masuk **kelas +1** ✓
+> > 
+> > ---
+> > 
+> > #### Visualisasi Hasil
+> > 
+> > Hyperplane yang terbentuk memisahkan:
+> > 
+> > - **Kelas -1** (kotak merah) di sebelah kiri
+> > - **Kelas +1** (titik biru) di sebelah kanan
+> > 
+> > Support Vectors (lingkaran kuning):
+> > 
+> > - (1, 0) dengan α₁ = 0.5
+> > - (3, 1) dengan α₂ = 0.25
+> > - (3, -1) dengan α₃ = 0.25
+> > 
+> > Garis hitam vertikal adalah **hyperplane pemisah** dengan persamaan yang didapat dari model SVM.
 > >
-> >  ### 7. Studi Kasus 2: Perhitungan Kompleks (3 Support Vectors)
+> >  ### 8. Studi Kasus 3: Perhitungan Kompleks (3 Support Vectors)
 > >
 > > **Dataset:**
 > >

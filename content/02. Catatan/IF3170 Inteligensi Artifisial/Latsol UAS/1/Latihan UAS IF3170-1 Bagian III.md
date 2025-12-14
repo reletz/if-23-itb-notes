@@ -254,7 +254,7 @@ Tentukan apakah pernyataan berikut **Benar** atau **Salah**, dan berikan **Alasa
 > - D3-D8: $\sqrt{3^2+1^2} \approx 3.1$  
 >     
 > - D6-D8: $\sqrt{1^2+3^2} \approx 3.1$  
->     
+> - D4-D6: $\sqrt{(3)^2+4^2} = 5$  
 > - D4-D8: $\sqrt{(-2)^2+1^2} \approx 2.2$  
 >     
 > - D4-D3: $\sqrt{5^2+2^2} = \sqrt{29} \approx 5.3$ (> 5, Tidak bertetangga langsung)
@@ -276,7 +276,7 @@ Tentukan apakah pernyataan berikut **Benar** atau **Salah**, dan berikan **Alasa
 >         
 >     - D8 tetangga: {D3, D6, D4}. Total=4. -> **Core**.
 >         
->     - D4 tetangga: {D8}. Total=2. (< MinPts). Tapi D4 bertetangga dengan Core (D8). -> **Border Point**.
+>     - D4 tetangga: {D8, D6}. Total=3 -> **Core**.
 >         
 >     - Membentuk **Cluster 2**: {D3, D4, D6, D8}.
 >         
@@ -304,10 +304,10 @@ Tentukan apakah pernyataan berikut **Benar** atau **Salah**, dan berikan **Alasa
 > 
 > ### Jawaban Soal 5 (Benar/Salah)
 > 
-> 4. **Salah**. Nilai Silhouette mendekati +1 berarti cluster **Sangat Baik** (Rapat dan Terpisah). Mendekati 0 berarti tumpang tindih.
+> 1. **Salah**. Nilai Silhouette mendekati +1 berarti cluster **Sangat Baik** (Rapat dan Terpisah). Mendekati 0 berarti tumpang tindih.
 >     
-> 5. **Benar**. Jika setiap data menjadi clusternya sendiri, kemurnian (homogenitas) maksimal, tapi tidak bermakna (trivial solution).
+> 2. **Benar**. Jika setiap data menjadi clusternya sendiri, kemurnian (homogenitas) maksimal, tapi tidak bermakna (trivial solution).
 >     
-> 6. **Benar**. FN berarti orang sakit dibilang sehat (fatal). Maka Recall (menangkap semua yg positif) lebih penting dari Presisi.
+> 3. **Benar**. FN berarti orang sakit dibilang sehat (fatal). Maka Recall (menangkap semua yg positif) lebih penting dari Presisi.
 >     
-> 7. **Benar**. Akurasi tinggi (99%) menipu. F1-Score akan hancur karena Recall atau Precision terhadap kelas minoritas (Positif) akan mendekati 0.
+> 4. **Benar**. Akurasi tinggi (99%) menipu. F1-Score akan hancur karena Recall atau Precision terhadap kelas minoritas (Positif) akan mendekati 0.

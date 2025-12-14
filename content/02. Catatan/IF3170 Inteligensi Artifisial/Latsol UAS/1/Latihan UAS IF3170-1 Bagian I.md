@@ -81,16 +81,9 @@ a. **(ID3 - Pohon Lengkap)** Abaikan atribut `IPK` dan `No`. Gunakan atribut **P
 - Lanjutkan perhitungan secara rekursif hingga terbentuk **Pohon Keputusan Lengkap** (sampai semua leaf node murni atau atribut habis).
     
 - Gambarkan pohon hasil akhirnya.
+  
     
-
-b. **(CART - Binary Split)** Abaikan atribut `IPK` dan `No`. Gunakan atribut **Portfolio** dan **Wawancara** saja.
-
-- Algoritma CART menggunakan _Binary Split_. Hitunglah Gini Impurity untuk menentukan split terbaik di Root Node. (Contoh split: Portfolio=Bagus vs {Biasa, Buruk}).
-    
-- Gambarkan **Pohon Biner Lengkap** yang terbentuk dari data tersebut.
-    
-
-c. **(C4.5 - Handling Numeric & Unique)**
+b. **(C4.5 - Handling Numeric & Unique)**
 
 1. **Atribut Numerik (IPK):** Jelaskan langkah C4.5 menangani atribut kontinu `IPK`. Tentukan _threshold_ (titik potong) terbaik berdasarkan perhitungan Gain.
     
@@ -251,26 +244,7 @@ Tentukan apakah pernyataan berikut **BENAR** atau **SALAH**, dan berikan alasan 
 >     _(Catatan: Karena atribut Portfolio sudah memisahkan data dengan sempurna, atribut lain tidak perlu dicek lagi)._
 >     
 > 
-> **b. CART - Binary Split (4 Poin)**
-> 
-> - **Atribut:** Portfolio (Bagus, Biasa, Buruk), Wawancara (Bagus, Biasa, Buruk).
->     
-> - **Split Terbaik:** Portfolio = Bagus vs {Biasa, Buruk}.
->     
->     - Kiri (Bagus): 3 Data (3 Ya, 0 Tidak) -> Gini = 0 (Murni).
->         
->     - Kanan (Biasa, Buruk): 3 Data (0 Ya, 3 Tidak) -> Gini = 0 (Murni).
->         
-> - **Gambar Pohon:**
->     
->     ```
->     Root: [Portfolio == Bagus?]
->      ├── (Yes) --> [Leaf: Ya] (3 Data)
->      └── (No)  --> [Leaf: Tidak] (3 Data)
->     ```
->     
-> 
-> **c. C4.5 Handling Issues (4 Poin)**
+> **b. C4.5 Handling Issues (4 Poin)**
 > 
 > 1. **Atribut IPK:**
 >     

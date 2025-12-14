@@ -72,7 +72,7 @@ Isilah langkah-langkah di bawah ini.
 |   |   |   |
 |---|---|---|
 |**Langkah**|**Pertanyaan**|**Isian / Jawaban**|
-|**1**|Tuliskan fungsi **Primal** SVM (yang ingin diminimalkan) beserta constraint-nya.|Minimize: $\frac{1}{2}|
+|**1**|Tuliskan fungsi **Primal** SVM (yang ingin diminimalkan) beserta constraint-nya.|Minimize: $\frac{1}{2}$|
 |**2**|Tuliskan fungsi **Dual** SVM (yang ingin dimaksimalkan dalam $\alpha$) beserta constraint $\alpha$.|Maximize: $L_D(\alpha) = \sum \alpha_i - \frac{1}{2} \sum_{i,j} \alpha_i \alpha_j y_i y_j (\mathbf{x}_i \cdot \mathbf{x}_j)$<br><br>  <br><br>Subject to: $\alpha_i \ge 0$ dan $\sum \alpha_i y_i = 0$|
 |**3**|Hitung nilai **Dot Product** $(\mathbf{x}_i \cdot \mathbf{x}_j)$ untuk semua pasangan data (Gram Matrix).|$A \cdot A = 18$, $A \cdot B = 21$, $A \cdot C = 6$<br><br>  <br><br>$B \cdot B = \dots$, $B \cdot C = \dots$, $C \cdot C = \dots$|
 |**4**|Susun persamaan dari turunan parsial Lagrange atau substitusi nilai ke fungsi Dual. (Asumsikan titik B bukan Support Vector, sehingga $\alpha_B = 0$).|Persamaan kendala: $\alpha_A(1) + \alpha_B(1) + \alpha_C(-1) = 0 \Rightarrow \alpha_A = \alpha_C = \alpha$.<br><br>  <br><br>Masukkan ke $L_D(\alpha)$ dan sederhanakan dalam variabel $\alpha$.|
