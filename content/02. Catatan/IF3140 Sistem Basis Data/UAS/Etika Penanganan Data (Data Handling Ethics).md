@@ -65,14 +65,14 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 	- Membutuhkan perlindungan ekstra bagi mereka yang "otonominya berkurang" (misal: anak-anak).
 > > 
 > >
-> > 1. **Beneficence (Berbuat Kebaikan)**
+> > 2. **Beneficence (Berbuat Kebaikan)**
 > >     
 > > 	Memiliki dua elemen:
-> > 	2.  **Do not harm** (Jangan merugikan).
-> > 	3.  **Maximize possible benefits** (Maksimalkan manfaat) dan **Minimize possible harms** (Minimalkan kerugian).
-> > 
+> > 	1.  **Do not harm** (Jangan merugikan).
+> > 	2.  **Maximize possible benefits** (Maksimalkan manfaat) dan **Minimize possible harms** (Minimalkan kerugian).
+> > 	
 > >
-> > 4. **Justice (Keadilan)**
+> > 3. **Justice (Keadilan)**
 > >     
 > > 	- Mempertimbangkan perlakuan yang adil dan merata terhadap semua orang. Apakah manfaat dan beban dari penggunaan data didistribusikan secara adil?
 > > 

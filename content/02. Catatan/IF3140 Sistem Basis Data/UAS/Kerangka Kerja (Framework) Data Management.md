@@ -60,12 +60,16 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 
 > > ### 1. Strategic Alignment Model (SAM)
 > > 
+> > ![[Pasted image 20251219001548.png]]
+> > 
 > > - Model ini menunjukkan **penyelarasan** fundamental antara **Bisnis** dan **IT**, yang dibagi lagi menjadi level **Strategi** dan **Operasi**.
 > >     
 > > - **Information (Informasi)** dan **Data** berada di tengah, berfungsi sebagai **jembatan** yang menghubungkan strategi bisnis (misal: "ingin jadi no. 1 di e-commerce") dengan sistem IT (misal: "butuh aplikasi mobile").
 > >     
 > > 
 > > ### 2. The Amsterdam Information Model (AIM)
+> > 
+> > ![[Pasted image 20251219001601.png]]
 > > 
 > > - Ini adalah versi lebih detail dari SAM.
 > >     
@@ -83,6 +87,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > Ini adalah framework standar industri dari DAMA (Data Management Association).
 > > 
 > > **a) DAMA Wheel (Roda DAMA)**
+> > 
+> > ![[Pasted image 20251219001620.png]]
 > > 
 > > - Framework paling terkenal. Berbentuk roda yang mendefinisikan _Knowledge Areas_ (Area Pengetahuan) dari DM.
 > >     
@@ -113,12 +119,16 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 
 > > **b) Environmental Factors (Hexagon)**
 > > 
+> > ![[Pasted image 20251219001633.png]]
+> > 
 > > - Menunjukkan bahwa untuk sukses, setiap _Knowledge Area_ harus menyeimbangkan tiga faktor: **People** (Orang), **Process** (Proses), dan **Technology** (Teknologi).
 > >     
 > > - _Goals & Principles_ (Tujuan & Prinsip) ada di pusatnya.
 > >     
 > > 
 > > ### 4. DAMA Pyramid (Aiken)
+> > 
+> > ![[Pasted image 20251219001656.png]]
 > > 
 > > - Framework ini menggunakan area DAMA Wheel tetapi menyusunnya sebagai piramida untuk menunjukkan **ketergantungan** dan **urutan implementasi**.
 > >     
@@ -128,6 +138,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >     
 > > 
 > > ### 5. DAMA Framework Evolved (Geuens)
+> > 
+> > ![[Pasted image 20251219001707.png]]
 > > 
 > > - Versi lain yang juga menunjukkan ketergantungan.
 > >     

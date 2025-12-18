@@ -48,7 +48,9 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 
 > > Ini adalah pola (pattern) arsitektur _high-level_ yang menjelaskan cara membuat koneksi antar sistem untuk mentransfer data.
 > > 
-> > ### Model 1: Point-to-Point (Slide 26)
+> > ### Model 1: Point-to-Point
+> > 
+> > ![[Pasted image 20251219025213.png]]
 > > 
 > > - Sistem-sistem individu terhubung **secara langsung** satu sama lain.
 > >     
@@ -63,7 +65,9 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >     3. **Beban Tinggi:** Beban untuk mengelola interface ini bisa lebih besar daripada mengelola sistemnya itu sendiri.
 > >         
 > > 
-> > ### Model 2: Hub-and-Spoke (Slide 27)
+> > ### Model 2: Hub-and-Spoke 
+> > 
+> > ![[Pasted image 20251219025230.png]]
 > > 
 > > - Model ini mengonsolidasikan data bersama (secara fisik atau virtual) dalam sebuah **Hub data pusat**.
 > >     
@@ -80,7 +84,9 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > - **Kekurangan:** Hub itu sendiri bisa menjadi _bottleneck_ (titik kemacetan) dan _single point of failure_ (jika Hub mati, semua koneksi mati).
 > >     
 > > 
-> > ### Model 3: Publish-and-Subscribe (Pub/Sub) (Slide 28)
+> > ### Model 3: Publish-and-Subscribe (Pub/Sub) 
+> > 
+> > ![[Pasted image 20251219025242.png]]
 > > 
 > > - Sebuah model di mana sistem **menerbitkan (publish)** data ke "Topik" (seperti papan buletin), tanpa tahu siapa yang akan membacanya.
 > >     
@@ -89,7 +95,9 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > - **Kelebihan:** Sangat _decoupled_ (terpisah). Publisher dan Subscriber tidak perlu tahu keberadaan satu sama lain.
 > >     
 > > 
-> > ### Konsep Arsitektur: Application Coupling (Slide 29)
+> > ### Konsep Arsitektur: Application Coupling
+> > 
+> > ![[Pasted image 20251219025304.png]]
 > > 
 > > **Coupling** (Keterkaitan) adalah istilah yang menggambarkan sejauh mana dua sistem saling terkait atau bergantung.
 > > 

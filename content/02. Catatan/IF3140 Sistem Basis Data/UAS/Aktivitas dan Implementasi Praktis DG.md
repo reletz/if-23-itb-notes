@@ -92,7 +92,7 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 5. `Develop data governance strategy`: Membuat strategi dan roadmap DG.
 > >     
 > > 
-> > Tahap 2: Mendesain Framework dan Kebijakan
+> > **Tahap 2: Mendesain Framework dan Kebijakan**
 > > 
 > > 6. Define DG operating framework: Menentukan model (Centralized, Federated, dll) dan struktur organisasi.
 > > 
@@ -104,7 +104,7 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 
 > > 10. Engage in issue management: Menyiapkan proses untuk menangani eskalasi dan isu.
 > > 
-> > Tahap 3: Implementasi Teknis dan Standar
+> > **Tahap 3: Implementasi Teknis dan Standar**
 > > 
 > > 11. Assess regulatory compliance requirements: Menganalisis kebutuhan kepatuhan regulasi.
 > > 
@@ -116,7 +116,7 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 
 > > 15. Coordinate with architecture groups: Berkoordinasi dengan tim arsitek IT.
 > > 
-> > Tahap 4: Menanamkan (Embed) dan Mengukur
+> > **Tahap 4: Menanamkan (Embed) dan Mengukur**
 > > 
 > > 16. Sponsor data asset valuation: Mensponsori inisiatif untuk menilai aset data.
 > > 

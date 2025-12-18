@@ -63,6 +63,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >     
 > >
 > > ### 2. Metrik Kinerja: Speedup
+> > 
+> > ![[Pasted image 20251218231812.png]]
 > >
 > > **Speedup** mengukur seberapa cepat sistem yang _lebih besar_ bisa menyelesaikan pekerjaan dengan _ukuran masalah yang tetap_.
 > >
@@ -74,6 +76,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >     
 > >
 > > ### 3. Metrik Kinerja: Scaleup
+> > 
+> > ![[Pasted image 20251218231826.png]]
 > >
 > > **Scaleup** mengukur kemampuan sistem untuk menangani pekerjaan yang _lebih besar_ dengan memberinya hardware yang _lebih besar_.
 > >

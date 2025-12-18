@@ -61,7 +61,9 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >     4. Server mengirim **hasilnya** (misal: tabel data atau pesan sukses) kembali ke klien.
 > >         
 > >
-> > ### Arsitektur Proses Transaction Server (Slide 10)
+> > ### Arsitektur Proses Transaction Server 
+> > 
+> > ![[Pasted image 20251218231530.png]]
 > >
 > > Server modern tidak berjalan sebagai satu program besar, tapi sebagai kumpulan proses/thread yang bekerja sama menggunakan **Shared Memory**.
 > >

@@ -115,17 +115,17 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 
 > > Ini adalah fondasi yang memandu semua aktivitas dan kebijakan DG:
 > > 
-> > 4. **Kepemimpinan & Strategi:** Harus dimulai dari pimpinan yang visioner. Strategi data harus selaras dengan strategi bisnis utama.
+> > 1. **Kepemimpinan & Strategi:** Harus dimulai dari pimpinan yang visioner. Strategi data harus selaras dengan strategi bisnis utama.
 > >     
-> > 5. **Digerakkan Bisnis (Business-driven):** DG adalah program bisnis, bukan program IT. DG mengatur keputusan IT terkait data, sama seperti mengatur interaksi bisnis dengan data.
+> > 2. **Digerakkan Bisnis (Business-driven):** DG adalah program bisnis, bukan program IT. DG mengatur keputusan IT terkait data, sama seperti mengatur interaksi bisnis dengan data.
 > >     
-> > 6. **Tanggung Jawab Bersama (Shared Responsibility):** Tanggung jawab dibagi antara _Business Data Stewards_ (pihak bisnis yang paham data) dan _Technical Data Management Professionals_ (pihak IT).
+> > 3. **Tanggung Jawab Bersama (Shared Responsibility):** Tanggung jawab dibagi antara _Business Data Stewards_ (pihak bisnis yang paham data) dan _Technical Data Management Professionals_ (pihak IT).
 > >     
-> > 7. **Berlapis (Multi-layered):** DG terjadi di berbagai level, mulai dari level enterprise (seluruh perusahaan) hingga level lokal (divisi atau departemen).
+> > 4. **Berlapis (Multi-layered):** DG terjadi di berbagai level, mulai dari level enterprise (seluruh perusahaan) hingga level lokal (divisi atau departemen).
 > >     
-> > 8. **Berbasis Framework (Framework-based):** Karena perlu koordinasi lintas fungsi, DG harus punya _Operating Framework_ yang jelas mendefinisikan akuntabilitas dan interaksi.
+> > 5. **Berbasis Framework (Framework-based):** Karena perlu koordinasi lintas fungsi, DG harus punya _Operating Framework_ yang jelas mendefinisikan akuntabilitas dan interaksi.
 > >     
-> > 9. **Berbasis Prinsip (Principle-based):** Semua kebijakan dan aktivitas DG harus didasarkan pada prinsip-prinsip panduan yang telah disepakati.
+> > 6. **Berbasis Prinsip (Principle-based):** Semua kebijakan dan aktivitas DG harus didasarkan pada prinsip-prinsip panduan yang telah disepakati.
 > >     
 
 > [!cornell] #### Summary

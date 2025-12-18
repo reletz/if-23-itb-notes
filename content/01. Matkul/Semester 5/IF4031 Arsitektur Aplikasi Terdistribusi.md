@@ -49,3 +49,8 @@ _Back to_ [[index]]
 	- [[Pengenalan Dunia NoSQL]]
 	- [[Mekanisme Scaling Database - Replikasi dan Partisi]]
 	- [[Konsekuensi Scaling - Konsistensi dan NoSQL]]
+- ## UAS
+	- [[Sistem Kompleks]]
+	- [[Performance Pattern]]
+	- [[Performance Anti Pattern]]
+	- [[main.pdf|Draft Tubes]]

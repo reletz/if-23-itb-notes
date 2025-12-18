@@ -39,6 +39,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > 
 > >
 > > ### Distributed Systems (Sistem Terdistribusi)
+> > 
+> > ![[Pasted image 20251218232321.png]]
 > >
 > > **Distributed System** adalah sistem di mana data tersebar di banyak mesin (disebut _sites_ atau _nodes_) yang terhubung oleh jaringan. Mesin-mesin ini bisa jadi terpisah secara geografis (antar kota atau negara).
 > >

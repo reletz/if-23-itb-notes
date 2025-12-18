@@ -48,6 +48,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 
 > > Jaringan ini adalah "lem" yang menghubungkan semua CPU dan disk. Pilihannya memengaruhi _bottleneck_.
 > > 
+> > ![[Pasted image 20251218232020.png]]
+> > 
 > > 1. **Bus**: Satu kabel/jalur komunikasi tunggal yang dipakai bersama.
 > >     
 > >     - _Kekurangan_: Cepat menjadi _bottleneck_. Jika semua CPU bicara bersamaan, bus akan "penuh". Tidak skalabel.
@@ -66,6 +68,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > ### 2. Arsitektur Paralel Utama
 > > 
 > > Ini adalah tiga cara klasik untuk membangun sistem paralel, dibedakan berdasarkan apa yang "di-share".
+> > 
+> > ![[Pasted image 20251218232127.png]]
 > > 
 > > **a) Shared Memory (Berbagi Memori)**
 > > 

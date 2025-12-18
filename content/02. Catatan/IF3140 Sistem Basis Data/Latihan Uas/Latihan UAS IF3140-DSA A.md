@@ -207,7 +207,7 @@ e. Heterogeneous Distributed System.
 
 ### Bagian VI (Pilihan Ganda)
 
-1. b, b | 2. b, a | 3. b, b | 4. b, b | 5. b, a
+1. b, b | 2. b, a | 3. a, b | 4. b, b | 5. b, a
     
 2. b, b | 7. b, b | 8. b, b | 9. a, a | 10. a, b
     

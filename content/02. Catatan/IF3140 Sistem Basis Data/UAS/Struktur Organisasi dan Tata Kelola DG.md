@@ -63,13 +63,15 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 
 > > ### Struktur Organisasi Data Governance
 > > 
+> > ![[Pasted image 20251219003734.png]]
+> > 
 > > Organisasi DG (Data Governance) memiliki tiga fungsi utama yang mirip dengan pemerintahan (Slide 15):
 > > 
-> > 6. **Legislatif:** Menetapkan kebijakan, standar, dan Arsitektur Data Enterprise. (Contoh: "Do the right things").
+> > 1. **Legislatif:** Menetapkan kebijakan, standar, dan Arsitektur Data Enterprise. (Contoh: "Do the right things").
 > >     
-> > 7. **Yudisial:** Menangani manajemen isu dan eskalasi (jika ada konflik atau masalah).
+> > 2. **Yudisial:** Menangani manajemen isu dan eskalasi (jika ada konflik atau masalah).
 > >     
-> > 8. **Eksekutif:** Melindungi, melayani, dan menjalankan tanggung jawab administratif. (Contoh: "Do things right").
+> > 3. **Eksekutif:** Melindungi, melayani, dan menjalankan tanggung jawab administratif. (Contoh: "Do things right").
 > >     
 > > 
 > > ### Badan-Badan Kunci Data Governance (Slide 16)
@@ -112,6 +114,8 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > Ini adalah cara bagaimana struktur DG diterapkan di seluruh organisasi:
 > > 
 > > 1. **Centralized (Sentralisasi) - Slide 17:**
+> > 
+> > 	![[Pasted image 20251219003841.png]]
 > >     
 > >     - Satu organisasi DG mengawasi _semua_ aktivitas di _semua_ area subjek.
 > >         
@@ -119,13 +123,17 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >         
 > >     - **Kekurangan:** Bisa lambat dan kaku untuk organisasi besar.
 > >         
-> > 2. **Replicated (Replikasi) - Slide 18:**
+> > 2.  **Replicated (Replikasi) - Slide 18:**
+> > 
+> > 	![[Pasted image 20251219003901.png]]
 > >     
 > >     - Model dan standar DG yang _sama_ diadopsi (di-copy) oleh setiap unit bisnis.
 > >         
 > >     - Setiap unit bisnis punya badan DG-nya sendiri, tapi strukturnya seragam.
 > >         
 > > 3. **Federated (Federasi) - Slide 19:**
+> >
+> >	![[Pasted image 20251219003925.png]]
 > >     
 > >     - Satu organisasi DG pusat **berkoordinasi** dengan berbagai Unit Bisnis untuk menjaga konsistensi definisi dan standar.
 > >         
