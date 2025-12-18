@@ -30,7 +30,7 @@ Lakukan pelatihan model **Logistic Regression** menggunakan algoritma **Stochast
     
 - **Fungsi Aktivasi:** Sigmoid $\sigma(z) = \frac{1}{1 + e^{-z}}$  
     
-- **Jumlah Epoch:** 2 Epoch (Urutan data sesuai nomor: 1 $\to$ 2 $\to$ 3 $\to$ 4, diulang 2 kali).
+- **Jumlah Epoch:** 1 Epoch (Urutan data sesuai nomor: 1 $\to$ 2 $\to$ 3 $\to$ 4, diulang 2 kali).
     
 
 Instruksi:
@@ -69,10 +69,9 @@ Instruksi:
 
 Isilah langkah-langkah di bawah ini.
 
-|   |   |   |
-|---|---|---|
 |**Langkah**|**Pertanyaan**|**Isian / Jawaban**|
-|**1**|Tuliskan fungsi **Primal** SVM (yang ingin diminimalkan) beserta constraint-nya.|Minimize: $\frac{1}{2}$|
+|---|---|---|
+|**1**|Tuliskan fungsi **Primal** SVM (yang ingin diminimalkan) beserta constraint-nya.|Minimize: $\frac{1}{2}\|w\|^2$ <br><br>Subject to: $y(w \cdot x_i + b) \geq 1$|
 |**2**|Tuliskan fungsi **Dual** SVM (yang ingin dimaksimalkan dalam $\alpha$) beserta constraint $\alpha$.|Maximize: $L_D(\alpha) = \sum \alpha_i - \frac{1}{2} \sum_{i,j} \alpha_i \alpha_j y_i y_j (\mathbf{x}_i \cdot \mathbf{x}_j)$<br><br>  <br><br>Subject to: $\alpha_i \ge 0$ dan $\sum \alpha_i y_i = 0$|
 |**3**|Hitung nilai **Dot Product** $(\mathbf{x}_i \cdot \mathbf{x}_j)$ untuk semua pasangan data (Gram Matrix).|$A \cdot A = 18$, $A \cdot B = 21$, $A \cdot C = 6$<br><br>  <br><br>$B \cdot B = \dots$, $B \cdot C = \dots$, $C \cdot C = \dots$|
 |**4**|Susun persamaan dari turunan parsial Lagrange atau substitusi nilai ke fungsi Dual. (Asumsikan titik B bukan Support Vector, sehingga $\alpha_B = 0$).|Persamaan kendala: $\alpha_A(1) + \alpha_B(1) + \alpha_C(-1) = 0 \Rightarrow \alpha_A = \alpha_C = \alpha$.<br><br>  <br><br>Masukkan ke $L_D(\alpha)$ dan sederhanakan dalam variabel $\alpha$.|
@@ -146,13 +145,6 @@ Berikan tanda centang ($\checkmark$) jika model memiliki karakteristik tersebut,
 >     
 > 4. **Data 4 (0,2 | 1):** $z = -0.046 + 0.016(2) = -0.014$. $p \approx 0.496$. $err = 0.504$. $\Delta w = [0.050, 0, 0.101]$. $w_{baru} = [0.004, -0.202, 0.117]$.
 >     
-> 
-> Epoch 2 (Lanjutan):
-> 
-> (Proses berlanjut update dari bobot terakhir)
-> 
-> ...Setelah Epoch 2, misalkan bobot akhir adalah (aproksimasi): $\mathbf{w}_{final} \approx [-0.05, -0.3, 0.3]$ (Angka ini ilustratif, bergantung pada ketelitian desimal mahasiswa).
-> 
 > b. Self Evaluation (Pada Data Latih)
 > 
 > Model: $z = -0.05 - 0.3x_1 + 0.3x_2$

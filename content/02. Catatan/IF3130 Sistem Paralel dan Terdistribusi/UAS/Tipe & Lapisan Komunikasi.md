@@ -65,27 +65,27 @@ _Back to_ [[IF3130 Sistem Paralel dan Terdistribusi]]
 > > 
 > > ### 4. Tipe Komunikasi: Transient vs Persistent
 > > 
-> > 6. **Transient Communication:**
+> > 1. **Transient Communication:**
 > >     
 > > 
-> > - Pesan akan **dibuang (discard)** jika tidak berhasil terkirim (misal: _receiver_ sedang _offline_).
-> >     
-> > - Aplikasi _sender_ (pengirim) dan _receiver_ (penerima) **harus aktif** pada saat proses pengiriman pesan.
-> >     
-> > - _Contoh:_ Panggilan telepon, _streaming_ langsung, komunikasi Socket TCP standar.
+> > 	- Pesan akan **dibuang (discard)** jika tidak berhasil terkirim (misal: _receiver_ sedang _offline_).
+> > 	    
+> > 	- Aplikasi _sender_ (pengirim) dan _receiver_ (penerima) **harus aktif** pada saat proses pengiriman pesan.
+> > 	    
+> > 	- _Contoh:_ Panggilan telepon, _streaming_ langsung, komunikasi Socket TCP standar.
 > >     
 > > 
 > > 2. **Persistent Communication:**
 > >     
 > > 
-> > - Pesan akan **disimpan** oleh _communication middleware_ (misal: dalam _queue_).
-> >     
-> > - Pesan akan disimpan sampai bisa dikirimkan ke _receiver_ (saat _receiver_ kembali _online_).
-> >     
-> > - Aplikasi _sender_ dan _receiver_ **tidak harus aktif** pada saat bersamaan.
-> >     
-> > - _Contoh:_ Email, WhatsApp/Telegram, SMS.
-> >     
+> > 	- Pesan akan **disimpan** oleh _communication middleware_ (misal: dalam _queue_).
+> > 	    
+> > 	- Pesan akan disimpan sampai bisa dikirimkan ke _receiver_ (saat _receiver_ kembali _online_).
+> > 	    
+> > 	- Aplikasi _sender_ dan _receiver_ **tidak harus aktif** pada saat bersamaan.
+> > 	    
+> > 	- _Contoh:_ Email, WhatsApp/Telegram, SMS.
+> > 	    
 > > 
 > > ### 5. Tipe Komunikasi: Asynchronous vs Synchronous
 > > 

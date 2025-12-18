@@ -59,7 +59,9 @@ _Back to_ [[IF3130 Sistem Paralel dan Terdistribusi]]
 > > ### 2. Distributed Hash Tables (DHT)
 > >
 > > Solusi Generasi 3 yang menggabungkan efisiensi struktur data Hash Table `O(1)` dengan sifat desentralisasi P2P.
-> >
+> > 
+> > ![[Pasted image 20251216161723.png]]
+> > 
 > > - **Konsep Dasar:**
 > >     
 > > 	1. **Uniform Hashing:** Nama file (Key) dan Alamat Node (IP) dipetakan ke ruang identifier yang sama (misal integer 160-bit) menggunakan fungsi hash seragam (seperti SHA-1).

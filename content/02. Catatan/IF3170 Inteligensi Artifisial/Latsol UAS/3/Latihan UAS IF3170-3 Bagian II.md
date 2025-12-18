@@ -31,7 +31,7 @@ Lakukan pelatihan model **Logistic Regression** menggunakan algoritma **Stochast
     
 - **Fungsi Aktivasi:** Sigmoid $\sigma(z) = \frac{1}{1 + e^{-z}}$  
     
-- **Jumlah Epoch:** 2 Epoch (Urutan data sesuai nomor: 1 $\to$ 2 $\to$ 3 $\to$ 4, diulang 2 kali).
+- **Jumlah Epoch:** 1 Epoch (Urutan data sesuai nomor: 1 $\to$ 2 $\to$ 3 $\to$ 4).
     
 
 Instruksi:
@@ -50,8 +50,6 @@ c. Hitung Akurasi dan F1-Score (anggap Kelas 1 sebagai Positif).
 |1|1|$[1, 1, 1]$|0|$0.1(1)+0.1(1)+0.1(1) = 0.3$|0.574|-0.574|$[ -0.115, -0.115, -0.115 ]$|$[ -0.015, -0.015, -0.015 ]$|
 |1|2|...|...|...|...|...|...|...|
 |...|...|...|...|...|...|...|...|...|
-
-_(Lanjutkan hingga data ke-4 pada Epoch 2)_
 
 ## BAGIAN II: Multi-class SVM (Analitik & Strategi)
 
@@ -79,10 +77,6 @@ Kemudian, bangunlah model-model SVM (Hyperplane) yang diperlukan secara manual.
 1. **Strategi:** Tuliskan strategi yang Anda pilih (OVR atau OVO).
     
 2. **Identifikasi Model:** Tuliskan pasangan kelas/grup apa saja yang akan dilatih. (Minimal 3 Model).
-    
-    - _Jika OVR:_ Model 1 (R vs Rest), Model 2 (G vs Rest), Model 3 (B vs Rest).
-        
-    - _Jika OVO:_ Model 1 (R vs G), Model 2 (R vs B), Model 3 (G vs B).
         
 3. **Pembangunan Model:** Untuk **SETIAP** model yang Anda identifikasi di poin 2, tentukan persamaan Hyperplane terbaiknya ($w \cdot x + b = 0$).
     
@@ -174,10 +168,6 @@ Berikan tanda centang ($\checkmark$) jika model memiliki karakteristik tersebut,
 >     
 > 4. **Data 4 (1,3 | 1):** $z = -0.056 + 0.009(1) + 0.155(3) = 0.418$. $p \approx 0.603$. $Err = 0.397$. $\Delta w = 0.2(0.397)[1,1,3] = [0.079, 0.079, 0.238]$. $w_{baru} = [0.023, 0.088, 0.393]$.
 >     
-> 
-> Epoch 2 (Lanjutan):
-> 
-> (Proses berlanjut update dari bobot terakhir). Misalkan setelah Epoch 2 bobot akhir (aproksimasi) adalah: $\mathbf{w}_{final} \approx [-0.15, -0.25, 0.55]$. (Angka ilustratif untuk kunci jawaban, mahasiswa harus menghitung tepat).
 > 
 > b. Self Evaluation (Data Latih)
 > 

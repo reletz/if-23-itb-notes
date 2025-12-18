@@ -125,6 +125,11 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > - `IS` vs `IX` (Boleh): Niatnya tidak konflik. Konflik sesungguhnya (jika ada) akan ditangani di level baris.
 > >     
 > > - `IX` vs `S` (Tunggu): `S` sedang membaca seluruh tabel, sementara `IX` berniat menulis di salah satu baris. Ini konflik.
+> > 
+> > 1. **X (Exclusive)** selalu konflik dengan apapun (kecuali tidak ada lock).
+> > 2. **S (Shared)** hanya boleh barengan sama yang punya unsur "Baca" (**IS** dan **S** lainnya).
+> > 3. **IX (Intention Exclusive)** hanya boleh barengan sama sesama "Intention" (**IS** dan **IX** lainnya).
+> > 4. **SIX** itu egois karena dia gabungan **S** dan **IX**. Dia cuma kasih izin buat orang yang mau baca sedikit (**IS**).
 > >     
 > >
 > > ### Protokol Locking Hirarki MG

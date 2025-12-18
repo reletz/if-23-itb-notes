@@ -98,25 +98,19 @@ _Back to_ [[IF3130 Sistem Paralel dan Terdistribusi]]
 > > 
 > > ### Desain Goal: Distribution Transparency
 > > 
-> > - **Tujuan:** Menyembunyikan fakta bahwa proses dan sumber daya sebenarnya tersebar di banyak komputer. Sistem harus terlihat _satu_ dan _utuh_ bagi pengguna.
+> > **Tujuan:** Menyembunyikan fakta bahwa proses dan sumber daya sebenarnya tersebar di banyak komputer. Sistem harus terlihat _satu_ dan _utuh_ bagi pengguna.
 > >     
-> > - **Jenis-jenis Transparansi:**
-> >     
-> >     - **Access:** Menyembunyikan perbedaan representasi data dan cara pemanggilan (misal: beda OS, beda bahasa).
+> > |Jenis-jenis Transparansi|Detail|
+> > |---|---|
+> > |**Access**|Menyembunyikan perbedaan representasi data dan cara pemanggilan (misal: beda OS, beda bahasa)|
+> > |**Location**|Menyembunyikan _di mana_ sebuah objek (data/layanan) berada|
+> > |**Migration**|Menyembunyikan fakta bahwa sistem bisa memindahkan objek ke lokasi lain _saat sedang digunakan_|
+> > |**Relocation**|Mirip migration, tapi menyembunyikan dari _client_ bahwa lokasi objek telah berubah|
+> > |**Replication**|Menyembunyikan fakta bahwa sebuah data/layanan _digandakan_ (direplikasi) di banyak lokasi|
+> > |**Concurrency**|Menyembunyikan fakta bahwa banyak pengguna lain mungkin sedang mengakses objek yang sama secara bersamaan|
+> > |**Failure**|Menyembunyikan kegagalan dan proses pemulihan (recovery) dari sebuah objek|
 > >         
-> >     - **Location:** Menyembunyikan _di mana_ sebuah objek (data/layanan) berada.
-> >         
-> >     - **Migration:** Menyembunyikan fakta bahwa sistem bisa memindahkan objek ke lokasi lain _saat sedang digunakan_.
-> >         
-> >     - **Relocation:** Mirip migration, tapi menyembunyikan dari _client_ bahwa lokasi objek telah berubah.
-> >         
-> >     - **Replication:** Menyembunyikan fakta bahwa sebuah data/layanan _digandakan_ (direplikasi) di banyak lokasi.
-> >         
-> >     - **Concurrency:** Menyembunyikan fakta bahwa banyak pengguna lain mungkin sedang mengakses objek yang sama secara bersamaan.
-> >         
-> >     - **Failure:** Menyembunyikan kegagalan dan proses pemulihan (recovery) dari sebuah objek.
-> >         
-> > - **Peringatan:** Transparansi penuh itu _berlebihan_ dan seringkali _tidak mungkin_ (misal: menyembunyikan kegagalan total) dan bisa _mengorbankan kinerja_.
+> > **Peringatan:** Transparansi penuh itu _berlebihan_ dan seringkali _tidak mungkin_ (misal: menyembunyikan kegagalan total) dan bisa _mengorbankan kinerja_.
 > >     
 > > 
 > > ### Desain Goal: Openness (Keterbukaan)

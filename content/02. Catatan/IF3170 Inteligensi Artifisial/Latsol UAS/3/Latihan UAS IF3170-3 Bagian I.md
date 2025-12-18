@@ -110,15 +110,15 @@ c. **(Handling Missing Values - Konseptual)** Perhatikan **Data No. 12** (Ekonom
 
 Perhatikan struktur BN berikut mengenai faktor kelulusan beasiswa:
 
-```
+```mermaid
 graph TD;
-    A[Kecerdasan] --> B[IPK];
-    A --> C[Hasil Tes Tulis];
-    D[Kondisi Ekonomi] --> E[Kebutuhan Bantuan];
-    B --> F[Skor Akhir];
+    A[Kecerdasan - A] --> B[IPK - B];
+    A --> C[Hasil Tes Tulis - C];
+    D[Kondisi Ekonomi - D] --> E[Kebutuhan Bantuan - E];
+    B --> F[Skor Akhir - F];
     C --> F;
     E --> F;
-    F --> G[Keputusan Beasiswa];
+    F --> G[Keputusan Beasiswa - G];
 ```
 
 **Pertanyaan:**
@@ -279,7 +279,7 @@ Jawablah Benar/Salah beserta alasannya.
 >         
 > 2. **Independensi:**
 >     
->     - **Independen:** (Common Cause A).
+>     - **Dependen:** (Common Cause A).
 >         
 >     - **Dependen:** (Explaining Away pada F).
 >         

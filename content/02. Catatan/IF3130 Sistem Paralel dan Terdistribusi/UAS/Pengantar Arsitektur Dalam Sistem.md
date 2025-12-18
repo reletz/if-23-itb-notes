@@ -54,12 +54,12 @@ _Back to_ [[IF3130 Sistem Paralel dan Terdistribusi]]
 > >     
 > > - **Heterogen:** Seringkali berjalan di lingkungan yang berbeda-beda. Contoh:
 > >     
-> > - _Perangkat Keras/OS:_ Sebagian di _mobile_ (Android/iOS), sebagian di server (Linux), sebagian di PC (Windows).
-> >     
-> > - _Jaringan:_ Ada yang di LAN (jaringan lokal), ada yang lewat Internet.
-> >     
-> > - _Teknologi:_ Bisa dikembangkan dengan bahasa yang berbeda (Python, C, Javascript) yang saling berkomunikasi.
-> >     
+> > 	- _Perangkat Keras/OS:_ Sebagian di _mobile_ (Android/iOS), sebagian di server (Linux), sebagian di PC (Windows).
+> > 	    
+> > 	- _Jaringan:_ Ada yang di LAN (jaringan lokal), ada yang lewat Internet.
+> > 	    
+> > 	- _Teknologi:_ Bisa dikembangkan dengan bahasa yang berbeda (Python, C, Javascript) yang saling berkomunikasi.
+> > 	    
 > > 
 > > ### 3. Hal yang Perlu Diperhatikan (Concerns)
 > > 

@@ -79,7 +79,7 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 
 > > Ada dua mode kunci dasar yang digunakan:
 > > 
-> > 8. **Shared (lock-S) / Kunci Bersama:**
+> > 1. **Shared (lock-S) / Kunci Bersama:**
 > >     
 > >     - **Tujuan:** Untuk **Membaca** data.
 > >         
@@ -87,7 +87,7 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >         
 > >     - **Sifat:** _Shared_ (Bersama) berarti beberapa transaksi bisa memegang `lock-S` pada item data yang sama secara bersamaan. (Contoh: Banyak orang boleh membaca artikel koran yang sama pada saat yang sama).
 > >         
-> > 9. **Exclusive (lock-X) / Kunci Eksklusif:**
+> > 2. **Exclusive (lock-X) / Kunci Eksklusif:**
 > >     
 > >     - **Tujuan:** Untuk **Menulis** (dan Membaca) data.
 > >         

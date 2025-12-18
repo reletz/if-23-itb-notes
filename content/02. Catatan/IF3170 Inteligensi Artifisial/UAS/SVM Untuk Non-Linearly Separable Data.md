@@ -116,9 +116,309 @@ _Back to_ [[IF3170 Inteligensi Artifisial]]
 > > |**Kernel**|**Rumus Matematika**|**Karakteristik**|
 > > |---|---|---|
 > > |**Linear**|$K(x, z) = x^T z$|Sama seperti SVM biasa. Cepat. Bagus untuk data teks/dimensi sangat tinggi.|
-> > |**Polynomial**|$K(x, z) = (\gamma x^T z + r)^d$|Membentuk batas melengkung polinomial. Parameter $d$ (derajat) menentukan kompleksitas.|
+> > |**Polynomial**|$K(x, z) = (x^T z + r)^d$|Membentuk batas melengkung polinomial. Parameter $d$ (derajat) menentukan kompleksitas.|
 > > |**RBF (Gaussian)**|$K(x, z) = \exp(-\gamma \|{x_i-x_j}\|^2)$|-|
 > > |**Sigmoid**|$K(x, z) = \tanh(\gamma x^T z + r)$|Mirip perilaku Neural Network.|
+> > 
+> > # Panduan Pemilihan Kernel SVM
+> > 
+> > ## 1. Linear Kernel
+> > 
+> > ### Formula:
+> > $$K(x_i, x_j) = x_i \cdot x_j$$
+> > 
+> > ### Kapan Digunakan:
+> > 
+> > ✅ **Data Linearly Separable**
+> > - Data sudah bisa dipisahkan dengan garis/bidang lurus
+> > - Tidak perlu transformasi ke dimensi lebih tinggi
+> > 
+> > ✅ **Dimensi Tinggi, Data Sedikit**
+> > - Text classification (bag-of-words: 10,000+ fitur)
+> > - Gene expression data (ribuan gen, ratusan sampel)
+> > - Spam detection
+> > 
+> > ✅ **Dataset Besar**
+> > - Linear kernel paling cepat!
+> > - Kompleksitas: O(n × d) dimana n = data, d = dimensi
+> > - Cocok untuk jutaan data
+> > 
+> > ✅ **Butuh Interpretasi Model**
+> > - Koefisien w bisa diinterpretasi (feature importance)
+> > - Tidak ada "black box" dari transformasi kernel
+> > 
+> > ### Contoh Kasus:
+> > - **Spam detection**: Email dengan 50,000 kata unik → sudah high-dimensional
+> > - **Document classification**: TF-IDF vectors
+> > - **Sentiment analysis**: Text features
+> > 
+> > ### Kelebihan:
+> > - ⚡ Sangat cepat
+> > - 💾 Hemat memori
+> > - 📊 Mudah diinterpretasi
+> > - 🎯 Tidak ada hyperparameter kernel
+> > 
+> > ### Kekurangan:
+> > - ❌ Tidak bisa handle non-linear patterns
+> > - ❌ Performa buruk jika data not separable
+> > 
+> > ---
+> > 
+> > ## 2. Polynomial Kernel
+> > 
+> > ### Formula:
+> > $$K(x_i, x_j) = (x_i \cdot x_j + c)^d$$
+> > 
+> > **Hyperparameters:**
+> > - **d** (degree): Derajat polynomial (biasanya 2-5)
+> > - **c** (coef0): Konstanta (biasanya 0 atau 1)
+> > 
+> > ### Kapan Digunakan:
+> > 
+> > ✅ **Data dengan Hubungan Polynomial**
+> > - Feature interactions penting
+> > - Contoh: Hubungan kuadratik antara fitur
+> > 
+> > ✅ **Image Processing**
+> > - Pixel intensity relationships
+> > - Texture classification
+> > - Computer vision tasks
+> > 
+> > ✅ **Masalah dengan Batas Non-Linear Smooth**
+> > - Boundary yang melengkung tapi tidak terlalu kompleks
+> > - Lebih "global" daripada RBF
+> > 
+> > ### Degree yang Umum:
+> > 
+> > **d = 2 (Quadratic):**
+> > - Menangkap interaksi pasangan fitur
+> > - Boundary berbentuk parabola, elips, hiperbola
+> > - Paling umum digunakan
+> > 
+> > **d = 3 (Cubic):**
+> > - Menangkap interaksi lebih kompleks
+> > - Boundary lebih fleksibel
+> > 
+> > **d > 3:**
+> > - Jarang digunakan (overfitting!)
+> > - Komputasi mahal
+> > 
+> > ### Contoh Kasus:
+> > - **Image recognition**: Pixel relationships
+> > - **Bioinformatics**: Protein structure prediction
+> > - **Natural Language Processing**: N-gram interactions
+> > 
+> > ### Kelebihan:
+> > - ✓ Menangkap feature interactions
+> > - ✓ Lebih global daripada RBF
+> > - ✓ Boundary lebih smooth
+> > 
+> > ### Kekurangan:
+> > - ⚠️ Sensitif terhadap d (degree)
+> > - ⚠️ Nilai K bisa sangat besar (numerical instability)
+> > - 🐌 Lebih lambat dari linear
+> > - 📈 Risk overfitting jika d terlalu besar
+> > 
+> > ---
+> > 
+> > ## 3. RBF (Radial Basis Function) / Gaussian Kernel
+> > 
+> > ### Formula:
+> > $$K(x_i, x_j) = \exp\left(-\gamma ||x_i - x_j||^2\right)$$
+> > 
+> > **Hyperparameter:**
+> > - **γ (gamma)**: Kontrol "reach" dari training samples
+> >   - γ besar → Decision boundary lebih kompleks (lokal)
+> >   - γ kecil → Decision boundary lebih smooth (global)
+> > 
+> > ### Kapan Digunakan:
+> > 
+> > ✅ **Data Non-Linear Kompleks**
+> > - Tidak tahu pola pastinya
+> > - Boundary sangat tidak teratur
+> > - **Default choice** untuk kebanyakan masalah!
+> > 
+> > ✅ **Dimensi Rendah-Sedang**
+> > - Fitur < 1000
+> > - Data tidak terlalu sparse
+> > 
+> > ✅ **Data dengan Cluster**
+> > - Kelas membentuk kelompok-kelompok
+> > - XOR problem, concentric circles
+> > 
+> > ✅ **Tidak Tahu Kernel Mana yang Cocok**
+> > - **RBF adalah safe bet!**
+> > - Universal approximator
+> > 
+> > ### Tuning γ:
+> >
+> > **γ terlalu besar:**
+> > - Overfitting
+> > - Setiap titik jadi "island" sendiri
+> > - Training accuracy tinggi, test accuracy rendah
+> > 
+> > **γ terlalu kecil:**
+> > - Underfitting
+> > - Hampir seperti linear kernel
+> > - Tidak menangkap kompleksitas data
+> > 
+> > ### Contoh Kasus:
+> > - **General classification**: Kebanyakan masalah real-world
+> > - **Face recognition**: Non-linear facial features
+> > - **Handwritten digit recognition**: MNIST
+> > - **Medical diagnosis**: Complex symptom relationships
+> > - **Customer segmentation**: Non-linear behavior patterns
+> > 
+> > ### Kelebihan:
+> > - 🌟 Paling fleksibel
+> > - ✓ Universal approximator (bisa fit hampir semua fungsi)
+> > - ✓ Hanya 1 hyperparameter (γ)
+> > - ✓ Bekerja baik untuk kebanyakan kasus
+> > 
+> > ### Kekurangan:
+> > - 🐌 Lebih lambat dari linear
+> > - 💾 Memory-intensive untuk dataset besar
+> > - ⚠️ Sensitif terhadap γ (butuh tuning)
+> > - 📊 Sulit interpretasi (black box)
+> > 
+> > ---
+> > 
+> > ## 4. Sigmoid Kernel
+> > 
+> > ### Formula:
+> > $$K(x_i, x_j) = \tanh(\gamma x_i \cdot x_j + c)$$
+> > 
+> > **Hyperparameters:**
+> > - **γ (gamma)**
+> > - **c (coef0)**
+> > 
+> > ### Kapan Digunakan:
+> > 
+> > ⚠️ **Jarang Digunakan dalam Praktik!**
+> > 
+> > ✅ **Neural Network Approximation**
+> > - Ingin efek mirip 2-layer neural network
+> > - Historical interest (SVM as NN)
+> > 
+> > ✅ **Specific Research Problems**
+> > - Beberapa paper lama menggunakannya
+> > - Bioinformatics (certain protein kernels)
+> > 
+> > ### Masalah Sigmoid Kernel:
+> > 
+> > ❌ **Tidak Selalu Positive Definite**
+> > - Bisa melanggar Mercer's theorem
+> > - Optimasi tidak dijamin konvergen
+> > 
+> > ❌ **Sulit Tuning**
+> > - 2 hyperparameters (γ dan c)
+> > - Sangat sensitif terhadap nilai keduanya
+> > 
+> > ❌ **Performa Inconsistent**
+> > - Sering kalah dari RBF
+> > - Tidak ada keuntungan jelas
+> > 
+> > ### Rekomendasi:
+> > 🚫 **Hampir selalu lebih baik pakai RBF atau Polynomial**
+> > 
+> > ---
+> > 
+> > ## Decision Tree: Pilih Kernel Mana?
+> > 
+> > ```
+> > START
+> >   ↓
+> > Sudah tahu data linearly separable?
+> >   ├─ Ya → LINEAR KERNEL ✓
+> >   └─ Tidak tahu/Non-linear
+> >        ↓
+> >      Dimensi data?
+> >        ├─ Sangat tinggi (>10,000 fitur)
+> >        │    ├─ Data sparse (text/NLP) → LINEAR KERNEL ✓
+> >        │    └─ Data dense → RBF atau LINEAR
+> >        │
+> >        ├─ Rendah-Sedang (<1,000 fitur)
+> >        │    ↓
+> >        │  Punya domain knowledge tentang pola?
+> >        │    ├─ Ya, hubungan polynomial → POLYNOMIAL (d=2 atau 3)
+> >        │    ├─ Ya, cluster/non-linear kompleks → RBF ✓
+> >        │    └─ Tidak tahu → RBF ✓ (safe default)
+> >        │
+> >        └─ Dataset sangat besar (jutaan data)?
+> >             └─ LINEAR KERNEL ✓ (efficiency)
+> > ```
+> > 
+> > ---
+> > 
+> > ## Perbandingan Praktis
+> > 
+> > | Kernel | Speed | Flexibility | Interpretability | Tuning Difficulty | Best For |
+> > |--------|-------|-------------|------------------|-------------------|----------|
+> > | **Linear** | ⚡⚡⚡⚡⚡ | ⭐ | 📊📊📊📊 | ✓✓✓✓ (none) | High-dim, text, large data |
+> > | **Polynomial** | ⚡⚡⚡ | ⭐⭐⭐ | 📊📊 | ✓✓ (medium) | Image, interactions |
+> > | **RBF** | ⚡⚡ | ⭐⭐⭐⭐⭐ | 📊 | ✓✓✓ (1 param) | General non-linear, **default** |
+> > | **Sigmoid** | ⚡⚡ | ⭐⭐ | 📊 | ✓ (hard) | ❌ Avoid |
+> > 
+> > ---
+> > 
+> > ## Real-World Examples
+> > 
+> > ### Text Classification (Spam Detection)
+> > ```
+> > Features: 50,000 (bag-of-words)
+> > Data: 100,000 emails
+> > ✓ Kernel: LINEAR (fast, interpretable)
+> > ```
+> > 
+> > ### Face Recognition
+> > ```
+> > Features: 128 (face embeddings)
+> > Data: 10,000 faces
+> > ✓ Kernel: RBF (non-linear facial features)
+> > ```
+> > 
+> > ### Medical Diagnosis
+> > ```
+> > Features: 20 (blood test results)
+> > Data: 5,000 patients
+> > ✓ Kernel: RBF (complex relationships)
+> > ```
+> > 
+> > ### Image Classification (CIFAR-10)
+> > ```
+> > Features: 3072 (32×32×3 pixels)
+> > Data: 60,000 images
+> > ✓ Kernel: RBF atau Polynomial
+> > (But use CNN instead! 😉)
+> > ```
+> > 
+> > ---
+> > 
+> > ## TL;DR - Quick Guide
+> > 
+> > ### Use **LINEAR** if:
+> > - ✓ High-dimensional data (text, genes)
+> > - ✓ Large dataset (millions of points)
+> > - ✓ Need speed & interpretability
+> > - ✓ Budget 1 jam training ⏰
+> > 
+> > ### Use **RBF** if:
+> > - ✓ Non-linear data (don't know pattern)
+> > - ✓ Medium-sized dataset
+> > - ✓ **Default choice** when unsure
+> > - ✓ Budget 1 hari training 📅
+> > 
+> > ### Use **POLYNOMIAL** if:
+> > - ✓ Know there are feature interactions
+> > - ✓ Image/computer vision
+> > - ✓ Prefer global boundary over local
+> > 
+> > ### Use **SIGMOID**:
+> > - ❌ Rarely! Consider RBF instead
+> > 
+> > **Golden Rule:** Start Linear → Try RBF → Tune → Consider Polynomial if needed
+> > 
+> > 🎯 **90% of time: LINEAR or RBF is enough!**
 
 > [!cornell] #### Summary
 > 

@@ -125,17 +125,14 @@ _Back to_ [[IF3130 Sistem Paralel dan Terdistribusi]]
 > > 
 > > Ketersediaan sering diukur dengan "jumlah sembilan" (nines):
 > > 
-> > - **90%** (One nine): Downtime lebih dari 1 bulan per tahun.
-> >     
-> > - **99%** (Two nines): Downtime kurang dari 4 hari per tahun.
-> >     
-> > - **99.9%** (Three nines): Downtime kurang dari 9 jam per tahun.
-> >     
-> > - **99.99%** (Four nines): Downtime kurang dari 1 jam per tahun.
-> >     
-> > - **99.999%** (Five nines): Downtime sekitar 5 menit per tahun. (Ini adalah standar emas untuk layanan kritikal).
-> >     
-> > - **99.9999%** (Six nines): Downtime sekitar 31 detik per tahun.
+> > |Jumlah 9|Downtime|
+> > |---|---|
+> > |**90%** (One nine)| > 1 bulan per tahun|
+> > |**99%** (Two nines)| < 4 hari per tahun|
+> > |**99.9%** (Three nines)| < 9 jam per tahun|
+> > |**99.99%** (Four nines)| < 1 jam per tahun|
+> > |**99.999%** (Five nines)| ~5 menit per tahun. (Ini adalah standar emas untuk layanan kritikal)|
+> > |**99.9999%** (Six nines)| ~31 detik per tahun|
 > >     
 > > 
 > > Ini terkait erat dengan **Fault Tolerance**: yaitu kemampuan sistem untuk tetap berfungsi dengan baik _meskipun_ terjadi _fault_ (kegagalan) pada sebagian komponennya.

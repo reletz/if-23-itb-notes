@@ -50,7 +50,7 @@ _Back to_ [[index]]
 	 - [[Latihan Soal 1 - Paralelisasi]]
 	 - [[Latihan Soal 2 - Paralelisasi]]
 	 - [[Latihan Soal 3 - Paralelisasi]]
- - ## Pembahasan UTS Terdahulu
+ - ## Pembahasan UTS
 	 - [[UTS IF3130 2024-2025]]
 	 - [[UTS IF3130 2020-2021]]
 	 - [[UTS IF3130 2019-2020]]
@@ -101,3 +101,5 @@ _Back to_ [[index]]
  - ## Tugas Pra-UAS
 	 - [[Tugas Model Sistem Terdistribusi]]
 	 - [[Tugas Arsitektur Sistem Terdistribusi]]
+ - ## Latihan UAS
+	 - [[Rencana Belajar Sister]]

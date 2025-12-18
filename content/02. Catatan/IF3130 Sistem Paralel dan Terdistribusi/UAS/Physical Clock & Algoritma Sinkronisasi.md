@@ -66,6 +66,7 @@ _Back to_ [[IF3130 Sistem Paralel dan Terdistribusi]]
 > >     
 > > - **Clock Skew:** _Selisih/gap_ waktu instan antara dua jam pada satu titik waktu tertentu.
 > >     
+> > ![[Pasted image 20251216132023.png]]
 > >
 > > Penanganan Drift (PENTING):
 > > 

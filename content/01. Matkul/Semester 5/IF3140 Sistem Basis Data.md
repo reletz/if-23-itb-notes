@@ -101,7 +101,7 @@ Kalau lupa SQL bisa ke [[IF2240 Basis Data]]
 	- [[Latihan Soal Concurrency Control Protocol (Bag. 1).pdf|Latihan Soal Concurrency Control - 1]]
 - ## Concurrency Control  - 3
 	_Non-Locking Protocol_
-	- [[Timestamp-Based Protocol (TImestamp Ordering)]]
+	- [[Timestamp-Based Protocol (Timestamp Ordering)]]
 	- [[Validation-Based Protocol]]
 - ## Concurrency Control  - 4
 	_Multiversion Two-Phase Locking_ & _Advanced Topic_
@@ -136,7 +136,8 @@ Kalau lupa SQL bisa ke [[IF2240 Basis Data]]
 	- [[Konsep Kunci Integrasi - Mapping & Latency]]
 	- [[Pola dan Arsitektur Integrasi]]
 	- [[Arsitektur Modern, Standar, dan Alat Bantu]]
-- ## Latihan Soal Edunex Pra-UAS
+- ## Latihan Soal Pra-UAS
 	- [[Latihan Soal Concurrency Control Protocol (Bag. 1).pdf|Latihan Soal Concurrency Control - 1 (Credit: Riko)]]
 	- [[Latihan Soal Concurrency Control Protocol - 2]]
 	- [[Latihan Soal Recovery System]]
+	- [[Latihan UAS IF3140]]
