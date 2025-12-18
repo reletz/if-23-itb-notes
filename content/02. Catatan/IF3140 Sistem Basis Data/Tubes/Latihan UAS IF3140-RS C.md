@@ -76,51 +76,8 @@ Setelah menyelesaikan paket soal C ini, mahasiswa diharapkan dapat:
 |d.|Takeover|Backup site mengubah statusnya menjadi server ...|
 |e.|Re-routing|Sistem mengarahkan semua koneksi pengguna ke ...|
 
-## BAGIAN V: Studi Kasus Multi-Bagian (Format E) [20 Poin]
 
-Kasus:
-
-DBMS menerapkan algoritma ARIES dengan CLR. Berikut adalah isi log saat sistem restart:
-
-1. `<T1, start>`
-    
-2. `<T1, X, 10, 20>`
-    
-3. `<T2, start>`
-    
-4. `<T2, Y, 50, 60>`
-    
-5. `<checkpoint {T1, T2}>`
-    
-6. `<T1, abort>`
-    
-7. `<T1, X, 10>` (CLR ditulis)
-    
-8. `<T2, commit>`
-    
-9. `[CRASH]`
-    
-
-**Data yang diberikan:**
-
-- Sistem menggunakan kebijakan _Steal/No-Force_.
-    
-- Tidak ada crash selama penulisan CLR di langkah 7.
-    
-
-Pertanyaan:
-
-a. Selama fase Redo, langkah nomor berapa saja yang diulang?
-
-b. Sebutkan isi undo-list tepat setelah fase Redo selesai.
-
-c. Mengapa T1 tidak masuk ke undo-list meskipun ia gagal (abort)?
-
-d. Jika crash terjadi lagi tepat SETELAH langkah 7, apakah sistem akan melakukan undo lagi pada X? Mengapa?
-
-e. Apa peran CLR dalam memastikan operasi recovery bersifat idempotent?
-
-## BAGIAN VI: Pilihan Ganda Multi-Kategori (Format F) [20 Poin]
+## BAGIAN V: Pilihan Ganda Multi-Kategori (Format F) [20 Poin]
 
 1. Terkait **Optimasi Buffering**, pilih kebijakan yang paling umum di DBMS modern:
     
@@ -183,7 +140,7 @@ e. Apa peran CLR dalam memastikan operasi recovery bersifat idempotent?
     - **Tujuan:** a) Global Atomicity b) Local Isolation c) Disk Backup d) Query Optimization
         
 
-## BAGIAN VII: Isian Terstruktur (Format G) [10 Poin]
+## BAGIAN VI: Isian Terstruktur (Format G) [10 Poin]
 
 **Jelaskan komponen algoritma ARIES berikut:**
 
@@ -204,8 +161,6 @@ I: 1.Log, 2.Rem, 3.Sha, 4.Log, 5.Sha
 
 II: 1.B, 2.S (CLR adalah log baru), 3.B, 4.S, 5.S
 
-III: Steal(Ya, Ya), No-Steal(Tdk, Ya), Force(Ya, Tdk), No-Force(Ya, Ya)
+III: Steal(Ya, Tdk), No-Steal(Tdk, Tdk), Force(Tdk, Tdk), No-Force(Tdk, Ya)
 
-V: a.1-8; b. {T2}; c.T1 sudah punya abort record & CLR (dianggap sudah tertangani); d.Tidak, CLR menandakan undo sudah dilakukan; e.Idempotensi (undo tidak diulang).
-
-VI: 1.a,a | 2.a,a | 3.a,a | 4.a,a | 5.a,b | 6.a,a | 7.a,a | 8.a,a | 9.a,a | 10.a,a
+V: 1.a,a | 2.a,a | 3.a,a | 4.a,a | 5.a,b | 6.a,a | 7.a,a | 8.a,a | 9.a,a | 10.a,a

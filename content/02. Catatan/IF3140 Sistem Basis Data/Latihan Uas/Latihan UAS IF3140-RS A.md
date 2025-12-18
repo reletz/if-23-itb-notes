@@ -191,7 +191,7 @@ Skor: 3 poin per langkah.
 
 a. undo-list = {T2, T3}.
 
-b. Karena T1 sudah <T1 commit>, maka perubahannya harus dijamin durabilitasnya (REDO), bukan dibatalkan.
+b. Karena T1 sudah `<T1 commit>`, maka perubahannya harus dijamin durabilitasnya (REDO), bukan dibatalkan.
 
 c. A=150, B=250, C=350 (Redo mengulang SEMUA perubahan di log).
 
