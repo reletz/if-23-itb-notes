@@ -120,48 +120,6 @@ e. Berikan rekomendasi: Jika sistem ini membutuhkan RTO < 5 detik, apakah metode
         
     - **No-Force Policy:** a) Wajib tulis saat commit b) Tidak wajib tulis saat commit c) Tulis per menit d) Tulis manual oleh user
         
-4. Terkait **Metrik Kinerja Paralel**, pilih definisi yang sesuai:
-    
-    - **Speedup:** a) Waktu tetap, data tambah b) Data tetap, hardware tambah c) Hardware tetap, data tambah d) Melambat seiring user
-        
-    - **Scaleup:** a) Ukuran masalah tetap b) Masalah bertambah seiring hardware c) Latensi meningkat d) Throughput menurun
-        
-5. Untuk **Arsitektur Hardware Paralel**, pilih sifat utamanya:
-    
-    - **Shared Nothing:** a) Paling skalabel b) Paling murah c) Latensi memori rendah d) Berbagi RAM
-        
-    - **Shared Disk:** a) Tiap node punya disk sendiri b) Berbagi satu set disk c) Tanpa memori lokal d) Skalabilitas ekstrim
-        
-6. Dalam **Transaksi Terdistribusi (Distributed Systems)**, pilih komponen kunci:
-    
-    - **Protokol Atomicity:** a) 2-Phase Locking b) 2-Phase Commit (2PC) c) Snapshot Isolation d) Checkpointing
-        
-    - **Fase 1 2PC:** a) Commit b) Prepare/Voting c) Abort d) Garbage Collection
-        
-7. Mengenai **Kematangan Tata Kelola (Data Governance Maturity)**, pilih level/dimensi yang tepat:
-    
-    - **Level 3 IBM:** a) Reaktif b) Terdefinisi & Proaktif c) Optimasi Otomatis d) Tanpa pengelolaan
-        
-    - **Dimensi Stanford:** a) Hanya Teknologi b) People, Policies, Capabilities c) Profit/Loss d) CPU & RAM
-        
-8. Dalam **Pola Integrasi Data**, pilih mekanisme yang tepat:
-    
-    - **ETL (Extract-Transform-Load):** a) Transformasi di target b) Transformasi di staging c) Tanpa ekstraksi d) Hanya untuk NoSQL
-        
-    - **ELT (Extract-Load-Transform):** a) Cocok untuk Data Lake/Big Data b) Sangat lambat c) Menghapus data sumber d) Arsitektur jadul
-        
-9. Terkait **Peran Data Stewardship**, pilih tanggung jawab utama:
-    
-    - **Data Owner:** a) Akuntabilitas & Otoritas b) Menulis kode backend c) Hardware maintenance d) Data entry
-        
-    - **Data Custodian:** a) Menentukan strategi bisnis b) Implementasi teknis & keamanan c) Persetujuan budget d) Mencari klien
-        
-10. Mengenai **Arsitektur Interaksi Integrasi**, pilih konsekuensi desain:
-    
-    - **Point-to-Point:** a) s^2 interface (Spaghetti) b) s interface (Konsisten) c) Tanpa latensi d) Menggunakan Middleware
-        
-    - **Hub-and-Spoke:** a) Konsolidasi terpusat b) Desentralisasi total c) Sangat lambat d) Tidak butuh mapping
-        
 
 ## BAGIAN VII: Isian Terstruktur (Format G) [10 Poin]
 
@@ -245,9 +203,7 @@ Skor: 4 poin per sub-pertanyaan.
 
 ### Bagian VI (Pilihan Ganda)
 
-1. b, b | 2. a, a | 3. a, b | 4. b, b | 5. a, b
-    
-2. b, b | 7. b, b | 8. b, a | 9. a, b | 10. a, a
+1. b, b | 2. a, a | 3. a, b 
     
     Skor: 2 poin per nomor (benar kedua kategori).
     

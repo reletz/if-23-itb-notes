@@ -98,9 +98,9 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > >
 > > 3. **Stable Storage (Penyimpanan Stabil)**
 > > 
-> >   - Ini adalah bentuk penyimpanan **teoritis** atau "mitos" yang diasumsikan **tidak akan pernah gagal** atau kehilangan data dalam kondisi apa pun.
-> >   - Di dunia nyata, tidak ada penyimpanan yang 100% stabil.
-> >   - Kita hanya bisa **mengaproksimasi** (mendekati) stable storage, biasanya dengan **redundansi**.
+> > 	- Ini adalah bentuk penyimpanan **teoritis** atau "mitos" yang diasumsikan **tidak akan pernah gagal** atau kehilangan data dalam kondisi apa pun.
+> > 	- Di dunia nyata, tidak ada penyimpanan yang 100% stabil.
+> > 	- Kita hanya bisa **mengaproksimasi** (mendekati) stable storage, biasanya dengan **redundansi**.
 > >
 > >
 > > ### Aproksimasi Stable Storage

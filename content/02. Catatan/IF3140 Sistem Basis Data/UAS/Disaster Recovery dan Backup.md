@@ -59,7 +59,7 @@ _Back to_ [[IF3140 Sistem Basis Data]]
 > > 
 > > - **Proses Dump (Sederhana)**: Hentikan semua transaksi, lakukan _checkpoint_ (memastikan data di disk konsisten), lalu salin seluruh file database.
 > >     
-> > - **Prookses Recovery from Dump**:
+> > - **Proses Recovery from Dump**:
 > >     
 > >     1. **Restore**: Salin database dari _dump_ (backup) terakhir.
 > >         

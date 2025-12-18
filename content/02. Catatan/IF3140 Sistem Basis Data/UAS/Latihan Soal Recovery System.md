@@ -28,7 +28,7 @@ Jawab:
 ```
 2. Dengan Redo-Undo phase:
 
-- Lakukan Redo: T1 aman, T3 aman (sudah commit). T2 belum aman. setelah T2 abort (checkpoint)
+- Lakukan Redo:  Setelah T2 abort (checkpoint)
     - `<T3, C, C0, C1>` (masuk undo-list)
     - `<T3 commit>` (keluar dari undo-list)
     - `<T1, A, A0, A1>` (masuk undo-list)
