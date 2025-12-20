@@ -8,189 +8,145 @@ cssclasses:
 
 _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 
-> [!cornell] Ekuivalensi PDA & CFG (Bagian 2: Konversi PDA ke CFG)
+> [!cornell] Topic: Ekuivalensi PDA & CFG (Bagian 2: Konversi PDA ke CFG)
 > 
 > > ## Questions/Cues
 > >
-> > - Apa tujuan konversi PDA $\rightarrow$ CFG?
+> > - Konsep Net Effect
 > >     
-> > - Apa ide utama di balik konversi ini?
+> > - Arti $[pXq]$  
 > >     
-> > - Apa bentuk Variabel CFG yang baru?
+> > - Jumlah Variabel
 > >     
-> > - Apa arti dari Variabel $[pXq]$?
+> > - Aturan Start (S)
 > >     
-> > - Bagaimana konstruksi formal $G$ dari $P$?
+> > - Aturan Pop Langsung
 > >     
-> > - Aturan Tipe 1 (Start Symbol)
-> >     
-> > - Aturan Tipe 2 (Transisi PDA)
-> >     
-> > - Bagaimana Tipe 2 menangani PUSH ($k>0$)?
-> >     
-> > - Bagaimana Tipe 2 menangani POP ($k=0$)?
-> >     
-> > - Contoh: Konversi PDA (slide 12)
+> > - Aturan Pop & Push
 > >     
 > > - Teorema 6.14
 > >     
 > >
 > > ## Reference Points
 > >
-> > - Slide 12_2023_Equivalence PDA and CFG.pdf (hlm. 10-20)
+> > - Slide 12_2025: Hal 12 - 19
 > >     
 > 
-> > ### Tujuan: Konversi PDA $\rightarrow$ CFG
+> > ### 1. Ide Dasar: Konsep "Net Effect"
 > >
-> > Ini adalah pembuktian arah sebaliknya: membuktikan bahwa bahasa apa pun yang diterima oleh PDA (khususnya $N(P)$, _acceptance by empty stack_) dapat dibangkitkan oleh sebuah _Context-Free Grammar_ (CFG).
+> > Tantangan utama konversi PDA ke CFG adalah bagaimana grammar bisa meniru perilaku stack. Kuncinya adalah melacak **Net Effect** dari sebuah komputasi.
 > >
-> > **Tujuannya:** Diberikan PDA $P$, kita ingin membuat CFG $G$ sehingga $L(G) = N(P)$.
-> >
-> > ### Ide Utama: Variabel sebagai "Tugas Komputasi"
-> >
-> > Ide utamanya sangat cerdik. Kita akan membuat CFG di mana setiap _Variabel_ dalam grammar mewakili sebuah "tugas" atau "sub-komputasi" yang harus diselesaikan oleh PDA.
-> >
-> > ### Bentuk Variabel Baru: $[pXq]$  
-> >
-> > Variabel dalam grammar $G$ yang baru akan memiliki bentuk $[pXq]$.
-> >
-> > - $p$ adalah state _awal_ PDA.
-> >     
-> > - $X$ adalah simbol stack yang berada di _puncak_.
-> >     
-> > - $q$ adalah state _akhir_ PDA.
-> >     
-> >
-> > ### Arti dari Variabel $[pXq]$  
-> >
-> > Variabel $[pXq]$ mewakili "tugas" berikut:
-> >
-> > **"Hasilkan semua string** $w$ **yang dapat membawa PDA dari state** $p$ **ke state** $q$**, di mana efek bersih dari komputasi ini adalah menghabiskan (POP) tepat satu simbol** $X$ **dari stack."**
-> >
-> > Secara formal, $[pXq] \Rightarrow^{*} w$ jika dan hanya jika $(p, w, X) \vdash^{*} (q, \epsilon, \epsilon)$.
-> >
-> > ### Konstruksi Formal $G$ dari $P$  
-> >
-> > Diberikan PDA $P=(Q,\Sigma,\Gamma,\delta,q_{0},Z_{0})$, kita definisikan CFG $G=(V,\Sigma,R,S)$ sebagai:
-> >
-> > - $\Sigma$: Himpunan Terminal $G$ (sama dengan alfabet input $P$).
-> >     
-> > - $V$: Himpunan Variabel $G$, terdiri dari:
-> >     
-> > 	1. Sebuah _Start Symbol_ baru, $S$.
-> > 			
-> > 	2. Semua kemungkinan kombinasi variabel $[pXq]$ (untuk setiap $p,q \in Q$ dan $X \in \Gamma$).
-> >         
-> > - $R$: Himpunan aturan produksi (dijelaskan di bawah).
-> >     
-> > - $S$: _Start Symbol_ baru.
-> >     
-> >
-> > ### Aturan Produksi Tipe 1: Aturan Start Symbol
-> >
-> > Aturan pertama menghubungkan $S$ dengan tugas awal PDA.
-> >
-> > $$S \rightarrow [q_0 Z_0 p]$ , untuk setiap $p \in Q$$.
-> >
-> > - _Artinya:_ "Untuk memulai grammar, mulailah komputasi di state awal $q_0$ dengan simbol stack awal $Z_0$. Tujuannya adalah untuk mengosongkan stack dan berakhir di _state_ $p$ _manapun_." (Karena $N(P)$ tidak peduli state akhir).
-> >     
-> >
-> > ### Aturan Produksi Tipe 2: Mensimulasikan Transisi PDA
-> >
-> > Ini adalah inti dari konstruksi. Untuk **setiap transisi** di PDA:
-> >
-> > $$\delta(q, a, X) = \{(r, Y_1 Y_2 \dots Y_k)\}$$  
-> >
-> > ...kita membuat serangkaian aturan produksi baru.
-> >
-> > 1. **Kasus** $k=0$ **(POP):** Jika $\delta(q, a, X) = \{(r, \epsilon)\}$  
-> >     
-> > 	- Ini adalah kasus dasar. Transisi ini membaca $a$, mem-POP $X$, dan berakhir di $r$.
-> > 	- Ini persis menyelesaikan tugas $[qXr]$.
-> > 	- Aturan: **$[qXr] \rightarrow a$** (catatan: $a$ bisa $\epsilon$).
+> > Definisi Net Effect:
 > > 
+> > Ketika PDA membaca suatu string $w$, ia berpindah dari state $p$ ke state $q$, dan pada akhirnya simbol $X$ yang tadinya ada di puncak stack berhasil ter-pop (keluar). Apapun yang terjadi di tengah-tengah (push simbol lain lalu di-pop lagi), hasil akhirnya adalah $X$ hilang.
 > >
-> > 2. **Kasus** $k>0$ **(PUSH/Ganti):** Jika $\delta(q, a, X) = \{(r, Y_1 Y_2 \dots Y_k)\}$  
+> > ### 2. Variabel Grammar $[pXq]$  
+> >
+> > Dalam CFG hasil konversi, kita membuat variabel-variabel baru dengan format $[pXq]$.
+> >
+> > - **Arti:** String yang membawa PDA dari state $p$ ke state $q$ dengan hasil akhir simbol $X$ keluar dari stack.
+> >     
+> > - **Total Variabel:** Jika PDA memiliki $|Q|$ state dan $|\Gamma|$ simbol stack, maka jumlah variabelnya adalah $|Q|^2 \times |\Gamma| + 1$ (termasuk simbol Start $S$).
 > >     
 > >
-> > 	- Transisi ini membaca $a$, mem-POP $X$, dan me-PUSH $Y_1 \dots Y_k$.
-> > 	- Tugas $[qXp]$ (tugas "mem-POP $X$ dan berakhir di $p$") sekarang dipecah menjadi:
-> > 		1.  Baca $a$.
-> > 		2.  Selesaikan $k$ sub-tugas baru secara berurutan:
-> > 					- POP $Y_1$ (mulai dari state $r$, berakhir di state $r_1$ baru).
-> > 					- POP $Y_2$ (mulai dari $r_1$, berakhir di $r_2$ baru).
-> > 					- ...
-> > 					- POP $Y_k$ (mulai dari $r_{k-1}$, berakhir di $p$ yang kita tuju).
-> > 	- Aturan: **$[qXp] \rightarrow a [r Y_1 r_1] [r_1 Y_2 r_2] \dots [r_{k-1} Y_k p]$**
-> > 	- **PENTING:** Aturan ini harus dibuat untuk *setiap kemungkinan kombinasi* state perantara $r_1, r_2, \dots, r_{k-1} \in Q$.
+> > ### 3. Tiga Jenis Aturan Produksi (R)
+> >
+> > Kita harus membangun aturan produksi berdasarkan transisi PDA:
+> >
+> > A. Produksi untuk Start Symbol (S):
 > > 
-> >
-> > ### Contoh: PDA (Slide 12)
-> >
-> > - $P$: $(\{q\}, \{i,e\}, \{Z\}, \delta, q, Z)$  
-> >     
-> > - $\delta(q, i, Z) = \{(q, ZZ)\}$ ($k=2$)
-> >     
-> > - $\delta(q, e, Z) = \{(q, \epsilon)\}$ ($k=0$)
-> >     
-> >
-> > **Konstruksi** $G$**:**
-> >
-> > - Variabel $V$: $\{S, [qZq]\}$ (satu-satunya kombinasi state dan simbol stack).
-> >     
-> > - Aturan Tipe 1: $S \rightarrow [qZq]$ (karena $q_0=q, Z_0=Z$, dan $p=q$).
-> >     
-> > - Aturan Tipe 2 (dari $\delta(q, e, Z) = \{(q, \epsilon)\}$):
-> >     
-> >     - $k=0$. $q=q, a=e, X=Z, r=q$.
-> >         
-> >     - Aturan: $[qZq] \rightarrow e$  
-> >         
-> > - Aturan Tipe 2 (dari $\delta(q, i, Z) = \{(q, ZZ)\}$):
-> >     
-> >     - $k=2$. $q=q, a=i, X=Z, r=q, Y_1=Z, Y_2=Z$.
-> >         
-> >     - Kita butuh 1 state perantara $r_1$. Satu-satunya pilihan adalah $r_1=q$.
-> >         
-> >     - Aturan: $[qZq] \rightarrow i [q Y_1 r_1] [r_1 Y_2 q]$  
-> >         
-> >     - Substitusi: $[qZq] \rightarrow i [qZq] [qZq]$  
-> >         
-> >
-> > **Grammar Final:**
+> > $$S \rightarrow [q_0 Z_0 q] \text{ untuk setiap } q \in Q$$
 > > 
-> > Jika kita ganti $A = [qZq]$, kita dapatkan:
-> > 
-> > $S \rightarrow A$
-> > 
-> > $A \rightarrow iAA \mid e$ (Ini adalah grammar terkenal untuk bahasa "Dyck" atau string kurung buka-tutup yang seimbang).
+> > Interpretasi: Bahasa yang diterima PDA adalah semua string yang membawa mesin dari state awal ($q_0$), dengan simbol awal stack ($Z_0$), hingga $Z_0$ ter-pop di state $q$ mana pun.
 > >
-> > ### Teorema 6.14
+> > B. Produksi Pop Langsung (Tanpa Push):
+> > 
+> > Jika $\delta(q, a, X)$ mengandung $(r, \epsilon)$, maka:
+> > 
+> > $$[qXr] \rightarrow a$$
+> > 
+> > Interpretasi: Jika dari $q$ baca $a$ dan langsung pop $X$ pindah ke $r$, maka variabel $[qXr]$ langsung menghasilkan terminal $a$.
 > >
-> > Jika $G$ dibuat dari PDA $P$ dengan metode di atas, maka $L(G) = N(P)$. Ini membuktikan bahwa untuk setiap PDA (by empty stack), ada CFG yang ekuivalen.
+> > C. Produksi Pop dengan Push (Paling Kompleks):
+> > 
+> > Jika $\delta(q, a, X)$ mengandung $(r_0, Y_1 Y_2 \dots Y_k)$, maka untuk semua kemungkinan kombinasi state $r_1, r_2, \dots, r_k$:
+> > 
+> > $$[qXr_k] \rightarrow a [r_0 Y_1 r_1] [r_1 Y_2 r_2] \dots [r_{k-1} Y_k r_k]$$
+> > 
+> > Analogi: Bayangkan ini seperti perjalanan estafet. Untuk mengeluarkan $X$, Anda membaca $a$, lalu harus mengeluarkan $Y_1$, dilanjut mengeluarkan $Y_2$, dst., sampai simbol terakhir $Y_k$ keluar. Karena kita tidak tahu di state mana setiap simbol itu selesai di-pop, kita harus mencoba semua kombinasi state yang mungkin.
+> >
+> > ### 4. Teorema 6.14 (Kebenaran Konstruksi)
+> >
+> > Teorema ini menyatakan bahwa $L(G) = N(P)$. Artinya, grammar yang kita buat menghasilkan string yang **tepat sama** dengan string yang diterima PDA dengan metode empty stack.
 
 > [!cornell] #### Summary
 > 
-> **Setiap** _**Pushdown Automata**_ **(PDA) yang menerima via** _**empty stack**_ **dapat diubah menjadi** _**Context-Free Grammar**_ **(CFG) yang ekuivalen. Metode ini menciptakan Variabel grammar baru yang canggih berbentuk** $[pXq]$**, yang merepresentasikan "tugas" untuk menghasilkan string** $w$ **yang membawa PDA dari state** $p$ **ke state** $q$ **dengan efek bersih mem-POP** $X$**. Aturan produksi CFG kemudian dibangun dengan memecah setiap transisi PDA menjadi serangkaian sub-tugas (sub-variabel) ini. Aturan** _**Start Symbol**_ $S$ **bertugas memulai komputasi dari** $(q_0, Z_0)$ **untuk berakhir di state manapun dengan stack kosong.**
+> Konversi PDA ke CFG berpusat pada variabel $[pXq]$ yang merepresentasikan string yang mengakibatkan simbol $X$ ter-pop saat mesin berpindah dari state $p$ ke $q$. Terdapat tiga aturan produksi utama: (1) **Start** yang menghubungkan $S$ ke semua kemungkinan state akhir, (2) **Pop Langsung** untuk transisi tanpa push, dan (3) **Pop-Push** yang memecah satu variabel menjadi rangkaian variabel baru berdasarkan simbol-simbol yang dimasukkan ke stack. Secara matematis, konstruksi ini menjamin ekuivalensi antara PDA (empty stack) dan CFG.
 
 > [!ad-libitum]- Additional Information
 > 
-> #### Kompleksitas Konstruksi PDA $\rightarrow$ CFG
+> #### Pendalaman Teknis: Mengapa Rule 3 Sangat "Boros"?
 > 
-> Metode konstruksi ini, meskipun terbukti benar, sangat tidak praktis untuk dilakukan manual pada PDA yang besar.
+> Perhatikan aturan $[qXr_k] \rightarrow a [r_0 Y_1 r_1] \dots [r_{k-1} Y_k r_k]$. Jika PDA memiliki 3 state dan kita mem-push 2 simbol ($k=2$), maka untuk satu transisi PDA saja, kita harus membuat $3^2 = 9$ aturan produksi di grammar. Inilah sebabnya mengapa secara praktis, grammar hasil konversi PDA seringkali sangat besar dan memiliki banyak variabel yang tidak pernah bisa mencapai terminal (_useless symbols_).
 > 
-> - **Jumlah Variabel:** Jika PDA memiliki $|Q|$ state dan $|\Gamma|$ simbol stack, CFG akan memiliki $1 + (|Q|^2 \times |\Gamma|)$ variabel. Untuk PDA dengan 5 state dan 3 simbol stack, kita sudah memiliki $1 + (25 \times 3) = 76$ variabel.
+> #### Pembuktian Induksi
+> 
+> Bukti $L(G) = N(P)$ didasarkan pada induksi panjang komputasi.
+> 
+> - **Arah PDA ke CFG:** Jika $(q, w, X) \vdash^* (p, \epsilon, \epsilon)$, maka $[qXp] \Rightarrow^* w$.
 >     
-> - **Jumlah Aturan:** Jumlah aturan produksi bisa meledak secara eksponensial. Untuk transisi PUSH $k$ simbol: $\delta(q, a, X) \rightarrow (r, Y_1 \dots Y_k)$, kita harus membuat $1 \times |Q|^{k-1}$ aturan produksi baru (satu untuk setiap kombinasi state perantara $r_1 \dots r_{k-1}$).
+> - **Arah CFG ke PDA:** Jika $[qXp] \Rightarrow^* w$, maka PDA pasti bisa mengosongkan $X$ dari stack dengan membaca $w$.
 >     
-> 
-> Inilah sebabnya mengapa dalam praktiknya, lebih mudah mengubah CFG ke PDA daripada sebaliknya.
 > 
 > #### Eksplorasi Mandiri
 > 
-> - Coba pikirkan aturan produksi untuk PDA $L_{wcwr}$ (dari slide 21, walaupun itu DPDA).
+> Cobalah konversi PDA sederhana dengan 1 state dan 1 simbol stack ke dalam CFG. Anda akan melihat bahwa variabel $[qZq]$ akan bertindak sangat mirip dengan variabel tunggal dalam grammar sederhana.
+> 
+> #### Sumber & Referensi Lanjutan:
+> 
+> - Slide 12_2025 IF 2124 ITB (Hal 12-19).
 >     
-> - Misalnya transisi $\delta(q_0, 0, Z_0) = \{(q_0, 0Z_0)\}$. Ini adalah kasus $k=2$.
+> - "Introduction to the Theory of Computation" oleh Michael Sipser (Bab Context-Free Languages).
 >     
-> - Jika PDA memiliki state $\{q_0, q_1, q_2\}$, maka aturan $[q_0 Z_0 q_0] \rightarrow 0 [q_0 0 q_0] [q_0 Z_0 q_0]$ adalah salah satu dari $3^1=3$ aturan yang harus dibuat (pilihan lain: $r_1=q_1$ atau $r_1=q_2$).
+
+> [!ad-libitum]- Spaced Repetition Questions (Review)
+> 
+> <details>
+> 
+> <summary><strong>1. Apa arti dari variabel grammar $[pXq]$?</strong></summary>
+> 
+> String yang jika dibaca oleh PDA akan membawanya dari state $p$ ke state $q$ dengan efek bersih (net effect) simbol $X$ dikeluarkan dari stack.
+> 
+> </details>
 >
+> <details>
+> 
+> <summary><strong>2. Berapa total variabel yang dihasilkan dalam konversi PDA dengan $|Q|$ state dan $|\Gamma|$ simbol stack?</strong></summary>
+> 
+> $|Q|^2 \times |\Gamma| + 1$.
+> 
+> </details>
+>
+> <details>
+> 
+> <summary><strong>3. Mengapa pada aturan Start (S) kita harus membuat produksi menuju semua state $q \in Q$?</strong></summary>
+> 
+> Karena pada metode acceptance by empty stack, PDA dianggap menerima input selama stack-nya kosong, tidak peduli di state mana ia berakhir.
+> 
+> </details>
+>
+> <details>
+> 
+> <summary><strong>4. Dalam aturan produksi tipe 3 (Pop dengan Push), mengapa kita melibatkan semua kombinasi state $r_1, r_2, \dots$?</strong></summary>
+> 
+> Karena grammar bersifat non-deterministik dan kita tidak tahu secara pasti di state mana PDA akan berada setelah masing-masing simbol $Y_i$ selesai di-pop dari stack.
+>
+></details>
+>
+> <details>
+>
+> <summary><strong>5. Apa yang dimaksud dengan "Net Effect" dalam konteks ini?</strong></summary>
+>
+> Kondisi di mana meskipun stack sempat bertambah isinya selama proses membaca string, pada akhirnya simbol yang kita targetkan (misal $X$) berhasil dikeluarkan dari stack.
+>
+> </details>

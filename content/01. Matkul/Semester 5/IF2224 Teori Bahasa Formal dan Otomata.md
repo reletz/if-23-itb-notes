@@ -46,7 +46,25 @@ _Back to_ [[index]]
 - ## Pushdown Automata (PDA)
 	- [[Definisi Formal PDA]]
 	- [[Metode Penerimaan PDA]]
-	- [[PPT PDA, Pt. 1]]
+- ## Ekivalensi CFG dan PDA
 	- [[Ekuivalensi CFG ke PDA]]
 	- [[Ekuivalensi PDA ke CFG]]
 	- [[Deterministic PDA (DPDA)]]
+- ## Properties Of Context-Free Languages
+	- [[Penyederhanaan CFG]]
+	- [[Chomsky Normal Form]]
+	- [[Closure and Decision Properties]]
+- ## Turing Machines
+	- [[Fondasi Mesin Turing]]
+	- [[Studi Kasus Mesin Turing]]
+	- [[Kelas Bahasa dan Varian Mesin Turing]]
+- ## Chomsky Normal Form
+	- [[Konversi CNF]]
+	- [[Closure Properties di CNF]]
+	- [[Bagian Keputusan]]
+- ## Intermediate Code Generation
+	- [[Notasi Postfix dalam Kode Antara]]
+	- [[Notasi Triples dan Quadruples]]
+	- [[Penanganan Kesalahan (Error Handling & Repair)]]
+	- [[Teknik Optimasi Kode]]
+	- [[Tabel Informasi (Symbol Table)]]

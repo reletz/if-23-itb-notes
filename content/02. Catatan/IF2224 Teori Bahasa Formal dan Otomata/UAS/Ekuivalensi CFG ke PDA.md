@@ -8,189 +8,153 @@ cssclasses:
 
 _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 
-> [!cornell] Ekuivalensi PDA & CFG (Bagian 1: Konversi CFG ke PDA)
+> [!cornell] Topic: Ekuivalensi PDA & CFG (Bagian 1: Konversi CFG ke PDA)
 > 
 > > ## Questions/Cues
 > >
-> > - Apa hubungan CFG & PDA?
+> > - Teorema Utama
 > >     
-> > - Apa tujuan konversi CFG $\rightarrow$ PDA?
+> > - Left-Sentential Form
 > >     
-> > - Apa ide utama di balik konversi ini?
+> > - Simulasi Derivasi
 > >     
-> > - Bagaimana PDA mensimulasikan derivasi?
+> > - Aturan Variabel
 > >     
-> > - Bagaimana jika top stack Variabel?
+> > - Aturan Terminal
 > >     
-> > - Bagaimana jika top stack Terminal?
-> >     
-> > - Apa konstruksi formal $P_G$?
-> >     
-> > - Transisi Tipe 1 ($\delta(q,\epsilon,A)$)
-> >     
-> > - Transisi Tipe 2 ($\delta(q,a,a)$)
-> >     
-> > - Teorema 6.13
+> > - Syarat Accept
 > >     
 > >
 > > ## Reference Points
 > >
-> > - Slide 12_2023_Equivalence PDA and CFG.pdf (hlm. 2-9)
+> > - Slide 12_2025: Hal 1 - 11
 > >     
 > 
-> > ### Hubungan Fundamental CFG & PDA
+> > ### 1. Teorema Ekuivalensi Utama
 > >
-> > Teorema inti dari bab ini adalah:
+> > Ketiga model komputasi berikut didefinisikan setara (ekuivalen), artinya mereka mengenali kelas bahasa yang sama, yaitu **Context-Free Language (CFL)**:
 > >
-> > Sebuah bahasa $L$ adalah _Context-Free Language_ (CFL) **jika dan hanya jika** bahasa $L$ tersebut diterima oleh sebuah _Pushdown Automata_ (PDA).
-> >
-> > Ini berarti:
-> >
-> > 1. Setiap bahasa yang bisa dibangkitkan oleh CFG, pasti bisa dikenali oleh PDA.
+> > 1. Bahasa yang dihasilkan oleh **Context-Free Grammar (CFG)**.
 > >     
-> > 2. Setiap bahasa yang bisa dikenali oleh PDA, pasti bisa dibangkitkan oleh CFG.
+> > 2. Bahasa yang diterima oleh **PDA dengan Empty Stack**.
+> >     
+> > 3. Bahasa yang diterima oleh **PDA dengan Final State**.
 > >     
 > >
-> > Karena kita sudah tahu dari materi sebelumnya bahwa PDA (by final state) $\Leftrightarrow$ PDA (by empty stack), maka kita hanya perlu membuktikan:
+> > _Analogi:_ Bayangkan CFG sebagai "resep masakan" (aturan produksi) dan PDA sebagai "juru masak" (mesin yang menjalankan). Teorema ini menyatakan bahwa resep apa pun yang ditulis dengan aturan CFG pasti bisa dimasak oleh mesin PDA, baik dengan cara mengosongkan panci (empty stack) atau mencapai kondisi selesai (final state).
+> >
+> > ### 2. Ide Dasar: Simulasi Leftmost Derivation
+> >
+> > PDA dirancang untuk mensimulasikan proses **Leftmost Derivation** dari sebuah CFG. PDA akan menyimpan bagian dari derivasi yang belum terselesaikan di dalam **Stack**.
+> >
+> > Konsep Kunci: **Left-Sentential Form**
 > > 
-> > CFG $\Leftrightarrow$ PDA (by empty stack).
+> > Bentuknya adalah $x A \alpha$, di mana:
 > >
-> > Catatan ini berfokus pada arah pertama: **CFG** $\rightarrow$ **PDA**.
-> >
-> > ### Tujuan: Konversi CFG $\rightarrow$ PDA
-> >
-> > Diberikan sebuah CFG $G=(V,T,Q,S)$, kita ingin membuat sebuah PDA $P_G$ yang menerima bahasa yang sama, $L(G)$. Kita akan menggunakan metode _acceptance by empty stack_.
-> >
-> > **Tujuannya:** Membuktikan bahwa $L(G) = N(P_G)$.
-> >
-> > ### Ide Utama: Simulasi Leftmost Derivation
-> >
-> > Ide utamanya adalah membuat PDA yang **mensimulasikan** _**leftmost derivation**_ ($\Rightarrow_{lm}$) dari grammar $G$.
-> >
-> > - **Stack PDA** akan digunakan untuk menyimpan _sentential form_ (bentuk kalimat) dari proses derivasi. _Sentential form_ adalah string yang berisi campuran Variabel dan Terminal.
+> > - $x$: String terminal yang sudah cocok dengan input.
 > >     
-> > - _Top_ (puncak) stack akan selalu mewakili simbol paling kiri dari _sentential form_ yang tersisa.
+> > - $A$: Variabel paling kiri yang akan diturunkan berikutnya.
+> >     
+> > - $\alpha$: Sisa simbol (tail) yang menunggu giliran.
 > >     
 > >
-> > ### Bagaimana PDA Mensimulasikan Derivasi?
+> > ### 3. Mekanisme Kerja PDA (Langkah-demi-Langkah)
 > >
-> > PDA $P_G$ akan bekerja sebagai berikut:
+> > PDA hanya menggunakan **satu state** (biasanya disebut $q$) dan melakukan operasi berdasarkan apa yang ada di puncak stack:
 > >
-> > 1. **Jika top stack adalah Variabel (misal** $A$**):**
-> >     
-> > 	- PDA secara *non-deterministik* akan memilih salah satu aturan produksi untuk $A$ dari grammar $G$ (misal $A \rightarrow \beta$).
-> > 	- PDA akan **POP $A$** dari stack.
-> > 	- PDA akan **PUSH $\beta$** (string isi aturan) ke stack.
-> > 	- Ini semua terjadi dalam satu transisi **spontan** (membaca input $\epsilon$).
+> > **A. Jika Top Stack adalah Variabel (A)**:
 > > 
+> > PDA melakukan "ekspansi". Ia tidak membaca input ($\epsilon$-move).
 > >
-> > 2. **Jika top stack adalah Terminal (misal** $a$**):**
+> > - _Aksi:_ Ambil (pop) $A$, lalu masukkan (push) seluruh tubuh produksi $\beta$ (jika ada aturan $A \rightarrow \beta$).
 > >     
-> > 	- PDA harus mencocokkan simbol ini dengan string input.
-> > 	- PDA akan **membaca simbol input** berikutnya.
-> > 	- Jika simbol input = $a$ (cocok): PDA akan **POP $a$** dari stack dan melanjutkan.
-> > 	- Jika simbol input $\neq a$ (tidak cocok): Komputasi di jalur non-deterministik ini "mati" (gagal).
+> > - _Fungsi Transisi:_ $\delta(q, \epsilon, A) = \{(q, \beta) : A \rightarrow \beta \in Q\}$  
+> >     
+> >
+> > **B. Jika Top Stack adalah Terminal (a):**
 > > 
+> > PDA melakukan "pencocokan" (match).
 > >
-> > **Kondisi Penerimaan (Acceptance):**
-> > 
-> > Jika di akhir proses, semua input telah habis dibaca DAN stack menjadi kosong, berarti string input tersebut berhasil diderivasi dari simbol $S$, sehingga string tersebut diterima.
-> >
-> > ### Konstruksi Formal $P_G$  
-> >
-> > Diberikan $G=(V,T,Q,S)$, kita definisikan PDA $P_G$ sebagai:
-> > 
-> > $$P_G = (\{q\}, T, V \cup T, \delta, q, S)$$
-> >
-> > - **State** $Q$: Hanya punya **satu state**, yaitu $\{q\}$.
+> > - _Aksi:_ Baca input $a$. Jika simbol input sama dengan top stack, maka pop $a$.
 > >     
-> > - **Alfabet Input** $\Sigma$: Adalah himpunan terminal $G$, yaitu $T$.
+> > - _Fungsi Transisi:_ $\delta(q, a, a) = \{(q, \epsilon)\}$  
 > >     
-> > - **Alfabet Stack** $\Gamma$: Adalah gabungan Variabel dan Terminal $G$, yaitu $V \cup T$.
-> >     
-> > - **Fungsi Transisi** $\delta$: Didefinisikan dalam 2 tipe (lihat di bawah).
-> >     
-> > - **Start State** $q_0$: Adalah $q$.
-> >     
-> > - **Start Symbol** $Z_0$: Adalah _start symbol_ grammar, yaitu $S$.
+> > - _Catatan:_ Jika tidak cocok, PDA akan me-reject string tersebut.
 > >     
 > >
-> > ### Transisi Tipe 1: Ekspansi Variabel
+> > ### 4. Contoh Konstruksi
 > >
-> > Untuk setiap _Variabel_ $A \in V$, kita tambahkan transisi untuk setiap aturan produksinya.
+> > Misalkan ada grammar $E \rightarrow E+T | T$. Maka PDA akan memiliki transisi:
 > >
-> > Jika $A \rightarrow \beta$ adalah aturan produksi di $G$, maka:
-> > 
-> > $$\delta(q, \epsilon, A) = \{(q, \beta)\}$$
-> >
-> > - _Artinya:_ Di state $q$, tanpa membaca input ($\epsilon$), jika top stack adalah $A$, ganti $A$ dengan $\beta$ (POP $A$, PUSH $\beta$). Ini adalah langkah "derivasi".
+> > - Untuk variabel $E$: $\delta(q, \epsilon, E) = \{(q, E+T), (q, T)\}$. Ini bersifat non-deterministik karena PDA harus "menebak" jalur mana yang benar.
 > >     
-> >
-> > ### Transisi Tipe 2: Pencocokan Terminal
-> >
-> > Untuk setiap _Terminal_ $a \in T$, kita tambahkan transisi pencocokan.
-> >
-> > $$\delta(q, a, a) = \{(q, \epsilon)\}$$
-> >
-> > - _Artinya:_ Di state $q$, jika input adalah $a$ dan top stack adalah $a$, maka POP $a$ dari stack (ganti $a$ dengan $\epsilon$) dan lanjut. Ini adalah langkah "pencocokan".
+> > - Untuk terminal '+': $\delta(q, +, +) = \{(q, \epsilon)\}$.
 > >     
-> >
-> > ### Teorema 6.13
-> >
-> > Jika $P_G$ dibuat dari CFG $G$ dengan metode di atas, maka $N(P_G) = L(G)$.
-> > 
-> > Ini membuktikan bahwa untuk setiap CFG, ada PDA (by empty stack) yang ekuivalen.
 
 > [!cornell] #### Summary
 > 
-> **Setiap** _**Context-Free Grammar**_ **(CFG) dapat diubah menjadi** _**Pushdown Automata**_ **(PDA) yang ekuivalen yang menerima bahasa yang sama melalui** _**empty stack**_**. PDA (**$P_G$**) ini bekerja dengan hanya satu state** $\{q\}$ **dan secara langsung mensimulasikan** _**leftmost derivation**_ **dari grammar. PDA menggunakan transisi** $\epsilon$ **untuk mengganti Variabel di top stack dengan isi aturannya (seperti langkah derivasi), dan menggunakan transisi input untuk mencocokkan dan menghapus Terminal di top stack dengan simbol input (langkah pencocokan). String diterima jika seluruh input habis dibaca dan stack menjadi kosong, yang membuktikan bahwa string tersebut dapat diderivasi dari** _**start symbol**_ $S$**.**
+> Teorema ekuivalensi menyatakan bahwa **CFG dan PDA (baik empty stack maupun final state) adalah setara**. Untuk mengubah CFG menjadi PDA, kita membuat mesin satu state yang **mensimulasikan leftmost derivation** dengan cara memasukkan tubuh produksi ke stack saat bertemu variabel, dan mencocokkan input saat bertemu terminal. String diterima jika **stack kosong tepat saat input habis**.
 
 > [!ad-libitum]- Additional Information
 > 
-> #### Penting: Urutan PUSH Balik (Reverse Order)
+> #### Detail Teknis: Pembuktian Correctness (Teorema 6.13)
 > 
-> Saat kita bilang "PUSH $\beta$", ada detail teknis yang sangat penting. Jika aturan produksinya adalah $A \rightarrow Y_1 Y_2 \dots Y_k$, stack bekerja dengan basis LIFO (Last-In, First-Out).
+> Pembuktian bahwa $N(P_G) = L(G)$ dilakukan melalui dua arah menggunakan induksi matematika:
 > 
-> Agar $Y_1$ (simbol paling kiri) berada di _puncak_ stack dan diproses terlebih dahulu (sesuai _leftmost derivation_), kita harus me-PUSH simbol-simbol tersebut dalam **urutan terbalik**: PUSH $Y_k$, lalu PUSH $Y_{k-1}$, ..., lalu PUSH $Y_1$.
-> 
-> Dalam notasi formal $\delta(q, \epsilon, A) = \{(q, Y_1 Y_2 \dots Y_k)\}$, string $Y_1 \dots Y_k$ secara konvensi berarti $Y_1$ akan berada di puncak.
-> 
-> #### Contoh: Lacak String "01" pada $G: S \rightarrow 0S1 \mid \epsilon$  
-> 
-> 1. **Grammar** $G$**:**
+> 1. **Arah** $L(G) \subseteq N(P_G)$: Dibuktikan bahwa jika string $w$ dapat diturunkan dalam $n$ langkah derivasi, maka PDA dapat mengosongkan stack setelah membaca $w$. Basisnya adalah derivasi 1 langkah ($S \Rightarrow w$).
 >     
->     - $S \rightarrow 0S1$  
->         
->     - $S \rightarrow \epsilon$  
->         
-> 2. **Konstruksi** $P_G$**:**
->     
->     - State: $\{q\}$, Start Symbol: $S$  
->         
->     - $\delta(q, \epsilon, S) = \{(q, 0S1), (q, \epsilon)\}$ (dari 2 aturan $S$)
->         
->     - $\delta(q, 0, 0) = \{(q, \epsilon)\}$ (match '0')
->         
->     - $\delta(q, 1, 1) = \{(q, \epsilon)\}$ (match '1')
->         
-> 3. **Lacak Komputasi (ID) untuk input "01":**
->     
->     - `(q, 01, S)`
->         
->     - $\vdash (q, 01, 0S1)$ _(Pilih aturan_ $S \rightarrow 0S1$_. POP_ $S$_, PUSH_ $0S1$_. Top stack kini '0')_
->         
->     - $\vdash (q, 1, S1)$ _(Baca input '0', match top stack '0'. POP '0'. Top stack kini 'S')_
->         
->     - $\vdash (q, 1, 1)$ _(Pilih aturan_ $S \rightarrow \epsilon$_. POP_ $S$_, PUSH_ $\epsilon$_. Top stack kini '1')_
->         
->     - $\vdash (q, \epsilon, \epsilon)$ _(Baca input '1', match top stack '1'. POP '1'. Top stack kini kosong)_
->         
-> 4. **Hasil:** Input habis ($\epsilon$), Stack kosong ($\epsilon$). String "01" **diterima**.
+> 2. **Arah** $N(P_G) \subseteq L(G)$: Menggunakan **Lemma Utama**: Jika PDA dapat berpindah dari kondisi stack berisi variabel $A$ menjadi stack kosong setelah membaca string $x$, maka $A$ pasti bisa menurunkan $x$ di grammar ($A \Rightarrow^* x$).
 >     
 > 
-> #### Eksplorasi Mandiri
+> #### Penanganan Non-Determinisme
 > 
-> - Coba lacak input "0011" menggunakan $P_G$ di atas.
+> Penting untuk diingat bahwa PDA hasil konversi CFG hampir selalu bersifat **Non-Deterministik**. Dalam simulasi (seperti pada slide hal. 8), PDA akan mencoba semua kemungkinan produksi secara paralel. Cukup **satu jalur** yang berhasil mencapai stack kosong untuk menyatakan string tersebut "Accepted".
+> 
+> #### Sumber & Referensi Lanjutan:
+> 
+> - Hopcroft, Motwani, & Ullman. _Introduction to Automata Theory, Languages, and Computation_.
 >     
-> - Coba lacak input "011" (seharusnya ditolak). Di mana komputasinya "mati"?
+> - Slides IF 2124 (ITB) - November 2025.
+>     
+
+> [!ad-libitum]- Spaced Repetition Questions (Review)
+> 
+> <details>
+> 
+> <summary><strong>1. Apa tiga model yang dinyatakan ekuivalen dalam Teorema Utama?</strong></summary>
+> 
+> CFG, PDA dengan penerimaan empty stack, dan PDA dengan penerimaan final state.
+> 
+> </details>
 >
+> <details>
+> 
+> <summary><strong>2. Apa yang disimpan PDA di dalam stack saat mensimulasikan CFG?</strong></summary>
+> 
+> Bagian dari "Left-sentential form" yang belum diproses, yaitu variabel yang akan diturunkan dan sisa terminal (tail).
+> 
+> </details>
+>
+> <details>
+> 
+> <summary><strong>3. Mengapa transisi variabel pada PDA hasil konversi CFG menggunakan $\epsilon$-move?</strong></summary>
+> 
+> Karena proses penurunan variabel (expansions) adalah proses internal grammar yang tidak mengonsumsi input terminal dari luar.
+> 
+> </details>
+>
+> <details>
+> 
+> <summary><strong>4. Apa yang terjadi jika top stack adalah terminal 'b' tetapi input yang dibaca adalah 'a'?</strong></summary>
+> 
+> PDA akan gagal (reject) pada jalur komputasi tersebut karena terjadi ketidakcocokan (mismatch).
+> 
+> </details>
+>
+> <details>
+> 
+> <summary><strong>5. Sebutkan syarat sebuah string diterima (accept) oleh PDA hasil konversi CFG ini!</strong></summary>
+> 
+> Stack harus benar-benar kosong (empty stack) tepat pada saat seluruh string input telah selesai dibaca.
+> 
+> </details>

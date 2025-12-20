@@ -142,7 +142,7 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > >     - $\delta_N(p, \epsilon, Y) = \{(p, \epsilon)\}$, untuk semua $Y$ (termasuk $X_0$).
 > >         
 > > 
-> > Dengan demikian, jika $P_F$ menerima $w$ (berakhir di $q \in F$), $P_N$ akan pindah ke $p$ dan mengosongkan stack-nya, sehingga $P_N$ juga menerima $w$.
+> > Dengan demikian, jika $P_F$ menerima $w$ (berakhir di $q \in F$), $P_N$ akan pindah ke $p$ dan mengosongkan stack-nya, sehingga $P_N$ juga menerima $w$
 
 > [!cornell] #### Summary
 > 
