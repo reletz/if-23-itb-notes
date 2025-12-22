@@ -1,135 +1,169 @@
 ---
 type: Note
-
+tags:
+  - Komputasi
+  - PDA
+  - DPDA
 cssclasses:
-
-- cornell-notes
+  - cornell-notes
 ---
 
 _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 
-> [!cornell] Topic: Ekuivalensi PDA & CFG (Bagian 3: Deterministic PDA & Hierarki)
+> [!cornell] Topic: Deterministic PDA & Hierarki Bahasa
 > 
 > > ## Questions/Cues
 > >
-> > - Definisi Formal DPDA
+> > - **Definisi Formal DPDA**
 > >     
-> > - Kondisi Eksklusivitas
+> > - **2 Syarat Determinisme**
 > >     
-> > - Contoh: Marker 'c'
+> > - **Eksklusivitas Transisi**
 > >     
-> > - Masalah Guesser
+> > - **Peran Marker 'c'**
 > >     
-> > - Hierarki Bahasa
+> > - **Contoh** $L_{wcw^R}$  
 > >     
-> > - Prefix Property
+> > - **Masalah Guesser**
 > >     
-> > - Ambiguitas Inheren
+> > - **Hierarki Bahasa**
+> >     
+> > - **Prefix Property**
+> >     
+> > - **Ambiguitas Inheren**
 > >     
 > >
 > > ## Reference Points
 > >
+> > - Bab 6 PDA.pdf (Halaman 73-74)
+> >     
 > > - Slide 12_2025: Hal 20 - 30
+> >     
+> > - Teorema 6.20 & 6.21
 > >     
 > 
 > > ### 1. Definisi Mendalam Deterministic PDA (DPDA)
 > >
-> > PDA disebut **deterministik** jika dalam setiap langkah komputasinya, mesin tidak pernah memiliki lebih dari satu pilihan aksi. Secara formal, sebuah PDA $P = (Q, \Sigma, \Gamma, \delta, q_0, Z_0, F)$ adalah DPDA jika memenuhi dua syarat ketat:
+> > PDA disebut **deterministik** jika dalam setiap langkah komputasinya, mesin tidak pernah memiliki lebih dari satu pilihan aksi.
 > >
-> > 1. **Maksimal Satu Transisi:** Untuk setiap state $q$, simbol input $a$ (atau $\epsilon$), dan simbol stack $X$, fungsi transisi memberikan paling banyak satu hasil: $|\delta(q, a, X)| \le 1$.
+> > **Definisi Formal:**
+> > 
+> > Sebuah PDA $P = (Q, \Sigma, \Gamma, \delta, q_0, Z_0, F)$ adalah DPDA jika memenuhi dua syarat ketat:
+> >
+> > 1. *Maksimal Satu Transisi:*
 > >     
-> > 2. **Eksklusivitas** $\epsilon$**-move:** Jika mesin dikonfigurasi untuk bisa melakukan transisi dengan membaca input terminal $a$ ($\delta(q, a, X) \neq \emptyset$), maka pada saat yang sama mesin **dilarang** memiliki transisi $\epsilon$ ($\delta(q, \epsilon, X) = \emptyset$).
+> > 	Untuk setiap kombinasi state $q$, simbol input $a$ (bisa $\epsilon$), dan simbol stack $X$, fungsi transisi memberikan paling banyak satu hasil.
+> > 	
+> > 	$$|\delta(q, a, X)| \le 1$$
+> >
+> > 2. *Eksklusivitas $\epsilon$-move:*
+> >     
+> >     Jika mesin memiliki transisi untuk input real $a$ ($\delta(q, a, X) \neq \emptyset$), maka pada saat yang sama mesin dilarang memiliki transisi $\epsilon$ ($\delta(q, \epsilon, X) = \emptyset$).
 > >     
 > >
-> > _Penting:_ Syarat kedua memastikan tidak ada ambiguitas antara "apakah saya harus membaca input sekarang?" atau "apakah saya harus melakukan operasi stack tanpa membaca input?".
+> > _Intinya:_ Mesin tidak boleh bingung antara "baca input" atau "lakukan gerakan $\epsilon$". Harus jelas pilihannya.
 > >
-> > ### 2. Analisis Contoh: Marker dan Non-Marker
+> > ### 2. Analisis Contoh: Marker vs Non-Marker
 > >
-> > **A. Bahasa dengan Marker (**$L_{wcw^R}$**): DETERMINISTIK**
+> > #### A. Bahasa dengan Marker ($L_{wcw^R}$): DETERMINISTIK
 > >
-> > - **Bahasa:** $\{wcw^R : w \in \{0,1\}^*\}$. Contoh: `011c110`.
+> > **Bahasa:** $\{wcw^R : w \in \{0,1\}^*\}$. Contoh: `011c110`.
+> >
+> > Mengapa DPDA? -> Keberadaan simbol 'c' menghilangkan keraguan.
+> >
+> > - **Fase 1 (Baca** $w$**):** Selama input bukan 'c', PUSH ke stack.
 > >     
-> > - **Strategi:**
-> >     
-> >     1. Selama belum bertemu 'c', setiap input (0 atau 1) langsung di-_push_ ke stack.
+> > 	- $\delta(q_0, 0, Z_0) = \{(q_0, 0Z_0)\}$  
+> > 			
+> > 	- $\delta(q_0, 1, 0) = \{(q_0, 10)\}$, dst.
 > >         
-> >     2. Begitu input 'c' terbaca, mesin pindah _state_ (mode ganti).
-> >         
-> >     3. Setelah itu, setiap input baru harus cocok dengan simbol yang di-_pop_ dari stack.
-> >         
-> > - **Mengapa DPDA?** Simbol 'c' bertindak sebagai pemicu (trigger) yang jelas bagi mesin untuk berhenti menumpuk dan mulai mencocokkan. Tidak ada keraguan.
+> > - **Fase Transisi (Trigger):** Begitu baca 'c', pindah state tanpa ubah stack.
 > >     
+> > 	- $\delta(q_0, c, \text{any}) = \{(q_1, \text{any})\}$ -> _Hanya satu jalan!_
+> > 			
+> > - **Fase 2 (Baca** $w^R$**):** Cocokkan input dengan pop stack.
+> >     
+> > 	- $\delta(q_1, 0, 0) = \{(q_1, \epsilon)\}$  
+> > 			
 > >
-> > **B. Bahasa Tanpa Marker (**$L_{ww^R}$**): NON-DETERMINISTIK**
+> > #### B. Bahasa Tanpa Marker ($L_{ww^R}$): NON-DETERMINISTIK
 > >
-> > - **Bahasa:** $\{ww^R : w \in \{0,1\}^*\}$. Contoh: `011110`.
-> >     
-> > - **Masalah:** Mesin tidak tahu di mana titik tengahnya. Apakah `11` di tengah itu adalah akhir dari $w$ atau masih bagian dari $w$?
-> >     
-> > - **Mengapa bukan DPDA?** Mesin harus melakukan "tebakan" (guessing) secara non-deterministik untuk setiap posisi input: "Apakah saya ganti mode sekarang?".
-> >     
+> > **Bahasa:** $\{ww^R : w \in \{0,1\}^*\}$. Contoh: `011110`.
+> >
+> > Masalah Guesser:
+> > 
+> > Saat mesin membaca 011..., mesin tidak tahu apakah 1 kedua adalah bagian dari $w$ atau awal dari $w^R$. Mesin harus "menebak" (guessing) secara non-deterministik di setiap langkah. DPDA tidak bisa menebak, jadi DPDA tidak bisa mengenali bahasa ini.
 > >
 > > ### 3. Hierarki Bahasa: Di Mana Posisi DPDA?
 > >
-> > Kita memiliki struktur hierarki yang bersifat Proper Subset (himpunan bagian murni):
-> > 
-> > Reguler $\subset$ L(DPDA) $\subset$ CFL
+> > Kita memiliki struktur hierarki yang bersifat _Proper Subset_ (himpunan bagian murni):
 > >
-> > - **Reguler** $\subset$ **L(DPDA):** Setiap DFA bisa diubah menjadi DPDA yang tidak menggunakan stack-nya. Stack hanya berisi simbol $Z_0$ yang tidak pernah berubah.
+> > $$\text{Reguler} \subset L(\text{DPDA}) \subset \text{CFL}$$
+> >
+> > 1. **Reguler** $\subset$ **L(DPDA):** Setiap DFA bisa diubah menjadi DPDA yang "malas" (tidak pernah menggunakan stack-nya, stack hanya berisi $Z_0$ diam).
 > >     
-> > - **L(DPDA)** $\subset$ **CFL:** Ada bahasa bebas konteks (seperti $L_{ww^R}$) yang mustahil dikerjakan oleh mesin deterministik.
+> > 2. **L(DPDA)** $\subset$ **CFL:** DPDA lebih kuat dari DFA (karena punya stack), tapi lebih lemah dari NPDA/CFL (karena tidak bisa menebak).
 > >     
 > >
 > > ### 4. DPDA dengan Empty Stack Acceptance
 > >
-> > Jika kita ingin DPDA menerima bahasa dengan cara mengosongkan stack (_Empty Stack_), bahasa tersebut wajib memiliki **Prefix Property**.
+> > DPDA biasanya menggunakan _Final State Acceptance_. Jika dipaksa menggunakan _Empty Stack_, DPDA menjadi lebih lemah lagi.
 > >
-> > **Definisi Prefix Property:** Sebuah bahasa $L$ memilikinya jika tidak ada string $x \in L$ yang merupakan awalan dari string lain $y \in L$ (di mana $x \neq y$).
+> > Syarat Prefix Property:
+> > 
+> > Agar bisa diterima oleh DPDA Empty Stack, bahasa $L$ tidak boleh memiliki string yang merupakan awalan (prefix) dari string lain di bahasa yang sama.
 > >
-> > - **Contoh Gagal:** $\{0\}^* = \{\epsilon, 0, 00, \dots\}$ tidak punya prefix property karena '0' adalah prefix dari '00'. Jika mesin mengosongkan stack di string '0', ia tidak bisa lanjut membaca untuk menerima '00'.
+> > - **Contoh Gagal:** $\{0\}^* = \{\epsilon, 0, 00, \dots\}$.
 > >     
-> > - **Solusi:** Itulah sebabnya untuk bahasa yang tidak punya prefix property, kita lebih sering menggunakan _Final State Acceptance_ untuk DPDA.
-> >     
+> > 	- String '0' ada di bahasa.
+> > 			
+> > 	- String '00' ada di bahasa.
+> > 			
+> > 	- Jika DPDA mengosongkan stack saat baca '0' (terima), mesin mati. Ia tidak bisa lanjut baca '0' berikutnya untuk terima '00'.
+> > 			
 > >
 > > ### 5. Ambiguitas dan DPDA
 > >
-> > - **Teorema 6.20 & 6.21:** Bahasa yang diterima DPDA (baik empty stack maupun final state) dijamin memiliki **Unambiguous CFG**.
+> > - **Unambiguous CFG:** Jika sebuah bahasa bisa diterima oleh DPDA, maka bahasa tersebut PASTI memiliki Grammar yang tidak ambigu.
 > >     
-> > - **Inherently Ambiguous:** Ada bahasa CFL yang "sangat kacau" sehingga semua grammar-nya pasti ambigu, contoh: $L = \{a^i b^j c^k : i=j \text{ atau } j=k\}$. Bahasa ini sudah pasti **tidak bisa** dibuatkan DPDA-nya.
+> > - **Inherently Ambiguous:** Ada bahasa CFL yang "sangat kacau" sehingga semua grammar-nya pasti ambigu (contoh: $L = \{a^i b^j c^k \mid i=j \text{ atau } j=k\}$). Bahasa jenis ini **mustahil** dikenali oleh DPDA.
 > >     
 
 > [!cornell] #### Summary
 > 
-> **Deterministic PDA (DPDA)** mengisi celah antara Bahasa Reguler dan CFL umum. Syarat utamanya adalah **tiadanya pilihan transisi** dan **eksklusivitas antara** $\epsilon$**-move dan input move**. DPDA sangat bergantung pada **marker (seperti 'c')** untuk menentukan pergantian logika komputasi. Bahasa DPDA adalah subset dari CFL yang dijamin **tidak ambigu**. Jika menggunakan metode _empty stack_, bahasa tersebut harus memenuhi **Prefix Property**, yang melarang satu string menjadi awalan string lainnya dalam bahasa yang sama.
+> **Deterministic PDA (DPDA)** adalah varian PDA yang membatasi fungsi transisi agar **maksimal memiliki satu aksi** untuk setiap situasi dan melarang tumpang tindih antara input-move dan $\epsilon$-move. DPDA sangat bergantung pada **marker (seperti 'c')** untuk menentukan pergantian fase komputasi secara pasti. Dalam hierarki bahasa, DPDA berada di antara Bahasa Reguler dan CFL ($Reguler \subset DPDA \subset CFL$). Keterbatasan utamanya adalah ketidakmampuan menangani ambiguitas dan kebutuhan akan **Prefix Property** jika menggunakan metode penerimaan _Empty Stack_.
 
-> [!ad-libitum]- Additional Information
+> [!ad-libitum]- Ad Libitum: Pendalaman Teknis & Implementasi
 > 
-> #### Topik Teknis: Implementasi Marker End ($)
+> #### 1. Implementasi Marker End ($)
 > 
-> Untuk mengubah DPDA yang menerima dengan _final state_ menjadi _empty stack_ (meskipun bahasanya tidak punya prefix property), kita bisa menggunakan teknik **End Marker**.
+> Untuk mengatasi kelemahan DPDA _Empty Stack_ pada bahasa tanpa _Prefix Property_, kita bisa menggunakan teknik **End Marker**.
 > 
-> - Tambahkan simbol khusus `$` di akhir string.
+> - Tambahkan simbol khusus `$` di akhir semua string input.
 >     
-> - Bahasa $L' = L\$$ sekarang pasti memiliki prefix property karena `$` hanya muncul di akhir.
+> - Bahasa $L' = L\$$ sekarang pasti memiliki prefix property karena `$` menjamin tidak ada string yang jadi awalan string lain.
 >     
-> - Ini memungkinkan kita membuat Unambiguous CFG untuk bahasa yang tadinya sulit ditangani.
+> - Teknik ini sering digunakan dalam perancangan parser.
 >     
 > 
-> #### DPDA dalam Compiler Design
+> #### 2. DPDA dalam Compiler Design (LR Parsers)
 > 
-> Sebagian besar bahasa pemrograman (seperti C++, Java, Python) dirancang agar bisa di-_parse_ oleh varian DPDA yang disebut **LR(k) Parser**. Determinisme sangat penting di sini agar compiler bisa memberikan pesan error yang akurat dan bekerja dengan kecepatan linier $O(n)$, bukan eksponensial.
+> Sebagian besar bahasa pemrograman (C++, Java, Python) didesain agar strukturnya bisa dikenali oleh DPDA.
 > 
-> #### Teorema Pelengkap: Konvers yang Salah
-> 
-> Perlu diingat: Unambiguous CFL $\neq$ L(DPDA).
-> 
-> Ada bahasa yang tata bahasanya tidak ambigu ($L_{ww^R}$ punya grammar $S \rightarrow 0S0 | 1S1 | \epsilon$), tapi ia tetap bukan bahasa DPDA. Jadi, "Tidak Ambigu" belum tentu "Deterministik".
-> 
-> #### Sumber & Referensi Lanjutan:
-> 
-> - Hopcroft, Motwani, & Ullman (Bab 6.4: Deterministic Pushdown Automata).
+> - **Kenapa?** Kita butuh compiler yang cepat (waktu linier $O(n)$) dan pasti (tidak ambigu). NPDA butuh waktu eksponensial atau kubik $O(n^3)$ yang terlalu lambat untuk kompilasi kode jutaan baris.
 >     
-> - Slides IF 2124 (ITB) - Hal 20-30.
+> - Parser seperti **LR(k)** adalah implementasi praktis dari DPDA.
+>     
+> 
+> #### 3. Teorema Pelengkap: Konvers yang Salah
+> 
+> Perlu diingat: **Unambiguous CFL** $\neq$ **L(DPDA)**.
+> 
+> - Semua bahasa DPDA pasti Unambiguous.
+>     
+> - TAPI, tidak semua bahasa Unambiguous bisa dikerjakan DPDA.
+>     
+> - Contoh: Palindrom genap ($ww^R$) memiliki grammar yang tidak ambigu ($S \to 0S0 \mid 1S1 \mid \epsilon$), tapi tetap bukan bahasa DPDA karena butuh tebakan titik tengah.
 >     
 
 > [!ad-libitum]- Spaced Repetition Questions (Review)
@@ -146,7 +180,7 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > 
 > <summary><strong>2. Berikan contoh bahasa CFL yang terbukti tidak bisa diterima oleh DPDA!</strong></summary>
 > 
-> Bahasa palindrom tanpa marker tengah, $L_{ww^R}$, atau bahasa yang memiliki ambiguitas inheren seperti $\{a^i b^j c^k : i=j \text{ atau } j=k\}$.
+> Bahasa palindrom tanpa marker tengah ($L_{ww^R}$) atau bahasa yang memiliki ambiguitas inheren seperti $\{a^i b^j c^k \mid i=j \text{ atau } j=k\}$.
 > 
 > </details>
 >
@@ -154,15 +188,15 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > 
 > <summary><strong>3. Apa yang terjadi jika kita mencoba membuat DPDA untuk bahasa $\{0\}^*$ dengan metode empty stack?</strong></summary>
 > 
-> Mesin akan gagal karena bahasa tersebut tidak memenuhi Prefix Property. Begitu stack kosong setelah membaca '0', mesin tidak bisa lagi melanjutkan untuk menerima '00', '000', dst.
+> Mesin akan gagal karena bahasa tersebut tidak memenuhi Prefix Property. Begitu stack kosong setelah membaca '0', mesin mati dan tidak bisa lagi melanjutkan untuk menerima '00'.
 > 
 > </details>
 >
 > <details>
 > 
-> <summary><strong>4. Apa hubungan antara bahasa reguler dan DPDA?</strong></summary>
+> <summary><strong>4. Apa hubungan hierarki antara Bahasa Reguler, DPDA, dan CFL?</strong></summary>
 > 
-> Bahasa reguler adalah subset dari bahasa DPDA. Artinya, setiap bahasa reguler bisa diterima oleh DPDA (dengan mengabaikan stack), tetapi ada bahasa DPDA (seperti $0^n 1^n$) yang bukan bahasa reguler.
+> Reguler adalah subset murni dari DPDA, dan DPDA adalah subset murni dari CFL ($Reguler \subset DPDA \subset CFL$).
 > 
 > </details>
 >
@@ -170,6 +204,6 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > 
 > <summary><strong>5. Mengapa bahasa $L = \{wcw^R\}$ disebut deterministik?</strong></summary>
 > 
-> Karena keberadaan simbol 'c' memberikan informasi pasti kapan mesin harus berhenti melakukan operasi 'push' (menyimpan $w$) dan mulai melakukan operasi 'pop' (mencocokkan dengan $w^R$).
+> Karena keberadaan simbol 'c' memberikan informasi pasti (trigger) kapan mesin harus berhenti melakukan operasi 'push' (menyimpan $w$) dan mulai melakukan operasi 'pop' (mencocokkan dengan $w^R$).
 > 
 > </details>

@@ -1,156 +1,218 @@
 ---
 type: Note
-
+tags:
+  - CFG
+  - Simplifikasi
+  - Algoritma
 cssclasses:
-
-- cornell-notes
+  - cornell-notes
 ---
 
 _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 
-> [!cornell] Topic: Properti CFL (Bagian 1: Penyederhanaan CFG)
+> [!cornell] Topic: Teknik Penyederhanaan (Simplification) CFG
 > 
 > > ## Questions/Cues
-> >
-> > - Definisi Useless
+> > 
+> > - **Mengapa perlu disederhanakan?**
 > >     
-> > - Generating vs Reachable
+> > - **Urutan Pengerjaan (CRITICAL)**
 > >     
-> > - Urutan Eliminasi
+> > - **1. Simbol Useless**
 > >     
-> > - Nullable Symbols
+> > - _Generating_ vs _Reachable_
 > >     
-> > - Unit Productions
+> > - Algoritma Pencarian Generating
 > >     
-> > - Unit Pairs
+> > - Algoritma Pencarian Reachable
+> >     
+> > - **2. Produksi Epsilon (**$\epsilon$**)**
+> >     
+> > - Definisi _Nullable Variable_
+> >     
+> > - Algoritma Pencarian Nullable
+> >     
+> > - Cara Substitusi Produksi
+> >     
+> > - **3. Produksi Unit**
+> >     
+> > - Masalah Unit Pair $(A, B)$  
+> >     
+> > - Algoritma Unit Pair
+> >     
+> > - Teknik Penghapusan
 > >     
 > >
 > > ## Reference Points
-> >
-> > - Slide 13_2025: Hal 1 - 21
+> > 
+> > - **Slide-13_2025_Properti CFL.pdf** (Hal 6-21) - _Sumber Utama Algoritma_
+> >     
+> > - Bab 7 Sifat2 CFG.pdf (Hal 4-12)
+> >     
+> > - Slide-15_2025_CNF.pdf (Hal 9)
 > >     
 > 
-> > ### 1. Pendahuluan Penyederhanaan CFG
-> >
-> > Penyederhanaan dilakukan untuk mempermudah analisis tata bahasa dan merupakan syarat mutlak sebelum mengubah CFG ke dalam bentuk normal (seperti CNF). Terdapat tiga hal utama yang harus dihilangkan: simbol yang tidak berguna (_useless symbols_), produksi kosong (_epsilon-productions_), dan produksi satuan (_unit productions_).
-> >
-> > ### 2. Eliminasi Useless Symbols
-> >
-> > Sebuah simbol $X$ dikatakan **berguna (useful)** jika ia muncul dalam setidaknya satu derivasi yang menghasilkan string terminal: $S \Rightarrow^* \alpha X \beta \Rightarrow^* w$. Jika tidak, maka simbol tersebut dianggap **useless**.
-> >
-> > **Kriteria Simbol Berguna:**
-> >
-> > 1. **Generating:** Simbol $X$ dapat menurunkan string terminal ($X \Rightarrow^* w$).
+> > ### 1. Urutan Pengerjaan (The Golden Rule)
+> > 
+> > Dalam menyederhanakan tata bahasa, **urutan eksekusi algoritma sangat krusial**. Jika urutan salah, masalah yang sudah dihapus bisa muncul kembali.
+> > 
+> > **Urutan Wajib:**
+> > 
+> > 1. **Eliminasi** $\epsilon$**-Productions** (Hilangkan variabel yang bisa jadi kosong).
 > >     
-> > 2. **Reachable:** Simbol $X$ dapat dicapai dari simbol start ($S \Rightarrow^* \alpha X \beta$).
+> > 2. **Eliminasi Unit Productions** (Hilangkan oper-operan variabel $A \to B$).
+> >     
+> > 3. **Eliminasi Useless Symbols** (Bersihkan sampah sisa).
+> >     
+> >     - _Sub-urutan:_ Cek **Generating** dulu, baru cek **Reachable**.
+> >         
+> >
+> > ### 2. Eliminasi Simbol Useless (Sampah)
+> > 
+> > Simbol dianggap berguna (useful) HANYA jika memenuhi dua syarat sekaligus: **Generating** (bisa menghasilkan string) DAN **Reachable** (bisa diakses dari start).
+> > 
+> > #### A. Tahap 1: Generating Symbols ($g(G)$)
+> > 
+> > Simbol $X$ disebut _generating_ jika $X \Rightarrow^* w$ (terminal string).
+> > 
+> > **Algoritma Pencarian:**
+> > 
+> > 1. **Basis:** Semua simbol Terminal ($T$) otomatis masuk himpunan $g(G)$.
+> >     
+> > 2. **Induksi:** Jika ada produksi $A \to \alpha$ dimana semua simbol dalam string $\alpha$ SUDAH ada di $g(G)$, maka masukkan $A$ ke $g(G)$.
+> >     
+> > 3. Ulangi induksi sampai tidak ada penambahan baru.
+> >     
+> > 4. **Hapus** semua variabel yang TIDAK ada di $g(G)$ beserta produksi yang melibatkannya.
+> >     
+> > 
+> > **Contoh:**
+> > 
+> > $S \to AB | a, \quad A \to b$
+> > 
+> > - Basis: $\{a, b\}$ generating.
+> >     
+> > - Langkah 1: $A \to b$ (body generating), jadi $A$ masuk. Set: $\{a, b, A\}$.
+> >     
+> > - Langkah 2: $S \to a$ (body generating), jadi $S$ masuk. Set: $\{a, b, A, S\}$.
+> >     
+> > - Variabel $B$ tidak pernah masuk karena tidak punya produksi menuju terminal. $B$ dihapus.
+> >     
+> > 
+> > #### B. Tahap 2: Reachable Symbols ($r(G)$)
+> > 
+> > Simbol $X$ disebut _reachable_ jika $S \Rightarrow^* \alpha X \beta$.
+> > 
+> > **Algoritma Pencarian:**
+> > 
+> > 1. **Basis:** Start Symbol ($S$) otomatis masuk $r(G)$.
+> >     
+> > 2. **Induksi:** Untuk setiap variabel $A$ yang sudah ada di $r(G)$, cari semua produksinya $A \to X_1...X_k$. Masukkan semua simbol di body ($X_1...X_k$) ke dalam $r(G)$.
+> >     
+> > 3. Ulangi sampai jenuh.
+> >     
+> > 4. **Hapus** semua simbol yang TIDAK ada di $r(G)$.
+> >     
+> > 
+> > _Penting:_ Lakukan tahap Generating dulu, baru Reachable. Jika dibalik, penghapusan simbol generating bisa menyebabkan simbol lain menjadi tidak reachable (kerja dua kali).
+> >
+> > ### 3. Eliminasi $\epsilon$-Productions (Nullable)
+> > 
+> > Tujuan: Menghapus aturan $A \to \epsilon$ tanpa mengubah bahasa (kecuali string kosong itu sendiri).
+> > 
+> > #### Langkah 1: Cari Nullable Variables ($n(G)$)
+> > 
+> > Variabel $A$ disebut _nullable_ jika $A \Rightarrow^* \epsilon$.
+> > 
+> > **Algoritma:**
+> > 
+> > 1. **Basis:** Jika ada produksi langsung $A \to \epsilon$, maka $A$ adalah nullable.
+> >     
+> > 2. **Induksi:** Jika ada produksi $B \to C_1 C_2 ... C_k$ dan SEMUA $C_i$ adalah nullable, maka $B$ juga nullable.
+> >     
+> > 
+> > Contoh:
+> > 
+> > $S \to AB, \quad A \to \epsilon, \quad B \to \epsilon$
+> > 
+> > - Basis: $A, B$ nullable.
+> >     
+> > - Induksi: $S \to AB$ (A dan B nullable), maka $S$ juga nullable.
+> >     
+> > 
+> > #### Langkah 2: Konstruksi Produksi Baru
+> > 
+> > Untuk setiap produksi $A \to X_1 ... X_m$:
+> > 
+> > 1. Identifikasi posisi simbol-simbol nullable di body.
+> >     
+> > 2. Buat variasi produksi dengan **menghadirkan** atau **menghilangkan** simbol nullable tersebut dalam segala kombinasi.
+> >     
+> > 3. **Hapus** produksi asli $A \to \epsilon$.
+> >     
+> > 
+> > Contoh Kasus:
+> > 
+> > $S \to AB$, dimana $A, B$ nullable.
+> > 
+> > Kombinasi:
+> > 
+> > - $A$ hadir, $B$ hadir: $S \to AB$  
+> >     
+> > - $A$ hadir, $B$ hilang: $S \to A$  
+> >     
+> > - $A$ hilang, $B$ hadir: $S \to B$  
+> >     
+> > - $A$ hilang, $B$ hilang: $S \to \epsilon$ (Jangan dimasukkan jika tujuan kita menghapus $\epsilon$).
+> >     
+> >     Hasil: $S \to AB | A | B$.
 > >     
 > >
-> > **Algoritma Eliminasi (Urutan Sangat Penting):**
-> >
-> > - **Langkah 1:** Identifikasi semua simbol yang **Generating**. Hapus variabel dan produksi yang tidak bisa menghasilkan terminal.
+> > ### 4. Eliminasi Unit Productions
+> > 
+> > Unit production adalah aturan bentuk $A \to B$ (satu variabel ke satu variabel). Ini boros langkah.
+> > 
+> > #### Algoritma Unit Pairs
+> > 
+> > Kita mencari pasangan $(A, B)$ yang berarti "$A$ bisa berubah menjadi $B$ lewat serangkaian unit production".
+> > 
+> > 1. **Basis:** $(A, A)$ adalah unit pair untuk semua variabel.
 > >     
-> > - **Langkah 2:** Dari hasil langkah 1, identifikasi simbol yang Reachable. Hapus semua simbol yang tidak pernah muncul dalam penurunan dari $S$.
+> > 2. **Induksi:** Jika $(A, B)$ adalah unit pair, dan ada produksi unit $B \to C$, maka tambahkan $(A, C)$ sebagai unit pair.
 > >     
-> >     Catatan: Jika urutan dibalik, simbol useless tertentu mungkin tidak terdeteksi.
+> > 
+> > Contoh:
+> > 
+> > $E \to T, \quad T \to F, \quad F \to a$
+> > 
+> > Unit Pairs:
+> > 
+> > - $(E, E), (T, T), (F, F)$ (Basis)
 > >     
-> >
-> > ### 3. Eliminasi Epsilon-Productions ($A \rightarrow \epsilon$)
-> >
-> > Tujuannya adalah menghapus produksi yang menghasilkan string kosong, kecuali jika bahasa tersebut memang mengandung $\epsilon$.
-> >
-> > **Langkah-langkah:**
-> >
-> > 1. **Cari Nullable Symbols:** Variabel $A$ disebut nullable jika $A \Rightarrow^* \epsilon$.
+> > - $(E, T)$ (karena $E \to T$)
 > >     
-> > 2. **Ekspansi Produksi:** Untuk setiap produksi $A \rightarrow X_1 X_2 \dots X_k$, buat variasi produksi baru dengan menghapus kombinasi variabel yang nullable.
+> > - $(T, F)$ (karena $T \to F$)
 > >     
-> > 3. **Hapus** $\epsilon$**:** Buang semua produksi asli yang berbentuk $A \rightarrow \epsilon$.
+> > - $(E, F)$ (Transitif: $E \to T \to F$)
 > >     
-> >
-> > ### 4. Eliminasi Unit Productions ($A \rightarrow B$)
-> >
-> > Produksi unit adalah produksi di mana satu variabel langsung menurunkan variabel lain tanpa terminal.
-> >
-> > **Langkah-langkah menggunakan Unit Pairs:**
-> >
-> > 1. **Cari Unit Pairs** $(A, B)$**:** Pasangan di mana $A \Rightarrow^* B$ hanya menggunakan produksi unit.
+> > 
+> > #### Langkah Penghapusan
+> > 
+> > 1. Untuk setiap unit pair $(A, B)$, cari aturan **non-unit** milik $B$ (misal $B \to \alpha$).
 > >     
-> > 2. **Konstruksi Produksi Baru:** Jika $(A, B)$ adalah unit pair dan $B \rightarrow \alpha$ adalah produksi non-unit, maka tambahkan $A \rightarrow \alpha$ ke dalam tata bahasa.
+> > 2. Tambahkan aturan $A \to \alpha$ ke grammar.
 > >     
-> > 3. **Hapus Unit:** Buang semua produksi asli yang berbentuk $A \rightarrow B$.
+> > 3. Hapus semua aturan unit asli ($A \to B$).
 > >     
+> > 
+> > Hasil Contoh:
+> > 
+> > Pasangan $(E, F)$ berarti $E$ mewarisi aturan non-unit milik $F$.
+> > 
+> > $F \to a$ (non-unit), maka tambahkan $E \to a$.
+> > 
+> > Hasil akhir: $E$ punya aturan langsung ke terminal, rantai $E \to T \to F$ putus.
 
 > [!cornell] #### Summary
 > 
-> Penyederhanaan CFG melibatkan eliminasi tiga elemen pengganggu: **Useless Symbols** (dengan mengecek sifat _generating_ lalu _reachable_), **Epsilon-Productions** (dengan mengidentifikasi simbol _nullable_ dan melakukan ekspansi), serta **Unit Productions** (dengan mencari _unit pairs_). Proses ini menjaga agar bahasa yang dihasilkan tetap sama (ekuivalen) namun dengan struktur tata bahasa yang lebih efisien dan siap untuk dikonversi ke Chomsky Normal Form.
-
-> [!ad-libitum]- Additional Information
-> 
-> #### Algoritma Menemukan Generating Symbols
-> 
-> 1. **Basis:** Semua simbol terminal ($T$) adalah generating.
->     
-> 2. **Induksi:** Jika ada produksi $A \rightarrow \alpha$ dan semua simbol di dalam $\alpha$ sudah terbukti generating, maka tambahkan variabel $A$ ke dalam set generating.
->     
-> 3. **Saturasi:** Ulangi sampai tidak ada lagi variabel yang bisa ditambahkan.
->     
-> 
-> #### Algoritma Menemukan Reachable Symbols
-> 
-> 1. **Basis:** Simbol start ($S$) adalah reachable.
->     
-> 2. **Induksi:** Jika variabel $A$ adalah reachable dan ada produksi $A \rightarrow \alpha$, maka semua simbol (variabel dan terminal) yang ada di dalam $\alpha$ adalah reachable.
->     
-> 
-> #### Teorema 7.9 (Correctness $\epsilon$-elimination)
-> 
-> Hasil eliminasi produksi $\epsilon$ menghasilkan bahasa $L(G_1) = L(G) \setminus \{\epsilon\}$. Artinya, jika string kosong tadinya ada di bahasa tersebut, ia akan hilang, namun semua string terminal lainnya tetap dapat diderivasi secara identik.
-> 
-> #### Sumber & Referensi Lanjutan:
-> 
-> - Slide 13_2025 IF 2124 ITB (Hal 1-21).
->     
-> - Hopcroft, Motwani, & Ullman: _Introduction to Automata Theory_.
->     
-
-> [!ad-libitum]- Spaced Repetition Questions (Review)
-> 
-> <details>
-> 
-> <summary><strong>1. Mengapa urutan eliminasi Useless Symbols harus 'Generating' dulu baru 'Reachable'?</strong></summary>
-> 
-> Karena penghapusan simbol non-generating bisa menyebabkan simbol yang tadinya reachable menjadi tidak reachable. Jika dibalik, simbol non-generating yang tertinggal bisa tetap dianggap reachable padahal produksinya sudah tidak berguna.
-> 
-> </details>
->
-> <details>
-> 
-> <summary><strong>2. Kapan sebuah variabel disebut 'Nullable'?</strong></summary>
-> 
-> Ketika variabel tersebut dapat menurunkan string kosong ($\epsilon$) baik secara langsung ($A \rightarrow \epsilon$) atau melalui serangkaian langkah derivasi.
-> 
-> </details>
->
-> <details>
-> 
-> <summary><strong>3. Apa yang dimaksud dengan Unit Pair (A, B)?</strong></summary>
-> 
-> Kondisi di mana variabel A dapat menurunkan variabel B hanya dengan menggunakan satu atau lebih langkah produksi unit (seperti $A \rightarrow C$ dan $C \rightarrow B$).
-> 
-> </details>
->
-> <details>
-> 
-> <summary><strong>4. Jika ada produksi $S \rightarrow AB$ dan A adalah nullable, produksi apa yang muncul setelah eliminasi $\epsilon$?</strong></summary>
-> 
-> Muncul produksi baru $S \rightarrow B$ (sebagai hasil dari $S \rightarrow AB$ dengan A dihapus). Produksi asli $S \rightarrow AB$ tetap dipertahankan.
-> 
-> </details>
->
-> <details>
-> 
-> <summary><strong>5. Apa perbedaan antara simbol yang tidak generating dan simbol yang tidak reachable?</strong></summary>
-> 
-> Simbol tidak generating tidak bisa berakhir menjadi terminal (macet di variabel), sedangkan simbol tidak reachable tidak pernah bisa diakses mulai dari simbol awal S (terisolasi).
-> 
-> </details>
+> Penyederhanaan CFG adalah proses sistematis yang **wajib** dilakukan sebelum konversi ke bentuk normal. Proses ini terdiri dari tiga algoritma utama yang harus dijalankan berurutan: (1) **Eliminasi** $\epsilon$ dengan mengidentifikasi variabel _nullable_ dan mensubstitusi kehadirannya; (2) **Eliminasi Unit** dengan melacak _unit pairs_ (pasangan pewarisan) dan menyalin body non-unit ke variabel leluhur; dan (3) **Eliminasi Useless** dengan menyaring simbol yang _generating_ (bisa jadi terminal) terlebih dahulu, baru menyaring yang _reachable_ (bisa diakses). Ketidakpatuhan pada urutan ini dapat menyebabkan ketidakefisienan atau kesalahan pada grammar hasil.

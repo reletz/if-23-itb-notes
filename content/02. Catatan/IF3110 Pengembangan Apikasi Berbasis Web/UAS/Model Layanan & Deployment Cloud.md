@@ -84,7 +84,7 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 > >
 > > - **On-Premises (Tradisional):**
 > >     
-> > 		- **Anda *Manage* (Semua):** Networking, Storage, Servers, Virtualization, O/S, Middleware, Runtime, Data, Applications.
+> > 	- **Anda *Manage* (Semua):** Networking, Storage, Servers, Virtualization, O/S, Middleware, Runtime, Data, Applications.
 > > 
 > >
 > > - **IaaS:**

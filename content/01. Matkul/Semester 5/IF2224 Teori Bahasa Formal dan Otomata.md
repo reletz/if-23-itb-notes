@@ -29,10 +29,6 @@ _Back to_ [[index]]
 	- [[Closure Properties, Pt 2]]
 	- [[Decision Properties (Sifat Keputusan)]]
 	- [[Minimasi DFA]]
-- ## Context-Free Grammar dan Parse Tree
-	- [[Pengenalan Context-Free Grammar (CFG) dan Derivasi]]
-	- [[Parse Tree (Pohon Penurunan)]]
-	- [[Ekuivalensi Parse Tree dan Derivasi]]
 - ## Compiler (Lexical, Syntax, dan Semantic Analysis)
 	- [[Fondasi Formal dan Hirarki Chomsky]]
 	- [[Struktur Compiler dan Fase Analisis]]
@@ -43,25 +39,25 @@ _Back to_ [[index]]
 	- [[Dasar banget ini buat ngejar pemahaman]]
 	- [[Naik dikit - FA dan Regex]]
 	- [[Naik dikit lagi - CFG dan Compiler]]
+- ## Context-Free Grammar dan Parse Tree
+	- [[Pengenalan Context-Free Grammar (CFG) dan Derivasi]]
+	- [[Parse Tree (Pohon Penurunan)]]
+	- [[Ekuivalensi Parse Tree dan Derivasi]]
 - ## Pushdown Automata (PDA)
 	- [[Definisi Formal PDA]]
 	- [[Metode Penerimaan PDA]]
-- ## Ekivalensi CFG dan PDA
-	- [[Ekuivalensi CFG ke PDA]]
-	- [[Ekuivalensi PDA ke CFG]]
+	- [[Ekuivalensi PDA dan CFG]]
 	- [[Deterministic PDA (DPDA)]]
 - ## Properties Of Context-Free Languages
 	- [[Penyederhanaan CFG]]
-	- [[Chomsky Normal Form]]
-	- [[Closure and Decision Properties]]
+	- [[Konversi ke Chomsky Normal Form]]
+	- [[Closure Properties CFL]]
+	- [[Decision Properies dan CYK]]
+	- [[Studi Kasus CFL]]
 - ## Turing Machines
 	- [[Fondasi Mesin Turing]]
 	- [[Studi Kasus Mesin Turing]]
 	- [[Kelas Bahasa dan Varian Mesin Turing]]
-- ## Chomsky Normal Form
-	- [[Konversi CNF]]
-	- [[Closure Properties di CNF]]
-	- [[Bagian Keputusan]]
 - ## Intermediate Code Generation
 	- [[Notasi Postfix dalam Kode Antara]]
 	- [[Notasi Triples dan Quadruples]]
