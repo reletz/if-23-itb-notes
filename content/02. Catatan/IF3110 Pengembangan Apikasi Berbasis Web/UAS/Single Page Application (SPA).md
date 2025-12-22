@@ -52,6 +52,9 @@ _Back to_ [[IF3110 Pengembangan Aplikasi Berbasis Web]]
 > > 
 > > ### SPA vs. Aplikasi Web Tradisional
 > > 
+> > ![[Pasted image 20251221233548.png]]
+> > ![[Pasted image 20251221233631.png]]
+> > 
 > > **Aplikasi Tradisional (Multi-Page Application):**
 > > 
 > > - **Model:** Setiap interaksi pengguna (misalnya, klik) memicu permintaan baru ke server.
