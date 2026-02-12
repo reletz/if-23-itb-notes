@@ -3,7 +3,7 @@ type: Note
 cssclasses:
 - cornell-notes
 ---
-
+bikin
 _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 
 > [!cornell] Topic

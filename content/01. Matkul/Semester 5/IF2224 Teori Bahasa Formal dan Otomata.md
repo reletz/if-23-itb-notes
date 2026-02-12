@@ -64,3 +64,6 @@ _Back to_ [[index]]
 	- [[Penanganan Kesalahan (Error Handling & Repair)]]
 	- [[Teknik Optimasi Kode]]
 	- [[Tabel Informasi (Symbol Table)]]
+- ## Persiapan UAS
+	- [[Soal Latihan UAS TBFO]]
+	- [[Latihan UAS Edunex IF2224]]

@@ -172,8 +172,54 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > > - **Final State** $\to$ **Empty Stack:** Buat mesin baru yang jika mencapai final state, ia akan memicu mode "mengamuk" (loop) untuk mengosongkan (pop) semua isi stack sampai habis.
 > >     
 > > - **Empty Stack** $\to$ **Final State:** Bungkus stack asli dengan tanda dasar baru (misal $X_0$). Jika mesin mendeteksi stack asli sudah habis (kelihatan $X_0$), suruh mesin pindah ke state khusus yang Final.
-> >     
-
+> > 
+> > #### Contoh Konversi: $L = \{a^n b^n \mid n \geq 1\}$
+> > 
+> > ##### 1. PDA Empty Stack Asli ($M_{es}$)
+> > 
+> > Mesin ini akan memasukkan $A$ untuk setiap $a$, lalu menghapus $A$ untuk setiap $b$. Di akhir, ia menghapus $Z_0$.
+> >
+> >|**State**|**Input**|**Top Stack**|**Hasil (Next State, Push/Pop)**|**Keterangan**|
+> >|---|---|---|---|---|
+> >|$q_0$|$a$|$Z_0$|$(q_0, AZ_0)$|Input $a$ pertama, simpan $A$|
+> >|$q_0$|$a$|$A$|$(q_0, AA)$|Input $a$ selanjutnya, tumpuk $A$|
+> >|$q_0$|$b$|$A$|$(q_1, \epsilon)$|Ketemu $b$ pertama, mulai hapus $A$|
+> >|$q_1$|$b$|$A$|$(q_1, \epsilon)$|Hapus $A$ untuk setiap $b$|
+> >|$q_1$|$\epsilon$|$Z_0$|$(q_1, \epsilon)$|**Input habis, hapus $Z_0$ (Stack Kosong!)**|
+> >
+> >---
+> >
+> >##### 2. Hasil Konversi ke Final State ($M_{fs}$)
+> >
+> >Kita tambahkan state baru $p_0$ (awal), $p_f$ (akhir), dan simbol $X_0$.
+> >
+> >**Transisi Tambahan:**
+> >
+> >1. Inisialisasi:
+> >   
+> > 	$\delta(p_0, \epsilon, X_0) = (q_0, Z_0 X_0)$
+> > 	
+> > 	(Taruh $Z_0$ di atas $X_0$, lalu masuk ke logika utama)
+> >   
+> >2. Logika Utama:
+> >    
+> > 	(Gunakan semua tabel di atas tanpa perubahan)
+> > 	 
+> >1. Loncatan ke Final State:
+> >    
+> > 	$\delta(q_1, \epsilon, X_0) = (p_f, \epsilon)$
+> > 	 
+> > 	(Hanya jika stack asli sudah kosong dan mesin melihat "lantai" $X_0$, barulah ia pindah ke state final $p_f$)
+> > 	 
+> >
+> >
+> >
+> >##### Ringkasan Perbedaan
+> >
+> >- **Empty Stack:** Berhenti dan terima ketika stack benar-benar kosong (setelah transisi terakhir $q_1, \epsilon, Z_0$).
+> >    
+> >- **Final State:** Berhenti dan terima karena berada di $p_f$, meskipun di dalam stack mungkin masih tersisa $X_0$ (jika kita tidak melakukan pop pada transisi terakhir).
+    
 > [!cornell] #### Summary
 > 
 > PDA menggunakan notasi **Instantaneous Description (ID)** $(q, w, \alpha)$ sebagai "snapshot" kondisi mesin untuk melacak proses komputasi. Perubahan antar ID dinotasikan dengan simbol **Goes-To** ($\vdash$ untuk satu langkah, $\vdash^*$ untuk banyak langkah). Uniknya, PDA memiliki dua mekanisme penerimaan yang setara: **Acceptance by Final State** (fokus pada posisi state akhir, stack bebas) dan **Acceptance by Empty Stack** (fokus pada stack kosong, state bebas). Kita bisa mengubah PDA dari satu mode ke mode lainnya tanpa mengurangi kemampuan komputasinya.

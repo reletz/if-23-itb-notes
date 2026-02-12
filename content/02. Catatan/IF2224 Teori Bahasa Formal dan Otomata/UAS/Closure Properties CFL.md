@@ -78,7 +78,6 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > > Definisi: Kasus khusus dari substitusi di mana setiap terminal $a$ diganti dengan satu string tertentu $w$ (bukan bahasa).
 > >
 > > - Karena substitusi bersifat tertutup, otomatis homomorfisma juga tertutup.
-> >     
 > >
 > > #### D. Inverse Homomorphism ($h^{-1}(L)$)
 > >

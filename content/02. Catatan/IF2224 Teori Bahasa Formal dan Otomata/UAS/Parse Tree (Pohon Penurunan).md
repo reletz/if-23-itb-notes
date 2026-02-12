@@ -68,9 +68,9 @@ _Back to_ [[IF2224 Teori Bahasa Formal dan Otomata]]
 > > 
 > > Yield merepresentasikan string terminal akhir yang berhasil diturunkan atau "dihasilkan" oleh pohon tersebut. Sebuah Parse Tree dianggap **lengkap** atau "penting" jika:
 > > 
-> > 5. Akarnya adalah simbol awal `S`.
+> > 1. Akarnya adalah simbol awal `S`.
 > >     
-> > 6. Yield-nya adalah sebuah string yang seluruhnya terdiri dari simbol-simbol terminal.
+> > 2. Yield-nya adalah sebuah string yang seluruhnya terdiri dari simbol-simbol terminal.
 > >     
 > > 
 > > Himpunan dari semua yield yang mungkin dari semua Parse Tree yang lengkap dalam sebuah grammar adalah `L(G)`, yaitu bahasa dari grammar tersebut.

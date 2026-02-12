@@ -3,7 +3,7 @@ cssclasses:
   - dashboard
 ---
 # Overview
-`> ## Rest In Peace, Dan ^^` 
+> ## SHAMELESS PROMOTION: [https://saweria.co/naufarrel](https://saweria.co/naufarrel)
 
 Semoga semua catatannya bermanfaat. Selamat belajar, ya!
 - ## Semester 3
@@ -37,3 +37,11 @@ Semoga semua catatannya bermanfaat. Selamat belajar, ya!
 	- [[II2100 Komunikasi Interpersonal dan Publik]] (Matkul Pilihan)
 	- [[WI2022 Manajemen Proyek]]
 	- [[ZZXXXX Seleksi Labsister]] (Arsip aja ^^)
+- ## Semester 6
+	 chillin' out
+	- [[IF3141 Sistem Informasi]]
+	- [[IF3151 Interaksi Manusia Komputer]]
+	- [[IF3210 Pengembangan Aplikasi Piranti Bergerak]]
+	- [[IF3211 Komputasi Domain Spesifik]]
+	- [[IF3250 Proyek Perangkat Lunak]]
+	- [[IF3270 Pembelajaran Mesin]]

@@ -1,0 +1,56 @@
+---
+cssclasses:
+  - dashboard
+---
+_Back to_ [[index]]
+# Overview
+- ## Intro
+	- [[Foundational Definitions and Scope of Machine Learning]]
+	- [[Machine Learning Paradigms - Supervised Unsupervised and Reinforcement Learning]]
+	- [[Supervised Learning Techniques - Regression and Classification]]
+	- [[Neural Network Architectures for Specialized Tasks]]
+	- [[Machine Learning System Design Workflow]]
+- ## Ensemble Methods
+	- [[Foundations of Ensemble Methods]]
+	- [[Bagging Technique Implementation]]
+	- [[AdaBoost Weight Adjustment Mechanism]]
+	- [[Random Forest Architecture]]
+	- [[Gradient Boosting Optimization Framework]]
+- ## Perceptron
+	- [[Perceptron Fundamentals and Biological Analogy]]
+	- [[Perceptron Learning Rule Algorithm]]
+	- [[Batch Gradient Descent Optimization]]
+	- [[Stochastic Gradient Descent Variants]]
+	- [[Perceptron Applications in Logic Functions]]
+- ## Feed-Forward Neural Network
+	- [[Fundamentals of Artificial Neural Networks (ANN) Architecture]]
+	- [[Forward Propagation Mechanisms in FFNN]]
+	- [[Backpropagation Algorithm and Gradient Computation]]
+	- [[Backpropagation Practice Exercises and Applications]]
+- ## Convolutional Neural Network
+	- [[Motivation and Fundamental Concepts of CNNs]]
+	- [[Local Connectivity and Parameter Sharing Mechanisms]]
+	- [[Convolutional Layer Operations and Hyperparameters]]
+	- [[CNN Architectural Design Patterns]]
+	- [[Backpropagation in Convolutional Networks]]
+- ## Recurrent Neural Network (RNN Pt. 1)
+	- [[RNN Fundamentals and Sequential Data Motivation]]
+	- [[Forward Propagation Mechanics in RNNs]]
+	- [[RNN Architectural Variations and Implementation]]
+- ## Long Short-Term Memory (RNN Pt. 2)
+	- [[Vanishing Gradient Problem in RNNs]]
+	- [[LSTM Architecture Components and Gates]]
+	- [[Forward Propagation in LSTM Networks]]
+	- [[Backpropagation Through Time BPTT in RNNs]]
+	- [[Encoder-Decoder Models in Sequence Learning]]
+- ## Attention and Transformers
+	- [[Traditional Encoder-Decoder Architecture in Sequence Models]]
+	- [[Attention Mechanisms for Contextual Processing]]
+	- [[Transformer Architecture and Self-Attention Mechanisms]]
+- ## Reinforcement Learning
+	- [[Reinforcement Learning Fundamentals and Motivation]]
+	- [[Core Components of RL Agents]]
+	- [[Categorization of RL Agent Architectures]]
+	- [[Optimal Policy Formulation]]
+	- [[Temporal Difference Learning Methods]]
+	- [[Deep Q-Networks and Advanced Techniques]]

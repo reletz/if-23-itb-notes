@@ -1,0 +1,57 @@
+---
+cssclasses:
+  - dashboard
+---
+_Back to_ [[index]]
+# Overview
+- ## Intro
+	- [[Interdisciplinary Motivation Biology and Computing]]
+	- [[Foundations of Computational Biology and Bioinformatics]]
+	- [[Core Principles of Biology]]
+- ## Sel
+	- [[Eukaryotic vs Prokaryotic Cell Structures]]
+	- [[Cellular Energy Metabolism and ATP Cycle]]
+	- [[Membrane Transport Mechanisms]]
+	- [[Computational Methods in Cellular Analysis]]
+- ## Genetika
+	- [[Cell Cycle Regulation and Mitotic Division]]
+	- [[Meiosis and Genetic Diversity Mechanisms]]
+	- [[Molecular Basis of Inheritance DNA Structure and Replication]]
+	- [[Gene Expression Transcription and Translation Processes]]
+	- [[Mendelian Inheritance Patterns and Genetic Analysis]]
+	- [[Genomics and Bioinformatics Applications]]
+- ## Evolusi
+	- [[Early Life and Prokaryotic Evolution]]
+	- [[Darwins Theory of Evolution and Natural Selection]]
+	- [[Speciation Mechanisms and Reproductive Isolation]]
+	- [[Computational Methods in Evolutionary Biology]]
+- ## Keanekaragaman Hayati
+	- [[Phylogenetic Analysis and DNA-Based Identification]]
+	- [[Prokaryotic Diversity Bacteria and Archaea]]
+	- [[Fungis Role in Land Colonization and Symbiosis]]
+	- [[Animal Phylogeny and Vertebrate Evolution]]
+	- [[Seed Plant Adaptations for Terrestrial Life]]
+	- [[Genomic and Morphological Computational Tools in Biodiversity]]
+- ## Bentuk dan Fungsi Tumbuhan
+	- [[Plant Structural Organization and Tissue Systems]]
+	- [[Mechanisms of Plant Growth and Development]]
+	- [[Resource Acquisition and Transport in Vascular Plants]]
+	- [[Plant Hormones and Photomorphogenesis]]
+	- [[Plant Defense Mechanisms Against Biotic Threats]]
+	- [[Plant Adaptations to Abiotic Environmental Stress]]
+	- [[Computational Modeling in Plant Biology]]
+- ## Bentuk dan Fungsi Hewan
+	- [[Homeostasis and Osmoregulation Mechanisms]]
+	- [[Animal Nutrition and Digestive Adaptations]]
+	- [[Circulatory Systems and Respiratory Gas Exchange]]
+	- [[Innate and Adaptive Immune System Functions]]
+	- [[Computational Modeling of Homeostatic Feedback]]
+	- [[Agent-Based Immune Response Simulation]]
+	- [[Allometric Scaling Laws in Biological Systems]]
+- ## Ekologi
+	- [[Biodiversity Conservation Strategies]]
+	- [[Population Ecology Dynamics]]
+	- [[Community Interaction Networks]]
+	- [[Ecosystem Energy Flow Dynamics]]
+	- [[Biogeochemical Cycling Mechanisms]]
+	- [[Computational Ecology Models]]
