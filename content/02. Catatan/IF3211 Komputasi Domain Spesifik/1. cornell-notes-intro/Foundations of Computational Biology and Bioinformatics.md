@@ -25,7 +25,9 @@ _Back to_ [[IF3211 Komputasi Domain Spesifik]]
 >
 > > ### Definisi Biologi Komputasi dan Bioinformatika
 > > **Biologi Komputasi** merupakan bidang interdisipliner yang menggunakan teknik ilmu komputer, analisis data, pemodelan matematis, dan simulasi komputasi untuk memahami sistem biologis. Bidang ini memiliki fondasi dalam matematika terapan, biologi molekuler, dan genetika. Menurut National Institutes of Health (NIH), biologi komputasi mencakup analisis hubungan biologis melalui pendekatan komputasional.
+> > 
 > > **Bioinformatika** secara khusus berfokus pada analisis data biologis seperti sekuens DNA, struktur protein, dan big data biologis menggunakan teknik komputasi. Dalam konteks mata kuliah ini, bioinformatika dan biologi komputasi dipandang memiliki kesamaan inti dalam penerapan teknik komputasi untuk masalah biologis. Perbedaan utamanya terletak pada fokus analitik bioinformatika terhadap data molekuler spesifik.
+> > 
 > > ### Hubungan antara Biologi dan Ilmu Komputer
 > > Terdapat lima bidang utama interaksi antara biologi dan komputasi:
 > > 1. **Biomedical Engineering**: Penerapan teknik rekayasa untuk pengobatan penyakit
@@ -33,7 +35,8 @@ _Back to_ [[IF3211 Komputasi Domain Spesifik]]
 > > 3. **Biologi Komputasi**: Pemahaman sistem biologis melalui matematika dan statistik
 > > 4. **Bio-inspired Computing**: Penyelesaian masalah komputasi menggunakan model biologis
 > > 5. **Biological Computing**: Penggunaan molekul biologis (DNA/protein) untuk komputasi
-> > Contoh aplikasi praktis termasuk pengembangan biosensor, biochip, dan teknologi bioremediasi. Meskipun terdapat referensi ke algoritma bio-inspirasi dalam materi sumber, penjelasan detail tentang topik tersebut telah dikecualikan sesuai panduan.
+> > 
+> > Contoh aplikasi praktis termasuk pengembangan biosensor, biochip, dan teknologi bioremediasi.
 > > ### Metode Pembelajaran Biologi vs Matematika
 > > Pembelajaran biologi memiliki karakteristik unik dibandingkan matematika:
 > > - **Matematika**: Mengandalkan aplikasi berulang konsep melalui latihan (misal: operasi trigonometri)

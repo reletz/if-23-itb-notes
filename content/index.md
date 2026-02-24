@@ -45,3 +45,4 @@ Semoga semua catatannya bermanfaat. Selamat belajar, ya!
 	- [[IF3211 Komputasi Domain Spesifik]]
 	- [[IF3250 Proyek Perangkat Lunak]]
 	- [[IF3270 Pembelajaran Mesin]]
+	- [[IF4053 Keamanan Perangkat Lunak]]

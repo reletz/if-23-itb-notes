@@ -22,7 +22,15 @@ _Back to_ [[IF3211 Komputasi Domain Spesifik]]
 > > - Campbell_Biology_in_Focus_3rd_Ed.pptx (Slides 22-50)
 >
 > > ### Karakteristik Organisme Hidup
-> > Kehidupan dikenali melalui aktivitas yang dilakukan makhluk hidup. Terdapat delapan karakteristik utama: (1) **Organisasi teratur** - tubuh tersusun dari komponen yang terstruktur, (2) **Adaptasi evolusioner** - perubahan sifat untuk menyesuaikan lingkungan, (3) **Respon terhadap lingkungan** - kemampuan merespon stimulus eksternal, (4) **Reproduksi** - menghasilkan keturunan, (5) **Pertumbuhan dan perkembangan** - peningkatan ukuran dan diferensiasi sel, (6) **Pemrosesan energi** - metabolisme untuk aktivitas seluler, (7) **Regulasi** - menjaga keseimbangan internal (homeostasis), dan (8) **Evolusi** - perubahan sifat populasi dari waktu ke waktu.
+> > Kehidupan dikenali melalui aktivitas yang dilakukan makhluk hidup. Terdapat delapan karakteristik utama: 
+> > 1. **Organisasi teratur** - tubuh tersusun dari komponen yang terstruktur, 
+> > 2. **Adaptasi evolusioner** - perubahan sifat untuk menyesuaikan lingkungan, 
+> > 3. **Respon terhadap lingkungan** - kemampuan merespon stimulus eksternal, 
+> > 4. **Reproduksi** - menghasilkan keturunan, 
+> > 5. **Pertumbuhan dan perkembangan** - peningkatan ukuran dan diferensiasi sel, 
+> > 6. **Pemrosesan energi** - metabolisme untuk aktivitas seluler, 
+> > 7. **Regulasi** - menjaga keseimbangan internal (homeostasis), dan 
+> > 8. **Evolusi** - perubahan sifat populasi dari waktu ke waktu.
 > >
 > > Contoh konkret adalah adaptasi warna bulu tikus pantai (beige) vs tikus daratan (gelap) untuk kamuflase. Perbedaan ini menunjukkan bagaimana seleksi alam bekerja melalui mekanisme evolusi.
 > >
@@ -37,6 +45,7 @@ _Back to_ [[IF3211 Komputasi Domain Spesifik]]
 > >
 > > ### Sel: Unit Dasar Kehidupan
 > > Sel merupakan unit struktural dan fungsional terkecil yang memenuhi semua kriteria kehidupan. Terdapat dua tipe utama:
+> > 
 > > 1. **Sel Prokariotik** (Bakteri/Archaea): Tanpa nukleus, organel tidak bermembran, ukuran kecil (1-5 µm)
 > > 2. **Sel Eukariotik** (Tumbuhan/Hewan/Jamur): Memiliki nukleus dan organel bermembran (mitokondria, RE, Golgi), ukuran lebih besar (10-100 µm)
 > >
@@ -44,6 +53,7 @@ _Back to_ [[IF3211 Komputasi Domain Spesifik]]
 > >
 > > > ### DNA dan Pewarisan Sifat
 > > DNA (Asam Deoksiribonukleat) menyimpan informasi genetik dalam bentuk urutan nukleotida (A-T-C-G). Setiap gen merupakan segmen DNA yang mengkode protein spesifik. Proses ekspresi gen melibatkan:
+> > 
 > > 1. **Replikasi**: Penyalinan DNA sebelum pembelahan sel
 > > 2. **Transkripsi**: Sintesis RNA dari cetakan DNA
 > > 3. **Translasi**: Pembentukan protein berdasarkan kode RNA
@@ -63,11 +73,11 @@ _Back to_ [[IF3211 Komputasi Domain Spesifik]]
 > >
 > > ### Metode Ilmiah dalam Biologi
 > > Proses penelitian biologi melibatkan:
-> > 4. **Observasi**: Mengumpulkan data kualitatif (deskriptif) dan kuantitatif (pengukuran)
-> > 5. **Hipotesis**: Penjelasan sementara yang dapat diuji
-> > 6. **Eksperimen**: Pengujian terkontrol dengan variabel bebas-tergantung
-> > 7. **Analisis**: Pemrosesan data menggunakan statistika
-> > 8. **Kesimpulan**: Evaluasi dukungan bukti terhadap hipotesis
+> > 1. **Observasi**: Mengumpulkan data kualitatif (deskriptif) dan kuantitatif (pengukuran)
+> > 2. **Hipotesis**: Penjelasan sementara yang dapat diuji
+> > 3. **Eksperimen**: Pengujian terkontrol dengan variabel bebas-tergantung
+> > 4. **Analisis**: Pemrosesan data menggunakan statistika
+> > 5. **Kesimpulan**: Evaluasi dukungan bukti terhadap hipotesis
 > >
 > > Contoh: Penelitian Jane Goodall tentang perilaku simpanse menggabungkan observasi lapangan jangka panjang (data kualitatif) dengan analisis pola makan (data kuantitatif).
 > >
