@@ -4,7 +4,7 @@ cssclasses:
   - cornell-notes
 ---
 
-_Back to_ [[Keamanan Aplikasi Web]]
+_Back to_ [[IF4053 Keamanan Perangkat Lunak]]
 
 > [!cornell] Insecure Deserialization and Cryptographic Storage Weaknesses
 >

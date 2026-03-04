@@ -4,7 +4,7 @@ cssclasses:
   - cornell-notes
 ---
 
-_Back to_ [[Keamanan Informasi]]
+_Back to_ [[IF4053 Keamanan Perangkat Lunak]]
 
 > [!cornell] Fundamental Information Security Principles
 >

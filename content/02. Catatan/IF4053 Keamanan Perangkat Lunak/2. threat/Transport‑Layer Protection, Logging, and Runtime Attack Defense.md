@@ -4,7 +4,7 @@ cssclasses:
   - cornell-notes
 ---
 
-_Back to_ [[Keamanan Aplikasi Web]]
+_Back to_ [[IF4053 Keamanan Perangkat Lunak]]
 
 > [!cornell] Transport‑Layer Protection, Logging, and Runtime Attack Defense
 >
@@ -22,27 +22,35 @@ _Back to_ [[Keamanan Aplikasi Web]]
 > >
 > > - Web Application Vulnerability IF4053 – Software Security (Halaman 3)
 > > - OWASP Top 10 – 2010 (Halaman 3, A9 – Insufficient Transport Layer Protection)
-> > - OWASP Cheat Sheet Series: Transport Layer Protection (https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html)
-> > - OWASP Logging Cheat Sheet (https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)
-> > - OWASP Runtime Application Self‑Protection (RASP) Guide (https://owasp.org/www-project-rasp/)
->
+> 
 > > ### Transport Layer Protection (TLS/SSL)
 > >
 > > Transport Layer Security (TLS) adalah protokol kriptografi yang menyediakan kerahasiaan, integritas, dan otentikasi data yang berpindah antara klien dan server. Pada dasarnya, TLS membungkus data aplikasi dalam “envelop” terenkripsi sehingga pihak ketiga yang menyadap jaringan tidak dapat membaca atau memodifikasi isi paket. Proses handshake TLS dimulai dengan negosiasi versi protokol dan cipher suite yang akan dipakai, diikuti dengan pertukaran sertifikat digital. Sertifikat ini berisi kunci publik server yang ditandatangani oleh otoritas sertifikat (CA) terpercaya; klien memverifikasi tanda tangan tersebut untuk memastikan identitas server sebelum melanjutkan pertukaran kunci simetris yang akan dipakai untuk enkripsi data sesungguhnya.
 > >
 > > Analogi yang sering dipakai adalah “menutup surat dalam amplop berlapis”. Sertifikat digital berperan sebagai cap resmi yang menandakan bahwa amplop memang berasal dari pengirim yang sah, sementara kunci simetris adalah kunci rahasia yang hanya diketahui oleh pengirim dan penerima setelah amplop dibuka. Tanpa amplop (TLS), data aplikasi akan “terbuka” di jaringan, memudahkan penyadapan (eavesdropping) atau manipulasi (tampering).
 > >
-> > Implementasi TLS yang aman memerlukan beberapa langkah penting: (1) menonaktifkan versi protokol lama seperti SSL v2/v3 dan TLS 1.0/1.1 karena memiliki kelemahan kriptografi yang diketahui; (2) memilih cipher suite yang menggunakan algoritma enkripsi kuat (misalnya AES‑GCM) dan algoritma pertukaran kunci berbasis elliptic‑curve (ECDHE) untuk forward secrecy; (3) mengaktifkan HTTP Strict Transport Security (HSTS) sehingga browser secara otomatis menegakkan penggunaan HTTPS pada domain yang bersangkutan. Selain itu, penggunaan Perfect Forward Secrecy (PFS) memastikan bahwa kompromi kunci jangka panjang tidak memungkinkan dekripsi data yang telah dienkripsi sebelumnya.
+> > Implementasi TLS yang aman memerlukan beberapa langkah penting: 
+> > 1. menonaktifkan versi protokol lama seperti SSL v2/v3 dan TLS 1.0/1.1 karena memiliki kelemahan kriptografi yang diketahui; 
+> > 2. memilih cipher suite yang menggunakan algoritma enkripsi kuat (misalnya AES‑GCM) dan algoritma pertukaran kunci berbasis elliptic‑curve (ECDHE) untuk forward secrecy; 
+> > 3. mengaktifkan HTTP Strict Transport Security (HSTS) sehingga browser secara otomatis menegakkan penggunaan HTTPS pada domain yang bersangkutan. Selain itu, penggunaan Perfect Forward Secrecy (PFS) memastikan bahwa kompromi kunci jangka panjang tidak memungkinkan dekripsi data yang telah dienkripsi sebelumnya.
 > >
-> > Contoh praktis: sebuah aplikasi perbankan online mengonfigurasi servernya dengan TLS 1.3, cipher suite TLS\_AES\_128\_GCM\_SHA256, dan mengaktifkan HSTS dengan nilai max‑age 31536000 detik. Pengguna yang mengakses situs melalui HTTP akan otomatis diarahkan ke HTTPS, dan setiap sesi komunikasi dijamin kerahasiaannya bahkan jika kunci privat server diungkap di masa depan.
+> > **Contoh praktis**: sebuah aplikasi perbankan online mengonfigurasi servernya dengan TLS 1.3, cipher suite `TLS_AES_128_GCM_SHA256`, dan mengaktifkan HSTS dengan nilai max‑age 31536000 detik. Pengguna yang mengakses situs melalui HTTP akan otomatis diarahkan ke HTTPS, dan setiap sesi komunikasi dijamin kerahasiaannya bahkan jika kunci privat server diungkap di masa depan.
 > >
 > > ### Logging yang Efektif untuk Deteksi dan Forensik
 > >
-> > Logging merupakan komponen krusial dalam siklus pertahanan berlapis karena menyediakan jejak audit yang dapat dianalisis untuk mendeteksi perilaku anomali, mengidentifikasi serangan, serta mendukung investigasi pasca‑insiden. Log yang baik harus memenuhi tiga prinsip utama: (1) **Kelengkapan** – mencatat semua peristiwa penting seperti autentikasi, perubahan hak akses, dan error kritis; (2) **Konsistensi** – menggunakan format terstruktur (misalnya JSON atau Common Event Format) sehingga dapat diproses otomatis oleh sistem SIEM (Security Information and Event Management); (3) **Keamanan** – melindungi integritas log dengan tanda tangan digital atau HMAC, serta menyimpan log di lokasi terpisah (write‑once storage) untuk mencegah manipulasi oleh penyerang yang berhasil masuk ke sistem.
+> > Logging merupakan komponen krusial dalam siklus pertahanan berlapis karena menyediakan jejak audit yang dapat dianalisis untuk mendeteksi perilaku anomali, mengidentifikasi serangan, serta mendukung investigasi pasca‑insiden. Log yang baik harus memenuhi tiga prinsip utama: 
+> > 1. **Kelengkapan** – mencatat semua peristiwa penting seperti autentikasi, perubahan hak akses, dan error kritis
+> > 2. **Konsistensi** – menggunakan format terstruktur (misalnya JSON atau Common Event Format) sehingga dapat diproses otomatis oleh sistem SIEM (Security Information and Event Management)
+> > 3. **Keamanan** – melindungi integritas log dengan tanda tangan digital atau HMAC, serta menyimpan log di lokasi terpisah (write‑once storage) untuk mencegah manipulasi oleh penyerang yang berhasil masuk ke sistem.
 > >
-> > Sebagai analogi, bayangkan log sebagai “buku harian” sistem; jika buku tersebut dapat diubah-ubah oleh siapa saja, maka nilai historisnya hilang. Dengan menandatangani setiap entri log menggunakan kunci rahasia yang hanya diketahui oleh server log, setiap perubahan akan terdeteksi karena tanda tangan tidak lagi cocok.
-> >
-> > Praktik terbaik meliputi: (a) menambahkan **request ID** unik pada setiap permintaan HTTP sehingga semua log terkait dapat di‑correlate; (b) mencatat **user identifier**, **timestamp** dengan zona waktu UTC, serta **source IP**; (c) menghindari pencatatan data sensitif secara mentah (misalnya nomor kartu kredit) dan menggantinya dengan hash atau token; (d) mengatur retensi log sesuai regulasi (misalnya GDPR atau PCI‑DSS) dan memastikan rotasi log secara periodik. Implementasi log aggregation dengan alat seperti **ELK Stack** (Elasticsearch, Logstash, Kibana) atau **Graylog** memungkinkan visualisasi real‑time dan pembuatan alert berbasis pola (misalnya banyak percobaan login gagal dalam satu menit).
+> > Praktik terbaik meliputi: 
+> > 1. menambahkan **request ID** unik pada setiap permintaan HTTP sehingga semua log terkait dapat di‑correlate; 
+> > 2. mencatat **user identifier**, **timestamp** dengan zona waktu UTC, serta **source IP**; 
+> > 3. menghindari pencatatan data sensitif secara mentah (misalnya nomor kartu kredit) dan menggantinya dengan hash atau token; 
+> > 4. mengatur retensi log sesuai regulasi (misalnya GDPR atau PCI‑DSS) dan memastikan rotasi log secara periodik. 
+> > 5. integrasi selain log: metrics dan traces
+> > 
+> > Implementasi log aggregation dengan alat seperti **ELK Stack** (Elasticsearch, Logstash, Kibana) atau **Graylog** memungkinkan visualisasi real‑time dan pembuatan alert berbasis pola (misalnya banyak percobaan login gagal dalam satu menit).
 > >
 > > Contoh: Sebuah layanan e‑commerce menambahkan middleware yang menulis log JSON berisi `request_id`, `user_id`, `endpoint`, `status_code`, dan `response_time`. Log tersebut dikirim ke Logstash, di‑index ke Elasticsearch, dan dipantau oleh Kibana dashboard yang menampilkan lonjakan status 5xx atau peningkatan latency, yang kemudian memicu alert ke tim keamanan melalui Slack.
 > >
@@ -100,4 +108,7 @@ _Back to_ [[Keamanan Aplikasi Web]]
 >
 > #### Edge Cases: TLS Renegotiation and Session Resumption
 >
-> *Renegotiation* memungkinkan klien dan server melakukan handshake tambahan pada koneksi yang sudah ada, misalnya untuk meminta sertifikat klien setelah otentikasi awal. Namun, renegotiasi yang tidak terkontrol dapat dimanfaatkan untuk **DoS** (renegotiation flood) atau **session injection**. Solusi
+> *Renegotiation* memungkinkan klien dan server melakukan handshake tambahan pada koneksi yang sudah ada, misalnya untuk meminta sertifikat klien setelah otentikasi awal. Namun, renegotiasi yang tidak terkontrol dapat dimanfaatkan untuk **DoS** (renegotiation flood) atau **session injection**.
+> - OWASP Cheat Sheet Series: Transport Layer Protection (https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html)
+> - OWASP Logging Cheat Sheet (https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html)
+> - OWASP Runtime Application Self‑Protection (RASP) Guide (https://owasp.org/www-project-rasp/)
