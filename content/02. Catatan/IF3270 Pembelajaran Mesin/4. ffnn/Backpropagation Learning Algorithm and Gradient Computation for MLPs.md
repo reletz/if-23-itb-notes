@@ -24,10 +24,15 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > > - Goodfellow, I., Bengio, Y., & Courville, A. (2016). *Deep Learning* (Sections 6.2‑6.3) (Pages 29‑34)
 >
 > > ### Overview of Backpropagation Learning
+> > 
+> > ![[Pasted image 20260305105656.png]]
 > >
-> > Backpropagation (BP) adalah algoritma pelatihan terpusat pada jaringan saraf multilayer perceptron (MLP) yang memanfaatkan kalkulus diferensial untuk menyesuaikan bobot secara iteratif. Ide dasarnya adalah menghitung **error** pada output jaringan, kemudian “menyebarkan” (propagate) error tersebut ke belakang melalui setiap lapisan, sehingga setiap neuron memperoleh sinyal koreksi yang disebut **delta (δ)**. Proses ini memungkinkan jaringan belajar dari contoh pelatihan dengan meminimalkan fungsi kerugian (loss) secara bertahap. Pada setiap iterasi, dua fase utama terjadi: **forward propagation** (menghitung output ŷ untuk input x) dan **backward propagation** (menghitung gradien ∂L/∂w untuk setiap bobot w). Meskipun forward propagation hanya disebut secara singkat, fokus utama catatan ini adalah pada fase backward.
+> > Backpropagation (BP) adalah algoritma pelatihan terpusat pada jaringan saraf multilayer perceptron (MLP) yang memanfaatkan kalkulus diferensial untuk menyesuaikan bobot secara iteratif. Ide dasarnya adalah menghitung **error** pada output jaringan, kemudian “menyebarkan” (propagate) error tersebut ke belakang melalui setiap lapisan, sehingga setiap neuron memperoleh sinyal koreksi yang disebut **delta (δ)**. Proses ini memungkinkan jaringan belajar dari contoh pelatihan dengan meminimalkan fungsi kerugian (loss) secara bertahap. Pada setiap iterasi, dua fase utama terjadi: **forward propagation** (menghitung output ŷ untuk input x) dan **backward propagation** (menghitung gradien ∂L/∂w untuk setiap bobot w).
 > >
-> > Mengapa backpropagation penting? Tanpa cara sistematis menghitung gradien, penyesuaian bobot akan menjadi percobaan‑dan‑kesalahan yang tidak terarah, sehingga konvergensi menjadi sangat lambat atau bahkan tidak tercapai. Dengan memanfaatkan turunan parsial, BP memastikan bahwa setiap langkah pembaruan bergerak ke arah menurunkan nilai fungsi kerugian secara **steepest descent** pada ruang parameter.
+> > **Mengapa backpropagation penting?** Tanpa cara sistematis menghitung gradien, penyesuaian bobot akan menjadi percobaan‑dan‑kesalahan yang tidak terarah, sehingga konvergensi menjadi sangat lambat atau bahkan tidak tercapai. Dengan memanfaatkan turunan parsial, BP memastikan bahwa setiap langkah pembaruan bergerak ke arah menurunkan nilai fungsi kerugian secara **steepest descent** pada ruang parameter.
+> > 
+> > ![[Pasted image 20260305105920.png]]
+> > ![[Pasted image 20260305110000.png]]
 > >
 > > Contoh sederhana: pada jaringan dengan satu neuron output yang menggunakan fungsi sigmoid, error e = t – ŷ (target minus prediksi) dihitung. Delta pada output adalah δ_out = e·σ'(net_out), di mana σ' adalah turunan sigmoid. Nilai δ_out kemudian dikalikan dengan output dari neuron hidden untuk memperoleh gradien bobot antara hidden dan output. Proses serupa berulang untuk lapisan sebelumnya, menghasilkan rangkaian delta yang menurun secara eksponensial dari output ke input.
 > >
@@ -57,7 +62,7 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > >
 > > ### Computing Gradients for the Output Layer
 > >
-> > Pada lapisan output, gradien dihitung paling langsung karena loss L biasanya didefinisikan secara eksplisit pada output. Untuk fungsi aktivasi sigmoid σ(z)=1/(1+e^{-z}), turunan pertama adalah σ'(z)=σ(z)(1‑σ(z)). Jika output neuron i memiliki net input $net_i$ dan output $\hat{y}_i = σ(net_i)$, maka delta pada neuron output adalah:
+> > Pada lapisan output, gradien dihitung paling langsung karena loss L biasanya didefinisikan secara eksplisit pada output. Untuk fungsi aktivasi sigmoid $σ(z)=1/(1+e^{-z})$, turunan pertama adalah $σ'(z)=σ(z)(1‑σ(z))$. Jika output neuron i memiliki net input $net_i$ dan output $\hat{y}_i = σ(net_i)$, maka delta pada neuron output adalah:
 > >
 > > $$
 > >
@@ -105,7 +110,7 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > >
 > > dengan $a_j$ adalah aktivasi neuron sebelumnya (bisa input atau hidden lain). Proses ini berulang ke atas hingga mencapai lapisan input, menghasilkan **gradient vector** lengkap untuk seluruh jaringan.
 > >
-> > Contoh numerik lanjutan: menggunakan nilai delta_out = –0.045 dari contoh sebelumnya, bobot w_{h1→out}=0.5, w_{h2→out}=–0.3. Turunan sigmoid pada hidden net_k (misalnya net_{h1}=0.4, σ'(0.4)=0.24). Maka:
+> > Contoh numerik lanjutan: menggunakan nilai $\delta_{out} = –0.045$ dari contoh sebelumnya, bobot $w_{h1→out}=0.5$, $w_{h2→out}=–0.3$. Turunan sigmoid pada hidden $net_k$ (misalnya $net_{h1}=0.4, σ'(0.4)=0.24$). Maka:
 > >
 > > $$
 > >
@@ -113,7 +118,7 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > >
 > > $$
 > >
-> > Gradien untuk bobot w_{x1→h1} (dengan input x₁=0.05) menjadi $\delta_{h1}\cdot x_1 \approx -0.00027$. Pembaruan bobot ini memperbaiki representasi hidden secara bertahap.
+> > Gradien untuk bobot $w_{x1→h1}$ (dengan input x₁=0.05) menjadi $\delta_{h1}\cdot x_1 \approx -0.00027$. Pembaruan bobot ini memperbaiki representasi hidden secara bertahap.
 > >
 > > ### Weight Update Rule and Learning Rate
 > >
@@ -210,15 +215,3 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > $$
 >
 > dan melakukan koreksi bias sebelum pembaruan. Metode ini menjadi standar dalam banyak kerangka kerja deep learning.
->
-> #### Numerical Stability and Activation Derivatives
->
-> Pada fungsi sigmoid, turunan $\sigma'(z)=\sigma(z)(1-\sigma(z))$ dapat menjadi sangat kecil ketika |z| besar, menyebabkan **vanishing gradient**. Untuk mengatasi hal ini, jaringan modern sering menggunakan **ReLU (Rectified Linear Unit)** dengan turunan:
->
-> $$
->
-> \text{ReLU}'(z)=
->
-> \begin{cases}
->
-> 1 & \text{jika } z

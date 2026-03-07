@@ -21,14 +21,14 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > > ## Reference Points
 > >
 > > - Lecture_Slides_IF3270 (Pages 14‑20)
-> > - Goodfellow_Bengio_Courville_DeepLearning (Pages 17‑20)
+> > - Goodfellow_Bengio_Courville _DeepLearning (Pages 17‑20)
 > > - Raschka_ML_with_PyTorch (Page 15‑16)
 >
 > > ### Pengantar Forward Propagation
+> > 
+> > ![[Pasted image 20260305105030.png]]
 > >
 > > Forward propagation adalah proses menghitung keluaran jaringan saraf tiruan (ANN) dengan cara mengalirkan sinyal input melalui setiap lapisan secara berurutan, mulai dari lapisan input, melewati satu atau lebih lapisan tersembunyi, hingga mencapai lapisan output. Pada setiap neuron, sinyal yang masuk dikalikan dengan bobot‑bobot yang terhubung, ditambahkan dengan bias, kemudian diproses oleh fungsi aktivasi. Hasil akhir dari lapisan terakhir merupakan prediksi model untuk contoh input yang diberikan. Proses ini sepenuhnya deterministik; tidak ada pembaruan bobot atau perhitungan gradien yang terjadi pada tahap ini. Karena sifatnya yang terstruktur, forward propagation dapat diimplementasikan secara vektorisasi, yang memungkinkan komputasi paralel pada GPU atau CPU modern.
-> >
-> > Secara intuitif, forward propagation dapat diibaratkan seperti aliran air melalui serangkaian pipa. Setiap pipa (neuron) memiliki katup (bobot) yang mengatur seberapa banyak air (sinyal) yang dapat lewat, dan ada pompa tambahan (bias) yang menambah tekanan pada aliran. Fungsi aktivasi berperan sebagai filter yang menentukan apakah air dapat melanjutkan perjalanan atau tidak, mirip dengan saringan yang hanya membiarkan air dengan tekanan tertentu lewat.
 > >
 > > Pada jaringan feed‑forward, tidak ada umpan balik (loop) sehingga aliran sinyal hanya bergerak satu arah, membentuk graf berarah tanpa siklus (directed acyclic graph). Hal ini memastikan bahwa setiap neuron hanya dipengaruhi oleh neuron‑neuron pada lapisan sebelumnya, sehingga perhitungan dapat dilakukan secara berurutan tanpa ketergantungan siklik.
 > >
@@ -63,8 +63,10 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > > Pada lapisan output $L$, $\mathbf{a}^{(L)}$ menjadi vektor prediksi $\hat{\mathbf{y}}$. Representasi matriks ini memungkinkan seluruh batch data diproses sekaligus dengan operasi matriks‑vektor, yang secara signifikan mempercepat komputasi dibandingkan menghitung setiap contoh secara terpisah.
 > >
 > > ### Contoh XOR dengan Sigmoid
+> > 
+> > ![[Pasted image 20260305105133.png]]
 > >
-> > Salah satu contoh klasik yang memperlihatkan kekuatan forward propagation adalah jaringan dua‑lapis yang menyelesaikan fungsi XOR. Dengan dua input $x_1, x_2$, dua neuron tersembunyi, dan satu neuron output, bobot‑bobot serta bias dipilih sebagai berikut (dari slide 15‑16):
+> > Salah satu contoh klasik yang memperlihatkan kekuatan forward propagation adalah jaringan dua‑lapis yang menyelesaikan fungsi XOR. Dengan dua input $x_1, x_2$, dua neuron tersembunyi, dan satu neuron output, bobot‑bobot serta bias dipilih sebagai berikut:
 > >
 > > $$
 > >
@@ -83,8 +85,10 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > > di mana $\sigma(z)=\frac{1}{1+e^{-z}}$ adalah fungsi sigmoid. Dengan menghitung nilai $h_1, h_2$ untuk setiap kombinasi $(x_1,x_2)\in\{0,1\}^2$, jaringan menghasilkan output yang mendekati target XOR (0 untuk (0,0) dan (1,1), 1 untuk (0,1) dan (1,0)). Contoh ini menegaskan bahwa jaringan dengan satu lapisan tersembunyi dapat mempelajari fungsi non‑linier yang tidak dapat diselesaikan oleh perceptron tunggal.
 > >
 > > ### Aktivasi ReLU dan Linear pada Mini‑Batch
+> > 
+> > ![[Pasted image 20260305105423.png]]
 > >
-> > Pada slide 18‑20, contoh lain menggunakan fungsi aktivasi ReLU ($\text{ReLU}(z)=\max\{0,z\}$) pada lapisan tersembunyi dan fungsi linear pada lapisan output. Misalkan bobot ke neuron tersembunyi pertama adalah $\mathbf{w}_{h1} = (1,1)$ dan ke neuron kedua $\mathbf{w}_{h2}= (1,1)$ dengan bias masing‑masing $b_{h1}=0$ dan $b_{h2}=-1$. Untuk sebuah input vektor $\mathbf{x}=(x_1,x_2)$:
+> > Contoh lain menggunakan fungsi aktivasi ReLU ($\text{ReLU}(z)=\max\{0,z\}$) pada lapisan tersembunyi dan fungsi linear pada lapisan output. Misalkan bobot ke neuron tersembunyi pertama adalah $\mathbf{w}_{h1} = (1,1)$ dan ke neuron kedua $\mathbf{w}_{h2}= (1,1)$ dengan bias masing‑masing $b_{h1}=0$ dan $b_{h2}=-1$. Untuk sebuah input vektor $\mathbf{x}=(x_1,x_2)$:
 > >
 > > $$
 > >

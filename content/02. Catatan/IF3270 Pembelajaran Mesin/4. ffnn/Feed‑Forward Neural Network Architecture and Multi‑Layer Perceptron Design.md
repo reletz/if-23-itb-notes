@@ -26,6 +26,8 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > > ### Feed‑Forward Neural Network (FFNN) Overview
 > >
 > > Feed‑Forward Neural Network (FFNN) adalah jaringan saraf buatan yang **hanya memiliki arah aliran informasi satu arah**, dari lapisan input menuju lapisan output, tanpa adanya siklus. Struktur ini dapat direpresentasikan sebagai **graf terarah asiklik (DAG)**, di mana setiap node mewakili neuron dan setiap edge mewakili bobot yang menghubungkan neuron‑neuron pada lapisan berurutan. Karena tidak ada umpan balik, jaringan ini cocok untuk memetakan fungsi statis, seperti klasifikasi atau regresi, di mana output hanya bergantung pada input saat itu.
+> > 
+> > ![[Pasted image 20260305104737.png]]
 > >
 > > Pada tingkat paling dasar, FFNN memiliki **lapisan input**, satu atau lebih **lapisan tersembunyi (hidden layers)**, dan **lapisan output**. Setiap lapisan tersembunyi biasanya terhubung penuh (fully‑connected) ke lapisan berikutnya, artinya setiap neuron pada satu lapisan memiliki bobot ke **setiap** neuron pada lapisan selanjutnya. Koneksi penuh ini memberikan jaringan kemampuan untuk mempelajari representasi yang sangat fleksibel.
 > >
@@ -38,10 +40,14 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > > **Unit bias** berperan sebagai offset yang memungkinkan neuron menggeser fungsi aktivasi secara horizontal. Secara visual, bias dapat dianggap sebagai **neuron tambahan dengan nilai konstan 1** yang terhubung ke setiap neuron pada lapisan berikutnya. Kehadiran bias meningkatkan fleksibilitas jaringan, terutama ketika data tidak terpusat di sekitar titik asal.
 > >
 > > Desain MLP biasanya mengikuti pola **input → hidden₁ → hidden₂ → … → hiddenₖ → output**. Setiap lapisan tersembunyi dapat memiliki ukuran yang berbeda, tergantung pada kompleksitas masalah. Misalnya, pada contoh XOR klasik, satu lapisan tersembunyi dengan dua neuron sudah cukup untuk memecahkan masalah yang tidak dapat diselesaikan oleh jaringan linear tunggal.
+> > 
+> > ![[Pasted image 20260305104849.png]]
 > >
-> > **Contoh arsitektur eksplisit** (dilihat pada slide 10) menuliskan setiap neuron dan bobot secara terpisah, memudahkan visualisasi struktur jaringan kecil. Sebaliknya, **representasi kompak** (slide 17‑20) menggunakan notasi matriks, di mana bobot disimpan dalam matriks **W** dan bias dalam vektor **b**. Representasi kompak lebih efisien untuk implementasi komputasi karena memungkinkan operasi vektor‑matriks yang dipercepat oleh hardware.
+> > **Contoh arsitektur eksplisit** menuliskan setiap neuron dan bobot secara terpisah, memudahkan visualisasi struktur jaringan kecil. Sebaliknya, **representasi kompak** menggunakan notasi matriks, di mana bobot disimpan dalam matriks **W** dan bias dalam vektor **b**. Representasi kompak lebih efisien untuk implementasi komputasi karena memungkinkan operasi vektor‑matriks yang dipercepat oleh hardware.
 > >
 > > ### Explicit vs. Compact Notation
+> > 
+> > ![[Pasted image 20260305104849.png]]
 > >
 > > **Notation eksplisit** menuliskan setiap neuron (misalnya, $x_1, x_2, …, x_n$) dan setiap bobot ($w_{ij}$) secara terpisah. Kelebihannya adalah transparansi visual—pembaca dapat melihat secara langsung berapa banyak neuron dan bagaimana mereka terhubung. Namun, untuk jaringan dengan ratusan atau ribuan neuron, notasi ini menjadi tidak praktis.
 > >

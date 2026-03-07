@@ -28,7 +28,6 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > >
 > > Pada tingkat mikroskopik, sinyal kimia (neurotransmiter) mengubah potensial membran, sementara sinyal listrik (potensial aksi) menyebar sepanjang akson. Dalam konteks komputasi, proses ini dapat disederhanakan menjadi operasi **linear** (penjumlahan berbobot) diikuti fungsi aktivasi **diskrit** (biasanya fungsi tanda atau step). Penyederhanaan ini memungkinkan kita memetakan struktur biologis ke dalam model matematis yang dapat di‑implementasikan pada komputer.
 > >
-> > Contoh konkret: Bayangkan sebuah jaringan jalan yang menghubungkan beberapa kota (dendrit). Setiap jalan memiliki kapasitas (bobot). Jika total kapasitas yang masuk ke sebuah persimpangan melebihi batas tertentu, lampu lalu lintas (neuron) berubah menjadi hijau, mengizinkan kendaraan (sinyal) melanjutkan perjalanan ke tujuan berikutnya (akson). Jika tidak, lampu tetap merah dan tidak ada kendaraan yang lewat.
 > >
 > > **Mengapa inspirasi ini penting?** Karena ia memberikan dasar biologis untuk **model linear** yang dapat dipelajari secara otomatis: bobot‑bobot dapat disesuaikan (learning) sehingga fungsi keputusan yang dihasilkan mencerminkan pola dalam data.
 > >
@@ -48,7 +47,7 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > > - $w_j$ (untuk $j = 1,\dots ,d$) adalah **bobot** yang mengukur kontribusi masing‑masing fitur,
 > > - $\operatorname{sign}(\cdot)$ adalah fungsi aktivasi diskrit yang menghasilkan +1 bila argumen positif, dan –1 bila negatif atau nol.
 > >
-> > Ruang hipotesis $ \mathcal{H} = \{ \mathbf{w} \in \mathbb{R}^{d+1} \}$ berisi semua vektor bobot yang mungkin. Setiap pilihan $\mathbf{w}$ menentukan sebuah **hyperplane** (dalam dua dimensi menjadi garis, dalam tiga dimensi menjadi bidang) yang memisahkan ruang fitur menjadi dua wilayah: satu menghasilkan output +1, yang lain –1. Karena fungsi aktivasi bersifat **threshold**, perceptron hanya dapat mempelajari **konsep yang dapat dipisahkan secara linear**.
+> > Ruang hipotesis $\mathcal{H} = \{ \mathbf{w} \in \mathbb{R}^{d+1} \}$ berisi semua vektor bobot yang mungkin. Setiap pilihan $\mathbf{w}$ menentukan sebuah **hyperplane** (dalam dua dimensi menjadi garis, dalam tiga dimensi menjadi bidang) yang memisahkan ruang fitur menjadi dua wilayah: satu menghasilkan output +1, yang lain –1. Karena fungsi aktivasi bersifat **threshold**, perceptron hanya dapat mempelajari **konsep yang dapat dipisahkan secara linear**.
 > >
 > > **Contoh numerik:** Misalkan $d = 2$ dengan fitur $(x_1, x_2)$. Pilih bobot $\mathbf{w} = (w_0, w_1, w_2) = (-0.5, 1, 1)$. Maka keputusan diberikan oleh:
 > >
@@ -73,8 +72,6 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > > Semua titik yang berada tepat pada hyperplane menghasilkan nilai netral (biasanya dipetakan ke –1 atau +1 tergantung pada konvensi). Titik di satu sisi menghasilkan nilai positif (output +1), sedangkan titik di sisi lain menghasilkan nilai negatif (output –1).
 > >
 > > **Mengapa linear separability penting?** Jika data tidak dapat dipisahkan oleh satu hyperplane (misalnya pola XOR), tidak ada kombinasi bobot $\mathbf{w}$ yang dapat menghasilkan klasifikasi sempurna. Dalam kasus tersebut, perceptron akan berulang‑ulang memperbarui bobot tanpa pernah mencapai konvergensi. Oleh karena itu, kemampuan perceptron terbatas pada **masalah klasifikasi biner yang linearly separable**.
-> >
-> > **Ilustrasi dua dimensi:** Bayangkan dua kelompok titik berwarna merah dan biru pada bidang kartesius. Jika dapat digambar satu garis lurus yang memisahkan semua titik merah di satu sisi dan semua titik biru di sisi lain, maka dataset tersebut linearly separable dan perceptron dapat menemukan garis tersebut (dengan cukup iterasi). Jika tidak, misalnya titik biru berada di dalam “lubang” merah, maka tidak ada garis lurus yang memisahkan, sehingga perceptron tidak dapat menyelesaikannya.
 > >
 > > **Hubungan dengan model biologis:** Hyperplane dapat dianggap sebagai “ambang aktivasi” pada neuron biologis; ketika total sinyal terintegrasi melampaui ambang, neuron “menyala”. Pada perceptron, ambang ini diwakili oleh bias $w_0$ dan bobot‑bobot yang menyesuaikan kontribusi masing‑masing sinyal masuk.
 > >

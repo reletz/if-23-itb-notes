@@ -3,6 +3,8 @@ cssclasses:
   - dashboard
 ---
 # Overview
+> ## https://if-notes.naufarrel.tech PINDAH KE https://if-notes.naufarrel.dev !!!
+ 
 > ## SHAMELESS PROMOTION: [https://saweria.co/naufarrel](https://saweria.co/naufarrel)
 
 Semoga semua catatannya bermanfaat. Selamat belajar, ya!
