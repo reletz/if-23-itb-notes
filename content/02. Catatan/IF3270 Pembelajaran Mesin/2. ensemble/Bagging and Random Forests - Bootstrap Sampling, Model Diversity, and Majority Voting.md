@@ -66,6 +66,12 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > > Implementasi di scikit‑learn (`BaggingClassifier` atau `RandomForestClassifier`) secara default menggunakan voting mayoritas, namun juga menyediakan opsi `predict_proba` yang mengembalikan rata‑rata probabilitas kelas, memberikan gambaran yang lebih halus tentang kepercayaan model.
 > >
 > > **Mengapa voting efektif?** Karena kesalahan individu yang bersifat acak cenderung saling meniadakan ketika digabungkan, sementara kesalahan sistematis (bias) tetap ada. Dengan kata lain, voting menurunkan **varians** tanpa menambah bias secara signifikan, yang tercermin dalam analisis bias‑varians klasik.
+> > 
+> > > ### Key Points for Bagging
+> > > **Training**: Menggunakan salinan data dari data asli yang hanya diambil beberapa (Misalkann, dari satu dataset, dihasilkan tiga dataset berbeda, dan dijadikan alat latih untuk model yang sama).
+> > > **Inferensi**: 
+> > > - **Klasifikasi:** majority voting
+> > > - **Regresi:** simple averaging
 > >
 > > ### Random Forest: Randomized Decision Trees
 > > 
@@ -78,6 +84,12 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > > Pada implementasi `RandomForestClassifier` di scikit‑learn, parameter penting meliputi `n_estimators` (jumlah pohon), `max_features` (jumlah fitur acak per split), `max_depth` (kedalaman maksimum), dan `oob_score=True` untuk mengaktifkan estimasi OOB.
 > >
 > > **Perbandingan performa:** Pada contoh kode yang sama dengan dataset *Breast Cancer*, `RandomForestClassifier` dengan `max_features=10` dan `max_depth=5` menghasilkan akurasi sekitar 0,965, sedikit lebih rendah daripada bagging dengan depth 3 pada contoh tersebut, namun pada dataset dengan banyak fitur dominan, random forest biasanya mengungguli bagging karena keragaman fitur yang lebih tinggi.
+> > 
+> > > ### Key Points for Random Forest
+> > > **Training**: Mirip seperti bagging, hanya saja **modelnya DTL DAN fitur juga dipilih acak (bukan hanya baris data)** 
+> > > **Inferensi**: 
+> > > - **Klasifikasi:** mean of predicted class probabilities
+> > > - **Regresi:** simple averaging
 > >
 > > ### Random Forest vs. Bagging: Kapan Memilih?
 > >

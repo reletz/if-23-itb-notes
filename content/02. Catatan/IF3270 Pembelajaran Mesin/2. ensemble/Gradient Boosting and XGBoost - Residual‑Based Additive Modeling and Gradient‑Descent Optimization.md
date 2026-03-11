@@ -30,7 +30,7 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > >
 > > Contoh konkret: misalkan kita memiliki data rumah dengan harga aktual $y$ dan prediksi awal $\hat{y}^{(0)}$ berupa rata‑rata harga. Residual pertama adalah selisih antara harga aktual dan rata‑rata. Pohon keputusan kecil (depth 1) kemudian dipelajari untuk memetakan fitur‑fitur (mis. ukuran rumah) ke residual tersebut. Setelah penambahan, prediksi menjadi rata‑rata plus kontribusi pohon pertama; proses berulang hingga residual menjadi sangat kecil atau batas iterasi tercapai.
 > >
-> > Pendekatan additive ini berbeda dengan **bagging** atau **random forest** yang menggabungkan model secara paralel; di sini urutan pelatihan penting karena setiap model bergantung pada kesalahan model sebelumnya. (Catatan: detail tentang bagging dan random forest tidak dibahas di sini karena berada di luar cakupan topik.)
+> > Pendekatan additive ini berbeda dengan **bagging** atau **random forest** yang menggabungkan model secara paralel; di sini urutan pelatihan penting karena setiap model bergantung pada kesalahan model sebelumnya.
 > >
 > > ### Gradient Descent sebagai Kerangka Optimasi
 > >
@@ -81,7 +81,19 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > >
 > > di mana $T$ adalah jumlah leaf, $w_j$ adalah nilai leaf, $\gamma$ mengontrol penalti jumlah leaf, dan $\lambda$ mengontrol penalti L2 pada nilai leaf. Regularisasi ini mencegah pohon menjadi terlalu dalam atau leaf memiliki nilai ekstrem, sehingga meningkatkan generalisasi.
 > >
-> > Selain itu, XGBoost menyediakan **column subsampling** (sampling fitur secara acak pada tiap iterasi) dan **row subsampling** (sampling contoh) yang menambah variasi model tanpa harus mengorbankan kecepatan. Kedua teknik ini mirip dengan konsep “bagging” tetapi diintegrasikan dalam kerangka boosting, sehingga tetap mempertahankan urutan pembelajaran.
+> > ### Key Points for Gradient Boosting
+> > 
+> > **Training**
+> > 1. Inisialisasi prediksi awal:
+> >  $F_0(x)$ = nilai konstan (misal: mean y)
+> >  
+> > 2. Untuk setiap iterasi t:
+> > 	- Hitung pseudo-residual (gradient negatif):
+> >     $r_i = y_i - F_{t-1}(x_i)$
+> >	-	Latih weak learner $h_t$ untuk memprediksi $r_i$
+> >	- Update model:  $F_t(x) = F_{t-1}(x) + η · h_t(x)$
+> > 
+> > **Inferensi** : Lihat paling bawah (Sama seperti XGBoost)
 > >
 > > ### XGBoost: Optimasi Second‑Order dan Histogram‑Based Splitting
 > >
@@ -100,6 +112,20 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > > 2. **Histogram‑based split finding**: alih‑alih mengevaluasi semua nilai unik fitur, XGBoost mengkuantisasi nilai menjadi histogram (biasanya 256 bin). Split terbaik dipilih berdasarkan skor gain yang dihitung dari histogram, sehingga kompleksitas pencarian turun dari $O(N \cdot \text{unique})$ menjadi $O(N \cdot \text{bins})$. Pendekatan ini mempercepat training pada dataset besar dan memori‑efisien.
 > >
 > > 	Kedua teknik tersebut menjadikan XGBoost **“extreme”**: lebih cepat, lebih akurat, dan lebih mudah di‑tune dibandingkan gradient boosting standar.
+> > 	
+> > 	
+> > ### Key Points for XGBoost
+> > **Training**
+> > 1. Inisialisasi prediksi awal: $F_0(x) =$ bias (mean y)
+> > 2. Untuk setiap iterasi $t:
+> > 	- Hitung gradient pertama ($g_i$) DAN Hessian kedua ($h_i$)
+> > 	- Latih pohon $h_t$ dengan objektif:
+> > 		- Minimasi loss berbasis $g_i$ dan $h_i$ (second-order)
+> > 		- Ditambah regularisasi: $γT + ½λΣw_j²$
+> > 		- (penalti jumlah leaf + penalti nilai leaf)
+> > 3. Update model:
+> > $F_t(x) = F_{t-1}(x) + η · h_t(x)$
+> >
 > >
 > > ### Proses Inference pada Gradient Boosting dan XGBoost
 > >
@@ -112,6 +138,16 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > > $$
 > >
 > > Pada XGBoost, nilai awal $F^{(0)}(x)$ biasanya berupa **bias** (rata‑rata target) yang dipelajari secara otomatis. Setiap pohon dievaluasi secara **leaf‑wise**: fitur pada node dipilih, nilai leaf di‑lookup, dan hasilnya dikalikan dengan learning rate sebelum dijumlahkan. Karena semua operasi bersifat deterministik, inference dapat dioptimalkan dengan teknik **vectorization** atau **GPU acceleration**, yang menjadi keunggulan praktis XGBoost pada produksi.
+> > 
+> > ## Perbedaan Utama
+> > 
+> > ||Gradient Boosting|XGBoost|
+> > |---|---|---|
+> > |Order optimasi|First-order (gradient)|Second-order (gradient + Hessian)|
+> > |Regularisasi|❌|✅ penalti leaf + L2|
+> > |Subsampling|❌|✅ row + column subsampling|
+> > |Split finding|Exact (semua nilai unik)|Histogram-based (lebih cepat)|
+> > |Inferensi|Sama|Sama|
 
 > [!cornell] #### Summary
 >
@@ -154,23 +190,3 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > $$
 >
 > Bukti konvergensi dapat diturunkan dengan asumsi loss konveks dan $\eta$ cukup kecil, mirip dengan analisis klasik gradient descent. Referensi: Friedman (2001) “Greedy Function Approximation: A Gradient Boosting Machine”.
->
-> #### XGBoost Objective Function and Second‑Order Approximation
->
-> XGBoost memformalkan objective pada iterasi $t$ sebagai:
->
-> $$
->
-> \mathcal{L}^{(t)} = \sum_{i=1}^{n} \bigl[ L(y_i, \hat{y}_i^{(t-1)} + f_t(x_i)) \bigr] + \Omega(f_t)
->
-> $$
->
-> Dengan melakukan **Taylor expansion** orde dua pada loss:
->
-> $$
->
-> L(y_i, \hat{y}_i^{(t-1)} + f_t(x_i)) \approx L(y_i, \hat{y}_i^{(t-1)}) + g_i^{(t)} f_t(x_i) + \frac{1}{2} h_i^{(t)} f_t(x_i)^2
->
-> $$
->
-> di mana $g_i^{(t)}$ dan $h_i^{(t)}$ masing‑masing gradient pertama dan Hessian kedua. Substitusi menghasilkan fungsi objektif ku

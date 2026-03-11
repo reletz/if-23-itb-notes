@@ -1,103 +1,98 @@
 ---
-type: Note
+
+type: Note 
 cssclasses:
-  - cornell-notes
+- cornell-notes
+
 ---
 
 _Back to_ [[IF3270 Pembelajaran Mesin]]
 
-> [!cornell] Adaptive Boosting (AdaBoost): Sequential Weak Learner Fusion via Instance Weighting
->
+> [!cornell] AdaBoost: Perbandingan Freund & Schapire / Kunapuli vs Han & Kamber
+> 
 > > ## Questions/Cues
-> >
+> > 
 > > - Mengapa contoh yang salah diberi bobot lebih tinggi?
-> > - Bagaimana cara menghitung bobot model pada tiap iterasi?
-> > - Apa peran distribusi bobot D pada data pelatihan?
-> > - Bagaimana cara menggabungkan prediksi weak learner menjadi keputusan akhir?
-> > - Apa yang terjadi bila sebuah weak learner memiliki error > 0,5?
-> >
+> > - Bagaimana cara menghitung bobot model $\alpha_t$ pada tiap iterasi?
+> > - Apa perbedaan rumus $\alpha_t$ antara Kunapuli dan Han & Kamber?
+> > - Bagaimana cara kerja inferensi di masing-masing versi?
+> > - Apa yang terjadi bila $\varepsilon_t > 0.5$ di kedua versi?
+> > 
 > > ## Reference Points
-> >
-> > - Kunapuli, G. (2023). *Ensemble methods for machine learning* (Halaman 38‑44)
-> > - Han, J., Pei, J., & Tong, H. (2022). *Data mining: concepts and techniques* (Halaman 38‑43)
+> > 
+> > - Kunapuli, G. (2023). _Ensemble methods for machine learning_ (Halaman 38–44)
+> > - Han, J., Pei, J., & Tong, H. (2022). _Data mining: concepts and techniques_ (Halaman 38–43)
 >
 > > ### Prinsip Dasar AdaBoost
-> >
-> > Adaptive Boosting, atau yang lebih dikenal dengan **AdaBoost**, merupakan metode ensemble **sekuensial** yang menggabungkan sejumlah **weak learner** (pembelajar lemah) menjadi satu **strong learner** (pembelajar kuat). 
 > > 
-> > Ide utama AdaBoost adalah memperbaiki kesalahan yang dibuat oleh model sebelumnya dengan memberi **prioritas** lebih tinggi pada contoh‑contoh yang sebelumnya salah diklasifikasikan. Pada setiap iterasi, algoritma melatih weak learner baru pada **dataset berbobot**, di mana bobot‑bobot ini mencerminkan pentingnya masing‑masing contoh dalam proses pelatihan. 
+> > **AdaBoost (Adaptive Boosting)** adalah metode ensemble **sekuensial** yang menggabungkan sejumlah **weak learner** menjadi satu **strong learner**. Berbeda dengan Bagging dan Random Forest yang melatih model secara paralel, AdaBoost melatih model satu per satu — setiap model berikutnya berfokus pada kesalahan model sebelumnya.
 > > 
-> > Karena setiap weak learner biasanya hanya sedikit lebih baik daripada tebak‑tebakan acak (misalnya decision stump dengan kedalaman satu), kombinasi linier berbobot dari banyak weak learner dapat menghasilkan akurasi yang sangat tinggi.
+> > Cara AdaBoost "fokus pada kesalahan" adalah dengan memaintain **distribusi bobot** $D_t(i)$ untuk setiap instance data. Instance yang salah diklasifikasi akan diberi bobot lebih tinggi, sehingga weak learner berikutnya lebih memperhatikannya. Bobot ini selalu memenuhi $\sum_i D_t(i) = 1$ sehingga dapat diperlakukan sebagai probabilitas.
+> > 
+> > Weak learner yang dipakai biasanya sangat sederhana, misalnya **decision stump** (Decision Tree dengan kedalaman 1). Kesederhanaan ini disengaja — bias tinggi tapi varians rendah — sehingga ketika digabungkan, bias total berkurang tanpa meningkatkan varians secara berlebihan.
 > >
-> > Konsep “adaptif” pada nama AdaBoost merujuk pada kemampuan algoritma untuk **menyesuaikan** distribusi bobot secara dinamis selama proses pelatihan. Pada iterasi pertama, semua contoh diberikan bobot yang sama, menandakan bahwa tidak ada pengetahuan awal tentang contoh mana yang sulit. Setelah weak learner pertama dievaluasi, contoh‑contoh yang salah diklasifikasikan akan **ditingkatkan bobotnya**, sementara contoh yang benar akan **dikurangi bobotnya**. Dengan cara ini, weak learner berikutnya “dipaksa” untuk fokus pada area‑area data yang masih belum terpecahkan, sehingga secara bertahap memperbaiki performa keseluruhan.
+> > ### Training: Freund & Schapire / Kunapuli (2023)
+> > 
+> > 1. Inisialisasi bobot: $D_i^{(1)} = 1/N$ (semua instance sama rata)
+> > 2. Untuk setiap iterasi $t$:
+> >     - Latih weak learner $h_t$ menggunakan **weighted dataset** $\langle x_i, y_i, D_i \rangle$
+> >     - Hitung training error:
+> > 
+> > $$\varepsilon_t = \sum_{i:, h_t(x_i) \neq y_i} D_i^{(t)}$$
+> > 
+> > - Hitung bobot model ($\alpha_t$ besar jika error kecil):
+> > 
+> > $$\alpha_t = \frac{1}{2} \ln\left(\frac{1 - \varepsilon_t}{\varepsilon_t}\right)$$
+> > 
+> > - Update instance weights:
+> > 	- Benar: $D_i^{(t+1)} = D_i^{(t)} / e^{\alpha_t}$ → bobot **turun**
+> > 	- Salah: $D_i^{(t+1)} = D_i^{(t)} \cdot e^{\alpha_t}$ → bobot **naik**
+> > - Normalisasi bobot: $\sum_i D_i^{(t+1)} = 1$
+> > - Jika $\varepsilon_t > 0.5$ → weak learner **dibatalkan**
 > >
-> > Secara matematis, AdaBoost dapat dipandang sebagai **optimisasi fungsi loss eksponensial**. Setiap weak learner berkontribusi pada fungsi keputusan akhir dengan bobot yang bergantung pada tingkat kesalahan (error) pada iterasi tersebut. Proses ini menghasilkan model akhir yang dapat dituliskan sebagai kombinasi linear berbobot:
+> > ### Training: Han & Kamber (2022)
+> > 
+> > 1. Inisialisasi bobot: $w_i = 1/N$
+> > 2. Untuk setiap iterasi $t$:
+> >     - **Sample** dataset berdasarkan distribusi bobot saat ini (berbeda dari Kunapuli yang langsung pakai weighted dataset)
+> >     - Latih weak learner $h_t$ dari sample tersebut
+> >     - Hitung error: $\varepsilon_t = \sum_i w_i \cdot \mathbf{1}[h_t(x_i) \neq y_i]$
+> >     - Jika $\varepsilon_t > 0.5$ → **reset bobot**, ulangi iterasi (berbeda dari Kunapuli yang langsung batalkan)
+> >     - Hitung bobot model ($\alpha_t$ kecil jika model bagus — interpretasi **terbalik**):
+> > 
+> > $$\alpha_t = \frac{\varepsilon_t}{1 - \varepsilon_t}$$
+> > 
+> > - Update instance weights:
+> > 	- Benar: $w_i \leftarrow w_i \cdot \alpha_t$ → bobot **turun** (karena $\alpha_t < 1$)
+> > 	- Salah: bobot **tetap**
+> > - Normalisasi bobot
 > >
-> > $$
+> > ### Inferensi
+> > 
+> > **Freund & Schapire / Kunapuli:**
+> > 
+> > $$\hat{y} = \text{sign}\left(\sum_{t=1}^{T} \alpha_t \cdot h_t(x)\right)$$
+> > 
+> > Setiap weak learner memberikan vote ${-1, +1}$, dikali $\alpha_t$, lalu dijumlahkan. Tanda dari total menentukan kelas akhir. Karena $\alpha_t$ logaritmik terhadap rasio error, model dengan error kecil berkontribusi **dominan**.
+> > 
+> > **Han & Kamber:**
+> > 
+> > $$\hat{y} = \arg\max_c \sum_{t:, h_t(x)=c} \ln\frac{1}{\alpha_t}$$
+> > 
+> > Tiap model vote kelas, dikali $\ln(1/\alpha_t)$. Karena di Han & Kamber $\alpha_t$ kecil = model bagus, maka $\log(1/\alpha_t)$ besar = kontribusi lebih besar. Logika sama, notasi terbalik.
+> > 
+> > **Contoh praktis (Kunapuli):** Tiga weak learner menghasilkan output $[+1, -1, +1]$ dengan bobot $[\alpha_1=0.8,\ \alpha_2=0.2,\ \alpha_3=0.5]$. Penjumlahan: $0.8(+1) + 0.2(-1) + 0.5(+1) = 1.1 > 0$, sehingga prediksi akhir adalah kelas $+1$.
 > >
-> > H(x)=\operatorname{sign}\Bigl(\sum_{t=1}^{T}\alpha_t\,h_t(x)\Bigr)
-> >
-> > $$
-> >
-> > di mana $h_t$ adalah weak learner ke‑$t$ dan $\alpha_t$ adalah bobotnya. Kombinasi ini memastikan bahwa weak learner yang lebih akurat memperoleh **pengaruh yang lebih besar** pada keputusan akhir.
-> >
-> > ### Proses Pembobotan Instance
-> >
-> > Pada setiap iterasi $t$, algoritma memelihara sebuah **distribusi bobot** $D_t(i)$ untuk setiap contoh pelatihan $(x_i, y_i)$. Distribusi ini selalu memenuhi $\sum_i D_t(i)=1$ sehingga dapat diperlakukan sebagai probabilitas. Langkah‑langkah utama pada iterasi $t$ adalah:
-> >
-> > 1. **Pelatihan weak learner** $h_t$ menggunakan data yang dibobotkan oleh $D_t$. Pada praktiknya, banyak implementasi mengubah dataset menjadi “re‑sampled” sesuai probabilitas $D_t$, tetapi secara konseptual yang penting adalah bahwa contoh dengan bobot tinggi lebih mungkin dipilih.
-> > 2. **Menghitung error** $\varepsilon_t$ dari $h_t$ pada data berbobor:
-> >
-> > $$
-> >
-> > \varepsilon_t = \sum_{i=1}^{N} D_t(i)\,\mathbf{1}\bigl(h_t(x_i)\neq y_i\bigr)
-> >
-> > $$
-> >
-> > di mana $\mathbf{1}(\cdot)$ adalah fungsi indikator.
-> >
-> > 1. **Menentukan bobot model** $\alpha_t$ dengan rumus:
-> >
-> > $$
-> >
-> > \alpha_t = \frac{1}{2}\ln\!\left(\frac{1-\varepsilon_t}{\varepsilon_t}\right)
-> >
-> > $$
-> >
-> > Nilai $\alpha_t$ meningkat bila $\varepsilon_t$ kecil (model akurat) dan menurun bila $\varepsilon_t$ mendekati 0,5. Jika $\varepsilon_t > 0,5$, algoritma biasanya **membatalkan** weak learner tersebut karena performanya lebih buruk daripada tebak‑tebakan acak.
-> >
-> > 2. **Memperbarui bobot contoh** untuk iterasi berikutnya:
-> >
-> > $$
-> >
-> > D_{t+1}(i)=\frac{D_t(i)\,\exp\!\bigl(-\alpha_t y_i h_t(x_i)\bigr)}{Z_t}
-> >
-> > $$
-> >
-> > di mana $Z_t$ adalah faktor normalisasi agar $\sum_i D_{t+1}(i)=1$. Jika contoh diklasifikasikan dengan benar ($y_i = h_t(x_i)$), eksponensial menjadi $\exp(-\alpha_t)$ (menurunkan bobot). Jika salah, eksponensial menjadi $\exp(\alpha_t)$ (meningkatkan bobot). Proses ini secara intuitif “menyiksa” contoh‑contoh yang masih salah, memaksa weak learner selanjutnya untuk memperhatikannya.
-> >
-> > Contoh numerik sederhana dapat membantu memperjelas mekanisme ini. Misalkan terdapat tiga contoh dengan bobot awal $D_1 = (1/3, 1/3, 1/3)$. Weak learner pertama mengklasifikasikan contoh ke‑2 dengan salah, menghasilkan $\varepsilon_1 = 1/3$. Maka $\alpha_1 = \frac{1}{2}\ln\!\bigl(\frac{2/3}{1/3}\bigr)=0.3466$. Bobot contoh ke‑2 akan dikalikan dengan $\exp(\alpha_1)\approx1.41$ sementara dua contoh lainnya dikalikan dengan $\exp(-\alpha_1)\approx0.71$. Setelah normalisasi, contoh ke‑2 memperoleh bobot yang lebih besar pada iterasi berikutnya, memaksa weak learner kedua untuk memperbaikinya.
-> >
-> > ### Kombinasi Model dan Penentuan Bobot
-> >
-> > Setelah seluruh iterasi selesai (biasanya ditentukan oleh jumlah maksimum weak learner atau oleh kriteria konvergensi), model akhir **menggabungkan** semua weak learner dengan bobot $\alpha_t$ yang telah dihitung. Kombinasi ini bersifat **linear** pada output prediksi (biasanya $\{-1,+1\}$ untuk klasifikasi biner). Pada fase inferensi, setiap weak learner memberikan “suara” yang dikalikan dengan $\alpha_t$; suara‑suara ini dijumlahkan, dan tanda total menentukan kelas prediksi.
-> >
-> > Secara visual, proses ini dapat dibayangkan seperti **pemungutan suara berimbang**: setiap anggota dewan (weak learner) memiliki kekuatan suara yang proporsional dengan rekam jejak keberhasilannya (nilai $\alpha_t$). Anggota yang sering salah (error tinggi) memiliki suara lemah, sementara anggota yang konsisten benar memiliki suara kuat. Keputusan akhir mencerminkan mayoritas suara berbobot, bukan sekadar mayoritas sederhana.
-> >
-> > Penting untuk dicatat bahwa **weak learner** yang dipilih biasanya sangat sederhana (misalnya decision stump). Kesederhanaan ini memastikan bahwa setiap learner memiliki **bias tinggi** tetapi **varians rendah**, sehingga ketika digabungkan, bias total dapat berkurang secara signifikan tanpa meningkatkan varians secara berlebihan. Inilah mengapa AdaBoost dapat menghasilkan model yang kuat meskipun setiap komponennya lemah.
-> >
-> > ### Inferensi dan Prediksi Akhir
-> >
-> > Pada saat melakukan prediksi pada data baru $x$, langkahnya sangat langsung:
-> >
-> > 1. **Evaluasi setiap weak learner** $h_t(x)$ untuk memperoleh nilai $\{-1,+1\}$.
-> > 2. **Kalikan** setiap output dengan bobot $\alpha_t$ yang telah dipelajari.
-> > 3. **Jumlahkan** semua nilai berbobot: $S(x)=\sum_{t=1}^{T}\alpha_t h_t(x)$.
-> > 4. **Ambil tanda** dari hasil penjumlahan: $\hat{y}= \operatorname{sign}(S(x))$. Jika $S(x)>0$ maka kelas +1, sebaliknya –1.
-> >
-> > Karena $\alpha_t$ bersifat logaritmik terhadap rasio kesalahan, weak learner yang sangat akurat (error kecil) akan memberikan kontribusi yang **dominant** pada nilai akhir. Sebaliknya, weak learner yang hampir acak (error mendekati 0,5) akan memiliki $\alpha_t$ mendekati nol, sehingga hampir tidak memengaruhi keputusan akhir.
-> >
-> > **Contoh praktis**: Misalkan tiga weak learner menghasilkan output $[+1, -1, +1]$ dengan bobot $[\alpha_1=0.8, \alpha_2=0.2, \alpha_3=0.5]$. Penjumlahan berbobot menjadi $0.8(+1)+0.2(-1)+0.5(+1)=1.1$. Karena hasilnya positif, prediksi akhir adalah kelas +1. Jika bobot weak learner kedua lebih besar (misalnya $\alpha_2=1.0$), maka total dapat menjadi negatif, mengubah keputusan akhir.
+> > ### Perbandingan Ringkas
+> > 
+> > ||Freund & Schapire / Kunapuli|Han & Kamber|
+> > |---|---|---|
+> > |Input model|Weighted dataset langsung|Sample berdasarkan bobot|
+> > |Rumus $\alpha_t$|$\frac{1}{2}\ln\frac{1-\varepsilon}{\varepsilon}$|$\frac{\varepsilon}{1-\varepsilon}$|
+> > |Interpretasi $\alpha_t$|Besar = model bagus|Kecil = model bagus|
+> > |Update bobot|Salah naik, benar turun|Benar turun, salah tetap|
+> > |Jika $\varepsilon_t > 0.5$|Weak learner dibatalkan|Reset bobot, ulangi|
+> > |Inferensi|$\text{sign}(\sum \alpha_t h_t)$|$\arg\max \sum \ln(1/\alpha_t)$|
 > >
 > > ### Kelebihan dan Keterbatasan AdaBoost
 > >
@@ -112,12 +107,10 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > > - **Sensitivitas terhadap noise**: Jika data mengandung banyak label yang salah, bobot pada contoh‑contoh noisy akan terus meningkat, menyebabkan overfitting.
 > > - **Kebutuhan weak learner yang sedikit lebih baik dari acak**; bila weak learner tidak dapat mencapai error < 0,5, algoritma akan gagal.
 > > - **Kompleksitas komputasi** meningkat seiring jumlah iterasi, terutama bila dataset besar dan weak learner tidak trivial.
-> >
-> > Memahami trade‑off ini penting bagi mahasiswa yang ingin mengaplikasikan AdaBoost pada masalah nyata, seperti deteksi penipuan, klasifikasi teks, atau diagnosis medis.
 
 > [!cornell] #### Summary
->
-> **AdaBoost** membangun model kuat dengan melatih serangkaian weak learner secara berurutan, memberi **bobot lebih tinggi pada contoh yang salah** pada setiap iterasi. Bobot model $\alpha_t$ dihitung dari error $\varepsilon_t$ dan menentukan **pengaruh suara** masing‑masing learner pada keputusan akhir. Proses adaptif ini menghasilkan **kombinasi linear berbobot** yang dapat mengatasi data tidak seimbang, namun tetap rentan terhadap **noise** dan memerlukan weak learner yang setidaknya lebih baik daripada tebak‑tebakan acak.
+> 
+> **AdaBoost** membangun strong learner secara sekuensial dengan memberi **bobot lebih tinggi pada instance yang salah** di setiap iterasi. Versi **Kunapuli/Freund & Schapire** menggunakan weighted dataset langsung dengan $\alpha_t = \frac{1}{2}\ln\frac{1-\varepsilon}{\varepsilon}$ (besar = bagus), sementara **Han & Kamber** melakukan sampling terlebih dahulu dengan $\alpha_t = \frac{\varepsilon}{1-\varepsilon}$ (kecil = bagus). Keduanya mencapai tujuan yang sama — model dengan error kecil berkontribusi lebih besar pada prediksi akhir — hanya dengan jalur dan notasi yang berbeda.
 
 > [!ad-libitum]- Additional Information
 >
@@ -164,3 +157,4 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > #### Generalisasi dan Margin Theory
 >
 > Salah satu kontribusi paling signifikan dalam literatur AdaBoost adalah **teori margin**.
+

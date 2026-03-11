@@ -39,11 +39,49 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > >
 > > ### Weighting Schemes in Heterogeneous Ensembles
 > >
-> > Pada ensemble heterogen, **bobot** menentukan seberapa besar kontribusi masing‑masing model terhadap prediksi akhir. Ada dua pendekatan utama: **bobot statis** dan **bobot dinamis**.
+> > Pada ensemble heterogen, **bobot** menentukan seberapa besar kontribusi masing‑masing model terhadap prediksi akhir. 
+> > 
+> > Sebelum digunakan, penting untuk menormalisasi bobot supaya berjumlah 100% 
+> > 
+> > $$
+> > w_i=\frac{p_i}{\sum_{j=1}^np_j}
+> > $$
+> > 
+> > *Use case*: Misalkan metriknya adalah akurasi, maka normalisasi akurasinya. Begitupun untuk F1 dan metrik lainnya.
+> > 
+> > Ada dua pendekatan utama: **bobot statis/hard voting** dan **bobot dinamis/soft voting**.
 > >
 > > **Bobot Statis** biasanya dihitung satu kali setelah fase validasi, menggunakan metrik performa seperti akurasi, F1‑score, atau AUC pada data validasi. Misalnya, jika tiga model memperoleh akurasi 0,92; 0,85; dan 0,78, bobot dapat ditetapkan proporsional terhadap nilai tersebut (misalnya 0,45; 0,35; 0,20). Pendekatan ini sederhana, mudah diinterpretasikan, dan cocok ketika data tidak berubah secara signifikan di masa depan.
 > >
-> > **Bobot Dinamis** menyesuaikan kontribusi model pada setiap contoh input. Salah satu teknik populer adalah **probability‑based weighting**, di mana setiap model menghasilkan distribusi probabilitas kelas, dan bobot pada contoh tertentu dihitung berdasarkan kepercayaan (confidence) model pada kelas tersebut. Contoh: pada sebuah instance, model A memberikan probabilitas 0,9 untuk kelas positif, sementara model B hanya 0,55; maka pada instance itu, bobot model A akan lebih tinggi. Teknik lain melibatkan **stacked generalization** (lihat bagian berikut) yang secara otomatis belajar fungsi penggabungan berbobot melalui meta‑learner.
+> > > Secara matematis:
+> > > $$
+> > >
+> > >\hat{y}​ = \sum_{i=1}^n​w_i​ \cdot \hat{y}_i​
+> > > 
+> > > $$
+> >
+> >
+> > **Bobot Dinamis** menyesuaikan kontribusi model pada setiap contoh input. Salah satu teknik populer adalah **probability‑based weighting**, di mana setiap model menghasilkan distribusi probabilitas kelas, dan bobot pada contoh tertentu dihitung berdasarkan kepercayaan (confidence) model pada kelas tersebut. **Contoh:** pada sebuah instance, model A memberikan probabilitas 0,9 untuk kelas positif, sementara model B hanya 0,55; maka pada instance itu, bobot model A akan lebih tinggi. Teknik lain melibatkan **stacked generalization** (lihat bagian berikut) yang secara otomatis belajar fungsi penggabungan berbobot melalui meta‑learner.
+> > 
+> > >  Secara matematis:
+> > > $$
+> > >
+> > >\hat{y} = \arg\max_c \sum_{i=1}^{n} w_i \cdot P_i(c \mid x)​
+> > > 
+> > > $$
+> > 
+> > **Contoh lagi:**
+> > 
+> > 3 model, 2 kelas (0 dan 1), input x tertentu:
+> >
+> > Model 1 (w=0.5): P(kelas=1) = 0.80, P(kelas=0) = 0.20
+> > Model 2 (w=0.3): P(kelas=1) = 0.60, P(kelas=0) = 0.40
+> > Model 3 (w=0.2): P(kelas=1) = 0.30, P(kelas=0) = 0.70
+> > 
+> > Skor kelas=1: (0.5×0.80) + (0.3×0.60) + (0.2×0.30) = 0.40 + 0.18 + 0.06 = 0.64
+> > Skor kelas=0: (0.5×0.20) + (0.3×0.40) + (0.2×0.70) = 0.10 + 0.12 + 0.14 = 0.36
+> > 
+> > -> Final prediction = kelas 1 (skor tertinggi)
 > > 
 > > ![[Pasted image 20260212102901.png]]
 > >
