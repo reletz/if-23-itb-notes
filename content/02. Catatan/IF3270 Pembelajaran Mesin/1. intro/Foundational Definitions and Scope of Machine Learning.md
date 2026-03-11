@@ -32,6 +32,7 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > > 1. *Problem-solving agents* (pemecah masalah dengan logika)
 > > 2. *Knowledge-based agents* (sistem berbasis pengetahuan eksplisit)
 > > 3. ***Machine-learning agents*** (agen yang belajar dari data)
+> > 
 > > ML menduduki posisi khusus sebagai mekanisme akuisisi pengetahuan otomatis dalam sistem AI. Contoh aplikasi nyata termasuk sistem deteksi penipuan transaksi (mempelajari pola transaksi mencurigakan) dan asisten virtual (meningkatkan respons melalui interaksi pengguna).
 > > 
 > > **Ruang lingkup ML** mencakup desain sistem yang mampu:

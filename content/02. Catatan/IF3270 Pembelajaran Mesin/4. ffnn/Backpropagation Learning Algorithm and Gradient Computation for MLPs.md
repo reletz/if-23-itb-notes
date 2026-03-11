@@ -42,7 +42,7 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > >
 > > $$
 > >
-> > w \leftarrow w - \alpha \, \frac{\partial L}{\partial w}
+> > w \leftarrow w + \alpha \, \frac{\partial L}{\partial w}
 > >
 > > $$
 > >
@@ -58,7 +58,7 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > >
 > > $$
 > >
-> > Dengan x=0.5, t=1, w=0.2, dan α=0.1, kita dapat menghitung nilai gradien dan memperbarui w menjadi w' = 0.2 - 0.1·gradien. Langkah‑langkah ini diulang untuk semua bobot dalam jaringan.
+> > Dengan x=0.5, t=1, w=0.2, dan α=0.1, kita dapat menghitung nilai gradien dan memperbarui w menjadi w' = 0.2 + 0.1·gradien. Langkah‑langkah ini diulang untuk semua bobot dalam jaringan.
 > >
 > > ### Computing Gradients for the Output Layer
 > >
@@ -66,7 +66,7 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > >
 > > $$
 > >
-> > \delta_i = (\hat{y}_i - t_i)\,σ'(net_i)
+> > \delta_i = (t_i - \hat{y}_i)\,σ'(net_i)
 > >
 > > $$
 > >
@@ -84,11 +84,11 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > >
 > > $$
 > >
-> > \delta_{out}= (0.73-1)\cdot 0.73\cdot(1-0.73) \approx -0.045
+> > \delta_{out}= (1-0.73)\cdot 0.73\cdot(1-0.73) \approx 0.045
 > >
 > > $$
 > >
-> > Gradien untuk bobot w_{h1→out} = $\delta_{out}\cdot h_1 \approx -0.027$ dan w_{h2→out} = $\delta_{out}\cdot h_2 \approx -0.018$. Pembaruan bobot menggunakan learning rate α=0.1 menghasilkan penurunan kecil pada kedua bobot.
+> > Gradien untuk bobot $w_{h1→out} = \delta_{out}\cdot h_1 \approx 0.027$ dan $w_{h2→out} = \delta_{out}\cdot h_2 \approx 0.018$. Pembaruan bobot menggunakan learning rate α=0.1 menghasilkan penurunan kecil pada kedua bobot.
 > >
 > > ### Computing Gradients for Hidden Layers
 > >
@@ -110,15 +110,15 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > >
 > > dengan $a_j$ adalah aktivasi neuron sebelumnya (bisa input atau hidden lain). Proses ini berulang ke atas hingga mencapai lapisan input, menghasilkan **gradient vector** lengkap untuk seluruh jaringan.
 > >
-> > Contoh numerik lanjutan: menggunakan nilai $\delta_{out} = –0.045$ dari contoh sebelumnya, bobot $w_{h1→out}=0.5$, $w_{h2→out}=–0.3$. Turunan sigmoid pada hidden $net_k$ (misalnya $net_{h1}=0.4, σ'(0.4)=0.24$). Maka:
+> > Contoh numerik lanjutan: menggunakan nilai $\delta_{out} = 0.045$ dari contoh sebelumnya, bobot $w_{h1→out}=0.5$, $w_{h2→out}=–0.3$. Turunan sigmoid pada hidden $net_k$ (misalnya $net_{h1}=0.4, σ'(0.4)=0.24$). Maka:
 > >
 > > $$
 > >
-> > \delta_{h1}=0.24\,(0.5\cdot -0.045) \approx -0.0054
+> > \delta_{h1}=0.24\,(0.5\cdot 0.045) \approx 0.0054
 > >
 > > $$
 > >
-> > Gradien untuk bobot $w_{x1→h1}$ (dengan input x₁=0.05) menjadi $\delta_{h1}\cdot x_1 \approx -0.00027$. Pembaruan bobot ini memperbaiki representasi hidden secara bertahap.
+> > Gradien untuk bobot $w_{x1→h1}$ (dengan input x₁=0.05) menjadi $\delta_{h1}\cdot x_1 \approx 0.00027$. Pembaruan bobot ini memperbaiki representasi hidden secara bertahap.
 > >
 > > ### Weight Update Rule and Learning Rate
 > >
@@ -126,7 +126,7 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > >
 > > $$
 > >
-> > w \leftarrow w - \alpha \, \frac{\partial L}{\partial w}
+> > w \leftarrow w + \alpha \, \frac{\partial L}{\partial w}
 > >
 > > $$
 > >
@@ -136,11 +136,11 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > >
 > > $$
 > >
-> > b_i \leftarrow b_i - \alpha \, \delta_i
+> > b_i \leftarrow b_i + \alpha \, \delta_i
 > >
 > > $$
 > >
-> > Contoh: dengan $δ_{out} = –0.045$ dan α=0.1, bias output baru menjadi $b_{out}^{new}=b_{out}^{old}+0.0045$.
+> > Contoh: dengan $δ_{out} = 0.045$ dan α=0.1, bias output baru menjadi $b_{out}^{new}=b_{out}^{old}+0.0045$.
 > >
 > > ### Termination Criteria and Practical Considerations
 > >
@@ -153,6 +153,24 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > > Selain itu, penting untuk memantau **gradient exploding** (gradien menjadi sangat besar) yang dapat menyebabkan nilai bobot tak terhingga. Teknik normalisasi seperti **gradient clipping** atau penggunaan fungsi aktivasi yang lebih stabil (mis. ReLU) dapat mengurangi masalah ini.
 > >
 > > Pada praktik nyata, backpropagation sering dipadukan dengan **mini‑batch gradient descent**, di mana gradien dihitung pada subset kecil data (mis. 32 contoh) sebelum pembaruan bobot. Ini menyeimbangkan kestabilan estimasi gradien (lebih baik daripada stochastic) dan kecepatan komputasi (lebih baik daripada batch penuh).
+> > 
+> > ### Step-by-step Backpropagation
+> > 
+> > Setelah menebak, model harus tahu seberapa salah tebakannya dan mengevaluasi bobot mana yang harus disalahkan menggunakan kalkulus diferensial (_chain rule_).
+> > 
+> > 1. **Hitung Error:** Bandingkan hasil prediksi $\hat{\mathbf{y}}$ (dari Forward Propagation) dengan target jawaban asli $t$ untuk mengetahui seberapa jauh tebakannya meleset.
+> >     
+> > 2. **Hitung Sinyal Koreksi (Delta) di Output:** Cari tahu "nilai koreksi" untuk lapisan terakhir dengan mengalikan selisih error dengan turunan dari fungsi aktivasinya. Rumusnya: $\delta_i = (\hat{y}_i - t_i)\sigma'(net_i)$.
+> >     
+> > 3. **Dapatkan Gradien Bobot Output:** Kalikan nilai delta tersebut dengan output dari _hidden layer_ sebelumnya untuk menghitung gradien (arah perbaikan bobot): $\frac{\partial L}{\partial w_{ji}} = \delta_i h_j$.
+> >     
+> > 4. **Mundur ke Hidden Layer:** "Lempar" error tadi ke belakang menggunakan _chain rule_ untuk menghitung delta di lapisan tersembunyi. Rumusnya: $\delta_k = \sigma'(net_k) \sum_{i} w_{ki} \delta_i$.
+> >     
+> > 5. **Dapatkan Gradien Bobot Hidden:** Kalikan delta _hidden layer_ dengan input yang masuk ke lapisan tersebut untuk mendapatkan gradiennya: $\frac{\partial L}{\partial w_{jk}} = \delta_k a_j$.
+> >     
+> > 6. **Perbarui Bobot dan Bias (Gradient Descent):** Kurangi bobot dan bias lama dengan nilai gradien yang sudah dikali ukuran langkah atau _learning rate_ $\alpha$. Rumusnya: $w \leftarrow w + \alpha \frac{\partial L}{\partial w}$.
+> >     
+> > 7. **Iterasi:** Ulangi terus fase Forward dan Backward dari awal untuk seluruh data pelatihan sampai tingkat error (_loss_) mencapai target kecil atau iterasi (_epoch_) maksimalnya habis.
 
 > [!cornell] #### Summary
 >

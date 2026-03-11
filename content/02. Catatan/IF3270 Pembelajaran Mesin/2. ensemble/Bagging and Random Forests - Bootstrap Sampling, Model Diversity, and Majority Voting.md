@@ -53,7 +53,7 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > >
 > > Setelah setiap base estimator menghasilkan prediksi, ensemble harus menggabungkannya menjadi satu keputusan akhir. Pada tugas klasifikasi, metode yang paling umum adalah **majority voting** (pemungutan suara mayoritas). Setiap model memberikan satu label kelas; kelas yang memperoleh suara terbanyak menjadi prediksi akhir. Jika terdapat *ties*, biasanya dipilih kelas dengan probabilitas rata‑rata tertinggi atau dipilih secara acak.
 > >
-> > Secara matematis, untuk \(M\) model dan kelas \(c\), prediksi akhir \(\hat{y}\) diberikan oleh:
+> > Secara matematis, untuk \(M\) model dan kelas \(c\), prediksi akhir \($\hat{y}$\) diberikan oleh:
 > >
 > > $$
 > >

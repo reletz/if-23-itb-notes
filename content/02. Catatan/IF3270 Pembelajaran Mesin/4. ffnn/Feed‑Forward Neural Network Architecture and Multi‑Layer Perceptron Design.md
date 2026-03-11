@@ -86,6 +86,22 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > > Jumlah parameter ini memberi gambaran kasar tentang **kompleksitas fungsi** yang dapat dipelajari jaringan. Model dengan terlalu banyak parameter relatif terhadap ukuran data cenderung **overfit**, sementara model dengan terlalu sedikit parameter mungkin **underfit**.
 > >
 > > Parameter juga memengaruhi **waktu komputasi** dan **konsumsi energi**, terutama pada perangkat edge. Oleh karena itu, perancangan arsitektur harus menyeimbangkan antara **kapasitas representasi** dan **efisiensi sumber daya**.
+> > 
+> > ### Step-by-step Forward Propagation
+> > 
+> > Tujuan di fase ini cuma satu: mengubah data input menjadi prediksi akhir secara deterministik, tanpa ada perubahan bobot.
+> > 
+> > 1. **Siapkan Input:** Masukkan data  $\mathbf{x}$ sebagai aktivasi awal atau $\mathbf{a}^{(0)}$.
+> >     
+> > 2. **Hitung Kombinasi Linear:** Kalikan input tersebut dengan matriks bobot $\mathbf{W}$ lalu tambahkan vektor bias $\mathbf{b}$. Proses ini menghasilkan _net input_ atau pre-aktivasi: $\mathbf{z}^{(l)} = \mathbf{W}^{(l)}\mathbf{a}^{(l-1)} + \mathbf{b}^{(l)}$.
+> >     
+> > 3. **Terapkan Fungsi Aktivasi:** Masukkan hasil dari langkah 2 ke fungsi aktivasi non-linier (seperti Sigmoid atau ReLU) untuk mendapatkan sinyal output dari lapisan tersebut: $\mathbf{a}^{(l)} = f^{(l)}(\mathbf{z}^{(l)})$.
+> >     
+> > 4. **Maju Terus:** Ulangi langkah 2 dan 3 secara berurutan untuk setiap lapisan, mulai dari _hidden layer_ pertama sampai mencapai _output layer_.
+> >     
+> > 5. **Dapatkan Prediksi Akhir:** Output yang keluar dari lapisan paling ujung $\mathbf{a}^{(L)}$ adalah tebakan atau prediksi akhir modelmu $\hat{\mathbf{y}}$.
+> >     
+> > 
 
 > [!cornell] ### Summary
 > 

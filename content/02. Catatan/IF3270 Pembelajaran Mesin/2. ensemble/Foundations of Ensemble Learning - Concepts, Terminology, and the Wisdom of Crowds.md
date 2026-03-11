@@ -86,7 +86,7 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > >
 > > ### Sequential Ensembles (Konsep Umum)
 > >
-> > Pada ensemble sekuensial, model dilatih **bertahap** sehingga setiap model baru berfokus pada contoh yang masih sulit diprediksi oleh model sebelumnya. Ide dasarnya adalah **memperbaiki kesalahan** secara iteratif. Meskipun teknik spesifik seperti AdaBoost atau Gradient Boosting dilarang untuk dijelaskan, prinsip umum ini tetap relevan: setiap iterasi menambahkan model lemah yang “mengisi celah” pada fungsi prediksi yang ada, sehingga secara kumulatif menghasilkan model kuat.
+> > Pada ensemble sekuensial, model dilatih **bertahap** sehingga setiap model baru berfokus pada contoh yang masih sulit diprediksi oleh model sebelumnya. Ide dasarnya adalah **memperbaiki kesalahan** secara iteratif. Setiap iterasi menambahkan model lemah yang “mengisi celah” pada fungsi prediksi yang ada, sehingga secara kumulatif menghasilkan model kuat.
 > >
 > > ### Model Aggregation Techniques
 > >
