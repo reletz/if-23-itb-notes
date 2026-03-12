@@ -18,9 +18,9 @@ _Back to_ [[index]]
 	- [[Gradient Boosting and XGBoost - Residual‑Based Additive Modeling and Gradient‑Descent Optimization]]
 - ## Perceptron
 	- [[Biological Inspiration and Formal Definition of the Perceptron]]
+	- [[Logical Function Representation with Perceptrons (m‑of‑n, AND, OR, XOR)]]
 	- [[Batch Gradient Descent and the Perceptron Learning (Delta) Rule]]
 	- [[Stochastic and Mini‑Batch Gradient Descent for Perceptron Training]]
-	- [[Logical Function Representation with Perceptrons (m‑of‑n, AND, OR, XOR)]]
 - ## Feed-Forward Neural Network
 	- [[Fundamentals, Motivation, and Application Domains of Artificial Neural Networks]]
 	- [[Feed‑Forward Neural Network Architecture and Multi‑Layer Perceptron Design]]
