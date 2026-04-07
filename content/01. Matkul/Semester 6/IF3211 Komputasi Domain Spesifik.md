@@ -35,6 +35,11 @@ _Back to_ [[index]]
 	- [[Regulation of Enzyme Activity: Inhibition Types]]
 - ## UTS
 	jujur gatau ga belajar
+	- [[Rangkuman Bab 1]]
+	- [[Rangkuman Bab 2]]
+	- [[Rangkuman Bab 3]]
+	- [[Rangkuman Bab 4]]
+	- [[Rangkuman Bab 5]]
 - ## Bentuk dan Fungsi Tumbuhan
 	- [[Plant Structural Organization and Tissue Systems]]
 	- [[Mechanisms of Plant Growth and Development]]
