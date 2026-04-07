@@ -4,34 +4,37 @@ cssclasses:
 ---
 _Back to_ [[index]]
 # Overview
-- ## Intro
-	- [[Interdisciplinary Motivation Biology and Computing]]
-	- [[Foundations of Computational Biology and Bioinformatics]]
-	- [[Core Principles of Biology]]
-- ## Sel
-	- [[Eukaryotic vs Prokaryotic Cell Structures]]
-	- [[Cellular Energy Metabolism and ATP Cycle]]
-	- [[Membrane Transport Mechanisms]]
-	- [[Computational Methods in Cellular Analysis]]
+- ## Intro & Sel
+	- [[Definition, Scope, and Interdisciplinary Foundations of Computational Biology]]
+	- [[Bio‑Inspired and Biological Computing Paradigms: Algorithms, Hardware, and Applications]]
+	- [[Scientific Methodology in Biology: Observation, Hypothesis Formation, and Reasoning]]
+	- [[Fundamental Biological Concepts: Cell Structure, Genetics, and Evolutionary Principles]]
+- ## Makromolekul
+	- [[Macromolecules as Polymers: Monomers, Polymerization, and Hydrolysis]]
+	- [[Carbohydrate Chemistry: Monosaccharides, Disaccharides, and Polysaccharides]]
+	- [[Lipid Diversity and Structure: Fats, Fatty Acids, and Hydrophobicity]]
+	- [[Protein Architecture: Amino Acid Monomers to Four Levels of Structure]]
+	- [[Adenosine Triphosphate (ATP): Structure, Hydrolysis, and Energy Coupling]]
 - ## Genetika
-	- [[Cell Cycle Regulation and Mitotic Division]]
-	- [[Meiosis and Genetic Diversity Mechanisms]]
-	- [[Molecular Basis of Inheritance DNA Structure and Replication]]
-	- [[Gene Expression Transcription and Translation Processes]]
-	- [[Mendelian Inheritance Patterns and Genetic Analysis]]
-	- [[Genomics and Bioinformatics Applications]]
-- ## Evolusi
-	- [[Early Life and Prokaryotic Evolution]]
-	- [[Darwins Theory of Evolution and Natural Selection]]
-	- [[Speciation Mechanisms and Reproductive Isolation]]
-	- [[Computational Methods in Evolutionary Biology]]
-- ## Keanekaragaman Hayati
-	- [[Phylogenetic Analysis and DNA-Based Identification]]
-	- [[Prokaryotic Diversity Bacteria and Archaea]]
-	- [[Fungis Role in Land Colonization and Symbiosis]]
-	- [[Animal Phylogeny and Vertebrate Evolution]]
-	- [[Seed Plant Adaptations for Terrestrial Life]]
-	- [[Genomic and Morphological Computational Tools in Biodiversity]]
+	- [[DNA Structure, Replication, and Proofreading Mechanisms]]
+	- [[Gene Expression: Transcription and Translation Pathways]]
+	- [[Mutations and Their Molecular Consequences]]
+	- [[Genome Sequencing Technologies and Bioinformatics Foundations]]
+	- [[Comparative Genomics and Evolutionary Insights]]
+- ## Transportasi Sel
+	- [[Fluid Mosaic Model: Structural Basis of Cellular Membranes]]
+	- [[Determinants of Membrane Fluidity and Phase Behavior]]
+	- [[Membrane Proteins: Types, Structures, and Functional Roles]]
+	- [[Passive Transport Mechanisms: Diffusion, Osmosis, and Facilitated Diffusion]]
+	- [[Active Transport and the Sodium‑Potassium Pump]]
+- ## Metabolisme
+	- [[Forms of Energy in Biological Systems]]
+	- [[Fundamental Laws of Thermodynamics Applied to Metabolism]]
+	- [[Free Energy, Stability, and Spontaneous Reactions]]
+	- [[Activation Energy and Enzyme Catalysis Mechanisms]]
+	- [[Regulation of Enzyme Activity: Inhibition Types]]
+- ## UTS
+	jujur gatau ga belajar
 - ## Bentuk dan Fungsi Tumbuhan
 	- [[Plant Structural Organization and Tissue Systems]]
 	- [[Mechanisms of Plant Growth and Development]]
