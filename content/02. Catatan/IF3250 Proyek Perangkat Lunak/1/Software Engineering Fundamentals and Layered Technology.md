@@ -4,7 +4,7 @@ cssclasses:
   - cornell-notes
 ---
 
-_Back to_ [[Rekayasa Perangkat Lunak]]
+_Back to_ [[IF3250 Proyek Perangkat Lunak]]
 
 > [!cornell] Software Engineering Fundamentals and Layered Technology
 >

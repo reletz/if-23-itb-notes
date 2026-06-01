@@ -29,11 +29,6 @@ _Back to_ [[index]]
 	- [[Practical Implementation of Feed‑Forward Neural Networks with Keras and Parameter Accounting]]
 - ## Kuis 1
 	- [[Latihan Soal Ensemble Learning I]]
-	- [[Latihan Soal Ensemble Learning II]]
-	- [[Latihan Soal Perceptron I]]
-	- [[Latihan Soal Perceptron II]]
-	- [[Latihan Soal FFNN I]]
-	- [[Latihan Soal FFNN II]]
 	- [[Solusi Kuis1.pdf|Solusi Kuis 1 2025]]
 - ## Convolutional Neural Network
 	- [[Motivation and Fundamental Concepts of CNNs]]
@@ -50,7 +45,12 @@ _Back to_ [[index]]
 	- [[LSTM Architecture Components and Gates]]
 	- [[Forward Propagation in LSTM Networks]]
 	- [[Backpropagation Through Time BPTT in RNNs]]
-	- [[Encoder-Decoder Models in Sequence Learning]]
+	- [[Encoder-Decoder Models in Sequence Learning]]\
+- ## Kuis 2
+	- [[CNN - Kuis 2]]
+	- [[RNN - Kuis 2]]
+	- [[LSTM - Kuis 2]]
+	- [[Encoder-Decoder - Kuis 2]]
 - ## Attention and Transformers
 	- [[Traditional Encoder-Decoder Architecture in Sequence Models]]
 	- [[Attention Mechanisms for Contextual Processing]]

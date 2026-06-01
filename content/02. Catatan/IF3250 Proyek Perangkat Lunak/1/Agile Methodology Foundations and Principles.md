@@ -4,7 +4,7 @@ cssclasses:
   - cornell-notes
 ---
 
-_Back to_ [[Proyek Perangkat Lunak]]
+_Back to_ [[IF3250 Proyek Perangkat Lunak]]
 
 > [!cornell] Agile Methodology Foundations and Principles
 >

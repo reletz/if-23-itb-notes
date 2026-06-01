@@ -20,7 +20,21 @@ _Back to_ [[index]]
 - ## Scenario-Based Modelling
 	- [[Use-Case Diagram Components and Fundamentals]]
 	- [[Actor Generalization and Role Modeling]]
-	- [[Use-Case Relationships: Include vs Extend]]
 	- [[Scenario Development and Flow Specification]]
 	- [[Activity Diagrams for Process Modeling]]
 	- [[Scenario-Based Modeling Methodology]]
+- ## Large Scale Software Development
+	- [[Large-Scale Software Problems and Characteristics]]
+	- [[Principles and Coordination in Large-Scale Development]]
+	- [[Ultra-Large-Scale (ULS) Systems]]
+	- [[Scaling Agile for Large Teams (LeSS and SAFe)]]
+- ## Software Quality and Metrics
+	- [[Software Quality and ISO IEC 25010]]
+	- [[Software Measurement Fundamentals]]
+	- [[Size and Complexity Metrics]]
+	- [[Object-Oriented Metrics]]
+	- [[Software Measurement Tools]]
+- ## Domain-Specific Software Engineering
+	- [[DSSE Concepts and Three Key Factors]]
+	- [[Domain Model]]
+	- [[Domain-Specific Software Architecture (DSSA)]]
