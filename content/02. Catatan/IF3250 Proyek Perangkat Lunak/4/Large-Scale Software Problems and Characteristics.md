@@ -82,9 +82,12 @@ _Back to_ [[IF3250 Proyek Perangkat Lunak]]
 > > - ±2,5 juta versi
 > > - 52.000+ derived files (single nightly build)
 > > - 900+ user accounts
-> > - >1 Terabyte disk space
-> >
-> > **HP-UX Concurrent Development**: normalnya 2-3 release sedang dikembangkan, beberapa release dalam maintenance, dan penggunaan *branching & merging* yang masif. **HP-UX Multisite Development**: empat situs pengembangan primer (tiga di USA dengan tiga zona waktu, satu di India), satu situs USA menampung tiga situs logis (partner companies), serta beberapa situs sekunder.
+> > - \>1 Terabyte disk space
+> > 
+> > Dilakukan dengan cara berikut:
+> > 
+> > 1. **HP-UX Concurrent Development**: normalnya 2-3 release sedang dikembangkan, beberapa release dalam maintenance, dan penggunaan *branching & merging* yang masif. 
+> > 2. **HP-UX Multisite Development**: empat situs pengembangan primer (tiga di USA dengan tiga zona waktu, satu di India), satu situs USA menampung tiga situs logis (partner companies), serta beberapa situs sekunder.
 
 > [!cornell] #### Summary
 >

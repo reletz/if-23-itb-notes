@@ -3,7 +3,7 @@ cssclasses:
   - dashboard
 ---
 _Back to_ [[index]]
-# Overview
+# UTS
 - ## Software Process
 	- [[Software Engineering Fundamentals and Layered Technology]]
 	- [[Generic Software Process Framework and Umbrella Activities]]
@@ -23,6 +23,7 @@ _Back to_ [[index]]
 	- [[Scenario Development and Flow Specification]]
 	- [[Activity Diagrams for Process Modeling]]
 	- [[Scenario-Based Modeling Methodology]]
+# UAS
 - ## Large Scale Software Development
 	- [[Large-Scale Software Problems and Characteristics]]
 	- [[Principles and Coordination in Large-Scale Development]]
@@ -38,3 +39,10 @@ _Back to_ [[index]]
 	- [[DSSE Concepts and Three Key Factors]]
 	- [[Domain Model]]
 	- [[Domain-Specific Software Architecture (DSSA)]]
+- ## UAS
+	- [[UAS 2019-2020 - Pembahasan]]
+	- [[UAS 2020-2021 - Pembahasan]]
+	- [[UAS 2021-2022 - Pembahasan]]
+	- [[UAS 2024-2025 - Pembahasan]]
+	- [[Pembahasan Soal Berbasis Proyek]]
+	- [[Rangkuman Kilat UAS]]

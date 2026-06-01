@@ -3,7 +3,7 @@ cssclasses:
   - dashboard
 ---
 _Back to_ [[index]]
-# Overview
+# UTS
 - ## Intro
 	- [[Foundational Definitions and Scope of Machine Learning]]
 	- [[Machine Learning Paradigms - Supervised Unsupervised and Reinforcement Learning]]
@@ -36,6 +36,7 @@ _Back to_ [[index]]
 	- [[Convolutional Layer Operations and Hyperparameters]]
 	- [[CNN Architectural Design Patterns]]
 	- [[Backpropagation in Convolutional Networks]]
+# UAS
 - ## Recurrent Neural Network (RNN Pt. 1)
 	- [[RNN Fundamentals and Sequential Data Motivation]]
 	- [[Forward Propagation Mechanics in RNNs]]
