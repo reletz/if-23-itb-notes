@@ -1,0 +1,56 @@
+---
+cssclasses:
+  - dashboard
+---
+_Back to_ [[index]]
+# Overview
+- ## Pengenalan Arsitektur Aplikasi Terdistribusi
+	- [[Pengantar Aplikasi Terdistribusi]]
+	- [[Anatomi Sistem, Infrastruktur Komunikasi, dan Middleware]]
+	- [[Jenis Aplikasi Terdistribusi dan Pola Arsitektur]]
+	- [[Load Balancing Lokal dan Global]]
+- ## High Performance Server Architecture
+	- [[Masalah Konkurensi dan Model IO]]
+	- [[Multiplexing dan Event Handling]]
+	- [[Thread vs Event]]
+	- [[Arsitektur Server di Dunia Nyata]]
+- ## Asynchronous Library
+	- [[Dasar-dasar Library Pemrograman Asynchronous]]
+	- [[Python Asyncio]]
+- ## API dan RPC
+	- [[Pengantar API, REST, dan Format Data]]
+	- [[Kelebihan HTTP dan Alternatif RPC]]
+	- [[Autentikasi dan Otorisasi API]]
+	- [[Apache Thrift]]
+	- [[Protobuf dan gRPC]]
+	- [[GraphQL]]
+	- [[API Getaway]]
+	- [[Service Mesh]]
+- ## Microservices
+	- [[Monolith vs Microservices]]
+	- [[Prinsip Desain Aplikasi Modern (The 12-Factor App)]]
+	- [[Pola Dekomposisi dan Komposisi Service]]
+	- [[Pola Pengelolaan Data dan Ketahanan (Resiliency)]]
+	- [[Implementasi, Operasional, dan Tools of the Trade]]
+	- [[Tugas Asinkron Arsitektur Microservices]]
+- ## Kubernetes
+	- [[Pengenalan dan Konsep Dasar Kubernetes]]
+	- [[Arsitektur Kubernetes - Control Plane dan Node]]
+	- [[API Kubernetes dan Pengelolaan Objek]]
+	- [[Namespace, Label, dan Metadata Objek]]
+- ## Message Orientation/Publish-Subscribe
+	- [[Fondasi Sistem Messaging dan Publish-Subscribe]]
+	- [[AMQP dan RabbitMQ - Arsitektur Smart Broker]]
+	- [[Apache Kafka - Arsitektur Log Terdistribusi]]
+	- [[Perbandingan Platform dan Protokol MQTT]]
+- ## Data Model dan Database
+	- [[Dari Model Relasional ke Dokumen]]
+	- [[Model Data Berbasis Graf]]
+	- [[Pengenalan Dunia NoSQL]]
+	- [[Mekanisme Scaling Database - Replikasi dan Partisi]]
+	- [[Konsekuensi Scaling - Konsistensi dan NoSQL]]
+- ## UAS
+	- [[Sistem Kompleks]]
+	- [[Performance Pattern]]
+	- [[Performance Anti Pattern]]
+	- [[main.pdf|Draft Tubes]]

@@ -1,0 +1,48 @@
+---
+cssclasses:
+  - dashboard
+---
+_Back to_ [[index]]
+# UTS
+- ## Software Process
+	- [[Software Engineering Fundamentals and Layered Technology]]
+	- [[Generic Software Process Framework and Umbrella Activities]]
+	- [[Prescriptive and Specialized Software Process Models]]
+	- [[Unified Process (UP) Methodology]]
+	- [[Agile Methodology Foundations and Principles]]
+	- [[Scrum Framework Implementation]]
+- ## Agile Management
+	- [[Agile Planning Stages and Techniques]]
+	- [[Scrum Execution and Deliverable Management]]
+	- [[Scrum Monitoring Artifacts and Control Mechanisms]]
+	- [[Sprint Closure and Retrospective Practices]]
+	- [[Agile vs Traditional Project Management Contrasts]]
+- ## Scenario-Based Modelling
+	- [[Use-Case Diagram Components and Fundamentals]]
+	- [[Actor Generalization and Role Modeling]]
+	- [[Scenario Development and Flow Specification]]
+	- [[Activity Diagrams for Process Modeling]]
+	- [[Scenario-Based Modeling Methodology]]
+# UAS
+- ## Large Scale Software Development
+	- [[Large-Scale Software Problems and Characteristics]]
+	- [[Principles and Coordination in Large-Scale Development]]
+	- [[Ultra-Large-Scale (ULS) Systems]]
+	- [[Scaling Agile for Large Teams (LeSS and SAFe)]]
+- ## Software Quality and Metrics
+	- [[Software Quality and ISO IEC 25010]]
+	- [[Software Measurement Fundamentals]]
+	- [[Size and Complexity Metrics]]
+	- [[Object-Oriented Metrics]]
+	- [[Software Measurement Tools]]
+- ## Domain-Specific Software Engineering
+	- [[DSSE Concepts and Three Key Factors]]
+	- [[Domain Model]]
+	- [[Domain-Specific Software Architecture (DSSA)]]
+- ## UAS
+	- [[UAS 2019-2020 - Pembahasan]]
+	- [[UAS 2020-2021 - Pembahasan]]
+	- [[UAS 2021-2022 - Pembahasan]]
+	- [[UAS 2024-2025 - Pembahasan]]
+	- [[Pembahasan Soal Berbasis Proyek]]
+	- [[Rangkuman Kilat UAS]]

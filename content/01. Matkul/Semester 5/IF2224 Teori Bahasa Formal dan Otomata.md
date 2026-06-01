@@ -1,0 +1,69 @@
+---
+cssclasses:
+  - dashboard
+---
+_Back to_ [[index]]
+# Overview
+- ## Intro
+	- [[Pengenalan dan Aplikasi Teori Bahasa Formal & Automata (TBFO)]]
+	- [[Teori Inti Automata dan Bahasa Formal]]
+	- [[Soal Model Automata]]
+- ## Finite Automata - DFA
+	- [[Alphabet, String, dan Language]]
+	- [[Pengenalan Deterministic Finite Automata (DFA)]]
+	- [[Prinsip dan Algoritma Desain DFA]]
+	- [[Pembuktian Kebenaran DFA]]
+	- [[DFA Exercise]]
+- ## Finite Automata - NFA
+	- [[Pengenalan Nondeterministic Finite Automata (NFA)]]
+	- [[Ekuivalensi NFA ke DFA]]
+	- [[NFA dengan Transisi Epsilon (ε-NFA) dan E-Closure]]
+	- [[Ekuivalensi ε-NFA ke DFA]]
+	- [[Latihan Soal NFA]]
+- ## Regular Expressions and Languages
+	- [[Hukum Aljabar Bahasa]]
+	- [[Regular Expressions dan Ekuivalensinya]]
+- ## Properties of Regular Languages
+	- [[Pumping Lemma]]
+	- [[Closure Properties, Pt 1]]
+	- [[Closure Properties, Pt 2]]
+	- [[Decision Properties (Sifat Keputusan)]]
+	- [[Minimasi DFA]]
+- ## Compiler (Lexical, Syntax, dan Semantic Analysis)
+	- [[Fondasi Formal dan Hirarki Chomsky]]
+	- [[Struktur Compiler dan Fase Analisis]]
+	- [[Parsing Top-Down dan Masalah Rekursif Kiri]]
+	- [[Analisis Semantik]]
+- ## Persiapan UTS
+	_Pantesan 4 sks ya... I'M SO COOKED_
+	- [[Dasar banget ini buat ngejar pemahaman]]
+	- [[Naik dikit - FA dan Regex]]
+	- [[Naik dikit lagi - CFG dan Compiler]]
+- ## Context-Free Grammar dan Parse Tree
+	- [[Pengenalan Context-Free Grammar (CFG) dan Derivasi]]
+	- [[Parse Tree (Pohon Penurunan)]]
+	- [[Ekuivalensi Parse Tree dan Derivasi]]
+- ## Pushdown Automata (PDA)
+	- [[Definisi Formal PDA]]
+	- [[Metode Penerimaan PDA]]
+	- [[Ekuivalensi PDA dan CFG]]
+	- [[Deterministic PDA (DPDA)]]
+- ## Properties Of Context-Free Languages
+	- [[Penyederhanaan CFG]]
+	- [[Konversi ke Chomsky Normal Form]]
+	- [[Closure Properties CFL]]
+	- [[Decision Properies dan CYK]]
+	- [[Studi Kasus CFL]]
+- ## Turing Machines
+	- [[Fondasi Mesin Turing]]
+	- [[Studi Kasus Mesin Turing]]
+	- [[Kelas Bahasa dan Varian Mesin Turing]]
+- ## Intermediate Code Generation
+	- [[Notasi Postfix dalam Kode Antara]]
+	- [[Notasi Triples dan Quadruples]]
+	- [[Penanganan Kesalahan (Error Handling & Repair)]]
+	- [[Teknik Optimasi Kode]]
+	- [[Tabel Informasi (Symbol Table)]]
+- ## Persiapan UAS
+	- [[Soal Latihan UAS TBFO]]
+	- [[Latihan UAS Edunex IF2224]]
