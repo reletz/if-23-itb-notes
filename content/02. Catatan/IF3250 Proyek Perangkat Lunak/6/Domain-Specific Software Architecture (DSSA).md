@@ -84,7 +84,7 @@ _Back to_ [[IF3250 Proyek Perangkat Lunak]]
 > > - **Constraints and Rationale** — constraints = range nilai parameter, relasi antar parameter/komponen yang harus diperhatikan sepanjang pengembangan.
 > >
 > > ```mermaid
-> > flowchart TB
+> > flowchart LR
 > >     RA["Reference Architecture"]
 > >     RA --> RAM["Reference Architecture Model"]
 > >     RA --> CDT["Configuration Decision Tree"]

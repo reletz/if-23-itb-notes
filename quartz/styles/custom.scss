@@ -445,3 +445,205 @@
   font-size: 1.8em;
   color: var(--text-normal);
 }
+
+/* ============================================================
+   Twitter / X timeline  —  cssclasses: [twitter]   (Quartz port)
+   Mirror of .obsidian/snippets/twitter.css for the published site.
+   Each top-level <p> in the article renders as a tweet in a thread.
+
+   Differences vs the Obsidian snippet (DOM is not identical):
+   • The note title is rendered OUTSIDE <article>, so the profile
+     header (banner + big avatar + name/handle) is synthesised from
+     the article's own ::before / ::after pseudo-elements.
+   • No Style Settings here → the verified badge & engagement bar are
+     always shown (no per-toggle).
+   • Per-tweet avatars are gradient discs (a circular photo can't be
+     clipped inside a multi-layer background); the real photo shows in
+     the big profile header. Per-note identity still uses .tw-* presets.
+
+   Per-note identity: add a preset class alongside `twitter`, e.g.
+     cssclasses: [twitter, tw-k04]
+   ============================================================ */
+
+/* structural vars (kept on plain .twitter so they resolve regardless) */
+.twitter {
+  --tweet-line: var(--background-modifier-border);
+  --tweet-radius: 16px;
+  --tweet-col: 600px;
+  --tweet-avatar: 44px;
+  /* identity defaults (override per-note via a .tw-* preset below) */
+  --tweet-name: "Kat";
+  --tweet-handle: "km_itb";
+}
+
+/* ---- per-note identity presets (keep in sync with the snippet) ---- */
+.tw-k04 {
+  --tweet-name: "Kelompok 04";
+  --tweet-handle: "penggajian_app";
+  --tweet-avatar-img: url("https://i.pravatar.cc/150?img=13");
+  --tweet-banner-img: url("https://picsum.photos/seed/ppl-uas/800/220");
+}
+.tw-kat {
+  --tweet-name: "Kat";
+  --tweet-handle: "km_itb";
+  --tweet-avatar-img: url("https://i.pravatar.cc/150?img=5");
+}
+
+/* --- narrow, centered timeline column --- */
+article.twitter {
+  position: relative;
+  max-width: var(--tweet-col);
+  margin-inline: auto;
+  padding-top: 190px;                 /* room for the profile header */
+}
+
+/* profile header: banner + name/handle (::before), big avatar (::after) */
+article.twitter::before {
+  content: var(--tweet-name, "Kat") "\A @" var(--tweet-handle, "km_itb");
+  white-space: pre-line;
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 174px;
+  padding: 122px 16px 0;
+  box-sizing: border-box;
+  font-weight: 800;
+  font-size: 1.5em;
+  line-height: 1.15;
+  color: var(--text-normal);
+  border-radius: 12px 12px 0 0;
+  background:
+    var(--tweet-banner-img, none) top center / 100% 110px no-repeat,
+    linear-gradient(120deg, var(--color-accent), var(--text-accent-hover)) top / 100% 110px no-repeat;
+}
+/* shrink the @handle line (2nd line) — emulated via a smaller, muted look */
+article.twitter::after {
+  content: "";
+  position: absolute;
+  top: 72px; left: 18px;
+  width: 76px; height: 76px;
+  border-radius: 50%;
+  border: 4px solid var(--background-primary);
+  z-index: 1;
+  background:
+    var(--tweet-avatar-img, none) center / cover no-repeat,
+    linear-gradient(135deg, var(--color-accent), var(--text-accent-hover));
+}
+
+/* --- the tweet card = each top-level paragraph --- */
+article.twitter > p {
+  position: relative;
+  margin: 0;
+  padding: 40px 16px 40px calc(var(--tweet-avatar) + 28px);
+  border: 1px solid var(--background-modifier-border);
+  border-bottom: none;
+  background-color: var(--background-primary);
+  line-height: 1.5;
+  font-size: 1.05em;
+  transition: background-color 0.15s ease;
+
+  /* layered backgrounds: [avatar disc] , [thread connector line] */
+  background-image:
+    radial-gradient(circle calc(var(--tweet-avatar) / 2)
+      at calc(16px + var(--tweet-avatar) / 2) calc(14px + var(--tweet-avatar) / 2),
+      var(--color-accent) 99%, transparent 100%),
+    linear-gradient(var(--tweet-line), var(--tweet-line));
+  background-repeat: no-repeat;
+  background-position:
+    0 0,
+    calc(16px + var(--tweet-avatar) / 2 - 1px) calc(14px + var(--tweet-avatar) + 6px);
+  background-size:
+    auto,
+    2px calc(100% - var(--tweet-avatar) - 6px);
+}
+article.twitter > p:hover { background-color: var(--background-secondary); }
+
+/* links inside a tweet look like X links */
+article.twitter > p a {
+  color: var(--text-accent);
+  text-decoration: none;
+  background: none;
+}
+article.twitter > p a:hover { text-decoration: underline; }
+
+/* round the first card / close the last & drop its connector */
+article.twitter > p:first-of-type {
+  border-top-left-radius: var(--tweet-radius);
+  border-top-right-radius: var(--tweet-radius);
+}
+article.twitter > p:last-of-type {
+  border-bottom: 1px solid var(--background-modifier-border);
+  border-bottom-left-radius: var(--tweet-radius);
+  border-bottom-right-radius: var(--tweet-radius);
+  background-image:
+    radial-gradient(circle calc(var(--tweet-avatar) / 2)
+      at calc(16px + var(--tweet-avatar) / 2) calc(14px + var(--tweet-avatar) / 2),
+      var(--color-accent) 99%, transparent 100%);
+  background-size: auto;
+}
+
+/* header: display name ✔ @handle · now */
+article.twitter > p::before {
+  content: var(--tweet-name, "Kat") " ✔  @" var(--tweet-handle, "km_itb") " · now";
+  position: absolute;
+  top: 16px;
+  left: calc(var(--tweet-avatar) + 28px);
+  right: 16px;
+  font-weight: 700;
+  color: var(--text-normal);
+  font-size: 0.95em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* engagement bar */
+article.twitter > p::after {
+  content: "💬   🔁   ♡   📊";
+  position: absolute;
+  left: calc(var(--tweet-avatar) + 28px);
+  right: 16px;
+  bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  max-width: 300px;
+  color: var(--text-muted);
+  font-size: 0.95em;
+}
+
+/* quote-tweet: a blockquote renders as an embedded quoted card */
+article.twitter > blockquote {
+  margin: 8px 0;
+  padding: 12px 16px;
+  border: 1px solid var(--background-modifier-border);
+  border-left: 1px solid var(--background-modifier-border);
+  border-radius: 14px;
+  background: var(--background-primary);
+  color: var(--text-muted);
+  font-size: 0.95em;
+}
+
+/* media inside the thread: full-width rounded cards */
+article.twitter > p img,
+article.twitter img {
+  border-radius: 14px;
+  border: 1px solid var(--background-modifier-border);
+  margin-top: 8px;
+  max-width: 100%;
+}
+
+/* headings act as quiet section dividers, not tweets */
+article.twitter > :is(h1, h2, h3, h4, h5, h6) {
+  font-size: 1.05em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 20px 0 6px;
+  border: none;
+}
+
+/* tables / code blocks stay as plain (non-tweet) blocks, just centered */
+article.twitter > :is(table, pre, .mermaid) {
+  margin: 12px 0;
+}
+
+@media (max-width: 600px) {
+  article.twitter { max-width: 100%; }
+}

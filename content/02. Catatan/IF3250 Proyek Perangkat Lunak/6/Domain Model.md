@@ -45,7 +45,7 @@ _Back to_ [[IF3250 Proyek Perangkat Lunak]]
 > > Domain model terdiri atas **Domain Dictionary** + tiga sub-model: **Information Model**, **Feature Model**, dan **Operational Model**.
 > >
 > > ```mermaid
-> > flowchart TB
+> > flowchart LR
 > >     DM["Domain Model"]
 > >     DM --> DD["Domain Dictionary<br/>(defines vocabulary)"]
 > >     DM --> IM["Information Model<br/>(entities & data)"]

@@ -41,7 +41,7 @@ _Back to_ [[IF3250 Proyek Perangkat Lunak]]
 > > ### Traditional vs Architecture-Based vs Domain-Specific SE
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     subgraph T["Traditional SE"]
 > >         T1["1 problem → tak terhitung cara<br/>'Too many choices', 'Different concepts'"]
 > >     end
