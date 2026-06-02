@@ -494,32 +494,33 @@ article.twitter {
   position: relative;
   max-width: var(--tweet-col);
   margin-inline: auto;
-  padding-top: 190px;                 /* room for the profile header */
+  padding-top: 220px;                 /* room for the profile header */
 }
 
-/* profile header: banner + name/handle (::before), big avatar (::after) */
+/* profile header: banner + name/handle (::before), big avatar (::after).
+   Layout (top→bottom): banner 0–110px · avatar overlaps at 62px ·
+   name/handle text sits BELOW the avatar (starts at 156px). */
 article.twitter::before {
   content: var(--tweet-name, "Kat") "\A @" var(--tweet-handle, "km_itb");
   white-space: pre-line;
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 174px;
-  padding: 122px 16px 0;
+  height: 210px;
+  padding: 156px 16px 0;              /* push text below the avatar */
   box-sizing: border-box;
   font-weight: 800;
-  font-size: 1.5em;
-  line-height: 1.15;
+  font-size: 1.4em;
+  line-height: 1.2;
   color: var(--text-normal);
   border-radius: 12px 12px 0 0;
   background:
     var(--tweet-banner-img, none) top center / 100% 110px no-repeat,
     linear-gradient(120deg, var(--color-accent), var(--text-accent-hover)) top / 100% 110px no-repeat;
 }
-/* shrink the @handle line (2nd line) — emulated via a smaller, muted look */
 article.twitter::after {
   content: "";
   position: absolute;
-  top: 72px; left: 18px;
+  top: 62px; left: 16px;
   width: 76px; height: 76px;
   border-radius: 50%;
   border: 4px solid var(--background-primary);
