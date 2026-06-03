@@ -39,23 +39,27 @@ _Back to_ [[index]]
 # UAS
 - ## Recurrent Neural Network (RNN Pt. 1)
 	- [[RNN Fundamentals and Sequential Data Motivation]]
-	- [[Forward Propagation Mechanics in RNNs]]
-	- [[RNN Architectural Variations and Implementation]]
+	- [[RNN Architecture and Parameter Sharing]]
+	- [[Dataset Preparation and FFNN vs RNN for Time-Series]]
+	- [[Forward Propagation Worked Example in RNNs]]
+	- [[RNN Implementation and Bidirectional RNNs]]
 - ## Long Short-Term Memory (RNN Pt. 2)
-	- [[Vanishing Gradient Problem in RNNs]]
-	- [[LSTM Architecture Components and Gates]]
+	- [[LSTM Architecture - Cell State and Gates]]
 	- [[Forward Propagation in LSTM Networks]]
-	- [[Backpropagation Through Time BPTT in RNNs]]
-	- [[Encoder-Decoder Models in Sequence Learning]]\
+	- [[Backpropagation Through Time and Cross Entropy Loss]]
+	- [[BPTT for LSTM - Worked Example]]
+	- [[Truncated BPTT and the Vanishing Gradient Problem]]
+	- [[Encoder-Decoder Models in Sequence Learning]]
 - ## Kuis 2
 	- [[CNN - Kuis 2]]
 	- [[RNN - Kuis 2]]
 	- [[LSTM - Kuis 2]]
 	- [[Encoder-Decoder - Kuis 2]]
 - ## Attention and Transformers
-	- [[Traditional Encoder-Decoder Architecture in Sequence Models]]
-	- [[Attention Mechanisms for Contextual Processing]]
-	- [[Transformer Architecture and Self-Attention Mechanisms]]
+	- [[Attention Mechanism in RNNs]]
+	- [[Encoder-Decoder with Attention - Bahdanau and Luong]]
+	- [[From Attention to Transformers - Self-Attention]]
+	- [[Transformer Architecture - Multi-Head Attention and Positional Encoding]]
 - ## Reinforcement Learning
 	- [[Reinforcement Learning Fundamentals and Motivation]]
 	- [[Core Components of RL Agents]]

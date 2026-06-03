@@ -10,113 +10,96 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 >
 > > ## Questions/Cues
 > >
-> > - Apa tujuan model sequence-to-sequence?
-> > - Bagaimana encoder mengolah input sequential?
-> > - Fungsi apa yang dimiliki vector encoder?
-> > - Mengapa decoder memerlukan hidden state awal?
-> > - Bagaimana aplikasi praktis encoder-decoder?
+> > - Apa itu model sequence-to-sequence dan untuk apa digunakan?
+> > - Apa saja use case encoder-decoder?
+> > - Apa peran encoder dalam arsitektur ini?
+> > - Apa itu encoder vector / context vector?
+> > - Bagaimana decoder menghasilkan output?
 > >
 > > ## Reference Points
 > >
-> > - Lecture_IF3270.pptx (Slides 37-43)
-> > - Goodfellow et al. Deep Learning (Chapter 10)
-> >
+> > - IF3270 Pembelajaran Mesin - LSTM (Pages 45-51)
 >
-> > ### Konsep Dasar Sequence-to-Sequence
-> > Model sequence-to-sequence (seq2seq) dirancang untuk memetakan input berurutan dengan panjang tetap ke output berurutan yang mungkin memiliki panjang berbeda. Pendekatan ini menjadi dasar untuk berbagai tugas pemrosesan bahasa alami seperti **terjemahan mesin**, **penjawab pertanyaan otomatis**, dan **generasi teks deskriptif untuk video**. Berbeda dengan model RNN tradisional yang memerlukan panjang input-output sama, arsitektur ini memungkinkan fleksibilitas dalam struktur data.
-> > Contoh aplikasi nyata:
-> > - Terjemahan: "Mary eats apples" (Bahasa Inggris) → "Marie mange des pommes" (Bahasa Prancis)
-> > - QA System: "Tim is playing in his room.||Where is Tim?" → "Tim is in his room"
-> > - Video captioning: Deretan frame video → "Seorang wanita sedang memasak di dapur"
-> > ### Arsitektur Encoder
-> > Bagian encoder terdiri dari beberapa unit recurrent (biasanya RNN atau variannya) yang memproses setiap elemen input secara berurutan. Setiap unit:
-> > 1. Menerima satu elemen input (misalnya kata dalam kalimat)
-> > 2. Mengumpulkan informasi kontekstual
-> > 3. Meneruskan state tersembunyi (_hidden state_) ke unit berikutnya
-> > Proses ini analog dengan **penerjemah manusia yang mendengarkan seluruh kalimat** sebelum mulai menerjemahkan. Setelah memproses seluruh input, encoder menghasilkan **encoder vector** (state tersembunyi akhir) yang mengkapsulasi informasi esensial dari seluruh urutan input.
-> > ### Encoder Vector sebagai Memori Kontekstual
-> > Encoder vector berfungsi sebagai:
-> > - Representasi terpadu seluruh input
-> > - State awal untuk decoder
-> > - "Memori kerja" yang menyimpan dependensi jangka panjang
-> > Dalam implementasi teknis, vector ini dihitung melalui fungsi:
+> > ### Model Sequence-to-Sequence
+> >
+> > Sebuah model **sequence-to-sequence (seq2seq)** bertujuan **memetakan input panjang-tetap ke output panjang-tetap, di mana panjang input dan output dapat berbeda**. Ini berbeda dari RNN biasa yang panjang input dan output-nya terikat sama. Kemampuan menangani panjang yang berbeda inilah yang membuat seq2seq cocok untuk tugas transformasi sekuens.
+> >
+> > ### Use Case
+> >
+> > Beberapa contoh penerapan model seq2seq:
+> >
+> > 1. **Machine Translation** — menerjemahkan kalimat antar bahasa. Contoh: [English] "Mary eats apples." → [French] "Marie mange des pommes." Perhatikan jumlah kata pada input (3) dan output (4) berbeda.
+> > 2. **Question Answering** — menjawab pertanyaan berdasarkan konteks. Contoh: [Question] "Tim is playing in his room. || Where is Tim?" → [Answer] "Tim is in his room."
+> > 3. **Video Captioning** — menghasilkan deskripsi teks dari rangkaian frame video (input visual sekuensial → output teks).
+> >
+> > ### Arsitektur RNN Encoder-Decoder
+> >
+> > Arsitektur ini terdiri dari tiga bagian: **Encoder → Encoder Vector (context vector) → Decoder**. Encoder "membaca" seluruh input dan memampatkannya menjadi satu vektor konteks, lalu decoder "menulis" output dari vektor tersebut.
+> >
+> > ```mermaid
+> > flowchart LR
+> >     X1["x1"] --> E1["Encoder<br/>RNN/LSTM"]
+> >     X2["x2"] --> E2["Encoder<br/>RNN/LSTM"]
+> >     X3["x3"] --> E3["Encoder<br/>RNN/LSTM"]
+> >     E1 --> E2 --> E3
+> >     E3 --> CV["Encoder Vector<br/>(context vector)"]
+> >     CV --> D1["Decoder<br/>RNN/LSTM"]
+> >     D1 --> D2["Decoder<br/>RNN/LSTM"]
+> >     D2 --> D3["Decoder<br/>RNN/LSTM"]
+> >     D1 --> Y1["y1"]
+> >     D2 --> Y2["y2"]
+> >     D3 --> Y3["y3"]
 > > ```
-> > h_encoder = f(W * x_t + U * h_{t-1} + b)
-> > ```
-> > di mana `f` adalah fungsi aktivasi, `W` dan `U` matriks berat, `x_t` input timestep-t, dan `b` bias.
-> > ### Mekanisme Decoder
-> > Decoder merupakan jaringan recurrent yang menggunakan encoder vector sebagai state awal untuk memulai generasi output. Pada setiap timestep:
-> > 1. Menerima state tersembunyi sebelumnya
-> > 2. Menghasilkan prediksi output
-> > 3. Memperbarui state tersembunyi untuk timestep berikutnya
-> > Contoh proses terjemahan:
-> > 1. Encoder vector (yang menyimpan makna "Mary eats apples") diinisialisasi sebagai h_0 decoder
-> > 2. Decoder menghasilkan "Marie" sebagai output pertama
-> > 3. State tersembunyi diperbarui dengan mempertimbangkan output sebelumnya
-> > 4. Proses berlanjut hingga menghasilkan tanda akhir kalimat
-> > ### Aplikasi dan Variasi Model
-> > Selain terjemahan mesin, arsitektur ini digunakan untuk:
-> > - **Text Summarization**: Input dokumen panjang → output ringkasan
-> > - **Speech Recognition**: Input sinyal audio → output transkripsi teks
-> > - **Image Captioning**: Input citra → deskripsi tekstual
-> > Variasi modern meliputi:
-> > - **Attention Mechanism**: Memungkinkan decoder fokus pada bagian spesifik encoder vector
-> > - **Transformer Architecture**: Menggantikan RNN dengan self-attention untuk penangkapan konteks lebih baik
+> >
+> > ### Encoder
+> >
+> > **Encoder** adalah **tumpukan beberapa recurrent unit** (RNN/LSTM/GRU) di mana setiap unit **menerima satu elemen dari sekuens input**, mengumpulkan informasi untuk elemen tersebut, dan **merambatkannya maju** ke unit berikutnya. Dengan begitu, hidden state encoder secara progresif mengakumulasi informasi seluruh input dari elemen pertama hingga terakhir.
+> >
+> > ### Encoder Vector / Context Vector
+> >
+> > **Encoder Vector** (disebut juga **context vector**) adalah **hidden state terakhir** yang dihasilkan bagian encoder. Karakteristiknya:
+> >
+> > - Dihitung memakai rumus encoder (hidden state RNN/LSTM pada timestep terakhir).
+> > - Bertujuan **merangkum/mengenkapsulasi informasi seluruh elemen input** agar membantu decoder membuat prediksi akurat.
+> > - **Berperan sebagai initial hidden state dari decoder.**
+> >
+> > Vektor inilah jembatan antara encoder dan decoder: seluruh "makna" input dipadatkan ke dalam satu vektor.
+> >
+> > ### Decoder
+> >
+> > **Decoder** adalah **tumpukan beberapa recurrent unit** di mana **setiap unit memprediksi satu output yt pada timestep t**. Setiap recurrent unit:
+> >
+> > - Menerima **hidden state dari unit sebelumnya**.
+> > - Menghasilkan **output** sekaligus **hidden state-nya sendiri** untuk diteruskan.
+> >
+> > Decoder dimulai dari context vector sebagai initial hidden state, lalu menghasilkan output satu per satu hingga seluruh sekuens keluaran selesai (biasanya sampai token akhir/EOS).
+> >
+> > ### Contoh: Machine Translation
+> >
+> > Pada penerjemahan, encoder membaca kalimat sumber kata demi kata hingga seluruh kalimat terangkum dalam context vector. Decoder kemudian membangkitkan kalimat target kata demi kata: output kata pertama menjadi bagian dari konteks untuk memprediksi kata berikutnya, dan seterusnya, sehingga panjang kalimat hasil bisa berbeda dari kalimat sumber.
 
 > [!cornell] #### Summary
 >
-> **Model encoder-decoder** memungkinkan pemrosesan urutan dengan panjang input-output berbeda melalui dua komponen utama: **encoder** yang mengompresi input menjadi representasi vektor, dan **decoder** yang menggunakan vektor tersebut untuk membangkitkan output berurutan. Arsitektur ini menjadi landasan sistem terjemahan mesin modern dan aplikasi NLP lanjutan, dengan kemampuan menangani dependensi jangka panjang melalui mekanisme state tersembunyi. **Encoder vector** berperan kritis sebagai pembawa informasi kontekstual antar komponen.
->
+> Model **sequence-to-sequence** memetakan **input panjang-tetap ke output panjang-tetap yang panjangnya bisa berbeda**, cocok untuk **machine translation**, **question answering**, dan **video captioning**. Arsitektur **RNN encoder-decoder** terdiri dari **Encoder** (tumpukan recurrent unit yang menerima tiap elemen input dan merambatkannya maju), **Encoder Vector / context vector** (hidden state terakhir encoder yang merangkum seluruh input dan menjadi **initial hidden state decoder**), dan **Decoder** (tumpukan recurrent unit yang memprediksi output yt tiap timestep dari hidden state sebelumnya sambil menghasilkan hidden state baru). Seluruh makna input dipadatkan ke satu context vector, lalu decoder membangkitkan keluaran satu per satu — seperti pada contoh penerjemahan "Mary eats apples." → "Marie mange des pommes."
 
 > [!ad-libitum]- Additional Information
 >
-> #### Evaluasi Kinerja Model
-> Metrik evaluasi utama untuk model seq2seq:
-> - **BLEU Score**: Mengukur kecocokan n-gram antara output model dan referensi manusia
-> - **ROUGE**: Fokus pada recall n-gram untuk tugas summarization
-> - **METEOR**: Mempertimbangkan sinonim dan stemming dalam evaluasi
+> #### Keterbatasan Context Vector Tunggal dan Attention
+> Memampatkan seluruh input ke **satu** context vector menjadi bottleneck pada kalimat panjang — informasi awal cenderung "terlupa". **Mekanisme attention** (Bahdanau 2014, Luong 2015) mengatasi ini dengan membiarkan decoder "melihat" seluruh hidden state encoder dan memberi bobot pada bagian input yang relevan di tiap langkah, bukan hanya bergantung pada satu vektor.
 >
-> Tantangan utama meliputi masalah **penyusutan kosa kata** (_vocabulary bottleneck_) dan **generasi output repetitif** yang diatasi dengan teknik seperti _beam search_ dan _sampling stokastik_.
+> #### Teacher Forcing saat Pelatihan
+> Saat melatih decoder, teknik **teacher forcing** memberi token target yang benar sebagai input langkah berikutnya (bukan prediksi model). Ini mempercepat konvergensi, tetapi menimbulkan **exposure bias** saat inferensi karena model harus memakai prediksinya sendiri. Solusi: scheduled sampling.
 >
-> #### Implementasi Praktis dengan TensorFlow
-> Contoh implementasi dasar encoder-decoder:
-> ```python
-> # Encoder
-> encoder_inputs = Input(shape=(max_input_len,))
-> encoder_embedding = Embedding(input_vocab_size, 256)(encoder_inputs)
-> encoder_lstm = LSTM(128, return_state=True)
-> encoder_outputs, state_h, state_c = encoder_lstm(encoder_embedding)
+> #### Dari Seq2Seq ke Transformer
+> Encoder-decoder berbasis RNN adalah pendahulu **Transformer** (Vaswani 2017), yang mengganti recurrence dengan **self-attention** penuh, memungkinkan paralelisasi dan menangkap dependency jarak jauh lebih baik — fondasi model modern seperti BERT dan GPT.
 >
-> # Decoder
-> decoder_inputs = Input(shape=(max_output_len,))
-> decoder_embedding = Embedding(output_vocab_size, 256)(decoder_inputs)
-> decoder_lstm = LSTM(128, return_sequences=True, return_state=True)
-> decoder_outputs, _, _ = decoder_lstm(decoder_embedding, initial_state=[state_h, state_c])
-> decoder_dense = Dense(output_vocab_size, activation='softmax')
-> output = decoder_dense(decoder_outputs)
-> ```
+> #### Proyek Eksplorasi Mandiri
+> 1. Bangun model seq2seq LSTM sederhana untuk menerjemahkan tanggal format bebas ke format ISO (mis. "3 Juni 2026" → "2026-06-03").
+> 2. Tambahkan mekanisme attention dan bandingkan kualitas terjemahan pada kalimat panjang vs context vector tunggal.
+> 3. Visualisasikan bobot attention sebagai heatmap untuk melihat alignment input-output.
 >
-> #### Tantangan dalam Training
-> - **Alignment Problem**: Hubungan kompleks antara posisi input-output
-> - **Exposure Bias**: Discrepancy antara training (menggunakan ground truth) dan inference (menggunakan prediksi model)
-> - **Mode Collapse**: Kecenderungan menghasilkan output generik berulang
->
-> Solusi terkini meliputi teknik _curriculum learning_, _reinforcement learning_, dan _adversarial training_.
->
-> #### Self-Exploration Projects
-> 1. Bangun model terjemahan Inggris-Indonesia menggunakan dataset Paralel TED Talks
-> 2. Implementasikan beam search decoding dengan panjang beam 3-5
-> 3. Eksperimen dengan mekanisme attention sederhana berbasis dot-product
-> 4. Ukur pengaruh ukuran embedding (64 vs 256 dimensi) terhadap akurasi BLEU
->
-> #### Tools dan Resources
-> - **Framework**: TensorFlow Seq2Seq Tutorial, PyTorch TorchText
-> - **Dataset**: WMT14, Multi30k, OPUS
-> - **Library**: HuggingFace Transformers, OpenNMT-py
-> - **Visualization**: TensorBoard Embedding Projector
->
-> #### Further Reading
-> - "Neural Machine Translation by Jointly Learning to Align and Translate" (Bahdanau et al. 2014)
-> - "Attention Is All You Need" (Vaswani et al. 2017)
-> - "Sequence to Sequence Learning with Neural Networks" (Sutskever et al. 2014)
-> - Buku "Natural Language Processing with PyTorch" oleh Delip Rao
+> #### Bacaan Lanjutan
+> - Sutskever, I., Vinyals, O., &amp; Le, Q. (2014). *Sequence to Sequence Learning with Neural Networks*.
+> - Cho, K., et al. (2014). *Learning Phrase Representations using RNN Encoder-Decoder*.
+> - Bahdanau, D., Cho, K., &amp; Bengio, Y. (2015). *Neural Machine Translation by Jointly Learning to Align and Translate*.
+> - [Understanding Encoder-Decoder Sequence to Sequence Model](https://medium.com/data-science/understanding-encoder-decoder-sequence-to-sequence-model-679e04af4346)

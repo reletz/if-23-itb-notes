@@ -10,71 +10,66 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 >
 > > ## Questions/Cues
 > >
-> > - Apa fungsi policy dalam agent RL?
-> > - Bagaimana value function memandu pengambilan keputusan?
-> > - Mengapa model environment bersifat opsional?
-> > - Peran reward signal dalam pembelajaran agen
-> > - Contoh interaksi agent-environment dalam labirin
+> > - Apa tiga konsep inti dalam sistem RL?
+> > - Bagaimana loop interaksi agent-environment berlangsung tiap timestep?
+> > - Apa perbedaan reward, value, dan action value?
+> > - Apa saja komponen internal sebuah agent (policy, value function, model)?
+> > - Apa itu dilema exploration vs exploitation?
 > >
 > > ## Reference Points
 > >
-> > - RL_Slides_IF3270.pptx (Halaman 13-27)
-> > - Sutton & Barto (2018) Bab 3.1-3.3
-> > - Raschka (2022) Bab 15.2
-> >
+> > - IF3270 Pembelajaran Mesin - Reinforcement Learning (Pages 12-27)
 >
-> > ### Konsep Dasar Interaksi Agen-Environment
-> > Reinforcement Learning (RL) melibatkan interaksi dinamis antara **agent** dan **environment**. Pada setiap langkah waktu (t), agent menerima observasi keadaan (O_t) dan reward (R_t) dari environment, kemudian merespons dengan melakukan aksi (A_t). Environment kemudian memberikan observasi baru (O_{t+1}) dan reward berikutnya (R_{t+1}) sebagai umpan balik. Siklus ini membentuk dasar pembelajaran melalui pengalaman.
-> > Contoh konkret dapat dilihat pada masalah labirin: agent (pemecah labirin) menerima informasi posisi saat ini (state), memilih aksi (bergerak atas/bawah/kiri/kanan), menerima reward (positif jika mencapai tujuan, negatif jika menabrak dinding), dan berpindah ke posisi baru. Interaksi berulang ini memungkinkan agent belajar pola gerakan optimal.
-> > ### Policy sebagai Strategi Pengambilan Keputusan
-> > **Policy** (π) adalah strategi yang menentukan perilaku agent, berupa pemetaan dari state ke action. Policy menjawab pertanyaan: "Aksi apa yang harus diambil ketika berada dalam state tertentu?" Terdapat dua jenis utama policy:
-> > 1. Deterministik: π(s) = a (aksi spesifik untuk setiap state)
-> > 2. Stokastik: π(a|s) = probabilitas (distribusi probabilitas atas aksi)
-> > Contoh pada labirin: policy deterministik mungkin selalu memilih aksi "kanan" di state (1,1), sedangkan policy stokastik mungkin memberikan probabilitas 70% untuk "kanan" dan 30% untuk "bawah". Policy terus diperbaiki selama pembelajaran untuk memaksimalkan akumulasi reward.
-> > ### Value Function sebagai Estimasi Imbalan Masa Depan
-> > **Value function** (V(s)) mengukur nilai jangka panjang dari suatu state, merepresentasikan total reward yang diharapkan jika agent memulai dari state tersebut dan mengikuti policy tertentu. Fungsi ini membantu agent membuat keputusan dengan mempertimbangkan konsekuensi masa depan daripada hanya reward instan.
-> > Dalam contoh labirin, state yang dekat dengan tujuan mungkin memiliki value tinggi meskipun reward instannya kecil, karena potensi mencapai reward besar di langkah berikutnya. Perhitungan value function melibatkan diskon faktor (γ) yang menentukan pentingnya reward masa depan.
-> > ### Model Environment sebagai Representasi Dunia
-> > **Model** adalah representasi internal agent tentang bagaimana environment bekerja, memprediksi state berikutnya (s') dan reward (r) berdasarkan state saat ini (s) dan aksi yang diambil (a). Model bersifat opsional dalam RL:
-> > - Model-based: Agent menggunakan model untuk perencanaan
-> > - Model-free: Agent belajar langsung dari pengalaman tanpa model
-> > Contoh model dalam labirin mungkin memprediksi: "Dari state (2,2), aksi 'atas' akan membawa ke state (1,2) dengan reward -1". Model yang akurat memungkinkan simulasi pengalaman tanpa interaksi langsung dengan environment nyata.
-> > ### Mekanisme Reward Signal sebagai Umpan Balik
-> > **Reward signal** (R) adalah umpan balik numerik yang mengindikasikan seberapa baik aksi yang diambil dalam state tertentu. Reward berfungsi sebagai "kompas" yang memandu agent menuju tujuan. Desain reward yang tepat sangat penting:
-> > - Reward positif untuk perilaku diinginkan
-> > - Reward negatif untuk perilaku tidak diinginkan
-> > - Reward jarang (sparse) membuat pembelajaran lebih sulit
-> > Pada labirin, reward +10 untuk mencapai tujuan, -1 untuk setiap langkah, dan -5 untuk menabrak dinding. Agent belajar memaksimalkan akumulasi reward dengan menemukan jalan terpendek dan menghindari tabrakan.
+> > ### Konsep Inti: Environment, Reward, Agent
+> >
+> > Sistem RL dibangun di atas tiga konsep inti. **Environment** adalah dunia tempat agent beroperasi; ia menerima aksi dan mengembalikan observasi serta reward. **Reward Signal** adalah angka skalar yang menyatakan seberapa baik situasi pada suatu langkah, dan menjadi satu-satunya sinyal tujuan yang dimiliki agent. **Agent** adalah entitas pembelajar dan pengambil keputusan, yang di dalamnya dapat memiliki **agent state**, **policy**, **value function (kemungkinan besar)**, dan **model (opsional)**.
+> >
+> > ### Loop Agent-Environment
+> >
+> > Interaksi RL berlangsung sebagai siklus diskret berulang. **Pada setiap langkah t, agent menerima observasi Ot (dan reward Rt), lalu mengeksekusi aksi At**. Sebaliknya, **environment menerima aksi At, kemudian memancarkan observasi berikutnya Ot+1 (dan reward Rt+1)**. Siklus ini membentuk aliran data sekuensial yang terus berputar, di mana aksi agent dan respons environment saling mempengaruhi sepanjang waktu.
+> >
+> > ```mermaid
+> > flowchart LR
+> >     A["Agent"] -->|"Aksi At"| E["Environment"]
+> >     E -->|"Observasi Ot+1<br/>&amp; Reward Rt+1"| A
+> > ```
+> >
+> > ### Reward, Value, dan Aksi dalam Masalah Sekuensial
+> >
+> > **Reward** adalah umpan balik langsung pada satu langkah, sedangkan **value** adalah prediksi total reward yang diharapkan di masa depan jika mulai dari suatu state. Tujuan agent bukan memaksimalkan reward sesaat melainkan **memaksimalkan value**. Konsekuensinya, **aksi memiliki konsekuensi jangka panjang dan reward bisa tertunda**, sehingga **kadang lebih baik mengorbankan reward langsung demi reward jangka panjang yang lebih besar**.
+> >
+> > Beberapa contoh menggambarkan prinsip ini: (a) **investasi finansial** yang baru matang setelah berbulan-bulan; (b) **mengisi bahan bakar helikopter** yang mungkin mencegah kecelakaan beberapa jam kemudian; (c) **memblokir gerakan lawan** yang baru terbukti menguntungkan banyak langkah ke depan. **Action value** memperluas konsep value menjadi nilai dari mengambil aksi tertentu di state tertentu — inilah yang nantinya direpresentasikan sebagai Q(s, a).
+> >
+> > ### Komponen Internal Agent
+> >
+> > Sebuah agent dapat memiliki tiga komponen utama. **Policy** adalah **pemetaan dari state ke aksi** — strategi yang menentukan apa yang dilakukan agent di setiap situasi. **Value function** memprediksi seberapa baik suatu state atau pasangan state-aksi dalam jangka panjang. **Model** adalah representasi internal agent tentang bagaimana environment berperilaku, yaitu prediksi state berikutnya dan reward berikutnya.
+> >
+> > ### Contoh MAZE
+> >
+> > Contoh **MAZE (labirin)** mengilustrasikan ketiga komponen. **Policy** ditampilkan sebagai panah arah di tiap sel yang menunjukkan aksi yang dipilih untuk mencapai tujuan. **Value function** menampilkan angka pada tiap sel yang menyatakan ekspektasi total reward (mis. jarak negatif ke goal) sehingga sel dekat tujuan bernilai lebih tinggi. **Model** merepresentasikan pemahaman agent tentang dinamika labirin — kemana ia berpindah dan reward apa yang diterima saat bergerak dari satu sel ke sel lain.
+> >
+> > ### Exploration vs Exploitation
+> >
+> > Karena agent **belajar lewat trial and error**, ia menghadapi dilema mendasar. Agent harus **menemukan policy yang baik dari pengalaman baru tanpa terlalu banyak mengorbankan reward sepanjang prosesnya**. **Exploration** berarti mencari informasi baru, sedangkan **exploitation** berarti memanfaatkan informasi yang sudah diketahui untuk memaksimalkan reward. Keduanya penting dan harus diseimbangkan — masalah ini **tidak muncul pada supervised learning**. Contohnya: **memilih restoran** (datang ke favorit vs mencoba yang baru), **pengeboran minyak** (mengebor di lokasi terbaik yang diketahui vs lokasi baru), dan **bermain game** (memainkan langkah yang diyakini terbaik vs mencoba strategi baru).
 
 > [!cornell] #### Summary
 >
-> **Komponen inti agent RL** meliputi **policy** sebagai strategi pengambilan keputusan, **value function** untuk estimasi imbalan jangka panjang, dan **model** sebagai representasi opsional environment. Interaksi fundamental terjadi melalui **reward signal** yang memberikan umpan balik instan dan **environment** yang merespons aksi agent. **Desain reward** yang tepat menjadi kritis dalam membentuk perilaku agent, sementara pemahaman hubungan antara komponen-komponen ini memungkinkan pembelajaran efektif melalui eksperimen berulang.
->
+> Sistem RL bertumpu pada tiga konsep inti — **Environment**, **Reward Signal**, dan **Agent** — di mana agent dapat memiliki **agent state, policy, value function, dan model**. Interaksi terjadi dalam **loop tiap langkah t**: agent menerima **observasi Ot dan reward Rt** lalu mengeksekusi **aksi At**, sementara environment merespons dengan **Ot+1 dan Rt+1**. Tujuan agent adalah **memaksimalkan value** (total reward masa depan), bukan reward sesaat, sehingga **aksi punya konsekuensi jangka panjang** dan kadang **reward langsung dikorbankan**. Komponen agent meliputi **policy (state→aksi)**, **value function**, dan **model**, seperti diilustrasikan pada contoh **MAZE**. Agent juga harus menyeimbangkan **exploration** (mencari info baru) dan **exploitation** (memanfaatkan info yang diketahui).
 
 > [!ad-libitum]- Additional Information
 >
-> #### Desain Reward yang Efektif
-> Masalah utama dalam implementasi RL adalah **reward engineering**. Reward yang dirancang buruk dapat menyebabkan **perilaku tidak diharapkan** (reward hacking). Contoh kasus: robot yang diminta mengumpulkan benda mungkin belajar mendorong benda keluar arena untuk "mengumpulkan" tanpa henti. Solusi termasuk **reward shaping** (menambahkan reward intermediate) dan **inverse reinforcement learning** (mempelajari fungsi reward dari demonstrasi ahli).
+> #### Observability: MDP vs POMDP
+> Ketika observasi Ot sepenuhnya mencerminkan state environment (Ot = St), masalahnya **fully observable** dan dimodelkan sebagai **Markov Decision Process (MDP)**. Jika observasi hanya parsial, masalahnya menjadi **Partially Observable MDP (POMDP)** dan agent perlu membangun *agent state* sendiri (mis. lewat memori atau RNN) untuk merangkum riwayat.
 >
-> #### Implementasi Teknis Value Function
-> Dalam implementasi nyata, value function sering diestimasi menggunakan **fungsi aproksimasi** seperti jaringan saraf tiruan, terutama ketika state space sangat besar. Tantangan teknis meliputi **non-stasioneritas target** (target value berubah saat policy diperbarui) dan **korelasi tinggi** antara sampel data berturut-turut. Teknik seperti **target network** yang diperbarui berkala membantu menstabilkan pembelajaran.
+> #### Strategi Praktis Exploration
+> Teknik umum menyeimbangkan exploration-exploitation meliputi **ε-greedy** (memilih aksi acak dengan probabilitas ε), **softmax/Boltzmann**, **optimistic initialization**, dan **Upper Confidence Bound (UCB)**. Pada deep RL, eksplorasi terarah seperti *intrinsic motivation* dan *curiosity* membantu di lingkungan dengan reward jarang (sparse).
 >
-> #### Trade-off Eksplorasi-Eksploitasi
-> Dilema mendasar dalam RL adalah memilih antara **eksplorasi** (mencoba aksi baru untuk memperoleh informasi) dan **eksploitasi** (menggunakan pengetahuan saat ini untuk memaksimalkan reward). Strategi seperti **ε-greedy** (memilih aksi acak dengan probabilitas ε) dan **Upper Confidence Bound** (UCB) menyeimbangkan keduanya. Pada sistem kritis, eksplorasi berlebihan dapat berisiko sehingga diperlukan pendekatan hati-hati.
+> #### Proyek Eksplorasi Mandiri
+> 1. Implementasikan grid maze sederhana dan visualisasikan policy serta value function setelah beberapa episode.
+> 2. Bandingkan total reward antara strategi ε-greedy dengan nilai ε berbeda (0.01, 0.1, 0.3) pada masalah multi-armed bandit.
+> 3. Eksperimen mengubah magnitude reward tertunda dan amati bagaimana agent menukar reward langsung dengan reward jangka panjang.
 >
-> #### Tools dan Implementasi Praktis
-> - **OpenAI Gym**: Platform standar untuk mengembangkan dan membandingkan algoritma RL dengan berbagai environment standar
-> - **Stable Baselines3**: Implementasi algoritma RL state-of-the-art yang teroptimasi
-> - **RLlib**: Library terdistribusi untuk pelatihan RL skala besar pada Apache Spark
-> - **Unity ML-Agents**: Toolkit untuk mengembangkan lingkungan RL 3D interaktif
->
-> #### Self-Exploration Projects
-> 1. Implementasikan agent sederhana untuk environment **FrozenLake** dari Gym: bandingkan performance policy acak vs policy terlatih
-> 2. Bangun labirin kustom dengan reward berbeda, analisis bagaimana perubahan reward mempengaruhi policy yang dipelajari
-> 3. Eksperimen dengan strategi eksplorasi berbeda (ε-greedy vs softmax) dan ukur dampaknya terhadap kecepatan konvergensi
->
-> #### Further Reading
-> - Sutton & Barto Bab 4: Dynamic Programming untuk pemahaman matematis value function
-> - Paper "Reinforcement Learning: The Good, The Bad, and The Ugly" tentang tantangan praktis RL
-> - Dokumentasi Resmi OpenAI Gym: https://gym.openai.com/docs/
-> - Tutorial RL dengan TensorFlow: https://www.tensorflow.org/agents
+> #### Bacaan Lanjutan
+> - Sutton, R. S., & Barto, A. G. (2018). *Reinforcement Learning: An Introduction* (Bab 1-3).
+> - [The Multi-Armed Bandit Problem — Lilian Weng](https://lilianweng.github.io/posts/2018-01-23-multi-armed-bandit/)
+> - David Silver, *RL Course — Lecture 1: Introduction to RL*.

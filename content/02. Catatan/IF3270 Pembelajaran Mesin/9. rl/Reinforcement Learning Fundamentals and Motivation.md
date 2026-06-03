@@ -4,83 +4,75 @@ cssclasses:
   - cornell-notes
 ---
 
-_Back to_ [[Pembelajaran Mesin IF3270]]
+_Back to_ [[IF3270 Pembelajaran Mesin]]
 
 > [!cornell] Reinforcement Learning Fundamentals and Motivation
 >
 > > ## Questions/Cues
 > >
-> > - Apa beda RL dengan pembelajaran terawasi?
-> > - Mengapa umpan balik RL bersifat tertunda?
-> > - Bagaimana RL terkait dengan ilmu kontrol optimal?
-> > - Kapan RL lebih unggul dari metode ML lain?
-> > - Mengapa eksplorasi penting dalam RL?
+> > - Apa itu Reinforcement Learning dan bagaimana proses belajarnya?
+> > - Apa yang membedakan RL dari paradigma ML lain seperti supervised dan unsupervised learning?
+> > - Disiplin ilmu apa saja yang menjadi akar RL?
+> > - Mengapa RL penting bagi pengembangan sistem AI dan inteligensi?
+> > - Bagaimana posisi RL di antara cabang-cabang Machine Learning?
 > >
 > > ## Reference Points
 > >
-> > - RL_Slides_IF3270.pptx (Slides 5-11, 27)
-> > - cs224r.stanford.edu/slides (Slide 9, 11)
-> >
+> > - IF3270 Pembelajaran Mesin - Reinforcement Learning (Pages 5-11)
 >
-> > ### Definisi Reinforcement Learning
-> > Reinforcement Learning (RL) merupakan paradigma pembelajaran mesin di mana agen belajar membuat keputusan optimal melalui interaksi dengan lingkungan. Berbeda dengan pembelajaran terawasi yang memerlukan dataset berlabel, RL hanya mengandalkan sinyal reward yang mungkin diterima secara tertunda. Contoh analogi: seperti bayi belajar berjalan dengan mencoba berbagai gerakan dan menerima umpan balik (jatuh atau berhasil) untuk menyesuaikan strateginya.
-> > RL bersifat goal-oriented dengan fokus pada maksimalisasi reward kumulatif jangka panjang. Sistem ini tidak memerlukan contoh perilaku optimal seperti pada pembelajaran terawasi, melainkan menemukan strategi optimal melalui trial-and-error. Contoh aplikasi nyata termasuk robotika (belajar berjalan secara mandiri) atau sistem rekomendasi (mempelajari preferensi pengguna dari interaksi).
-> > ### Perbandingan dengan Paradigma ML Lain
-> > RL memiliki tiga karakteristik pembeda utama:
-> > 1. **Tidak ada supervisi langsung**, hanya sinyal reward yang mungkin jarang dan tertunda
-> > 2. **Konsekuensi temporal** di mana keputusan sekarang mempengaruhi keadaan masa depan
-> > 3. **Ketergantungan urutan waktu** yang membuat data tidak independen dan identik terdistribusi (non-IID)
-> > Berbeda dengan unsupervised learning yang fokus pada pola data tanpa tujuan spesifik, RL memiliki tujuan kumulatif yang jelas. Contoh: Sistem klasifikasi gambar (supervised) vs. agen game yang belajar strategi menang (RL).
-> > ### Motivasi Penggunaan RL
-> > Empat alasan utama menggunakan RL:
-> > 1. **Solusi masalah keputusan berurutan** seperti kontrol robot atau manajemen portofolio investasi
-> > 2. **Kemampuan belajar tanpa dataset berlabel** yang mahal untuk dikumpulkan
-> > 3. **Potensi menemukan strategi baru** yang tidak terpikirkan oleh desainer manusia
-> > 4. **Aplikasi luas** mulai dari optimasi logistik hingga sistem dialog cerdas
-> > Contoh implementasi sukses: AlphaGo yang mengalahkan juara dunia Go dengan strategi inovatif yang belum pernah ada dalam literatur permainan.
-> > ### Dilema Eksplorasi vs Eksploitasi
-> > Agen RL menghadapi trade-off fundamental:
-> > - **Eksploitasi**: Memanfaatkan pengetahuan saat ini untuk memaksimalkan reward
-> > - **Eksplorasi**: Mencoba tindakan baru untuk memperoleh informasi lebih
-> > Contoh restoran: Eksploitasi berarti selalu ke restoran favorit, sedangkan eksplorasi mencoba restoran baru yang mungkin lebih baik. Kedua strategi diperlukan karena eksploitasi berlebihan menyebabkan suboptimal, sementara eksplorasi berlebihan mengurangi efisiensi.
+> > ### Apa Itu Reinforcement Learning
+> >
+> > **Reinforcement Learning (RL)** adalah paradigma pembelajaran di mana sebuah **agent** belajar dengan **berinteraksi dengan lingkungannya (environment)**. Sebagaimana manusia dan makhluk cerdas lain belajar dengan mencoba, mengamati konsekuensi, lalu menyesuaikan perilaku, agent RL melakukan hal serupa secara komputasional. RL bersifat **goal-directed**, artinya agent memiliki tujuan yang ingin dicapai dan setiap aksinya diarahkan untuk memaksimalkan pencapaian tujuan tersebut.
+> >
+> > Hal yang membuat RL istimewa adalah kemampuannya **belajar tanpa contoh perilaku optimal**. Tidak seperti supervised learning yang membutuhkan label "jawaban benar", agent RL tidak pernah diberi tahu aksi mana yang seharusnya dilakukan. Ia hanya menerima sinyal evaluatif berupa **reward** dan harus menemukan sendiri strategi terbaiknya melalui pengalaman. Karena itu, RL sering disebut sebagai **sains pengambilan keputusan dari interaksi (science of learning to make decisions from interaction)**.
+> >
+> > ### Karakteristik RL Dibanding Paradigma ML Lain
+> >
+> > RL memiliki sejumlah karakteristik yang membedakannya secara fundamental dari paradigma ML lain. Pertama, **tidak ada supervisi langsung, hanya ada sinyal reward**. Agent tidak menerima pasangan input-output yang benar, melainkan hanya angka skalar yang menandakan seberapa baik atau buruk situasi yang dihasilkan oleh aksinya.
+> >
+> > Kedua, **feedback dapat tertunda (delayed), bukan instan**. Konsekuensi dari sebuah aksi mungkin baru terlihat beberapa langkah kemudian, sehingga agent harus mampu mengaitkan reward yang datang belakangan dengan aksi yang menyebabkannya (masalah *credit assignment*). Ketiga, **waktu sangat penting (time matters)**: data RL bersifat sekuensial dan tidak independen — **keputusan yang diambil lebih awal mempengaruhi observasi dan interaksi berikutnya**. Asumsi data i.i.d. yang lazim pada supervised learning tidak berlaku di sini.
+> >
+> > ### Cabang-Cabang Machine Learning
+> >
+> > Machine Learning umumnya dibagi menjadi tiga cabang besar. **Supervised Learning** belajar dari data berlabel (pasangan x, y) untuk tugas klasifikasi dan regresi. **Unsupervised Learning** menemukan struktur tersembunyi dalam data tanpa label, misalnya clustering dan reduksi dimensi. **Reinforcement Learning** belajar melalui interaksi trial-and-error dengan lingkungan untuk memaksimalkan reward kumulatif. Ketiganya menjawab pertanyaan berbeda, dan RL secara khusus menangani **masalah pengambilan keputusan sekuensial**.
+> >
+> > ### Disiplin Terkait
+> >
+> > RL berdiri di persimpangan banyak disiplin ilmu. Dari **Computer Science** datang sudut pandang machine learning dan komputasi. **Neuroscience** menyumbang pemahaman tentang sistem reward di otak (mis. dopamin). **Psychology** memberi landasan melalui teori *operant/classical conditioning* (Pavlov, Skinner) tentang bagaimana perilaku dibentuk oleh penguatan. **Economics** berkontribusi lewat teori utilitas dan *bounded rationality*. **Engineering** menyumbang **optimal control**, dan **Mathematics/Operations Research** menyediakan kerangka optimasi keputusan. Konvergensi semua bidang ini menjadikan RL kerangka yang sangat kaya untuk memodelkan agen yang mengambil keputusan.
+> >
+> > ### Mengapa RL Penting
+> >
+> > Pertama, RL **melampaui keterbatasan supervised learning berbasis contoh (x, y)**. Ketika supervisi langsung tidak tersedia — dan masalah pengambilan keputusan ada di mana-mana — RL menjadi pendekatan yang natural. Kedua, RL **telah banyak digunakan dan dideploy untuk sistem AI berperforma tinggi**, contohnya melatih tugas fisik kompleks seperti **robot berkaki (legged robot)** untuk berjalan. Ketiga, **belajar dari pengalaman tampak fundamental bagi inteligensi** — RL mampu menemukan solusi baru yang tidak terpikirkan oleh perancang. Keempat, RL menyimpan **banyak masalah riset terbuka yang menarik**, mulai dari pertanyaan apakah RL bisa belajar memasak hingga apakah robot bisa berlatih sepenuhnya secara otonom.
+> >
+> > ```mermaid
+> > flowchart TD
+> >     ML["Machine Learning"]
+> >     ML --> SL["Supervised Learning<br/>(data berlabel x, y)"]
+> >     ML --> UL["Unsupervised Learning<br/>(struktur tanpa label)"]
+> >     ML --> RL["Reinforcement Learning<br/>(interaksi &amp; reward)"]
+> >     RL --> R1["Tanpa supervisi, hanya reward"]
+> >     RL --> R2["Feedback tertunda"]
+> >     RL --> R3["Sekuensial, waktu penting"]
+> > ```
 
 > [!cornell] #### Summary
 >
-> **Reinforcement Learning** adalah paradigma pembelajaran mesin yang memungkinkan agen belajar melalui interaksi dengan lingkungan menggunakan **sinyal reward tertunda** tanpa supervisi langsung. RL unggul untuk masalah keputusan berurutan dengan **efek jangka panjang** seperti kontrol robot atau strategi game, serta memungkinkan penemuan solusi inovatif. Tantangan utama meliputi **penyeimbangan eksplorasi-eksploitasi** dan pengelolaan **ketergantungan temporal** dalam data pembelajaran.
->
+> **Reinforcement Learning (RL)** adalah sains pengambilan keputusan di mana sebuah **agent** belajar dengan **berinteraksi dengan lingkungan** secara **goal-directed** dan **tanpa contoh perilaku optimal**. RL berbeda dari paradigma ML lain karena **tidak ada supervisi (hanya sinyal reward)**, **feedback dapat tertunda**, dan **waktu penting** sehingga keputusan awal mempengaruhi interaksi berikutnya. RL menempati satu dari tiga cabang ML bersama **supervised** dan **unsupervised learning**, dan berakar pada banyak disiplin (CS, neuroscience, psychology/operant conditioning, economics, optimal control, operations research). RL penting karena **melampaui supervisi berbasis (x, y)**, **menggerakkan sistem AI performant seperti robot berkaki**, mencerminkan **belajar dari pengalaman sebagai fondasi inteligensi**, dan menyimpan **banyak riset terbuka**.
 
 > [!ad-libitum]- Additional Information
 >
-> #### Teori Matematika Dasar RL
-> Proses keputusan RL dapat dimodelkan sebagai Proses Keputusan Markov (MDP) yang memenuhi properti Markov: keadaan masa depan hanya bergantung pada keadaan saat ini, bukan sejarah sebelumnya. Secara formal, MDP didefinisikan sebagai tuple (S, A, P, R, γ) dimana:
-> - S: Himpunan keadaan
-> - A: Himpunan tindakan
-> - P: Fungsi transisi P(s'|s,a)
-> - R: Fungsi reward R(s,a,s')
-> - γ: Faktor diskon untuk reward masa depan
+> #### Reward Hypothesis
+> Inti teoretis RL adalah **reward hypothesis** (Sutton & Barto): "semua tujuan dapat dideskripsikan sebagai maksimisasi nilai harapan dari reward kumulatif". Hipotesis ini menjadi dasar mengapa satu sinyal skalar (reward) cukup untuk mengekspresikan tujuan yang kompleks sekalipun.
 >
-> Meskipun model ini ideal, banyak aplikasi RL nyata menggunakan pendekatan model-free karena kompleksitas lingkungan.
->
-> #### Aplikasi Industri RL
-> Implementasi RL di industri mencakup:
-> 1. **Optimasi jaringan komunikasi 5G**: Alokasi sumber daya dinamis
-> 2. **Manajemen rantai pasok**: Optimasi inventori real-time
-> 3. **Trading algoritmik**: Strategi portofolio adaptif
-> 4. **Kontrol HVAC**: Efisiensi energi bangunan cerdas
->
-> #### Tantangan Riset Terkini
-> 1. **Sample efficiency**: Mengurangi jumlah interaksi dengan lingkungan
-> 2. **Transfer learning**: Pengetahuan antar domain berbeda
-> 3. **Multi-agent RL**: Koordinasi agen otonom
-> 4. **Safety constraints**: Memastikan perilaku aman selama eksplorasi
+> #### Tonggak Sejarah RL
+> Perkembangan RL mencakup TD-Gammon (Tesauro, 1992) yang mencapai level pemain backgammon dunia, kemenangan **AlphaGo** (DeepMind, 2016) atas juara Go dunia, hingga **AlphaZero** dan penerapan RLHF (*Reinforcement Learning from Human Feedback*) pada model bahasa besar modern.
 >
 > #### Proyek Eksplorasi Mandiri
-> 1. Implementasikan agen RL sederhana untuk permainan GridWorld menggunakan library Python seperti Gymnasium
-> 2. Eksperimen dengan berbagai strategi eksplorasi (ε-greedy, UCB) dan amati pengaruhnya terhadap performa
-> 3. Visualisasi trajectory agen menggunakan Matplotlib untuk memahami proses pembelajaran
+> 1. Jalankan environment `CartPole-v1` pada library Gymnasium dan bandingkan kebijakan acak vs kebijakan terlatih sederhana.
+> 2. Tuliskan tiga masalah dunia nyata (mis. penjadwalan, trading, rekomendasi) dan formulasikan masing-masing sebagai state, action, dan reward.
+> 3. Bandingkan kurva belajar agent RL dengan akurasi model supervised pada tugas serupa untuk memahami perbedaan sinyal belajar.
 >
-> #### Sumber Lanjutan
-> - Sutton & Barto, "Reinforcement Learning: An Introduction" (Bab 1-3)
-> - Kursus online: "Stanford CS234: Reinforcement Learning"
-> - Toolkit: OpenAI Gym (https://gymnasium.farama.org/)
-> - Paper: "Human-level control through deep reinforcement learning" (Nature 2015)
+> #### Bacaan Lanjutan
+> - Sutton, R. S., & Barto, A. G. (2018). *Reinforcement Learning: An Introduction* (2nd ed.). MIT Press (Bab 1).
+> - Raschka, S., et al. (2022). *Machine Learning with PyTorch and Scikit-Learn* (Bab 15). Packt.
+> - [DeepMind x UCL Reinforcement Learning Lectures](https://www.youtube.com/playlist?list=PLqYmG7hTraZDVH599EItlEWsUOsJbAodm)

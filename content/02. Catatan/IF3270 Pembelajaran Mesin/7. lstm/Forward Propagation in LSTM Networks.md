@@ -10,101 +10,97 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 >
 > > ## Questions/Cues
 > >
-> > - Bagaimana aliran informasi dalam forward propagation LSTM?
-> > - Peran fungsi aktivasi sigmoid dan tanh dalam LSTM?
-> > - Tahapan update cell state pada forward pass?
-> > - Implementasi forward propagation di Keras?
-> > - Perhitungan parameter pada jaringan LSTM?
+> > - Bagaimana urutan perhitungan forward propagation LSTM per timestep?
+> > - Bagaimana mengimplementasikan LSTM many-to-one di Keras?
+> > - Bagaimana menghitung jumlah parameter sebuah lapisan LSTM?
+> > - Mengapa muncul faktor ×4 dalam rumus parameter LSTM?
+> > - Bagaimana evolusi dari RNN ke LSTM, GRU, dan ReGU?
 > >
 > > ## Reference Points
 > >
-> > - Lecture_IF3270.pptx (Slides 8-15, 19-22)
-> > - Medium_Article_LSTM_Implementation (Pages 17-19)
-> >
+> > - IF3270 Pembelajaran Mesin - LSTM (Pages 16-21)
 >
-> > ### Arsitektur Dasar LSTM
-> > Long Short-Term Memory (LSTM) merupakan jenis khusus Recurrent Neural Network (RNN) yang dirancang untuk menangani ketergantungan jangka panjang. Modul berulang pada LSTM terdiri dari beberapa lapisan yang saling berinteraksi, berbeda dengan RNN standar yang hanya menggunakan lapisan tanh tunggal. Selama fase forward propagation, informasi mengalir melalui tiga tahap utama: komputasi gate, update cell state, dan generasi output.
-> > Contoh analogi: Bayangkan LSTM seperti sistem penyaringan surat di kantor pos. Setiap gate bertindak sebagai petugas yang memutuskan surat mana yang disimpan (input gate), dibuang (forget gate), atau dikirim ke tujuan (output gate). Cell state berperan sebagai ban berjalan yang membawa semua informasi penting antar tahap pemrosesan.
-> > ### Tahapan Forward Propagation
-> > **1. Komputasi Gate:**
-> > - **Forget Gate:** Menghitung informasi yang akan dipertahankan dari cell state sebelumnya menggunakan fungsi sigmoid. Nilai mendekati 0 menunjukkan informasi akan dibuang, sedangkan nilai mendekati 1 dipertahankan.
-> > - **Input Gate:** Menentukan nilai update baru menggunakan fungsi sigmoid dan tanh. Sigmod memfilter informasi penting, sedangkan tanh menghasilkan vektor kandidat update.
-> > **2. Update Cell State:**
-> > Cell state diperbarui dengan menggabungkan informasi dari forget gate dan input gate:
+> > ### Forward Propagation Antar Timestep
+> >
+> > Forward propagation pada LSTM berarti menerapkan **keenam persamaan gate secara berurutan** untuk setiap timestep. Pada **timestep t1**, kita mulai dengan h(0) dan C(0) (biasanya nol), lalu hitung berurutan: forget gate ft, input gate it, kandidat Ĉt, perbarui cell state C(t1), output gate ot, dan akhirnya hidden state h(t1).
+> >
 > > ```
-> > Ct = (Ct-1 * ft) + (it * Čt)
+> > ft = σ(Wxf·x(t) + Whf·h(t-1) + bf)
+> > it = σ(Wxi·x(t) + Whi·h(t-1) + bi)
+> > Ĉt = tanh(Wxc·x(t) + Whc·h(t-1) + bc)
+> > C(t) = (C(t-1) ⊙ ft) ⊕ (it ⊙ Ĉt)
+> > ot = σ(Wxo·x(t) + Who·h(t-1) + bo)
+> > h(t) = ot ⊙ tanh(C(t))
 > > ```
-> > di mana ft adalah output forget gate, it output input gate, dan Čt vektor kandidat baru.
-> > **3. Generasi Output:**
-> > Output gate mengatur informasi yang akan dikirim ke hidden state berikutnya. Cell state yang telah diperbarui diproses melalui tanh kemudian dikalikan dengan output gate:
-> > ```
-> > ht = ot * tanh(Ct)
-> > ```
-> > ### Contoh Implementasi Praktis
-> > Implementasi forward propagation LSTM menggunakan Keras untuk model Many-to-One:
+> >
+> > Pada **timestep t2**, perhitungan diulang dengan x(t2), tetapi sekarang h(t-1) = h(t1) dan C(t-1) = C(t1) yang dihasilkan dari timestep sebelumnya. Karena cell state dan hidden state dari t1 mengalir masuk ke t2, LSTM membawa "memori" dari masa lalu. Proses ini berlanjut hingga timestep terakhir, dan untuk arsitektur many-to-one hanya hidden state terakhir h(T) yang dipakai untuk prediksi.
+> >
+> > ### Implementasi LSTM di Keras (Many-to-One)
+> >
+> > Contoh kasus: memprediksi harga penutupan saham Amazon menggunakan LSTM dengan 50 timestep. Arsitektur many-to-one menerima seluruh sekuens dan menghasilkan satu nilai output (regresi).
+> >
 > > ```python
-> > from keras.models import Sequential
+> > # predict amazon stock closing prices, LSTM 50 timestep
+> > from keras import Sequential
 > > from keras.layers import LSTM, Dense
+> >
 > > model = Sequential()
-> > model.add(LSTM(10, input_shape=(50,1)))  # 10 neuron, input 50 timestep
+> > # 10 neuron, memproses sekuens berukuran 50x1
+> > model.add(LSTM(10, input_shape=(50, 1)))
+> > # output linear karena ini masalah regresi
 > > model.add(Dense(1, activation='linear'))
 > > ```
-> > Pada contoh ini, lapisan LSTM memproses urutan data 50 langkah waktu dengan 1 fitur per langkah. Output gate terhubung ke lapisan Dense untuk menghasilkan prediksi numerik.
-> > ### Visualisasi Aliran Data
-> > Diagram alur forward propagation:
-> > ```
-> > Input (xt) → [Gate Layer] → [Cell State Update] → [Output Gate] → Hidden State (ht)
-> > ↑               ↑                    ↑
-> > Hidden State (ht-1) Cell State (Ct-1)  Cell State (Ct)
-> > ```
-> > Setiap panah merah menunjukkan aliran data selama forward pass, dengan operasi element-wise multiplication (*) dan addition (+).
+> >
+> > Lapisan `LSTM(10, input_shape=(50,1))` berarti **10 unit LSTM (n=10)** yang memproses sekuens dengan 50 timestep dan dimensi input 1 (m=1). Lapisan `Dense(1)` di atasnya menghasilkan **1 output (k=1)**.
+> >
+> > ### Menghitung Jumlah Parameter LSTM
+> >
+> > Rumus jumlah parameter untuk lapisan LSTM dengan **n unit**, input **m dimensi**, menuju output **k dimensi**:
+> >
+> > `Total parameter = (m + n + 1) × 4 × n + (n + 1) × k`
+> >
+> > Pada contoh Keras di atas (m=1, n=10, k=1):
+> >
+> > `Total = (1 + 10 + 1) × 4 × 10 + (10 + 1) × 1 = 12 × 40 + 11 = 480 + 11 = `**491**
+> >
+> > Sebagai pembanding, **Simple RNN** dengan jaringan setara hanya butuh **131 parameter**. Pada Simple RNN, bobotnya adalah Wxh (hidden × (input+1)), Whh (hidden × hidden), dan Why (output × (hidden+1)) — hanya satu set bobot rekuren.
+> >
+> > ### Mengapa Faktor ×4?
+> >
+> > Faktor **×4** muncul karena LSTM memiliki **empat set bobot terpisah**, satu untuk masing-masing dari empat lapisan interaksi: **forget gate, input gate, candidate (tanh), dan output gate**. Setiap set membutuhkan bobot untuk input (Wx*, ukuran m), bobot untuk hidden state sebelumnya (Wh*, ukuran n), dan satu bias (b*, ukuran 1). Karena itu setiap unit LSTM butuh (m + n + 1) parameter per set, dikalikan 4 set, dikalikan n unit: (m+n+1)×4×n. Inilah alasan LSTM jauh lebih "berat" parameter daripada Simple RNN yang hanya punya satu set bobot rekuren (faktor ×1).
+> >
+> > ### Evolusi RNN → LSTM → GRU → ReGU
+> >
+> > Garis perkembangan arsitektur recurrent:
+> >
+> > - **1985 — Recurrent nets**: jaringan rekuren dasar.
+> > - **1997 — LSTM &amp; Bi-RNN**: memperkenalkan cell state dan gate, serta versi bidirectional.
+> > - **2014 — GRU (Gated Recurrent Unit)**: penyederhanaan LSTM, **tidak ada cell state terpisah** dan hanya menggunakan **2 gate** (reset dan update), sehingga lebih sedikit parameter dan lebih cepat dilatih.
+> > - **2017 — Residual LSTM**: menambahkan koneksi residual.
+> > - **2019 — ReGU (Residual Gated Unit)**: menambahkan **shortcut connection** (koneksi langsung) untuk memperlancar aliran gradien.
 
 > [!cornell] #### Summary
 >
-> **Forward propagation pada LSTM** melibatkan tiga tahap inti: komputasi gate menggunakan fungsi sigmoid dan tanh, update cell state melalui kombinasi informasi lama dan baru, serta generasi output melalui filter output gate. Proses ini memungkinkan LSTM **mempertahankan informasi relevan** antar langkah waktu dengan mekanisme gate yang terkelola. Implementasi praktis menggunakan framework seperti Keras menunjukkan konfigurasi parameter input_shape yang menentukan dimensi urutan waktu. **Perhitungan parameter** LSTM secara signifikan lebih kompleks dibanding RNN standar karena adanya empat transformasi linear berbeda dalam setiap sel.
->
+> **Forward propagation LSTM** dilakukan dengan menerapkan **keenam persamaan gate berurutan** tiap timestep, di mana h(t) dan C(t) dari satu timestep mengalir menjadi input timestep berikutnya (mis. t1 → t2). Di **Keras**, model many-to-one dibuat dengan `LSTM(10, input_shape=(50,1))` diikuti `Dense(1)`. Jumlah parameter LSTM dihitung dengan **(m+n+1)×4×n+(n+1)×k**, contohnya **(1+10+1)×4×10+(10+1)×1=491** dibanding **Simple RNN hanya 131**. **Faktor ×4** berasal dari **empat set bobot** untuk forget gate, input gate, candidate, dan output gate. Evolusi arsitektur berlanjut **RNN→LSTM→GRU** (tanpa cell state, 2 gate) **→ReGU** (Residual Gated Unit dengan shortcut connection).
 
 > [!ad-libitum]- Additional Information
 >
-> #### Perhitungan Parameter LSTM
-> Rumus umum perhitungan parameter untuk LSTM dengan:
-> - `m`: dimensi input
-> - `n`: jumlah neuron LSTM
-> - `k`: dimensi output
+> #### GRU vs LSTM dalam Praktik
+> GRU menggabungkan forget dan input gate menjadi satu **update gate**, dan menggabungkan cell state dengan hidden state. Akibatnya GRU punya jumlah parameter ≈ (m+n+1)×3×n (faktor ×3, bukan ×4). Dalam banyak benchmark GRU dan LSTM memberi akurasi serupa, namun GRU lebih cepat dilatih pada dataset kecil; LSTM kadang unggul pada sekuens sangat panjang berkat cell state eksplisitnya.
 >
-> Total parameter = `4*(m*n + n^2 + n) + (n*k + k)`
+> #### Stateful vs Stateless LSTM di Keras
+> Secara default `LSTM` di Keras bersifat **stateless**: state direset di awal tiap batch. Dengan `stateful=True`, hidden dan cell state dipertahankan antar batch, berguna untuk deret waktu sangat panjang yang dipecah jadi banleh batch berurutan, tetapi mengharuskan `batch_input_shape` tetap dan pemanggilan `model.reset_states()` manual.
 >
-> Contoh untuk arsitektur dengan 10 neuron, input 1 dimensi, output 1 dimensi:
-> ```
-> = 4*(1*10 + 10^2 + 10) + (10*1 + 1)
-> = 4*(10 + 100 + 10) + 11
-> = 4*120 + 11 = 491 parameter
-> ```
-> Komponen utama berasal dari empat set weight matrices (input gate, forget gate, output gate, dan cell state candidate) serta bias untuk masing-masing gate.
+> #### Verifikasi Hitungan Parameter
+> Setelah membangun model, jalankan `model.summary()`. Untuk `LSTM(10)` dengan input dimensi 1, kolom "Param #" akan menampilkan 480 (bobot rekuren), dan `Dense(1)` menampilkan 11, total 491 — cocok dengan rumus (m+n+1)×4×n+(n+1)×k.
 >
-> #### Variasi Arsitektur LSTM Modern
-> **1. Peephole Connections:**
-> Memungkinkan gate mengakses cell state secara langsung tanpa melalui hidden state. Memodifikasi persamaan gate menjadi:
-> ```
-> ft = σ(Wf · [ht-1, xt] + Uf · Ct-1 + bf)
-> ```
+> #### Proyek Eksplorasi Mandiri
+> 1. Bangun model prediksi harga saham dengan LSTM lalu bandingkan jumlah parameter dan akurasi terhadap GRU setara menggunakan `model.summary()`.
+> 2. Implementasikan forward pass LSTM dua timestep secara manual di NumPy dan cocokkan hasilnya dengan output Keras pada bobot yang sama.
+> 3. Bereksperimen dengan jumlah unit (n) berbeda dan plot pertumbuhan jumlah parameter terhadap n untuk LSTM vs Simple RNN.
 >
-> **2. Convolutional LSTM:**
-> Mengganti transformasi linear dengan operasi konvolusi, cocok untuk data spasio-temporal seperti video. Digunakan secara luas dalam video captioning (*referensi terlarang - hanya disebutkan tanpa penjelasan*).
->
-> #### Optimasi Implementasi
-> Teknik optimasi komputasi forward propagation:
-> - **Kernel Fusion:** Menggabungkan operasi matriks untuk mengurangi overhead memori
-> - **Quantization:** Menggunakan presisi 16-bit untuk komputasi
-> - **Parallelization:** Memproses multiple time steps secara paralel pada GPU
->
-> #### Self-Exploration Projects
-> 1. Implementasikan forward propagation LSTM manual dengan NumPy untuk input sequence [0.5, 1.2, -0.3] dan visualisasikan perubahan cell state tiap langkah waktu
-> 2. Bandingkan output LSTM Keras dengan implementasi manual menggunakan bobot yang sama
-> 3. Eksperimen dengan berbagai fungsi aktivasi alternatif untuk gate (contoh: sigmoid vs hard sigmoid)
->
-> #### Tools dan Referensi
-> - **Library:** Keras, PyTorch Lightning, CuDNN-LSTM
-> - **Visualisasi:** TensorBoard LSTM Traces, Netron
-> - **Buku:** "Deep Learning" (Goodfellow et al.) Bab 10 - Sequence Modeling
-> - **Paper:** "LSTM: A Search Space Odyssey" (Greff et al., 2017)
+> #### Bacaan Lanjutan
+> - Cho, K., et al. (2014). *Learning Phrase Representations using RNN Encoder-Decoder* (asal GRU).
+> - Chung, J., et al. (2014). *Empirical Evaluation of Gated Recurrent Neural Networks*.
+> - Raschka, S., et al. (2022). *Machine Learning with PyTorch and Scikit-Learn* (Chapter 15).
+> - [A Comprehensive Guide to RNNs in Keras](https://towardsdatascience.com/a-comprehensive-guide-to-working-with-recurrent-neural-networks-in-keras-f3b2d5e2fa7f)
