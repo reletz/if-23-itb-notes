@@ -3,7 +3,7 @@ cssclasses:
   - dashboard
 ---
 _Back to_ [[index]]
-# Overview
+# UTS
 - ## Intro
 	- [[Organizational Structure and Design Dimensions]]
 	- [[Data, Information, and Knowledge Fundamentals]]
@@ -39,3 +39,47 @@ _Back to_ [[index]]
 	- [[Security Controls and Audit Mechanisms]]
 	- [[Logical vs Physical Design Transformation]]
 	- [[Design Patterns: Structure and Application]]
+# UAS
+- ## Programming & Development Approaches
+	- [[Build vs Buy Decision]]
+	- [[Ready-made Solutions - COTS and Open Source]]
+	- [[Component-based Development]]
+	- [[Development Methodologies and Software Paradigms]]
+	- [[Technological Advances - Cloud and MDA]]
+- ## System Modelling
+	- [[What is a Model and System Modelling]]
+	- [[Abstraction and All Models Are Wrong]]
+	- [[Rationale and the Three-View Model]]
+	- [[Pre-UML and UML Modelling Techniques]]
+	- [[Abstraction Levels and Model Opaqueness]]
+- ## Solution Architecture
+	- [[What is Architecture]]
+	- [[Architecture and Communication Patterns]]
+	- [[Enterprise Architecture]]
+	- [[Solution Architecture]]
+	- [[Software Architecture]]
+	- [[Stakeholders and Architecture Governance]]
+- ## Quality & Testing
+	- [[Software Quality and the Quality Triangle]]
+	- [[Testing Principles and Static Testing]]
+	- [[Dynamic Testing and the Test Plan]]
+	- [[System Testing - Performance, Load, and Stress]]
+	- [[Usability Testing]]
+	- [[Security Testing]]
+- ## Implementation & Changeover
+	- [[Implementation in the Lifecycle and Planning]]
+	- [[File and Data Conversion - ETL]]
+	- [[Data Mapping Principles and Problems]]
+	- [[Migration, Documentation, and Training]]
+	- [[Changeover Strategies and the Implementation Plan]]
+- ## Social Impacts of Information Systems
+	- [[Ethical, Social, and Political Issues]]
+	- [[Principles for Ethical Conduct and Analysis]]
+	- [[Information Rights and Privacy]]
+	- [[Property Rights and Intellectual Property]]
+	- [[Accountability, System Quality, and Quality of Life]]
+- ## Risiko Sistem Informasi
+	- [[Konsep dan Jenis Risiko]]
+	- [[Identifikasi Risiko]]
+	- [[Analisis Risiko]]
+	- [[Mitigasi Risiko]]
