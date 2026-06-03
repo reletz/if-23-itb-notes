@@ -67,3 +67,5 @@ _Back to_ [[index]]
 	- [[Optimal Policy Formulation]]
 	- [[Temporal Difference Learning Methods]]
 	- [[Deep Q-Networks and Advanced Techniques]]
+- ## Simulasi Interaktif
+	- [Simulasi RNN · Attention · RL](/02.-Catatan/IF3270-Pembelajaran-Mesin/simulations/index.htm) — alur penghitungan dinamis (buka di tab baru bila tampilan tidak muncul)

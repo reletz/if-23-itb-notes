@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulasi Interaktif ML — RNN · Attention · RL</title>
+    <meta
+      name="description"
+      content="Simulasi interaktif IF3270: forward propagation RNN/LSTM, mekanisme Attention (Bahdanau/Luong/Self-Attention), dan Reinforcement Learning gridworld (SARSA/Q-Learning)."
+    />
+
+    <!-- KaTeX (CDN). Bila gagal load, math-render.js otomatis fallback ke HTML/CSS. -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+      crossorigin="anonymous"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+      crossorigin="anonymous"
+      onerror="window.__KATEX_FAILED=true"
+    ></script>
+
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand">
+        <h1>Simulasi Interaktif <span>Pembelajaran Mesin</span></h1>
+        <p class="subtitle">
+          IF3270 — alur penghitungan dinamis untuk RNN/LSTM, Attention, dan Reinforcement Learning
+        </p>
+      </div>
+      <button id="theme-toggle" class="btn theme-btn" title="Ganti tema">🌙</button>
+    </header>
+
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="rnn" role="tab">RNN</button>
+      <button class="tab" data-tab="attention" role="tab">Attention</button>
+      <button class="tab" data-tab="rl" role="tab">Reinforcement Learning</button>
+    </nav>
+
+    <main class="content">
+      <section id="tab-rnn" class="tab-panel active">
+        <div class="sim-root" id="rnn-root"></div>
+      </section>
+      <section id="tab-attention" class="tab-panel">
+        <div class="sim-root" id="attention-root"></div>
+      </section>
+      <section id="tab-rl" class="tab-panel">
+        <div class="sim-root" id="rl-root"></div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <span id="katex-status"></span>
+      <span
+        >Dibuat untuk catatan IF3270 Pembelajaran Mesin · semua perhitungan berjalan di browser
+        kamu.</span
+      >
+    </footer>
+
+    <!-- urutan penting: util dulu, lalu simulator, lalu app -->
+    <script src="js/matrix.js"></script>
+    <script src="js/math-render.js"></script>
+    <script src="js/stepper.js"></script>
+    <script src="data/presets-loader.js"></script>
+    <script src="js/rnn.js"></script>
+    <script src="js/attention.js"></script>
+    <script src="js/rl.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
