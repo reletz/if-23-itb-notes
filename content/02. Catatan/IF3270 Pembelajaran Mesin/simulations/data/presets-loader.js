@@ -17,6 +17,14 @@
         [0, 0, 1, 0],
         [0, 0, 1, 0],
       ],
+      // target many-to-many: prediksi simbol berikutnya (ABCC -> BCCD)
+      targets: [
+        [0, 1, 0, 0],
+        [0, 0, 1, 0],
+        [0, 0, 1, 0],
+        [0, 0, 0, 1],
+      ],
+      targetLabels: ["B", "C", "C", "D"],
       hidden: 3,
       Wxh: [
         [0.1, 0.15, 0.2, 0.3],
@@ -107,6 +115,42 @@
         ["right", "right"], // (1,1)->(2,1)->(3,1) trap
         ["right", "up", "right"], // (1,1)->(2,1)->(2,2)->(3,2) goal
       ],
+    },
+
+    // ---- RL warehouse 5×5 (mode Value Iteration / Navigasi) ----
+    // koordinat [row, col], row 0 = atas. start kiri-atas, goal kanan-bawah.
+    rl5: {
+      rows: 5,
+      cols: 5,
+      start: [0, 0],
+      goal: [4, 4],
+      goalReward: 10,
+      stepReward: -1,
+      gamma: 0.92,
+      obstacles: [
+        [0, 3],
+        [1, 1],
+        [2, 3],
+        [3, 1],
+      ],
+      // demonstrasi Markov property: dua jalur menuju (2,2)
+      markov: {
+        meet: [2, 2],
+        pathA: [
+          [0, 0],
+          [1, 0],
+          [2, 0],
+          [2, 1],
+          [2, 2],
+        ],
+        pathB: [
+          [0, 0],
+          [0, 1],
+          [0, 2],
+          [1, 2],
+          [2, 2],
+        ],
+      },
     },
   };
 })();

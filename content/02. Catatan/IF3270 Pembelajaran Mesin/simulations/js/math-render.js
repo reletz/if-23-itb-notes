@@ -75,6 +75,12 @@
     return typeof window.katex !== "undefined" && window.katex && window.katex.renderToString;
   }
 
+  // macro KaTeX untuk command non-standar yg kita pakai (mis. \softmax)
+  const KATEX_MACROS = {
+    "\\softmax": "\\operatorname{softmax}",
+    "\\argmax": "\\operatorname*{arg\\,max}",
+  };
+
   function render(el, latex, displayMode) {
     if (!el) return;
     if (hasKatex()) {
@@ -83,6 +89,7 @@
           displayMode: !!displayMode,
           throwOnError: false,
           output: "html",
+          macros: KATEX_MACROS,
         });
         el.classList.remove("fallback-math");
         return;
@@ -102,6 +109,7 @@
           displayMode: !!displayMode,
           throwOnError: false,
           output: "html",
+          macros: KATEX_MACROS,
         });
       } catch (e) {}
     }

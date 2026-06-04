@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Simulasi Interaktif ML — RNN · Attention · RL</title>
+    <title>Simulasi Interaktif ML — RNN · LSTM · Attention · Transformer · RL</title>
     <meta
       name="description"
-      content="Simulasi interaktif IF3270: forward propagation RNN/LSTM, mekanisme Attention (Bahdanau/Luong/Self-Attention), dan Reinforcement Learning gridworld (SARSA/Q-Learning)."
+      content="Simulasi interaktif IF3270: diagram & alur penghitungan RNN, LSTM, Attention (Bahdanau/Luong), Transformer, dan Reinforcement Learning."
     />
 
     <!-- KaTeX (CDN). Bila gagal load, math-render.js otomatis fallback ke HTML/CSS. -->
@@ -25,11 +25,23 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
+    <!-- definisi marker panah global (dipakai semua diagram SVG) -->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <defs>
+        <marker id="arrowBlue" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L7,3 L0,6 Z" fill="#3b82f6" />
+        </marker>
+        <marker id="arrowGray" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L7,3 L0,6 Z" fill="currentColor" />
+        </marker>
+      </defs>
+    </svg>
+
     <header class="app-header">
       <div class="brand">
         <h1>Simulasi Interaktif <span>Pembelajaran Mesin</span></h1>
         <p class="subtitle">
-          IF3270 — alur penghitungan dinamis untuk RNN/LSTM, Attention, dan Reinforcement Learning
+          IF3270 — diagram & alur penghitungan dinamis: RNN, LSTM, Attention, Transformer, RL
         </p>
       </div>
       <button id="theme-toggle" class="btn theme-btn" title="Ganti tema">🌙</button>
@@ -37,7 +49,9 @@
 
     <nav class="tabs" role="tablist">
       <button class="tab active" data-tab="rnn" role="tab">RNN</button>
+      <button class="tab" data-tab="lstm" role="tab">LSTM</button>
       <button class="tab" data-tab="attention" role="tab">Attention</button>
+      <button class="tab" data-tab="transformer" role="tab">Transformer</button>
       <button class="tab" data-tab="rl" role="tab">Reinforcement Learning</button>
     </nav>
 
@@ -45,8 +59,14 @@
       <section id="tab-rnn" class="tab-panel active">
         <div class="sim-root" id="rnn-root"></div>
       </section>
+      <section id="tab-lstm" class="tab-panel">
+        <div class="sim-root" id="lstm-root"></div>
+      </section>
       <section id="tab-attention" class="tab-panel">
         <div class="sim-root" id="attention-root"></div>
+      </section>
+      <section id="tab-transformer" class="tab-panel">
+        <div class="sim-root" id="transformer-root"></div>
       </section>
       <section id="tab-rl" class="tab-panel">
         <div class="sim-root" id="rl-root"></div>
@@ -61,13 +81,16 @@
       >
     </footer>
 
-    <!-- urutan penting: util dulu, lalu simulator, lalu app -->
+    <!-- urutan penting: util & draw dulu, lalu simulator, lalu app -->
     <script src="js/matrix.js"></script>
     <script src="js/math-render.js"></script>
+    <script src="js/draw.js"></script>
     <script src="js/stepper.js"></script>
     <script src="data/presets-loader.js"></script>
     <script src="js/rnn.js"></script>
+    <script src="js/lstm.js"></script>
     <script src="js/attention.js"></script>
+    <script src="js/transformer.js"></script>
     <script src="js/rl.js"></script>
     <script src="js/app.js"></script>
   </body>

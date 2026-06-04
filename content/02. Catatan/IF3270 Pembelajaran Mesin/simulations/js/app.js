@@ -71,9 +71,20 @@
     setupTheme();
 
     const sims = [];
-    if (MLSim.RNN) sims.push(MLSim.RNN.init(qs("#rnn-root")));
-    if (MLSim.Attention) sims.push(MLSim.Attention.init(qs("#attention-root")));
-    if (MLSim.RL) sims.push(MLSim.RL.init(qs("#rl-root")));
+    function tryInit(mod, sel) {
+      try {
+        if (mod) sims.push(mod.init(qs(sel)));
+      } catch (e) {
+        const el = qs(sel);
+        if (el) el.innerHTML = '<div class="note">Gagal memuat simulator ini: ' + e.message + "</div>";
+        if (window.console) console.error("init " + sel, e);
+      }
+    }
+    tryInit(MLSim.RNN, "#rnn-root");
+    tryInit(MLSim.LSTM, "#lstm-root");
+    tryInit(MLSim.Attention, "#attention-root");
+    tryInit(MLSim.Transformer, "#transformer-root");
+    tryInit(MLSim.RL, "#rl-root");
 
     // bila KaTeX selesai load setelah render awal, minta tiap sim render ulang rumus
     setupKatexStatus(() => {

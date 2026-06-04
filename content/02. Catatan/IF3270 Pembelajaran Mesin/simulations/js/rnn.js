@@ -1,11 +1,14 @@
-/* rnn.js — simulator forward propagation Simple RNN & LSTM. */
+/* rnn.js — simulator forward-propagation RNN dengan graf unfolded.
+ * Arsitektur: one-to-one / one-to-many / many-to-one / many-to-many.
+ * 1 atau 2 hidden layer. Preset: catatan (ABCC), timeseries, acak. */
 (function () {
   "use strict";
   const MLSim = (window.MLSim = window.MLSim || {});
   const M = MLSim.mat;
+  const D = MLSim.draw;
 
+  // vektor -> latex teks "[a,\,b,\,c]"
   function vl(v) {
-    // vektor -> latex "[a,\,b,\,c]"
     return "[" + v.map((x) => M.fmt(x)).join(",\\,") + "]";
   }
   function fbox(label, latex) {
@@ -20,13 +23,11 @@
 
   function init(root) {
     let state = {
-      mode: "rnn", // rnn | lstm
+      arch: "many-to-many",
+      layers: 1,
       preset: "catatan",
       hidden: 3,
-      seed: 7,
-      pcInput: 1,
-      pcHidden: 10,
-      pcOutput: 1,
+      seed: 42,
     };
     let model = null;
     let steps = [];
@@ -35,26 +36,36 @@
       '<div class="sim-layout">' +
       '  <div class="col-controls">' +
       '    <div class="panel">' +
-      "      <h3>Model</h3>" +
-      '      <div class="field"><label>Tipe jaringan</label>' +
-      '        <div class="seg" id="rnn-mode">' +
-      '          <button data-v="rnn" class="active">Simple RNN</button>' +
-      '          <button data-v="lstm">LSTM</button>' +
-      "        </div></div>" +
+      "      <h3>Arsitektur</h3>" +
+      '      <div class="field"><div class="seg" id="rnn-arch">' +
+      '        <button data-v="one-to-one">one-to-one</button>' +
+      '        <button data-v="one-to-many">one-to-many</button>' +
+      '        <button data-v="many-to-one">many-to-one</button>' +
+      '        <button data-v="many-to-many" class="active">many-to-many</button>' +
+      "      </div></div>" +
+      '      <div class="field"><label>Hidden layer</label>' +
+      '        <div class="seg" id="rnn-layers"><button data-v="1" class="active">1</button><button data-v="2">2</button></div></div>' +
       '      <div class="field"><label>Preset / Input</label>' +
-      '        <select id="rnn-preset"></select>' +
-      '        <div class="hint" id="rnn-preset-hint"></div></div>' +
-      '      <div class="field"><label>Jumlah hidden unit: <span id="rnn-hid-out">3</span></label>' +
-      '        <div class="range-row"><input type="range" id="rnn-hidden" min="1" max="6" step="1" value="3"/></div></div>' +
-      '      <div class="field" id="rnn-seed-field"><label>Seed bobot acak</label>' +
-      '        <input type="number" id="rnn-seed" value="7" min="1" max="9999"/></div>' +
+      '        <select id="rnn-preset">' +
+      '          <option value="catatan">catatan (ABCC one-hot)</option>' +
+      '          <option value="timeseries">timeseries</option>' +
+      '          <option value="acak">acak</option>' +
+      "        </select></div>" +
+      '      <div class="field"><label>Hidden unit: <span id="rnn-hu-out">3</span></label>' +
+      '        <div class="range-row"><input type="range" id="rnn-hu" min="1" max="5" step="1" value="3"/></div></div>' +
+      '      <div class="field" id="rnn-seed-field" style="display:none"><label>Seed</label>' +
+      '        <input type="number" id="rnn-seed" value="42" min="1" max="9999"/></div>' +
+      '      <div class="note" id="rnn-desc"></div>' +
       "    </div>" +
       '    <div class="panel">' +
       "      <h3>Hitung Jumlah Parameter</h3>" +
-      '      <div class="field"><label>Dim input</label><input type="number" id="pc-in" value="1" min="1"/></div>' +
-      '      <div class="field"><label>Hidden unit</label><input type="number" id="pc-hid" value="10" min="1"/></div>' +
-      '      <div class="field"><label>Dim output</label><input type="number" id="pc-out" value="1" min="1"/></div>' +
-      '      <div id="pc-result"></div>' +
+      '      <div class="field"><label>Dim input</label><input type="number" id="rnn-p-in" value="1" min="1" max="999"/></div>' +
+      '      <div class="field"><label>Hidden unit</label><input type="number" id="rnn-p-hid" value="10" min="1" max="999"/></div>' +
+      '      <div class="field"><label>Dim output</label><input type="number" id="rnn-p-out" value="1" min="1" max="999"/></div>' +
+      '      <div class="field"><label>Hidden layer</label>' +
+      '        <div class="seg" id="rnn-p-layers"><button data-v="1" class="active">1</button><button data-v="2">2</button></div></div>' +
+      '      <div id="rnn-param-formula"></div>' +
+      '      <div class="note">RNN: P = (in+hid+1)·hid + (hid+1)·out. Contoh 1→10→1 = 131.</div>' +
       "    </div>" +
       "  </div>" +
       '  <div class="col-main">' +
@@ -64,496 +75,674 @@
       '      <div class="step-desc" id="rnn-step-desc"></div>' +
       '      <div id="rnn-formula"></div>' +
       "    </div>" +
-      '    <div class="panel">' +
-      '      <h3 id="rnn-viz-title">Visualisasi</h3>' +
-      '      <div id="rnn-viz"></div>' +
-      "    </div>" +
+      '    <div class="panel"><h3 id="rnn-viz-title">Visualisasi</h3><div id="rnn-viz"></div></div>' +
       "  </div>" +
       "</div>";
 
     const el = {
-      mode: root.querySelector("#rnn-mode"),
+      arch: root.querySelector("#rnn-arch"),
+      layers: root.querySelector("#rnn-layers"),
       preset: root.querySelector("#rnn-preset"),
-      presetHint: root.querySelector("#rnn-preset-hint"),
-      hidden: root.querySelector("#rnn-hidden"),
-      hidOut: root.querySelector("#rnn-hid-out"),
+      hu: root.querySelector("#rnn-hu"),
+      huOut: root.querySelector("#rnn-hu-out"),
       seedField: root.querySelector("#rnn-seed-field"),
       seed: root.querySelector("#rnn-seed"),
-      pcIn: root.querySelector("#pc-in"),
-      pcHid: root.querySelector("#pc-hid"),
-      pcOut: root.querySelector("#pc-out"),
-      pcResult: root.querySelector("#pc-result"),
+      desc: root.querySelector("#rnn-desc"),
       stepTitle: root.querySelector("#rnn-step-title"),
       stepDesc: root.querySelector("#rnn-step-desc"),
       formula: root.querySelector("#rnn-formula"),
       vizTitle: root.querySelector("#rnn-viz-title"),
       viz: root.querySelector("#rnn-viz"),
+      pIn: root.querySelector("#rnn-p-in"),
+      pHid: root.querySelector("#rnn-p-hid"),
+      pOut: root.querySelector("#rnn-p-out"),
+      pLayers: root.querySelector("#rnn-p-layers"),
+      paramFormula: root.querySelector("#rnn-param-formula"),
     };
 
-    const PRESETS = {
-      rnn: [
-        { id: "catatan", label: "Contoh catatan (ABCC, one-hot)" },
-        { id: "timeseries", label: "Time-series (112,118,132,129)" },
-        { id: "acak", label: "Acak (seed)" },
-      ],
-      lstm: [
-        { id: "mini", label: "LSTM mini (sekuens 1,2,0.5)" },
-        { id: "acak", label: "Acak (seed)" },
-      ],
+    const DESC = {
+      "one-to-one":
+        "one-to-one: satu input → satu output (mis. klasifikasi citra). Hanya 1 timestep.",
+      "one-to-many":
+        "one-to-many: satu input → barisan output (mis. image captioning). Input hanya di t1, timestep berikut memakai vektor kosong ∅.",
+      "many-to-one":
+        "many-to-one: barisan input → satu output (mis. klasifikasi sentimen). Output hanya di timestep terakhir.",
+      "many-to-many":
+        "many-to-many: barisan input → barisan output (mis. prediksi simbol berikut / tagging). Input & output di tiap timestep.",
     };
 
-    function fillPresetOptions() {
-      const list = PRESETS[state.mode];
-      el.preset.innerHTML = list
-        .map((p) => '<option value="' + p.id + '">' + p.label + "</option>")
-        .join("");
-      state.preset = list[0].id;
-      el.preset.value = state.preset;
-    }
-
-    // ---------- bangun model ----------
+    // ---- bangun model + forward pass ----
     function buildModel() {
-      const n = state.hidden;
-      if (state.mode === "rnn") return buildRNN(n);
-      return buildLSTM(n);
-    }
+      const arch = state.arch;
+      const nLayers = state.layers;
+      const T = arch === "one-to-one" ? 1 : 4;
+      const seed = state.seed;
 
-    function buildRNN(n) {
-      let inputs, labels, outAct, Wxh, Whh, Why, bh, by, outDim, inDim;
+      let inputs, hiddenAct, outAct, outDim, seqLabels, targets, targetLabels;
+      let inDim;
+      const hid = state.hidden;
+
       if (state.preset === "catatan") {
         const p = MLSim.presets.rnn;
-        inputs = p.inputs.map((x) => x.slice());
-        labels = p.sequenceLabels.slice();
-        inDim = inputs[0].length;
-        // hidden tetap 3 utk preset agar cocok angka catatan; kalau user ubah, pakai random
-        if (n === p.hidden) {
-          Wxh = p.Wxh.map((r) => r.slice());
-          Whh = p.Whh.map((r) => r.slice());
-          Why = p.Why.map((r) => r.slice());
-          bh = p.bh.slice();
-          by = p.by.slice();
-        } else {
-          Wxh = M.randMat(n, inDim, state.seed, 0.4);
-          Whh = M.randMat(n, n, state.seed + 1, 0.4);
-          Why = M.randMat(inDim, n, state.seed + 2, 0.4);
-          bh = M.zeros(n).map(() => 0.1);
-          by = M.zeros(inDim).map(() => 0.1);
-        }
-        outDim = inDim;
-        outAct = "softmax";
+        inDim = 4;
+        seqLabels = p.sequenceLabels.slice();
+        targets = p.targets.map((r) => r.slice());
+        targetLabels = p.targetLabels.slice();
+        hiddenAct = p.hiddenAct;
+        outAct = p.outAct;
+        outDim = 4;
+        inputs = p.inputs.map((r) => r.slice());
       } else if (state.preset === "timeseries") {
+        inDim = 1;
         inputs = [[1.12], [1.18], [1.32], [1.29]];
-        labels = ["112", "118", "132", "129"];
-        inDim = 1;
-        outDim = 1;
-        Wxh = M.randMat(n, 1, state.seed, 0.5);
-        Whh = M.randMat(n, n, state.seed + 1, 0.5);
-        Why = M.randMat(1, n, state.seed + 2, 0.5);
-        bh = M.zeros(n);
-        by = M.zeros(1);
+        seqLabels = ["112", "118", "132", "129"];
+        hiddenAct = "tanh";
         outAct = "linear";
+        outDim = 1;
+        targets = null;
+        targetLabels = null;
       } else {
         inDim = 2;
-        inputs = M.randMat(4, 2, state.seed + 9, 1).map((r) => r);
-        labels = ["x1", "x2", "x3", "x4"];
-        outDim = 1;
-        Wxh = M.randMat(n, 2, state.seed, 0.5);
-        Whh = M.randMat(n, n, state.seed + 1, 0.5);
-        Why = M.randMat(1, n, state.seed + 2, 0.5);
-        bh = M.zeros(n);
-        by = M.zeros(1);
+        inputs = M.randMat(4, inDim, seed + 100, 1.0);
+        seqLabels = inputs.map((_, i) => "x" + (i + 1));
+        hiddenAct = "tanh";
         outAct = "linear";
+        outDim = 1;
+        targets = null;
+        targetLabels = null;
       }
-      return { type: "rnn", inputs, labels, Wxh, Whh, Why, bh, by, n, inDim, outDim, outAct };
-    }
 
-    function buildLSTM(n) {
-      let inputs, labels, inDim;
-      if (state.preset === "mini") {
-        inputs = [[1], [2], [0.5]];
-        labels = ["1", "2", "0.5"];
-        inDim = 1;
-      } else {
-        inDim = 2;
-        inputs = M.randMat(3, 2, state.seed + 5, 1);
-        labels = ["x1", "x2", "x3"];
+      // susun deret input per timestep sesuai arsitektur
+      const zeroVec = M.zeros(inDim);
+      const xs = [];
+      for (let t = 0; t < T; t++) {
+        if (arch === "one-to-many") {
+          xs.push(t === 0 ? (inputs[0] || zeroVec).slice() : zeroVec.slice());
+        } else if (arch === "one-to-one") {
+          xs.push((inputs[0] || zeroVec).slice());
+        } else {
+          xs.push((inputs[t] || zeroVec).slice());
+        }
       }
-      const z = n + inDim; // dimensi [h;x]
-      const W = (s) => M.randMat(n, z, s, 0.3);
+
+      function hasOutput(t) {
+        if (arch === "one-to-one") return t === 0;
+        if (arch === "one-to-many") return true;
+        if (arch === "many-to-one") return t === T - 1;
+        return true; // many-to-many
+      }
+
+      // ---- bobot ----
+      const p = MLSim.presets.rnn;
+      const useCatatanWeights =
+        state.preset === "catatan" && hid === 3 && nLayers === 1;
+      let Wxh, Whh, bh, Why, by;
+      let Wxh2, Whh2, b2;
+
+      if (useCatatanWeights) {
+        Wxh = M.cloneMat(p.Wxh);
+        Whh = M.cloneMat(p.Whh);
+        bh = p.bh.slice();
+        Why = M.cloneMat(p.Why);
+        by = p.by.slice();
+      } else {
+        Wxh = M.randMat(hid, inDim, seed + 1, 0.4);
+        Whh = M.randMat(hid, hid, seed + 2, 0.4);
+        bh = M.randVec(hid, seed + 3, 0.2);
+        Why = M.randMat(outDim, hid, seed + 4, 0.4);
+        by = M.randVec(outDim, seed + 5, 0.2);
+      }
+
+      if (nLayers === 2) {
+        Wxh2 = M.randMat(hid, hid, seed + 11, 0.4); // h1 -> h2
+        Whh2 = M.randMat(hid, hid, seed + 12, 0.4); // recurrent layer-2
+        b2 = M.randVec(hid, seed + 13, 0.2);
+        Why = M.randMat(outDim, hid, seed + 14, 0.4);
+        by = M.randVec(outDim, seed + 15, 0.2);
+      }
+
+      // ---- forward pass ----
+      const H = [];
+      const NET = [];
+      for (let L = 0; L < nLayers; L++) {
+        H.push([]);
+        NET.push([]);
+      }
+      const Y = [];
+      const NETY = [];
+      const h0 = M.zeros(hid);
+
+      for (let t = 0; t < T; t++) {
+        for (let L = 0; L < nLayers; L++) {
+          const hPrev = t === 0 ? h0 : H[L][t - 1];
+          let net;
+          if (L === 0) {
+            net = M.vecAdd(M.matVec(Wxh, xs[t]), M.matVec(Whh, hPrev), bh);
+          } else {
+            const below = H[L - 1][t];
+            net = M.vecAdd(M.matVec(Wxh2, below), M.matVec(Whh2, hPrev), b2);
+          }
+          const h = M.applyActivation(hiddenAct, net);
+          NET[L].push(net);
+          H[L].push(h);
+        }
+        if (hasOutput(t)) {
+          const top = H[nLayers - 1][t];
+          const nety = M.vecAdd(M.matVec(Why, top), by);
+          Y[t] = M.applyActivation(outAct, nety);
+          NETY[t] = nety;
+        } else {
+          Y[t] = null;
+          NETY[t] = null;
+        }
+      }
+
       return {
-        type: "lstm",
-        inputs,
-        labels,
-        n,
+        arch,
+        nLayers,
+        T,
         inDim,
-        Wf: W(state.seed),
-        Wi: W(state.seed + 1),
-        Wc: W(state.seed + 2),
-        Wo: W(state.seed + 3),
-        bf: M.zeros(n),
-        bi: M.zeros(n),
-        bc: M.zeros(n),
-        bo: M.zeros(n),
+        hid,
+        outDim,
+        xs,
+        seqLabels,
+        targets,
+        targetLabels,
+        hiddenAct,
+        outAct,
+        Wxh,
+        Whh,
+        bh,
+        Wxh2,
+        Whh2,
+        b2,
+        Why,
+        by,
+        H,
+        NET,
+        Y,
+        NETY,
+        h0,
+        hasOutput,
       };
     }
 
-    // ---------- bangun langkah ----------
-    function computeSteps() {
-      model = buildModel();
-      steps = model.type === "rnn" ? stepsRNN(model) : stepsLSTM(model);
+    function argmaxLabel(y) {
+      const idx = M.argmax(y);
+      const labs = ["A", "B", "C", "D"];
+      return labs[idx] || "k" + idx;
     }
 
-    function stepsRNN(m) {
+    // ---- bangun langkah ----
+    function buildSteps() {
+      const m = model;
       const out = [];
-      let h = M.zeros(m.n);
-      const hAll = []; // simpan h tiap t utk viz
-      for (let t = 0; t < m.inputs.length; t++) {
-        const x = m.inputs[t];
-        const wx = M.matVec(m.Wxh, x);
-        const wh = M.matVec(m.Whh, h);
-        const z = M.vecAdd(wx, wh, m.bh);
-        const hPrev = h.slice();
-        const hNew = M.tanh(z);
-        out.push({
-          kind: "neth",
-          t,
-          title: "t" + (t + 1) + " · net hidden",
-          desc:
-            "Hitung pra-aktivasi hidden: gabungan kontribusi input x^(" +
-            (t + 1) +
-            ") dan memori sebelumnya h^(" +
-            t +
-            ").",
-          latex: [
-            ["Rumus", "net_h^{(t)} = W_{xh}x^{(t)} + W_{hh}h^{(t-1)} + b_h"],
-            [
-              "Substitusi",
-              "net_h^{(" + (t + 1) + ")} = " + vl(wx) + " + " + vl(wh) + " + " + vl(m.bh),
-            ],
-            ["Hasil", "net_h^{(" + (t + 1) + ")} = " + vl(z)],
-          ],
-          snap: { t, hAll: hAll.slice(), h: hPrev, z, stage: "neth" },
-        });
-        out.push({
-          kind: "h",
-          t,
-          title: "t" + (t + 1) + " · hidden state",
-          desc: "Terapkan aktivasi " + m.outAct + "/tanh untuk memperoleh hidden state baru.",
-          latex: [
-            ["Rumus", "h^{(t)} = \\tanh(net_h^{(t)})"],
-            ["Hasil", "h^{(" + (t + 1) + ")} = \\tanh(" + vl(z) + ") = " + vl(hNew)],
-          ],
-          snap: { t, hAll: hAll.concat([hNew]), h: hNew, z, stage: "h" },
-        });
-        h = hNew;
-        hAll.push(hNew);
-        // output
-        const ny = M.vecAdd(M.matVec(m.Why, h), m.by);
-        const y = M.applyActivation(m.outAct, ny);
-        const yLatex =
-          m.outAct === "softmax"
-            ? [
-                ["Rumus", "y^{(t)} = \\softmax(W_{hy}h^{(t)} + b_{hy})"],
-                ["net output", "net_y^{(" + (t + 1) + ")} = " + vl(ny)],
-                ["Hasil", "y^{(" + (t + 1) + ")} = " + vl(y)],
-              ]
-            : [
-                ["Rumus", "y^{(t)} = W_{hy}h^{(t)} + b_{hy}"],
-                ["Hasil", "y^{(" + (t + 1) + ")} = " + vl(y)],
-              ];
-        out.push({
-          kind: "y",
-          t,
-          title: "t" + (t + 1) + " · output",
-          desc:
-            m.outAct === "softmax"
-              ? "Proyeksikan hidden state ke ruang output lalu softmax → distribusi kelas/token berikutnya."
-              : "Proyeksikan hidden state ke output (regresi linear).",
-          latex: yLatex,
-          snap: { t, hAll: hAll.slice(), h, y, stage: "y" },
-        });
-      }
-      return out;
-    }
+      for (let t = 0; t < m.T; t++) {
+        for (let L = 0; L < m.nLayers; L++) {
+          const layerTag = m.nLayers === 1 ? "" : " (layer " + (L + 1) + ")";
+          const hPrev = t === 0 ? m.h0 : m.H[L][t - 1];
+          const net = m.NET[L][t];
+          const h = m.H[L][t];
+          const prevIdx = t === 0 ? "0" : String(t);
 
-    function stepsLSTM(m) {
-      const out = [];
-      let h = M.zeros(m.n);
-      let c = M.zeros(m.n);
-      for (let t = 0; t < m.inputs.length; t++) {
-        const x = m.inputs[t];
-        const cat = h.concat(x); // [h_prev; x]
-        const ft = M.sigmoid(M.vecAdd(M.matVec(m.Wf, cat), m.bf));
-        const it = M.sigmoid(M.vecAdd(M.matVec(m.Wi, cat), m.bi));
-        const ct_hat = M.tanh(M.vecAdd(M.matVec(m.Wc, cat), m.bc));
-        const cNew = M.vecAdd(M.hadamard(c, ft), M.hadamard(it, ct_hat));
-        const ot = M.sigmoid(M.vecAdd(M.matVec(m.Wo, cat), m.bo));
-        const hNew = M.hadamard(ot, M.tanh(cNew));
-        const cPrev = c.slice();
-        const base = { t, gates: {} };
-        const G = base.gates;
-        function gstep(kind, name, sub, latex, gateVals, currentVal) {
+          let netLatex;
+          if (L === 0) {
+            const a = M.matVec(m.Wxh, m.xs[t]);
+            const b = M.matVec(m.Whh, hPrev);
+            netLatex =
+              "net_h = W_{xh}\\cdot x_{" +
+              (t + 1) +
+              "} + W_{hh}\\cdot h_{" +
+              prevIdx +
+              "} + b_h = " +
+              vl(a) +
+              " + " +
+              vl(b) +
+              " + " +
+              vl(m.bh) +
+              " = " +
+              vl(net);
+          } else {
+            const below = m.H[L - 1][t];
+            const a = M.matVec(m.Wxh2, below);
+            const b = M.matVec(m.Whh2, hPrev);
+            netLatex =
+              "net_h^{(2)} = W_{xh2}\\cdot h^{(1)}_{" +
+              (t + 1) +
+              "} + W_{hh2}\\cdot h^{(2)}_{" +
+              prevIdx +
+              "} + b_2 = " +
+              vl(a) +
+              " + " +
+              vl(b) +
+              " + " +
+              vl(m.b2) +
+              " = " +
+              vl(net);
+          }
+
           out.push({
-            kind,
-            t,
-            title: "t" + (t + 1) + " · " + name,
-            desc: sub,
-            latex,
-            snap: {
-              t,
-              stage: kind,
-              gates: Object.assign({}, gateVals),
-              c: kind === "c" || kind === "o" || kind === "h" ? cNew : cPrev,
-              h: kind === "h" ? hNew : h,
+            kind: "net",
+            t: t,
+            layer: L,
+            title: "Timestep " + (t + 1) + layerTag + ": pra-aktivasi net_h",
+            desc:
+              "Hitung kombinasi linear input saat ini, state tersembunyi sebelumnya, dan bias.",
+            latex: [["net_h" + (m.nLayers === 1 ? "" : "^{(" + (L + 1) + ")}"), netLatex]],
+            reveal: { active: { row: "hidden", t: t, layer: L } },
+          });
+
+          out.push({
+            kind: "h",
+            t: t,
+            layer: L,
+            title: "Timestep " + (t + 1) + layerTag + ": state tersembunyi h",
+            desc: "Terapkan aktivasi " + m.hiddenAct + " elemen-per-elemen pada net_h.",
+            latex: [
+              [
+                "h" + (m.nLayers === 1 ? "" : "^{(" + (L + 1) + ")}"),
+                "h_{" +
+                  (t + 1) +
+                  "} = \\tanh(net_h) = \\tanh(" +
+                  vl(net) +
+                  ") = " +
+                  vl(h),
+              ],
+            ],
+            reveal: {
+              hiddenDone: true,
+              active: { row: "hidden", t: t, layer: L },
             },
           });
         }
-        gstep(
-          "f",
-          "Forget gate",
-          "Berapa banyak isi cell state lama yang dipertahankan (0=lupakan, 1=simpan).",
-          [
-            ["Rumus", "f_t = \\sigma(W_f[h_{t-1},x_t] + b_f)"],
-            ["Hasil", "f_{" + (t + 1) + "} = " + vl(ft)],
-          ],
-          { f: ft }
-        );
-        gstep(
-          "i",
-          "Input gate",
-          "Berapa banyak kandidat informasi baru yang akan ditulis ke cell state.",
-          [
-            ["Rumus", "i_t = \\sigma(W_i[h_{t-1},x_t] + b_i)"],
-            ["Hasil", "i_{" + (t + 1) + "} = " + vl(it)],
-          ],
-          { f: ft, i: it }
-        );
-        gstep(
-          "chat",
-          "Kandidat Ĉ",
-          "Kandidat nilai baru untuk cell state (lewat tanh).",
-          [
-            ["Rumus", "\\tilde{C}_t = \\tanh(W_C[h_{t-1},x_t] + b_C)"],
-            ["Hasil", "\\tilde{C}_{" + (t + 1) + "} = " + vl(ct_hat)],
-          ],
-          { f: ft, i: it, chat: ct_hat }
-        );
-        gstep(
-          "c",
-          "Update cell state",
-          "Gabungkan memori lama (dilupakan sebagian) dengan kandidat baru.",
-          [
-            ["Rumus", "C_t = C_{t-1}\\odot f_t \\oplus i_t\\odot \\tilde{C}_t"],
+
+        if (m.hasOutput(t)) {
+          const top = m.H[m.nLayers - 1][t];
+          const a = M.matVec(m.Why, top);
+          const nety = m.NETY[t];
+          const y = m.Y[t];
+          const actName = m.outAct === "softmax" ? "\\softmax" : m.outAct;
+          const lx = [
             [
-              "Substitusi",
-              "C_{" +
+              "net_y",
+              "net_y = W_{hy}\\cdot h_{" +
+                (t + 1) +
+                "} + b_y = " +
+                vl(a) +
+                " + " +
+                vl(m.by) +
+                " = " +
+                vl(nety),
+            ],
+            [
+              "y_{" + (t + 1) + "}",
+              "y_{" + (t + 1) + "} = " + actName + "(net_y) = " + vl(y),
+            ],
+          ];
+          if (m.targets && m.targetLabels) {
+            lx.push([
+              "Prediksi",
+              "\\hat{y}_{" +
                 (t + 1) +
                 "} = " +
-                vl(cPrev) +
-                "\\odot " +
-                vl(ft) +
-                " \\oplus " +
-                vl(it) +
-                "\\odot " +
-                vl(ct_hat),
-            ],
-            ["Hasil", "C_{" + (t + 1) + "} = " + vl(cNew)],
-          ],
-          { f: ft, i: it, chat: ct_hat, c: cNew }
-        );
-        gstep(
-          "o",
-          "Output gate",
-          "Bagian cell state mana yang akan dikeluarkan sebagai hidden state.",
-          [
-            ["Rumus", "o_t = \\sigma(W_o[h_{t-1},x_t] + b_o)"],
-            ["Hasil", "o_{" + (t + 1) + "} = " + vl(ot)],
-          ],
-          { f: ft, i: it, chat: ct_hat, c: cNew, o: ot }
-        );
-        gstep(
-          "h",
-          "Hidden state",
-          "Hidden state baru = output gate × tanh(cell state).",
-          [
-            ["Rumus", "h_t = o_t \\odot \\tanh(C_t)"],
-            ["Hasil", "h_{" + (t + 1) + "} = " + vl(ot) + "\\odot \\tanh(" + vl(cNew) + ") = " + vl(hNew)],
-          ],
-          { f: ft, i: it, chat: ct_hat, c: cNew, o: ot, h: hNew }
-        );
-        h = hNew;
-        c = cNew;
+                argmaxLabel(y) +
+                " ,\\; target = " +
+                m.targetLabels[t],
+            ]);
+          }
+          out.push({
+            kind: "y",
+            t: t,
+            layer: m.nLayers - 1,
+            title: "Timestep " + (t + 1) + ": output y",
+            desc:
+              m.outAct === "softmax"
+                ? "Proyeksikan h ke ruang output lalu softmax → distribusi probabilitas."
+                : "Proyeksikan state tersembunyi ke output (aktivasi " + m.outAct + ").",
+            latex: lx,
+            reveal: {
+              hiddenDone: true,
+              outputDone: true,
+              active: { row: "output", t: t, layer: m.nLayers - 1 },
+            },
+          });
+        }
       }
       return out;
     }
 
-    // ---------- render ----------
+    // ---- gambar graf unfolded ----
+    function drawGraph(uptoIndex) {
+      const m = model;
+      const T = m.T;
+      const nLayers = m.nLayers;
+
+      const step = steps[uptoIndex] || null;
+      const hiddenDone = [];
+      const outDone = [];
+      for (let t = 0; t < T; t++) {
+        hiddenDone.push(new Array(nLayers).fill(false));
+        outDone.push(false);
+      }
+      for (let i = 0; i <= uptoIndex && i < steps.length; i++) {
+        const s = steps[i];
+        if (s.kind === "h") hiddenDone[s.t][s.layer] = true;
+        if (s.kind === "y") outDone[s.t] = true;
+      }
+      const active = step ? step.reveal.active : null;
+
+      const colW = 150;
+      const leftPad = 95;
+      const xCol = (t) => leftPad + t * colW;
+      const hasTargets = !!(m.targets && m.targetLabels);
+
+      const rowOutput = 60;
+      const layerGap = 95;
+      const rowHiddenTop = rowOutput + 95;
+      const rowHidden = (L) => rowHiddenTop + (nLayers - 1 - L) * layerGap;
+      const rowInput = rowHidden(0) + 115;
+
+      const width = leftPad + (T - 1) * colW + (hasTargets ? 170 : 110);
+      const height = rowInput + 70;
+
+      let svg = "";
+
+      // panah Whh horizontal + h0
+      for (let L = 0; L < nLayers; L++) {
+        const y = rowHidden(L);
+        const firstDone = hiddenDone[0][L];
+        svg += D.line(xCol(0) - 60, y, xCol(0) - 26, y, {
+          color: firstDone ? "#3b82f6" : "#94a3b8",
+          opacity: firstDone ? 1 : 0.45,
+          dash: firstDone ? null : "4 4",
+        });
+        svg += D.text(xCol(0) - 72, y, "h0", { size: 11, anchor: "end" });
+        for (let t = 1; t < T; t++) {
+          const done = hiddenDone[t][L] && hiddenDone[t - 1][L];
+          svg += D.line(xCol(t - 1) + 26, y, xCol(t) - 26, y, {
+            color: done ? "#3b82f6" : "#94a3b8",
+            opacity: done ? 1 : 0.4,
+            dash: done ? null : "4 4",
+          });
+        }
+      }
+
+      // panah antar-layer vertikal (layer L-1 -> L)
+      for (let t = 0; t < T; t++) {
+        for (let L = 1; L < nLayers; L++) {
+          const x = xCol(t);
+          const done = hiddenDone[t][L];
+          svg += D.line(x, rowHidden(L - 1) - 26, x, rowHidden(L) + 26, {
+            color: done ? "#3b82f6" : "#94a3b8",
+            opacity: done ? 1 : 0.4,
+            dash: done ? null : "4 4",
+          });
+        }
+      }
+
+      // input bracket + panah Wxh UP
+      for (let t = 0; t < T; t++) {
+        const x = xCol(t);
+        const xv = m.xs[t];
+        const isEmpty = xv.every((v) => v === 0);
+        svg += D.vec(x, rowInput, xv, { size: 10, bracket: true, bracketW: 22 });
+        svg += D.text(
+          x,
+          rowInput + 42,
+          isEmpty
+            ? "∅ (x" + (t + 1) + ")"
+            : "x" + (t + 1) + (m.seqLabels[t] ? " (" + m.seqLabels[t] + ")" : ""),
+          { size: 10 }
+        );
+        const done = hiddenDone[t][0];
+        svg += D.line(x, rowInput - 30, x, rowHidden(0) + 26, {
+          color: done ? "#3b82f6" : "#94a3b8",
+          opacity: done ? 1 : 0.45,
+          dash: done ? null : "4 4",
+        });
+      }
+
+      // hidden circles
+      for (let t = 0; t < T; t++) {
+        for (let L = 0; L < nLayers; L++) {
+          const x = xCol(t);
+          const y = rowHidden(L);
+          const done = hiddenDone[t][L];
+          const isActive =
+            active && active.row === "hidden" && active.t === t && active.layer === L;
+          svg += D.circle(x, y, 24, {
+            fill: done ? "#e8a23a" : "transparent",
+            stroke: isActive ? "#22d3ee" : "#e8a23a",
+            strokeW: isActive ? 3 : 1.5,
+            opacity: done ? 1 : 0.5,
+            dash: done ? null : "4 4",
+          });
+          if (done) {
+            svg += D.vec(x, y, m.H[L][t], { size: 9, fill: "#1f2937" });
+          } else {
+            svg += D.text(
+              x,
+              y,
+              "h" + (t + 1) + (nLayers > 1 ? "·" + (L + 1) : ""),
+              { size: 10, opacity: 0.7 }
+            );
+          }
+        }
+      }
+
+      // output ovals + panah Why UP + target one-hot
+      for (let t = 0; t < T; t++) {
+        if (!m.hasOutput(t)) continue;
+        const x = xCol(t);
+        const yTop = rowHidden(nLayers - 1);
+        const done = outDone[t];
+        svg += D.line(x, yTop - 26, x, rowOutput + 22, {
+          color: done ? "#3b82f6" : "#94a3b8",
+          opacity: done ? 1 : 0.45,
+          dash: done ? null : "4 4",
+        });
+        const isActive = active && active.row === "output" && active.t === t;
+        svg += D.ellipse(x, rowOutput, 30, 20, {
+          fill: done ? "#9c4f2e" : "transparent",
+          stroke: isActive ? "#22d3ee" : "#9c4f2e",
+          strokeW: isActive ? 3 : 1.5,
+          opacity: done ? 1 : 0.5,
+          dash: done ? null : "4 4",
+        });
+        if (done) {
+          svg += D.vec(x, rowOutput, m.Y[t], { size: 8, fill: "#ffffff" });
+        } else {
+          svg += D.text(x, rowOutput, "y" + (t + 1), { size: 10, opacity: 0.7 });
+        }
+
+        if (m.targets && m.targetLabels) {
+          const tg = m.targets[t];
+          const tgIdx = M.argmax(tg);
+          const predIdx = done ? M.argmax(m.Y[t]) : -1;
+          const colors = {};
+          const bold = {};
+          if (predIdx >= 0) colors[predIdx] = "#6ca8ff";
+          colors[tgIdx] = "#ffd24a";
+          bold[tgIdx] = true;
+          svg += D.vec(x + 55, rowOutput, tg, {
+            size: 8,
+            bracket: true,
+            bracketW: 14,
+            colors: colors,
+            bold: bold,
+          });
+          svg += D.text(x + 55, rowOutput + 26, "t=" + m.targetLabels[t], {
+            size: 9,
+            opacity: 0.8,
+          });
+        }
+      }
+
+      // label bobot Wxh / Whh / Why / Wxh2 dekat kolom pertama
+      svg += D.text(xCol(0) + 30, (rowInput + rowHidden(0)) / 2, "Wxh", {
+        size: 11,
+        anchor: "start",
+        fill: "#3b82f6",
+        weight: 600,
+      });
+      if (T > 1) {
+        svg += D.text((xCol(0) + xCol(1)) / 2, rowHidden(0) - 10, "Whh", {
+          size: 11,
+          fill: "#3b82f6",
+          weight: 600,
+        });
+      }
+      if (m.hasOutput(0)) {
+        svg += D.text(
+          xCol(0) + 32,
+          (rowOutput + rowHidden(nLayers - 1)) / 2,
+          "Why",
+          { size: 11, anchor: "start", fill: "#3b82f6", weight: 600 }
+        );
+      }
+      if (nLayers > 1) {
+        svg += D.text(xCol(0) + 32, (rowHidden(0) + rowHidden(1)) / 2, "Wxh2", {
+          size: 10,
+          anchor: "start",
+          fill: "#3b82f6",
+          weight: 600,
+        });
+      }
+
+      return D.svg(width, height, svg);
+    }
+
+    // ---- panel hitung parameter ----
+    function renderParamPanel() {
+      const inN = parseInt(el.pIn.value, 10) || 0;
+      const hid = parseInt(el.pHid.value, 10) || 0;
+      const outN = parseInt(el.pOut.value, 10) || 0;
+      const L =
+        el.pLayers.querySelector(".active").getAttribute("data-v") === "2"
+          ? 2
+          : 1;
+
+      const term1 = (inN + hid + 1) * hid;
+      const extra = L === 2 ? (hid + hid + 1) * hid : 0;
+      const term2 = (hid + 1) * outN;
+      const total = term1 + extra + term2;
+
+      let latex;
+      if (L === 1) {
+        latex =
+          "P = (in+hid+1)\\cdot hid + (hid+1)\\cdot out = (" +
+          inN +
+          "+" +
+          hid +
+          "+1)\\cdot " +
+          hid +
+          " + (" +
+          hid +
+          "+1)\\cdot " +
+          outN +
+          " = " +
+          term1 +
+          " + " +
+          term2 +
+          " = " +
+          total;
+      } else {
+        latex =
+          "P = (in+hid+1)\\cdot hid + (hid+hid+1)\\cdot hid + (hid+1)\\cdot out = " +
+          term1 +
+          " + " +
+          extra +
+          " + " +
+          term2 +
+          " = " +
+          total;
+      }
+      el.paramFormula.innerHTML = fbox("Jumlah parameter", latex);
+    }
+
+    // ---- render step ----
     function renderStep(i, step) {
-      if (!step) return;
+      if (!step) {
+        el.viz.innerHTML = "";
+        return;
+      }
       el.stepTitle.textContent = step.title;
       el.stepDesc.textContent = step.desc;
       el.formula.innerHTML = step.latex.map((p) => fbox(p[0], p[1])).join("");
-      if (model.type === "rnn") renderVizRNN(step);
-      else renderVizLSTM(step);
+      el.vizTitle.textContent = "Visualisasi — " + step.title;
+      el.viz.innerHTML = drawGraph(i);
     }
 
-    function renderVizRNN(step) {
-      el.vizTitle.textContent = "RNN unfolded — hidden state per timestep";
-      const m = model;
-      const cells = m.inputs
-        .map((x, t) => {
-          const active = t === step.t;
-          const done = step.snap.hAll[t];
-          const hstr = done ? M.fmtVec(done) : "—";
-          return (
-            '<div class="tcell' +
-            (active ? " active" : "") +
-            '"><div class="t-label">t' +
-            (t + 1) +
-            " · x=" +
-            (m.labels[t] || M.fmtVec(x)) +
-            '</div><div class="t-val">h=' +
-            hstr +
-            "</div></div>"
-          );
-        })
-        .join('<div style="align-self:center">→</div>');
-      el.viz.innerHTML = '<div class="cell-track">' + cells + "</div>";
-    }
-
-    function renderVizLSTM(step) {
-      el.vizTitle.textContent =
-        "LSTM cell — t" + (step.t + 1) + " (gerbang menyala saat dihitung)";
-      const g = step.snap.gates || {};
-      const order = ["f", "i", "chat", "c", "o", "h"];
-      const meta = {
-        f: ["Forget f", "σ"],
-        i: ["Input i", "σ"],
-        chat: ["Kandidat Ĉ", "tanh"],
-        c: ["Cell state C", "⊙ ⊕"],
-        o: ["Output o", "σ"],
-        h: ["Hidden h", "o⊙tanh(C)"],
-      };
-      const html = order
-        .map((k) => {
-          const on = g[k] !== undefined;
-          const current = step.kind === k;
-          return (
-            '<div class="gate' +
-            (on ? " on" : "") +
-            (current ? " current" : "") +
-            '"><div class="g-name">' +
-            meta[k][0] +
-            '</div><div class="g-sub">' +
-            meta[k][1] +
-            '</div><div class="g-val">' +
-            (on ? M.fmtVec(g[k]) : "—") +
-            "</div></div>"
-          );
-        })
-        .join("");
-      el.viz.innerHTML =
-        '<div class="gate-grid">' + html + "</div>" +
-        '<div class="note">Cell state mengalir seperti "conveyor belt": C diperbarui lewat penjumlahan (⊕), itulah yang membuat LSTM lebih tahan terhadap vanishing gradient dibanding Simple RNN.</div>';
-    }
-
-    // ---------- param count ----------
-    function renderParamCount() {
-      const i = Math.max(1, parseInt(el.pcIn.value, 10) || 1);
-      const hid = Math.max(1, parseInt(el.pcHid.value, 10) || 1);
-      const o = Math.max(1, parseInt(el.pcOut.value, 10) || 1);
-      const rnn = (i + hid + 1) * hid + (hid + 1) * o;
-      const lstm = (i + hid + 1) * 4 * hid + (hid + 1) * o;
-      const current = state.mode === "rnn" ? rnn : lstm;
-      const latex =
-        state.mode === "rnn"
-          ? "P = (" +
-            i +
-            "+" +
-            hid +
-            "+1)\\times" +
-            hid +
-            " + (" +
-            hid +
-            "+1)\\times" +
-            o +
-            " = " +
-            rnn
-          : "P = (" +
-            i +
-            "+" +
-            hid +
-            "+1)\\times 4\\times" +
-            hid +
-            " + (" +
-            hid +
-            "+1)\\times" +
-            o +
-            " = " +
-            lstm;
-      el.pcResult.innerHTML =
-        fbox(state.mode === "rnn" ? "Simple RNN" : "LSTM", latex) +
-        '<div class="note">Perbandingan untuk konfigurasi ini — Simple RNN: <b>' +
-        rnn +
-        "</b> · LSTM: <b>" +
-        lstm +
-        "</b> parameter. (Catatan: 1→10→1 menghasilkan 131 vs 491.)</div>";
-    }
-
-    // ---------- stepper ----------
     const stepper = MLSim.makeStepper({
       controlsEl: root.querySelector("#rnn-stepper"),
       getSteps: () => steps,
       onStep: renderStep,
-      onReset: () => {
-        computeSteps();
+      onReset: function () {
+        model = buildModel();
+        steps = buildSteps();
       },
       speedMs: 1100,
     });
 
     function rebuild() {
-      computeSteps();
+      el.desc.textContent = DESC[state.arch];
+      el.seedField.style.display = state.preset === "acak" ? "block" : "none";
+      model = buildModel();
+      steps = buildSteps();
       stepper.goto(0);
     }
 
-    // ---------- events ----------
-    el.mode.addEventListener("click", (e) => {
-      const b = e.target.closest("button");
-      if (!b) return;
-      state.mode = b.getAttribute("data-v");
-      Array.prototype.forEach.call(el.mode.children, (c) =>
-        c.classList.toggle("active", c === b)
-      );
-      fillPresetOptions();
-      renderParamCount();
-      rebuild();
-    });
-    el.preset.addEventListener("change", () => {
+    // ---- event handlers ----
+    function segHandler(container, key, isInt) {
+      container.addEventListener("click", function (e) {
+        const b = e.target.closest("button");
+        if (!b) return;
+        const v = b.getAttribute("data-v");
+        state[key] = isInt ? parseInt(v, 10) : v;
+        Array.prototype.forEach.call(container.children, function (c) {
+          c.classList.toggle("active", c === b);
+        });
+        rebuild();
+      });
+    }
+    segHandler(el.arch, "arch", false);
+    segHandler(el.layers, "layers", true);
+
+    el.preset.addEventListener("change", function () {
       state.preset = el.preset.value;
-      el.seedField.style.display = state.preset === "acak" ? "" : "block";
+      if (state.preset === "catatan") {
+        state.hidden = 3;
+        el.hu.value = 3;
+        el.huOut.textContent = "3";
+      }
       rebuild();
     });
-    el.hidden.addEventListener("input", () => {
-      state.hidden = parseInt(el.hidden.value, 10);
-      el.hidOut.textContent = state.hidden;
+    el.hu.addEventListener("input", function () {
+      state.hidden = parseInt(el.hu.value, 10);
+      el.huOut.textContent = String(state.hidden);
       rebuild();
     });
-    el.seed.addEventListener("input", () => {
+    el.seed.addEventListener("input", function () {
       state.seed = parseInt(el.seed.value, 10) || 1;
       rebuild();
     });
-    [el.pcIn, el.pcHid, el.pcOut].forEach((inp) =>
-      inp.addEventListener("input", renderParamCount)
-    );
 
-    // init
-    fillPresetOptions();
-    renderParamCount();
+    // panel parameter
+    el.pIn.addEventListener("input", renderParamPanel);
+    el.pHid.addEventListener("input", renderParamPanel);
+    el.pOut.addEventListener("input", renderParamPanel);
+    el.pLayers.addEventListener("click", function (e) {
+      const b = e.target.closest("button");
+      if (!b) return;
+      Array.prototype.forEach.call(el.pLayers.children, function (c) {
+        c.classList.toggle("active", c === b);
+      });
+      renderParamPanel();
+    });
+
+    renderParamPanel();
     rebuild();
-
-    return {
-      refreshFormula: () => stepper.fire(),
-    };
+    return { refreshFormula: () => stepper.fire() };
   }
 
   MLSim.RNN = { init };

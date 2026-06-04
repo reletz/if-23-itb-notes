@@ -1,96 +1,70 @@
-/* attention.js — simulator Bahdanau / Luong / Self-Attention. */
+/* attention.js — simulator mekanisme Attention (Bahdanau vs Luong).
+ * Encoder-decoder dengan/ tanpa attention, many-to-one & many-to-many.
+ * Vanilla JS, namespace window.MLSim. Semua teks UI Bahasa Indonesia. */
 (function () {
   "use strict";
   const MLSim = (window.MLSim = window.MLSim || {});
   const M = MLSim.mat;
+  const D = MLSim.draw;
 
+  // vektor -> latex "[a,\,b]"
   function vl(v) {
     return "[" + v.map((x) => M.fmt(x)).join(",\\,") + "]";
   }
-  function fbox(label, latex) {
+  function fbox(l, x) {
     return (
       '<div class="formula-box"><div class="formula-label">' +
-      label +
+      l +
       '</div><div class="math">' +
-      MLSim.math.toString(latex) +
+      MLSim.math.toString(x) +
       "</div></div>"
-    );
-  }
-  function matTable(mat, rowLabels, colLabels) {
-    let h = '<table class="vtable"><tr><th></th>';
-    h += colLabels.map((c) => "<th>" + c + "</th>").join("");
-    h += "</tr>";
-    mat.forEach((row, i) => {
-      h += "<tr><th>" + rowLabels[i] + "</th>";
-      h += row.map((x) => "<td>" + M.fmt(x) + "</td>").join("");
-      h += "</tr>";
-    });
-    return h + "</table>";
-  }
-  function heatTable(mat, rowLabels, colLabels) {
-    let h = '<table class="heat"><tr><th></th>';
-    h += colLabels.map((c) => "<th>" + c + "</th>").join("");
-    h += "</tr>";
-    mat.forEach((row, i) => {
-      h += "<tr><th>" + rowLabels[i] + "</th>";
-      h += row
-        .map((x) => {
-          const a = Math.max(0, Math.min(1, x));
-          return (
-            '<td style="background:rgba(40,110,150,' +
-            (0.12 + a * 0.8).toFixed(2) +
-            ')">' +
-            M.fmt(x, 2) +
-            "</td>"
-          );
-        })
-        .join("");
-      h += "</tr>";
-    });
-    return h + "</table>";
-  }
-  function bars(weights, labels) {
-    return (
-      '<div class="bars">' +
-      weights
-        .map(
-          (w, i) =>
-            '<div class="bar-row"><span class="bar-label">' +
-            labels[i] +
-            '</span><span class="bar-track"><span class="bar-fill" style="width:' +
-            (w * 100).toFixed(1) +
-            '%"></span></span><span class="bar-val">' +
-            M.fmt(w) +
-            "</span></div>"
-        )
-        .join("") +
-      "</div>"
     );
   }
 
   function init(root) {
-    let state = { mech: "bahdanau", luongScore: "dot", n: 3, seed: 11, scaled: true };
-    let steps = [];
-    let ctx = {};
+    const state = {
+      arch: "many-to-one", // many-to-one | many-to-many
+      mech: "bahdanau", // bahdanau | luong
+      luongScore: "dot", // dot | general | concat
+      attn: "with", // with | without
+      N: 3, // jumlah encoder state (2..4)
+      seed: 11,
+    };
+
+    let model = null; // hasil compute
+    let steps = []; // langkah stepper
 
     root.innerHTML =
       '<div class="sim-layout">' +
       '  <div class="col-controls">' +
       '    <div class="panel">' +
-      "      <h3>Mekanisme</h3>" +
-      '      <div class="field"><div class="seg" id="att-mech">' +
-      '        <button data-v="bahdanau" class="active">Bahdanau</button>' +
-      '        <button data-v="luong">Luong</button>' +
-      '        <button data-v="self">Self-Attn</button>' +
-      "      </div></div>" +
-      '      <div class="field" id="att-luong-field" style="display:none"><label>Fungsi skor (Luong)</label>' +
-      '        <select id="att-luong"><option value="dot">dot</option><option value="general">general</option><option value="concat">concat</option></select></div>' +
-      '      <div class="field" id="att-scaled-field" style="display:none"><label>Scaling 1/√d_k</label>' +
-      '        <div class="seg" id="att-scaled"><button data-v="1" class="active">Aktif</button><button data-v="0">Nonaktif</button></div></div>' +
-      '      <div class="field"><label><span id="att-n-label">Jumlah encoder state</span>: <span id="att-n-out">3</span></label>' +
+      "      <h3>Konfigurasi Attention</h3>" +
+      '      <div class="field"><label>Arsitektur</label>' +
+      '        <div class="seg" id="att-arch">' +
+      '          <button data-v="many-to-one" class="active">many-to-one</button>' +
+      '          <button data-v="many-to-many">many-to-many</button>' +
+      "        </div></div>" +
+      '      <div class="field"><label>Mekanisme</label>' +
+      '        <div class="seg" id="att-mech">' +
+      '          <button data-v="bahdanau" class="active">Bahdanau</button>' +
+      '          <button data-v="luong">Luong</button>' +
+      "        </div></div>" +
+      '      <div class="field" id="att-luong-field" style="display:none"><label>Skor Luong</label>' +
+      '        <select id="att-luong-score">' +
+      '          <option value="dot">dot</option>' +
+      '          <option value="general">general</option>' +
+      '          <option value="concat">concat</option>' +
+      "        </select></div>" +
+      '      <div class="field"><label>Attention</label>' +
+      '        <div class="seg" id="att-toggle">' +
+      '          <button data-v="with" class="active">dengan attention</button>' +
+      '          <button data-v="without">tanpa attention</button>' +
+      "        </div></div>" +
+      '      <div class="field"><label>Jumlah encoder state: <span id="att-n-out">3</span></label>' +
       '        <div class="range-row"><input type="range" id="att-n" min="2" max="4" step="1" value="3"/></div></div>' +
-      '      <div class="field"><label>Seed nilai</label><input type="number" id="att-seed" value="11" min="1" max="9999"/></div>' +
-      '      <div class="note" id="att-desc"></div>' +
+      '      <div class="field"><label>Seed bobot acak</label>' +
+      '        <input type="number" id="att-seed" value="11" min="1" max="9999"/></div>' +
+      '      <div class="note" id="att-note"></div>' +
       "    </div>" +
       "  </div>" +
       '  <div class="col-main">' +
@@ -100,21 +74,23 @@
       '      <div class="step-desc" id="att-step-desc"></div>' +
       '      <div id="att-formula"></div>' +
       "    </div>" +
-      '    <div class="panel"><h3 id="att-viz-title">Visualisasi</h3><div id="att-viz"></div></div>' +
+      '    <div class="panel">' +
+      '      <h3 id="att-viz-title">Visualisasi</h3>' +
+      '      <div id="att-viz"></div>' +
+      "    </div>" +
       "  </div>" +
       "</div>";
 
     const el = {
+      arch: root.querySelector("#att-arch"),
       mech: root.querySelector("#att-mech"),
       luongField: root.querySelector("#att-luong-field"),
-      luong: root.querySelector("#att-luong"),
-      scaledField: root.querySelector("#att-scaled-field"),
-      scaled: root.querySelector("#att-scaled"),
+      luongScore: root.querySelector("#att-luong-score"),
+      toggle: root.querySelector("#att-toggle"),
       n: root.querySelector("#att-n"),
       nOut: root.querySelector("#att-n-out"),
-      nLabel: root.querySelector("#att-n-label"),
       seed: root.querySelector("#att-seed"),
-      desc: root.querySelector("#att-desc"),
+      note: root.querySelector("#att-note"),
       stepTitle: root.querySelector("#att-step-title"),
       stepDesc: root.querySelector("#att-step-desc"),
       formula: root.querySelector("#att-formula"),
@@ -122,228 +98,550 @@
       viz: root.querySelector("#att-viz"),
     };
 
-    const DESC = {
-      bahdanau:
-        "Bahdanau (additive): skor keselarasan dihitung dengan jaringan kecil eᵢⱼ = vᵀtanh(W₁hⱼ + W₂s), lalu softmax → bobot → context vector.",
-      luong:
-        "Luong (multiplicative): skor lewat dot / general / concat, softmax → bobot, context, lalu state gabungan s̃ = tanh(Wc[c;s]).",
-      self:
-        "Self-attention Transformer: dari satu input dihitung Q, K, V; skor QKᵀ (di-scale 1/√dₖ), softmax baris → matriks attention, output = A·V. Diproses paralel, bukan sekuensial.",
-    };
-
-    function buildBahdanau() {
-      const d = 2;
-      const enc = M.randMat(state.n, d, state.seed, 0.8);
-      const s = M.randVec(d, state.seed + 7, 0.8);
-      const W1 = M.randMat(d, d, state.seed + 1, 0.6);
-      const W2 = M.randMat(d, d, state.seed + 2, 0.6);
-      const v = M.randVec(d, state.seed + 3, 0.6);
-      const e = enc.map((h) => M.dot(v, M.tanh(M.vecAdd(M.matVec(W1, h), M.matVec(W2, s)))));
-      const alpha = M.softmax(e);
-      const c = enc[0].map((_, k) => enc.reduce((acc, h, j) => acc + alpha[j] * h[k], 0));
-      const labels = enc.map((_, j) => "h" + (j + 1));
-      const out = [];
-      out.push({
-        title: "Skor alignment eⱼ",
-        desc: "Untuk tiap encoder state hⱼ, hitung kecocokan dengan state decoder s.",
-        latex: [
-          ["Rumus", "e_j = v^T\\tanh(W_1 h_j + W_2 s)"],
-          ["Hasil", "e = " + vl(e)],
-        ],
-        viz: () => matTable([e], ["e"], labels),
-      });
-      out.push({
-        title: "Bobot attention αⱼ",
-        desc: "Normalisasi skor dengan softmax → seberapa besar perhatian ke tiap posisi.",
-        latex: [
-          ["Rumus", "\\alpha_j = \\softmax(e)_j"],
-          ["Hasil", "\\alpha = " + vl(alpha)],
-        ],
-        viz: () => bars(alpha, labels),
-      });
-      out.push({
-        title: "Context vector c",
-        desc: "Jumlah berbobot seluruh encoder state — inilah inti attention: tidak membuang state perantara.",
-        latex: [
-          ["Rumus", "c = \\sum_j \\alpha_j h_j"],
-          ["Hasil", "c = " + vl(c)],
-        ],
-        viz: () => bars(alpha, labels) + matTable([c], ["c"], ["d1", "d2"]),
-      });
-      el.nLabel.textContent = "Jumlah encoder state";
-      return out;
+    // ---------- rumus skor (latex) per mekanisme ----------
+    function scoreRuleLatex() {
+      if (state.mech === "bahdanau")
+        return "e_{tj}=v_a^T\\tanh(W_a s_{t-1}+U_a h_j)";
+      if (state.luongScore === "dot") return "e_{tj}=s_t^T h_j";
+      if (state.luongScore === "general") return "e_{tj}=s_t^T W_a h_j";
+      return "e_{tj}=v_a^T\\tanh(W_a[s_t;h_j])";
     }
 
-    function buildLuong() {
-      const d = 2;
-      const enc = M.randMat(state.n, d, state.seed, 0.8);
-      const s = M.randVec(d, state.seed + 7, 0.8);
-      const Wa = M.randMat(d, state.luongScore === "concat" ? 2 * d : d, state.seed + 1, 0.6);
-      const va = M.randVec(d, state.seed + 3, 0.6);
-      let e, scoreRule;
-      if (state.luongScore === "dot") {
-        e = enc.map((h) => M.dot(s, h));
-        scoreRule = "score(s,h_j) = s^T h_j";
-      } else if (state.luongScore === "general") {
-        e = enc.map((h) => M.dot(s, M.matVec(Wa, h)));
-        scoreRule = "score(s,h_j) = s^T W_a h_j";
-      } else {
-        e = enc.map((h) => M.dot(va, M.tanh(M.matVec(Wa, s.concat(h)))));
-        scoreRule = "score(s,h_j) = v_a^T\\tanh(W_a[s;h_j])";
+    // ---------- teks .note ----------
+    function noteText() {
+      if (state.attn === "without") {
+        return (
+          "<b>Tanpa attention</b>: decoder hanya menerima <b>hidden state terakhir</b> encoder " +
+          "(h<sub>" +
+          state.N +
+          "</sub>) sebagai satu-satunya ringkasan seluruh sekuens. " +
+          "Inilah <b>bottleneck</b> — informasi posisi awal mudah hilang untuk sekuens panjang."
+        );
       }
+      if (state.mech === "bahdanau") {
+        return (
+          "<b>Bahdanau (additive)</b>: skor keselarasan dihitung dari state decoder " +
+          "<i>sebelumnya</i> s<sub>t-1</sub> dan tiap hidden encoder h<sub>j</sub> lewat " +
+          "MLP kecil (W<sub>a</sub>, U<sub>a</sub>, v<sub>a</sub>). Context c<sub>t</sub> " +
+          "ikut menentukan state decoder s<sub>t</sub>."
+        );
+      }
+      const sc =
+        state.luongScore === "dot"
+          ? "dot: e=s<sub>t</sub>·h<sub>j</sub> (tanpa bobot tambahan)"
+          : state.luongScore === "general"
+          ? "general: e=s<sub>t</sub>·(W<sub>a</sub>h<sub>j</sub>)"
+          : "concat: e=v<sub>a</sub>·tanh(W<sub>a</sub>[s<sub>t</sub>;h<sub>j</sub>])";
+      return (
+        "<b>Luong (multiplicative)</b>: skor dihitung dari state decoder " +
+        "<i>saat ini</i> s<sub>t</sub>. Skor terpilih → " +
+        sc +
+        ". Context c<sub>t</sub> digabung dengan s<sub>t</sub> menjadi " +
+        "s&#771;<sub>t</sub>=tanh(W<sub>c</sub>[c<sub>t</sub>;s<sub>t</sub>])."
+      );
+    }
+
+    // ---------- bangun bobot & hitung satu langkah decoder ----------
+    function buildWeights() {
+      const s = state.seed;
+      return {
+        Wa: M.randMat(2, 2, s + 1, 0.8),
+        Ua: M.randMat(2, 2, s + 2, 0.8),
+        va: M.randVec(2, s + 3, 0.8),
+        WaGen: M.randMat(2, 2, s + 4, 0.8), // Luong general
+        WaCat: M.randMat(2, 4, s + 5, 0.8), // Luong/Bahdanau concat (2×4)
+        vaCat: M.randVec(2, s + 6, 0.8),
+        Wc: M.randMat(2, 4, s + 8, 0.8), // Luong combine (2×4)
+      };
+    }
+
+    // hitung skor e_j untuk decoder state s terhadap semua encoder state H
+    function computeScores(H, s, W) {
+      return H.map((h) => {
+        if (state.mech === "bahdanau") {
+          const inner = M.tanh(M.vecAdd(M.matVec(W.Wa, s), M.matVec(W.Ua, h)));
+          return M.dot(W.va, inner);
+        }
+        if (state.luongScore === "dot") return M.dot(s, h);
+        if (state.luongScore === "general") return M.dot(s, M.matVec(W.WaGen, h));
+        // concat
+        const inner = M.tanh(M.matVec(W.WaCat, s.concat(h)));
+        return M.dot(W.vaCat, inner);
+      });
+    }
+
+    // context = Σ α_j h_j
+    function contextOf(H, alpha) {
+      let c = M.zeros(H[0].length);
+      H.forEach((h, j) => {
+        c = M.vecAdd(c, M.scale(h, alpha[j]));
+      });
+      return c;
+    }
+
+    // hitung satu timestep decoder lengkap -> objek hasil
+    function decodeStep(H, sPrev, W, tIdx) {
+      const e = computeScores(H, sPrev, W);
       const alpha = M.softmax(e);
-      const c = enc[0].map((_, k) => enc.reduce((acc, h, j) => acc + alpha[j] * h[k], 0));
-      const stilde = M.tanh(M.matVec(M.randMat(d, 2 * d, state.seed + 5, 0.6), c.concat(s)));
-      const labels = enc.map((_, j) => "h" + (j + 1));
+      const c = contextOf(H, alpha);
+      let sNew, sTilde;
+      if (state.mech === "bahdanau") {
+        // s_t = tanh(Wa s_{t-1} + Ua c)  (demonstrasi: context masuk ke state)
+        sNew = M.tanh(M.vecAdd(M.matVec(W.Wa, sPrev), M.matVec(W.Ua, c)));
+      } else {
+        // s_t (RNN ringkas) lalu s̃ = tanh(Wc[c;s_t])
+        sNew = M.tanh(M.matVec(W.Wa, sPrev)); // state decoder ringkas
+        sTilde = M.tanh(M.matVec(W.Wc, c.concat(sNew)));
+      }
+      const sOut = sTilde || sNew;
+      // output y (softmax 2-dim demo) — proyeksi sederhana
+      const y = M.softmax(sOut);
+      return { tIdx, e, alpha, c, sPrev, sNew, sTilde, sOut, y };
+    }
+
+    // ---------- bangun model penuh ----------
+    function buildModel() {
+      const N = state.N;
+      // encoder states N×2
+      let H = M.randMat(N, 2, state.seed, 0.8);
+      // ambil preset bila cocok (N=3) untuk angka "catatan"
+      const preset = MLSim.presets && MLSim.presets.attnRNN;
+      if (preset && N === 3) {
+        H = preset.encStates.map((r) => r.slice());
+      }
+      let s0 =
+        preset && N === 3 ? preset.decState.slice() : M.randVec(2, state.seed + 7, 0.8);
+      const W = buildWeights();
+
+      const decN = state.arch === "many-to-many" ? Math.min(3, Math.max(2, N - 1)) : 1;
+      const decoders = [];
+      let sPrev = s0;
+      for (let t = 0; t < decN; t++) {
+        const r = decodeStep(H, sPrev, W, t);
+        decoders.push(r);
+        // shift state decoder untuk timestep berikut (many-to-many)
+        sPrev = r.sOut;
+      }
+      return { N, H, s0, W, decN, decoders };
+    }
+
+    // ---------- bangun langkah stepper ----------
+    function computeSteps() {
+      model = buildModel();
+      steps = state.attn === "without" ? stepsWithout() : stepsWith();
+    }
+
+    // langkah untuk mode TANPA attention
+    function stepsWithout() {
+      const m = model;
+      const hLast = m.H[m.N - 1];
+      // decoder ringkas pakai hanya hidden terakhir
+      const sDec = M.tanh(M.matVec(m.W.Wa, hLast));
+      const y = M.softmax(sDec);
       const out = [];
       out.push({
-        title: "Skor (" + state.luongScore + ")",
-        desc: "Luong menghitung skor lewat perkalian — varian " + state.luongScore + ".",
+        stage: "bottleneck",
+        decT: 0,
+        title: "Bottleneck — hanya hidden terakhir",
+        desc:
+          "Tanpa attention, seluruh sekuens diringkas menjadi satu vektor: hidden state terakhir h_" +
+          m.N +
+          ". Decoder tidak melihat h_1..h_" +
+          (m.N - 1) +
+          ".",
         latex: [
-          ["Rumus", scoreRule],
-          ["Hasil", "e = " + vl(e)],
+          ["Rumus", "c = h_N \\quad (\\text{tanpa bobot } \\alpha)"],
+          ["Hidden terakhir", "h_{" + m.N + "} = " + vl(hLast)],
         ],
-        viz: () => matTable([e], ["e"], labels),
       });
       out.push({
-        title: "Bobot attention αⱼ",
-        desc: "Softmax atas skor.",
-        latex: [["Rumus", "\\alpha_j = \\softmax(e)_j"], ["Hasil", "\\alpha = " + vl(alpha)]],
-        viz: () => bars(alpha, labels),
-      });
-      out.push({
-        title: "Context vector c",
-        desc: "Jumlah berbobot encoder state.",
-        latex: [["Rumus", "c_t = \\sum_j \\alpha_j h_j"], ["Hasil", "c = " + vl(c)]],
-        viz: () => bars(alpha, labels) + matTable([c], ["c"], ["d1", "d2"]),
-      });
-      out.push({
-        title: "State gabungan s̃",
-        desc: "Luong menggabungkan context dengan state decoder sebelum prediksi.",
+        stage: "dec",
+        decT: 0,
+        title: "Decoder pakai h_N",
+        desc: "State decoder dihitung hanya dari hidden terakhir.",
         latex: [
-          ["Rumus", "\\tilde{s}_t = \\tanh(W_c[c_t; s_t])"],
-          ["Hasil", "\\tilde{s} = " + vl(stilde)],
+          ["Rumus", "s = \\tanh(W_a h_N)"],
+          ["Hasil", "s = " + vl(sDec)],
         ],
-        viz: () => matTable([stilde], ["s̃"], ["d1", "d2"]),
       });
-      el.nLabel.textContent = "Jumlah encoder state";
+      out.push({
+        stage: "out",
+        decT: 0,
+        title: "Output y",
+        desc: "Output decoder. Informasi posisi awal sekuens sudah berpotensi hilang.",
+        latex: [
+          ["Rumus", "y = \\softmax(s)"],
+          ["Hasil", "y = " + vl(y)],
+        ],
+        ySnap: y,
+        sSnap: sDec,
+      });
       return out;
     }
 
-    function buildSelf() {
-      const d = 2,
-        dk = 2;
-      const X = M.randMat(state.n, d, state.seed, 0.9);
-      const Wq = M.randMat(d, dk, state.seed + 1, 0.6);
-      const Wk = M.randMat(d, dk, state.seed + 2, 0.6);
-      const Wv = M.randMat(d, dk, state.seed + 3, 0.6);
-      const Q = M.matMul(X, Wq);
-      const K = M.matMul(X, Wk);
-      const V = M.matMul(X, Wv);
-      const Sraw = M.matMul(Q, M.transpose(K));
-      const scale = state.scaled ? 1 / Math.sqrt(dk) : 1;
-      const S = Sraw.map((row) => row.map((x) => x * scale));
-      const A = S.map((row) => M.softmax(row));
-      const O = M.matMul(A, V);
-      const tok = X.map((_, i) => "x" + (i + 1));
+    // langkah untuk mode DENGAN attention (per timestep decoder)
+    function stepsWith() {
+      const m = model;
       const out = [];
-      out.push({
-        title: "Proyeksi Q, K, V",
-        desc: "Setiap token diproyeksikan linear menjadi Query, Key, dan Value.",
-        latex: [["Rumus", "Q = XW_Q,\\; K = XW_K,\\; V = XW_V"]],
-        viz: () =>
-          "<h4>Q</h4>" +
-          matTable(Q, tok, ["q1", "q2"]) +
-          "<h4>K</h4>" +
-          matTable(K, tok, ["k1", "k2"]) +
-          "<h4>V</h4>" +
-          matTable(V, tok, ["v1", "v2"]),
+      m.decoders.forEach((dec, t) => {
+        const tag = m.decN > 1 ? " (dec t" + (t + 1) + ")" : "";
+        // (1) skor alignment
+        out.push({
+          stage: "score",
+          decT: t,
+          title: "Skor alignment e_j" + tag,
+          desc:
+            "Hitung skor keselarasan tiap hidden encoder h_j terhadap state decoder " +
+            (state.mech === "bahdanau" ? "s_{t-1}" : "s_t") +
+            " memakai aturan " +
+            (state.mech === "bahdanau"
+              ? "Bahdanau (additive)."
+              : "Luong " + state.luongScore + "."),
+          latex: [
+            ["Rumus", scoreRuleLatex()],
+            ["Skor e", "e = " + vl(dec.e)],
+          ],
+        });
+        // (2) bobot softmax
+        out.push({
+          stage: "alpha",
+          decT: t,
+          title: "Bobot α via softmax" + tag,
+          desc:
+            "Normalisasi skor menjadi bobot perhatian (jumlah = 1). Bar yang makin gelap = bobot makin besar.",
+          latex: [
+            ["Rumus", "\\alpha_{tj}=\\softmax(e)_j"],
+            ["Bobot α", "\\alpha = " + vl(dec.alpha)],
+          ],
+        });
+        // (3) context vector
+        out.push({
+          stage: "context",
+          decT: t,
+          title: "Context vector c" + tag,
+          desc: "Jumlah berbobot seluruh hidden encoder — fokus pada posisi dengan α besar.",
+          latex: [
+            ["Rumus", "c_t=\\sum_j \\alpha_{tj} h_j"],
+            ["Substitusi", contextSubLatex(m.H, dec.alpha)],
+            ["Hasil", "c_t = " + vl(dec.c)],
+          ],
+        });
+        // (4) decoder pakai context
+        out.push({
+          stage: "dec",
+          decT: t,
+          title: "Decoder pakai context" + tag,
+          desc:
+            state.mech === "bahdanau"
+              ? "Context masuk ke perhitungan state decoder s_t."
+              : "Luong: gabungkan context dengan state decoder menjadi s̃_t.",
+          latex:
+            state.mech === "bahdanau"
+              ? [
+                  ["Rumus", "s_t = \\tanh(W_a s_{t-1}+U_a c_t)"],
+                  ["Hasil", "s_t = " + vl(dec.sNew)],
+                ]
+              : [
+                  ["Rumus", "\\tilde{s}_t=\\tanh(W_c[c_t;s_t])"],
+                  ["Substitusi", "[c_t;s_t] = " + vl(dec.c.concat(dec.sNew))],
+                  ["Hasil", "\\tilde{s}_t = " + vl(dec.sTilde)],
+                ],
+        });
+        // (5) output
+        out.push({
+          stage: "out",
+          decT: t,
+          title: "Output y" + tag,
+          desc: "Output decoder pada timestep ini.",
+          latex: [
+            ["Rumus", "y_t = \\softmax(" + (state.mech === "bahdanau" ? "s_t" : "\\tilde{s}_t") + ")"],
+            ["Hasil", "y_t = " + vl(dec.y)],
+          ],
+        });
       });
-      out.push({
-        title: "Skor QKᵀ" + (state.scaled ? " (di-scale)" : ""),
-        desc: state.scaled
-          ? "Dot-product setiap query dengan setiap key, dibagi √dₖ agar gradien stabil."
-          : "Dot-product setiap query dengan setiap key (tanpa scaling).",
-        latex: [
-          ["Rumus", state.scaled ? "S = \\frac{QK^T}{\\sqrt{d_k}}" : "S = QK^T"],
-          ["√dₖ", state.scaled ? "\\sqrt{d_k} = \\sqrt{" + dk + "} \\approx " + M.fmt(Math.sqrt(dk)) : "—"],
-        ],
-        viz: () => matTable(S, tok, tok),
-      });
-      out.push({
-        title: "Softmax baris → matriks attention A",
-        desc: "Tiap baris dinormalkan: seberapa besar token i memperhatikan token j.",
-        latex: [["Rumus", "A = \\softmax_{baris}(S)"]],
-        viz: () =>
-          heatTable(A, tok, tok) +
-          '<div class="note">Sel makin gelap = perhatian makin besar. Inilah peta "token i melihat token j" (mis. kata "it" yang menyorot "the animal" / "tired").</div>',
-      });
-      out.push({
-        title: "Output = A·V",
-        desc: "Representasi baru tiap token = jumlah berbobot Value seluruh token.",
-        latex: [["Rumus", "\\text{Output} = A\\,V"]],
-        viz: () => heatTable(A, tok, tok) + "<h4>Output</h4>" + matTable(O, tok, ["o1", "o2"]),
-      });
-      el.nLabel.textContent = "Jumlah token";
       return out;
     }
 
-    function rebuildSteps() {
-      if (state.mech === "bahdanau") steps = buildBahdanau();
-      else if (state.mech === "luong") steps = buildLuong();
-      else steps = buildSelf();
+    function contextSubLatex(H, alpha) {
+      return (
+        "c_t = " +
+        H.map((h, j) => M.fmt(alpha[j]) + "\\cdot " + vl(h)).join(" + ")
+      );
     }
 
+    // ---------- render rumus + viz ----------
     function renderStep(i, step) {
-      if (!step) return;
+      if (!step) {
+        el.viz.innerHTML = "";
+        return;
+      }
       el.stepTitle.textContent = step.title;
       el.stepDesc.textContent = step.desc;
       el.formula.innerHTML = step.latex.map((p) => fbox(p[0], p[1])).join("");
-      el.vizTitle.textContent = "Visualisasi — " + step.title;
-      el.viz.innerHTML = step.viz ? step.viz() : "";
+      if (state.attn === "without") renderVizWithout(step);
+      else renderVizWith(step);
     }
 
+    // ===================== SVG VISUALISASI =====================
+    const COL = {
+      enc: "#2563eb",
+      ctx: "#9c4f2e",
+      dec: "#0891b2",
+      arrow: "#3b82f6",
+      ring: "#22d3ee",
+      white: "#ffffff",
+    };
+
+    function renderVizWith(step) {
+      const m = model;
+      const dec = m.decoders[step.decT] || m.decoders[0];
+      const reached = (s) => stageOrder(step.stage) >= stageOrder(s);
+      el.vizTitle.textContent =
+        "Encoder–Attention–Decoder" +
+        (m.decN > 1 ? " · dec t" + (step.decT + 1) + "/" + m.decN : "");
+
+      // ---- band vertikal terpisah supaya tidak ada yang menumpuk ----
+      const N = m.N;
+      const encW = 80,
+        encH = 48,
+        gap = 78;
+      const W = Math.max(500, 120 + N * (encW + gap));
+      const H = 400;
+      const x0 = (W - (N * encW + (N - 1) * gap)) / 2; // baris encoder di tengah
+      const encX = (j) => x0 + j * (encW + gap);
+      const encCx = (j) => encX(j) + encW / 2;
+      const encY = 300; // baris encoder (bawah)
+      const bandY = 248,
+        bandH = 28; // pita attention
+      const barBase = bandY,
+        barMaxH = 48,
+        barW = 34; // α bars (pendek, di atas pita)
+      const ctxX = Math.round(W * 0.42),
+        ctxY = 108,
+        ctxR = 30; // context (atas, agregasi dari α)
+      const decW = 132,
+        decH = 56,
+        decCx = W - 86,
+        decY = 56; // decoder (kanan-atas)
+      const showAlpha = reached("alpha"),
+        showCtx = reached("context"),
+        showDec = reached("dec");
+
+      let g = "";
+
+      // --- encoder boxes (bawah) + panah ke pita attention ---
+      for (let j = 0; j < N; j++) {
+        const cx = encCx(j),
+          a = dec.alpha[j];
+        g += D.line(cx, encY, cx, bandY + bandH, {
+          color: COL.arrow,
+          width: showAlpha ? 1 + a * 5 : 1.5,
+          opacity: showAlpha ? 0.4 + a * 0.6 : 0.5,
+        });
+        g += D.rect(encX(j), encY, encW, encH, { rx: 8, fill: COL.enc, stroke: COL.enc });
+        g += D.text(cx, encY + 17, "h" + (j + 1), { fill: COL.white, size: 12, weight: 700 });
+        g += D.text(cx, encY + 34, vl0(m.H[j]), { fill: COL.white, size: 10 });
+      }
+      g += D.text(x0, encY + encH + 18, "Encoder hidden states", {
+        anchor: "start",
+        size: 11,
+        fill: "currentColor",
+      });
+
+      // --- pita attention + α bars (pendek) ---
+      g += D.rect(20, bandY, W - 40, bandH, {
+        rx: 6,
+        fill: "transparent",
+        stroke: showAlpha ? COL.ring : "currentColor",
+        dash: "4 3",
+        opacity: 0.7,
+      });
+      g += D.text(W - 28, bandY + bandH / 2, "Attention Layer", {
+        anchor: "end",
+        size: 11,
+        fill: "currentColor",
+      });
+      if (showAlpha) {
+        const maxA = Math.max.apply(null, dec.alpha) || 1;
+        for (let j = 0; j < N; j++) {
+          const cx = encCx(j),
+            a = dec.alpha[j];
+          const bh = 8 + (a / maxA) * (barMaxH - 8);
+          const by = barBase - bh;
+          g += D.rect(cx - barW / 2, by, barW, bh, { rx: 3, fill: D.attn(a), stroke: COL.arrow, strokeW: 1 });
+          g += D.text(cx, by - 8, "α=" + M.fmt(a, 2), { size: 10, fill: "currentColor" });
+        }
+      }
+
+      // --- context node (kiri-atas) ---
+      if (showCtx) {
+        // panah dari area attention naik ke context (lewat ruang kosong di kiri)
+        g += D.line(ctxX, barBase - barMaxH - 12, ctxX, ctxY + ctxR, { color: COL.arrow, width: 2 });
+        g += D.circle(ctxX, ctxY, ctxR, {
+          fill: COL.ctx,
+          stroke: step.stage === "context" ? COL.ring : COL.ctx,
+          strokeW: step.stage === "context" ? 3 : 1.5,
+        });
+        g += D.text(ctxX, ctxY - 5, "c", { fill: COL.white, size: 13, weight: 700 });
+        g += D.text(ctxX, ctxY + 11, vl0(dec.c), { fill: COL.white, size: 9 });
+      }
+
+      // --- decoder box (kanan-atas) ---
+      if (showDec) {
+        g += D.line(ctxX + ctxR, ctxY, decCx - decW / 2, decY + decH / 2, { color: COL.arrow, width: 2 });
+        g += D.rect(decCx - decW / 2, decY, decW, decH, {
+          rx: 8,
+          fill: COL.dec,
+          stroke: step.stage === "dec" ? COL.ring : COL.dec,
+          strokeW: step.stage === "dec" ? 3 : 1.5,
+        });
+        const sShow = dec.sTilde || dec.sNew;
+        g += D.text(decCx, decY + 19, state.mech === "luong" ? "s̃ (decoder)" : "s (decoder)", {
+          fill: COL.white,
+          size: 11,
+          weight: 700,
+        });
+        g += D.text(decCx, decY + 38, vl0(sShow), { fill: COL.white, size: 10 });
+      }
+
+      // --- output ---
+      if (reached("out")) {
+        g += D.line(decCx, decY, decCx, 26, { color: COL.arrow, width: 2 });
+        g += D.text(decCx, 14, "y = " + vl0(dec.y), { size: 12, weight: 700, fill: "currentColor" });
+      }
+
+      el.viz.innerHTML =
+        D.svg(W, H, g) +
+        '<div class="note">α menyoroti hidden encoder mana yang paling diperhatikan untuk timestep decoder ini. ' +
+        "Context c = Σ α<sub>j</sub> h<sub>j</sub> meringkas seluruh sekuens secara dinamis.</div>";
+    }
+
+    function renderVizWithout(step) {
+      const m = model;
+      el.vizTitle.textContent = "Tanpa attention — bottleneck hidden terakhir";
+      const N = m.N;
+      const W = 120 + N * 110;
+      const H = 300;
+      const encY = 210;
+      const encW = 76,
+        encH = 46;
+      const gap = (W - 80 - N * encW) / Math.max(1, N - 1);
+      const x0 = 40;
+      const encX = (j) => x0 + j * (encW + gap);
+      const decX = W - 110,
+        decY = 60;
+      const hLast = m.H[N - 1];
+      const sDec = step.sSnap || M.tanh(M.matVec(m.W.Wa, hLast));
+
+      let g = "";
+      for (let j = 0; j < N; j++) {
+        const x = encX(j),
+          cx = x + encW / 2;
+        const isLast = j === N - 1;
+        g += D.rect(x, encY, encW, encH, {
+          rx: 8,
+          fill: COL.enc,
+          stroke: isLast ? COL.ring : COL.enc,
+          strokeW: isLast ? 3 : 1.5,
+          opacity: isLast ? 1 : 0.45,
+        });
+        g += D.text(cx, encY + 16, "h" + (j + 1), { fill: COL.white, size: 12, weight: 700 });
+        g += D.text(cx, encY + 33, vl0(m.H[j]), { fill: COL.white, size: 10 });
+        if (isLast) {
+          // satu panah dari hidden terakhir ke decoder
+          g += D.line(cx, encY, decX - 30, decY + 50, { color: COL.arrow, width: 2.5 });
+        }
+      }
+      g += D.text(x0, encY + encH + 18, "Hanya h" + N + " yang dipakai (sisanya pudar)", {
+        anchor: "start",
+        size: 11,
+        fill: "currentColor",
+      });
+
+      // decoder
+      const dboxW = 92,
+        dboxH = 50;
+      const showDec = step.stage === "dec" || step.stage === "out";
+      g += D.rect(decX - dboxW / 2, decY, dboxW, dboxH, {
+        rx: 8,
+        fill: COL.dec,
+        stroke: step.stage === "dec" ? COL.ring : COL.dec,
+        strokeW: step.stage === "dec" ? 3 : 1.5,
+        opacity: showDec ? 1 : 0.5,
+      });
+      g += D.text(decX, decY + 16, "s (decoder)", { fill: COL.white, size: 11, weight: 700 });
+      g += D.text(decX, decY + 34, showDec ? vl0(sDec) : "…", { fill: COL.white, size: 10 });
+
+      if (step.stage === "out") {
+        g += D.line(decX, decY, decX, 24, { color: COL.arrow, width: 2 });
+        g += D.text(decX, 14, "y = " + vl0(step.ySnap), {
+          size: 12,
+          weight: 700,
+          fill: "currentColor",
+        });
+      }
+
+      el.viz.innerHTML =
+        D.svg(W, H, g) +
+        '<div class="note"><b>Bottleneck:</b> tidak ada bobot α — decoder hanya menerima ' +
+        "hidden state terakhir. Untuk sekuens panjang, informasi di awal cenderung hilang. " +
+        "Bandingkan dengan mode <i>dengan attention</i>.</div>";
+    }
+
+    // vektor pendek utk label SVG: "0.2,0.4"
+    function vl0(v) {
+      return v.map((x) => M.fmt(x, 2)).join(", ");
+    }
+
+    // urutan stage utk "reveal" progresif
+    function stageOrder(s) {
+      const o = { score: 1, alpha: 2, context: 3, dec: 4, out: 5 };
+      return o[s] || 0;
+    }
+
+    // ---------- stepper ----------
     const stepper = MLSim.makeStepper({
       controlsEl: root.querySelector("#att-stepper"),
       getSteps: () => steps,
       onStep: renderStep,
-      onReset: rebuildSteps,
-      speedMs: 1200,
+      onReset: () => {
+        computeSteps();
+      },
+      speedMs: 1100,
     });
 
     function rebuild() {
-      el.desc.textContent = DESC[state.mech];
+      // tampil/sembunyikan select skor Luong
       el.luongField.style.display = state.mech === "luong" ? "block" : "none";
-      el.scaledField.style.display = state.mech === "self" ? "block" : "none";
-      rebuildSteps();
+      el.note.innerHTML = noteText();
+      computeSteps();
       stepper.goto(0);
     }
 
-    el.mech.addEventListener("click", (e) => {
-      const b = e.target.closest("button");
-      if (!b) return;
-      state.mech = b.getAttribute("data-v");
-      Array.prototype.forEach.call(el.mech.children, (c) =>
-        c.classList.toggle("active", c === b)
-      );
-      rebuild();
-    });
-    el.scaled.addEventListener("click", (e) => {
-      const b = e.target.closest("button");
-      if (!b) return;
-      state.scaled = b.getAttribute("data-v") === "1";
-      Array.prototype.forEach.call(el.scaled.children, (c) =>
-        c.classList.toggle("active", c === b)
-      );
-      rebuild();
-    });
-    el.luong.addEventListener("change", () => {
-      state.luongScore = el.luong.value;
+    // ---------- events ----------
+    function segHandler(container, key, after) {
+      container.addEventListener("click", (e) => {
+        const b = e.target.closest("button");
+        if (!b) return;
+        state[key] = b.getAttribute("data-v");
+        Array.prototype.forEach.call(container.children, (c) =>
+          c.classList.toggle("active", c === b)
+        );
+        if (after) after();
+        rebuild();
+      });
+    }
+    segHandler(el.arch, "arch");
+    segHandler(el.mech, "mech");
+    segHandler(el.toggle, "attn");
+
+    el.luongScore.addEventListener("change", () => {
+      state.luongScore = el.luongScore.value;
       rebuild();
     });
     el.n.addEventListener("input", () => {
-      state.n = parseInt(el.n.value, 10);
-      el.nOut.textContent = state.n;
+      state.N = parseInt(el.n.value, 10) || 3;
+      el.nOut.textContent = state.N;
       rebuild();
     });
     el.seed.addEventListener("input", () => {
@@ -351,8 +649,12 @@
       rebuild();
     });
 
+    // init
     rebuild();
-    return { refreshFormula: () => stepper.fire() };
+
+    return {
+      refreshFormula: () => stepper.fire(),
+    };
   }
 
   MLSim.Attention = { init };

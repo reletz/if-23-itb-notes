@@ -133,8 +133,23 @@
   function randVec(n, seed, range) {
     return randMat(1, n, seed, range)[0];
   }
+  function argmax(v) {
+    let bi = 0,
+      bv = -Infinity;
+    for (let i = 0; i < v.length; i++)
+      if (v[i] > bv) {
+        bv = v[i];
+        bi = i;
+      }
+    return bi;
+  }
+  function cloneMat(A) {
+    return A.map((r) => r.slice());
+  }
 
   MLSim.mat = {
+    argmax,
+    cloneMat,
     fmt,
     fmtVec,
     zeros,
