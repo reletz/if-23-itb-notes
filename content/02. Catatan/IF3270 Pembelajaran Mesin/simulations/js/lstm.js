@@ -320,41 +320,47 @@
       el.vizTitle.textContent =
         "Sel LSTM — t" + (step.t + 1) + " (x = " + step.snap.xlbl + ")";
 
-      const W = 880,
-        H = 470;
+      const W = 960,
+        H = 450;
       const cellX = 60,
-        cellY = 86,
-        cellW = 740,
-        cellH = 258;
-      const topY = cellY + 30; // garis cell state (atas)
-      const botY = cellY + cellH - 36; // garis hidden (bawah)
+        cellY = 72,
+        cellW = 600,
+        cellH = 300;
+      const cellR = cellX + cellW; // tepi kanan kotak sel (660)
+      const topY = cellY + 56; // garis cell state (atas) = 128
+      const botY = cellY + cellH - 56; // garis hidden (bawah) = 316
       const opR = 15;
       const cellOn = step.kind === "c" || step.kind === "o" || step.kind === "h";
+      const litH = step.kind === "h";
 
-      // posisi pada sumbu-x (semua jalur dipisah supaya tidak menumpuk)
-      const xMulF = 250; // ⊗ forget (garis cell)
-      const xAdd = 470; // ⊕ (garis cell)
-      const xOut = 660; // kolom output: tanh + ⊗o (vertikal sendiri)
-      const xUp = 740; // cabang h(t) ke atas (terpisah dari kolom output)
-
-      const blockY = cellY + 120;
-      const blockH = 52;
-      const blockW = 76;
+      // --- kolom-kolom terpisah (kiri→kanan) supaya tak ada yang menumpuk ---
+      const blockW = 84,
+        blockH = 56,
+        blockY = 210;
       const blocks = [
-        { k: "f", x: 196, label: "Forget", sym: "σ" },
-        { k: "i", x: 300, label: "Input", sym: "σ" },
-        { k: "chat", x: 404, label: "Kandidat", sym: "tanh" },
-        { k: "o", x: 556, label: "Output", sym: "σ" },
+        { k: "f", cx: 152, label: "Forget", sym: "σ" },
+        { k: "i", cx: 272, label: "Input", sym: "σ" },
+        { k: "chat", cx: 380, label: "Kandidat", sym: "tanh" },
+        { k: "o", cx: 520, label: "Output", sym: "σ" },
       ];
-      const ctr = (b) => b.x + blockW / 2;
+      const cx = (i) => blocks[i].cx;
+      const xMulF = cx(0); // ⊗ forget tepat di atas Forget
+      const xMulIC = Math.round((cx(1) + cx(2)) / 2); // ⊗ (i·C̃) di antara Input & Kandidat
+      const yMulIC = blockY - 36;
+      const xAdd = xMulIC; // ⊕ di garis cell, sejajar ⊗(i·C̃)
+      const xOut = 600; // kolom output: tanh + ⊗o
+      const tanhCY = 244; // pusat pil tanh
+      const lineEndX = 772; // ujung garis C/h (panah keluar)
+      const xUp = 712; // cabang h ke atas (di antara ujung garis & label)
+      const labelX = 784; // label kanan (anchor start), jelas di luar sel
 
-      function opNode(cx, cy, sym, lit) {
+      function opNode(ox, oy, sym, lit) {
         return (
-          D.circle(cx, cy, opR, {
+          D.circle(ox, oy, opR, {
             fill: COL.op,
             stroke: lit ? COL.active : "currentColor",
             strokeW: lit ? 3 : 1.5,
-          }) + D.text(cx, cy + 1, sym, { size: 15, fill: "#0f172a", weight: 700 })
+          }) + D.text(ox, oy + 1, sym, { size: 15, fill: "#0f172a", weight: 700 })
         );
       }
 
@@ -370,80 +376,79 @@
       // ---- garis CELL STATE (atas): C(t-1) -> ⊗f -> ⊕ -> C(t) ----
       s += D.line(0, topY, xMulF - opR, topY, { color: COL.cell, width: 3, arrow: false, opacity: step.kind === "f" || cellOn ? 1 : 0.6 });
       s += D.line(xMulF + opR, topY, xAdd - opR, topY, { color: COL.cell, width: 3, arrow: false, opacity: cellOn ? 1 : 0.5 });
-      s += D.line(xAdd + opR, topY, W, topY, { color: COL.cell, width: 3, arrow: false, opacity: cellOn ? 1 : 0.5 });
+      s += D.line(xAdd + opR, topY, lineEndX, topY, { color: COL.cell, width: 3, arrow: true, opacity: cellOn ? 1 : 0.5 });
       s += D.text(14, topY - 14, "C(t-1)", { anchor: "start", size: 13, fill: COL.cell, weight: 700 });
-      s += D.text(W - 12, topY - 14, "C(t)", { anchor: "end", size: 13, fill: COL.cell, weight: 700 });
-      if (cellOn)
-        s += D.text(W - 12, topY - 30, "= " + M.fmtVec(step.snap.cNew, 2), { anchor: "end", size: 11, fill: COL.cell });
 
       // ---- garis HIDDEN (bawah): h(t-1) masuk kiri, h(t) keluar kanan ----
-      s += D.line(0, botY, W, botY, { color: COL.hidden, width: 2.5, arrow: false, opacity: 0.85 });
+      s += D.line(0, botY, xOut - opR, botY, { color: COL.hidden, width: 2.5, arrow: false, opacity: 0.85 });
+      s += D.line(xOut + opR, botY, lineEndX, botY, { color: COL.hidden, width: 2.5, arrow: true, opacity: litH ? 1 : 0.85 });
       s += D.text(14, botY + 18, "h(t-1)", { anchor: "start", size: 13, fill: COL.hidden, weight: 700 });
-      s += D.text(W - 12, botY + 18, "h(t)", { anchor: "end", size: 13, fill: COL.hidden, weight: 700 });
-      if (step.kind === "h")
-        s += D.text(W - 12, botY + 34, "= " + M.fmtVec(step.snap.hNew, 2), { anchor: "end", size: 11, fill: COL.hidden });
+
+      // ---- label hasil C(t) & h(t) di kanan (di luar sel, tidak menumpuk) ----
+      s += D.text(labelX, topY - 4, "C(t)", { anchor: "start", size: 13, fill: COL.cell, weight: 700 });
+      if (cellOn)
+        s += D.text(labelX, topY + 14, "= " + M.fmtVec(step.snap.cNew, 2), { anchor: "start", size: 11, fill: COL.cell });
+      s += D.text(labelX, botY - 6, "h(t)", { anchor: "start", size: 13, fill: COL.hidden, weight: 700 });
+      if (litH)
+        s += D.text(labelX, botY + 14, "= " + M.fmtVec(step.snap.hNew, 2), { anchor: "start", size: 11, fill: COL.hidden });
 
       // x(t) masuk dari bawah
-      const xInX = cellX + 30;
-      s += D.line(xInX, H - 10, xInX, botY, { color: COL.arrow, width: 2, arrow: true });
+      const xInX = cellX + 36;
+      s += D.line(xInX, H - 8, xInX, botY, { color: COL.arrow, width: 2, arrow: true });
       s += D.text(xInX, H - 20, "x(t) = " + step.snap.xlbl, { anchor: "middle", size: 12, fill: COL.arrow, weight: 700 });
 
-      // feed dari garis bawah ke tiap blok gerbang
+      // feed dari garis bawah ([h_{t-1}, x_t]) ke tiap blok gerbang
       blocks.forEach((b) => {
         const on = g[b.k] !== undefined;
-        s += D.line(ctr(b), botY, ctr(b), blockY + blockH, { color: COL.arrow, width: 1.5, arrow: true, opacity: on ? 0.9 : 0.3 });
+        s += D.line(b.cx, botY, b.cx, blockY + blockH, { color: COL.arrow, width: 1.5, arrow: true, opacity: on ? 0.9 : 0.3 });
       });
 
       // blok gerbang
       blocks.forEach((b) => {
         const on = g[b.k] !== undefined;
         const current = step.kind === b.k;
-        s += D.rect(b.x, blockY, blockW, blockH, {
+        s += D.rect(b.cx - blockW / 2, blockY, blockW, blockH, {
           rx: 10,
           fill: COL.gate,
           stroke: current ? COL.active : "rgba(0,0,0,0.2)",
           strokeW: current ? 3.5 : 1,
           opacity: on ? 1 : 0.45,
         });
-        s += D.text(ctr(b), blockY + 18, b.label, { size: 12, fill: COL.gateText, weight: 700 });
-        s += D.text(ctr(b), blockY + 37, b.sym, { size: 13, fill: COL.gateText, italic: true });
+        s += D.text(b.cx, blockY + 20, b.label, { size: 12, fill: COL.gateText, weight: 700 });
+        s += D.text(b.cx, blockY + 39, b.sym, { size: 13, fill: COL.gateText, italic: true });
         if (on)
-          s += D.text(ctr(b), blockY + blockH + 16, M.fmtVec(g[b.k], 2), {
+          s += D.text(b.cx, blockY + blockH + 17, M.fmtVec(g[b.k], 2), {
             size: 11,
             fill: current ? COL.active : "currentColor",
             weight: current ? 700 : 400,
           });
       });
 
-      // ⊗ forget pada garis cell + panah f -> ⊗f
-      s += D.line(ctr(blocks[0]), blockY, xMulF, topY + opR, { color: COL.gate, width: 2, arrow: true, opacity: g.f !== undefined ? 1 : 0.3 });
+      // Forget -> ⊗f (lurus ke atas), ⊗f di garis cell
+      s += D.line(cx(0), blockY, xMulF, topY + opR, { color: COL.gate, width: 2, arrow: true, opacity: g.f !== undefined ? 1 : 0.3 });
       s += opNode(xMulF, topY, "⊗", step.kind === "c" || step.kind === "f");
 
-      // ⊗ input : i ⊙ C̃  (di bawah ⊕), lalu ⊗i -> ⊕
-      const yMulI = blockY - 18;
-      s += D.line(ctr(blocks[1]), blockY, xAdd - 6, yMulI + opR, { color: COL.gate, width: 2, arrow: true, opacity: g.i !== undefined ? 1 : 0.3 });
-      s += D.line(ctr(blocks[2]), blockY, xAdd + 6, yMulI + opR, { color: COL.gate, width: 2, arrow: true, opacity: g.chat !== undefined ? 1 : 0.3 });
-      s += opNode(xAdd, yMulI, "⊗", step.kind === "c");
-      s += D.line(xAdd, yMulI - opR, xAdd, topY + opR, { color: COL.cell, width: 2, arrow: true, opacity: cellOn ? 1 : 0.4 });
+      // Input & Kandidat -> ⊗(i·C̃) -> ⊕ (di garis cell)
+      s += D.line(cx(1), blockY, xMulIC - 5, yMulIC + opR, { color: COL.gate, width: 2, arrow: true, opacity: g.i !== undefined ? 1 : 0.3 });
+      s += D.line(cx(2), blockY, xMulIC + 5, yMulIC + opR, { color: COL.gate, width: 2, arrow: true, opacity: g.chat !== undefined ? 1 : 0.3 });
+      s += opNode(xMulIC, yMulIC, "⊗", step.kind === "c");
+      s += D.line(xAdd, yMulIC - opR, xAdd, topY + opR, { color: COL.cell, width: 2, arrow: true, opacity: cellOn ? 1 : 0.4 });
       s += opNode(xAdd, topY, "⊕", cellOn);
 
-      // ---- kolom OUTPUT (x = xOut): C(t) -> tanh -> ⊗o (di garis h) ----
-      const tanhY = blockY - 6; // pill tanh di atas ⊗o
-      const litH = step.kind === "h";
-      // cabang C(t) naik-turun ke tanh
-      s += D.line(xOut, topY, xOut, tanhY - 14, { color: COL.cell, width: 2, arrow: true, opacity: litH ? 1 : 0.4 });
-      s += D.rect(xOut - 30, tanhY - 14, 60, 28, { rx: 14, fill: COL.op, stroke: litH ? COL.active : "currentColor", strokeW: litH ? 3 : 1.5 });
-      s += D.text(xOut, tanhY, "tanh", { size: 12, fill: "#0f172a", weight: 700 });
+      // ---- kolom OUTPUT: cabang C(t) turun -> tanh -> ⊗o (di garis h) ----
+      // cabang turun dari garis cell (di x=xOut) ke pil tanh
+      s += D.line(xOut, topY, xOut, tanhCY - 16, { color: COL.cell, width: 2, arrow: true, opacity: litH ? 1 : 0.4 });
+      s += D.rect(xOut - 32, tanhCY - 16, 64, 30, { rx: 15, fill: COL.op, stroke: litH ? COL.active : "currentColor", strokeW: litH ? 3 : 1.5 });
+      s += D.text(xOut, tanhCY, "tanh", { size: 12, fill: "#0f172a", weight: 700 });
       // tanh -> ⊗o
-      s += D.line(xOut, tanhY + 14, xOut, botY - opR, { color: COL.cell, width: 2, arrow: true, opacity: litH ? 1 : 0.4 });
-      // Output gate o -> ⊗o (dari kiri)
-      s += D.line(ctr(blocks[3]), blockY + blockH, xOut - opR - 2, botY - 6, { color: COL.gate, width: 2, arrow: true, opacity: g.o !== undefined ? 1 : 0.3 });
-      // ⊗o duduk di garis hidden -> menghasilkan h(t)
+      s += D.line(xOut, tanhCY + 16, xOut, botY - opR, { color: COL.cell, width: 2, arrow: true, opacity: litH ? 1 : 0.4 });
+      // Output gate -> ⊗o (diagonal dari kiri, ruang terbuka)
+      s += D.line(cx(3) + blockW / 2 - 6, blockY + blockH - 10, xOut - opR - 2, botY - 8, { color: COL.gate, width: 2, arrow: true, opacity: g.o !== undefined ? 1 : 0.3 });
       s += opNode(xOut, botY, "⊗", litH);
 
-      // ---- cabang h(t) ke atas (x = xUp), terpisah dari kolom output ----
-      s += D.line(xUp, botY - opR, xUp, 30, { color: COL.hidden, width: 2.5, arrow: true, dash: "5,4", opacity: litH ? 1 : 0.45 });
-      s += D.text(xUp, 18, "ke layer / timestep berikutnya", { anchor: "middle", size: 11, fill: COL.hidden, italic: true });
+      // ---- cabang h(t) ke atas: "ke layer / timestep berikutnya" ----
+      s += D.line(xUp, botY, xUp, 38, { color: COL.hidden, width: 2.5, arrow: true, dash: "5,4", opacity: litH ? 1 : 0.45 });
+      s += D.text(xUp, 22, "ke layer / timestep berikutnya", { anchor: "middle", size: 11, fill: COL.hidden, italic: true });
 
       el.viz.innerHTML =
         D.svg(W, H, s, "lstm-cell") +

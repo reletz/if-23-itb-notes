@@ -22,6 +22,15 @@
       onerror="window.__KATEX_FAILED=true"
     ></script>
 
+    <!-- Tipografi: Bricolage Grotesque (display) · Lexend (body, reading-optimized) · JetBrains Mono.
+         Bila offline, font stack jatuh ke system-ui dengan anggun. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Lexend:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
@@ -37,22 +46,39 @@
       </defs>
     </svg>
 
-    <header class="app-header">
-      <div class="brand">
-        <h1>Simulasi Interaktif <span>Pembelajaran Mesin</span></h1>
-        <p class="subtitle">
-          IF3270 — diagram & alur penghitungan dinamis: RNN, LSTM, Attention, Transformer, RL
-        </p>
+    <header class="app-bar">
+      <div class="app-bar-inner">
+        <a class="brand" href="../" title="Kembali ke catatan IF3270">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40" width="34" height="34">
+              <circle cx="9" cy="11" r="4.2" />
+              <circle cx="9" cy="29" r="4.2" />
+              <circle cx="31" cy="20" r="5" class="mark-accent" />
+              <path d="M12.5 12.5 L27 18 M12.5 27.5 L27 22" />
+            </svg>
+          </span>
+          <span class="brand-text">
+            <span class="brand-title">ML<span class="brand-dot">·</span>Lab</span>
+            <span class="brand-sub">Pembelajaran Mesin Interaktif</span>
+          </span>
+        </a>
+        <div class="app-bar-actions">
+          <span class="course-chip">IF3270</span>
+          <button id="theme-toggle" class="icon-btn" title="Ganti tema" aria-label="Ganti tema">🌙</button>
+        </div>
       </div>
-      <button id="theme-toggle" class="btn theme-btn" title="Ganti tema">🌙</button>
     </header>
 
-    <nav class="tabs" role="tablist">
-      <button class="tab active" data-tab="rnn" role="tab">RNN</button>
-      <button class="tab" data-tab="lstm" role="tab">LSTM</button>
-      <button class="tab" data-tab="attention" role="tab">Attention</button>
-      <button class="tab" data-tab="transformer" role="tab">Transformer</button>
-      <button class="tab" data-tab="rl" role="tab">Reinforcement Learning</button>
+    <h1 class="sr-only">Simulasi Interaktif Pembelajaran Mesin — IF3270</h1>
+
+    <nav class="tabs" role="tablist" aria-label="Pilih topik">
+      <div class="tabs-inner">
+        <button class="tab active" data-tab="rnn" role="tab">RNN</button>
+        <button class="tab" data-tab="lstm" role="tab">LSTM</button>
+        <button class="tab" data-tab="attention" role="tab">Attention</button>
+        <button class="tab" data-tab="transformer" role="tab">Transformer</button>
+        <button class="tab" data-tab="rl" role="tab">Reinforcement Learning</button>
+      </div>
     </nav>
 
     <main class="content">
