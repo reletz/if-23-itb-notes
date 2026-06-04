@@ -400,47 +400,75 @@
         "Encoder–Attention–Decoder" +
         (m.decN > 1 ? " · dec t" + (step.decT + 1) + "/" + m.decN : "");
 
-      // ---- band vertikal terpisah supaya tidak ada yang menumpuk ----
+      // ---- tata letak vertikal: encoder (bawah) -> α bars -> context -> decoder ----
       const N = m.N;
-      const encW = 80,
-        encH = 48,
-        gap = 78;
-      const W = Math.max(500, 120 + N * (encW + gap));
-      const H = 400;
+      const encW = 84,
+        encH = 46,
+        gap = 70;
+      const W = Math.max(560, 130 + N * (encW + gap));
+      const H = 420;
       const x0 = (W - (N * encW + (N - 1) * gap)) / 2; // baris encoder di tengah
       const encX = (j) => x0 + j * (encW + gap);
       const encCx = (j) => encX(j) + encW / 2;
-      const encY = 300; // baris encoder (bawah)
-      const bandY = 248,
-        bandH = 28; // pita attention
-      const barBase = bandY,
-        barMaxH = 48,
-        barW = 34; // α bars (pendek, di atas pita)
-      const ctxX = Math.round(W * 0.42),
-        ctxY = 108,
-        ctxR = 30; // context (atas, agregasi dari α)
-      const decW = 132,
+      const encY = 322; // baris encoder (paling bawah)
+      const barBase = encY - 8, // dasar α bar tepat di atas encoder
+        barMaxH = 64,
+        barW = 36;
+      const bandTop = barBase - barMaxH - 20, // pita attention membungkus bar
+        bandBot = encY + 2;
+      const ctxX = x0 + (N * encW + (N - 1) * gap) / 2, // context di tengah-atas
+        ctxY = 78,
+        ctxR = 30;
+      const decW = 128,
         decH = 56,
-        decCx = W - 86,
-        decY = 56; // decoder (kanan-atas)
+        decCx = W - 84,
+        decY = 50; // decoder (kanan-atas)
       const showAlpha = reached("alpha"),
         showCtx = reached("context"),
         showDec = reached("dec");
 
       let g = "";
 
-      // --- encoder boxes (bawah) + panah ke pita attention ---
+      // --- pita attention (membungkus α bars) ---
+      g += D.rect(20, bandTop, W - 40, bandBot - bandTop, {
+        rx: 8,
+        fill: "transparent",
+        stroke: showAlpha ? COL.ring : "currentColor",
+        dash: "4 3",
+        opacity: 0.7,
+      });
+      g += D.text(28, bandTop + 12, "Attention Layer", {
+        anchor: "start",
+        size: 11,
+        fill: "currentColor",
+      });
+
+      // --- encoder boxes (bawah) + α bars di atasnya ---
+      const maxA = Math.max.apply(null, dec.alpha) || 1;
+      const barTopY = []; // simpan puncak tiap bar utk fan-in ke context
       for (let j = 0; j < N; j++) {
         const cx = encCx(j),
           a = dec.alpha[j];
-        g += D.line(cx, encY, cx, bandY + bandH, {
-          color: COL.arrow,
-          width: showAlpha ? 1 + a * 5 : 1.5,
-          opacity: showAlpha ? 0.4 + a * 0.6 : 0.5,
-        });
+        // encoder box
         g += D.rect(encX(j), encY, encW, encH, { rx: 8, fill: COL.enc, stroke: COL.enc });
         g += D.text(cx, encY + 17, "h" + (j + 1), { fill: COL.white, size: 12, weight: 700 });
         g += D.text(cx, encY + 34, vl0(m.H[j]), { fill: COL.white, size: 10 });
+        // α bar (muncul setelah softmax)
+        if (showAlpha) {
+          const bh = 10 + (a / maxA) * (barMaxH - 10);
+          const by = barBase - bh;
+          barTopY[j] = by;
+          g += D.rect(cx - barW / 2, by, barW, bh, {
+            rx: 3,
+            fill: D.attn(a),
+            stroke: COL.arrow,
+            strokeW: 1,
+          });
+          g += D.text(cx, by - 8, "α=" + M.fmt(a, 2), { size: 10, fill: "currentColor" });
+        } else {
+          // sebelum softmax: panah polos encoder -> pita attention
+          g += D.line(cx, encY, cx, bandBot - 4, { color: COL.arrow, width: 1.5, opacity: 0.5 });
+        }
       }
       g += D.text(x0, encY + encH + 18, "Encoder hidden states", {
         anchor: "start",
@@ -448,35 +476,18 @@
         fill: "currentColor",
       });
 
-      // --- pita attention + α bars (pendek) ---
-      g += D.rect(20, bandY, W - 40, bandH, {
-        rx: 6,
-        fill: "transparent",
-        stroke: showAlpha ? COL.ring : "currentColor",
-        dash: "4 3",
-        opacity: 0.7,
-      });
-      g += D.text(W - 28, bandY + bandH / 2, "Attention Layer", {
-        anchor: "end",
-        size: 11,
-        fill: "currentColor",
-      });
-      if (showAlpha) {
-        const maxA = Math.max.apply(null, dec.alpha) || 1;
+      // --- context node + fan-in: tiap α bar menyatu ke c  (c = Σ αⱼhⱼ) ---
+      if (showCtx) {
         for (let j = 0; j < N; j++) {
           const cx = encCx(j),
             a = dec.alpha[j];
-          const bh = 8 + (a / maxA) * (barMaxH - 8);
-          const by = barBase - bh;
-          g += D.rect(cx - barW / 2, by, barW, bh, { rx: 3, fill: D.attn(a), stroke: COL.arrow, strokeW: 1 });
-          g += D.text(cx, by - 8, "α=" + M.fmt(a, 2), { size: 10, fill: "currentColor" });
+          const fromY = barTopY[j] !== undefined ? barTopY[j] : barBase - 12;
+          g += D.line(cx, fromY, ctxX, ctxY + ctxR, {
+            color: COL.arrow,
+            width: 1 + (a / maxA) * 3,
+            opacity: 0.3 + (a / maxA) * 0.6,
+          });
         }
-      }
-
-      // --- context node (kiri-atas) ---
-      if (showCtx) {
-        // panah dari area attention naik ke context (lewat ruang kosong di kiri)
-        g += D.line(ctxX, barBase - barMaxH - 12, ctxX, ctxY + ctxR, { color: COL.arrow, width: 2 });
         g += D.circle(ctxX, ctxY, ctxR, {
           fill: COL.ctx,
           stroke: step.stage === "context" ? COL.ring : COL.ctx,
@@ -506,8 +517,8 @@
 
       // --- output ---
       if (reached("out")) {
-        g += D.line(decCx, decY, decCx, 26, { color: COL.arrow, width: 2 });
-        g += D.text(decCx, 14, "y = " + vl0(dec.y), { size: 12, weight: 700, fill: "currentColor" });
+        g += D.line(decCx, decY, decCx, 24, { color: COL.arrow, width: 2 });
+        g += D.text(decCx, 13, "y = " + vl0(dec.y), { size: 12, weight: 700, fill: "currentColor" });
       }
 
       el.viz.innerHTML =
