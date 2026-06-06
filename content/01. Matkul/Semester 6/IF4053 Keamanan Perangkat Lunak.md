@@ -3,7 +3,7 @@ cssclasses: dashboard
 ---
 
 _Back to_ [[index]]
-# Overview
+# UTS
 - ## Intro
 	- [[Fundamental Information Security Principles (CIA, Authenticity, Accountability, etc.)]]
 	- [[Taxonomy of Vulnerability, Threat, Attack, Control, and Incident]]
@@ -24,3 +24,43 @@ _Back to_ [[index]]
 	- [[Reconnaissance and Network Scanning Techniques for Ethical Hackers]]
 	- [[Vulnerability Assessment, Exploitation, and Post‑Exploitation Practices]]
 	- [[Web Application Security - Attack Vectors and Defensive Controls]]
+
+# UAS
+- ## Secure SDLC
+	- [[Motivasi dan Tujuan Secure SDLC]]
+	- [[Touchpoints dan Fase Secure Software Development Lifecycle]]
+	- [[Risk Assessment dan Security Requirements]]
+	- [[Threat Modeling STRIDE dan Secure Design Principles]]
+- ## Static Analysis
+	- [[Tipe Analisis dan Terminologi Pengukuran]]
+	- [[Pendekatan Static Analysis]]
+	- [[Teknik Analisis - Data Flow, Control Flow, dan Taint Propagation]]
+	- [[Tools Static Analysis]]
+	- [[Integrasi Static Analysis ke SDLC dan CI-CD]]
+- ## Software Security Design
+	- [[STRIDE dan Security by Design]]
+	- [[Security Control dan Defense in Depth]]
+	- [[Prinsip Secure Design]]
+	- [[Risk-Based Trade-Off dan Weakest Link]]
+- ## Security Testing
+	- [[Fundamental Security Testing]]
+	- [[Security Testing Realm - Level, Visibility, dan Teknik]]
+	- [[Fault Injection, Mutation, dan Fuzz Testing]]
+	- [[Security Testing per Layer - Unit, Integration, Acceptance]]
+	- [[Teknik dan Standar Security Testing]]
+- ## Mobile Security
+	- [[Lanskap Ancaman Mobile dan OWASP Mobile Top 10]]
+	- [[Arsitektur dan Model Keamanan Android]]
+	- [[Application Sandbox, UID, dan IPC]]
+	- [[Permission Model Android]]
+	- [[Penyimpanan Data, Enkripsi, dan Komunikasi Aman]]
+- ## Secure APIs & Microservices
+	- [[Konsep API dan Microservices serta Tantangan Keamanannya]]
+	- [[OWASP API Security Top 10 dan Kerentanan Umum]]
+	- [[Best Practices dan Secure API Design]]
+	- [[Keamanan Microservices dan Tools Pengujian]]
+- ## Reverse Engineering & Application Protection
+	- [[Reverse Engineering, IPR, dan Tools-nya]]
+	- [[Teknik Proteksi - Obfuscation dan Packing]]
+	- [[Anti-Debugging, Code Signing, dan Tamper Detection]]
+	- [[Proteksi Platform - Windows, Android, iOS, dan Steam]]
