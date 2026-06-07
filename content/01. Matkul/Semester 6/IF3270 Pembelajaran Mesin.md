@@ -68,4 +68,4 @@ _Back to_ [[index]]
 	- [[Temporal Difference Learning Methods]]
 	- [[Deep Q-Networks and Advanced Techniques]]
 - ## Simulasi Interaktif
-	- [Simulasi RNN · Attention · RL](/02.-Catatan/IF3270-Pembelajaran-Mesin/simulations/index.htm) — alur penghitungan dinamis (buka di tab baru bila tampilan tidak muncul)
+	- [Simulasi RNN · Attention · RL](https://if-notes.naufarrel.dev/02.-Catatan/IF3270-Pembelajaran-Mesin/simulations/index.htm) — alur penghitungan dinamis (buka di tab baru bila tampilan tidak muncul)
