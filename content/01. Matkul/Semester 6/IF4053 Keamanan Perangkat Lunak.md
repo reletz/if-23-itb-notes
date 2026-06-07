@@ -24,43 +24,58 @@ _Back to_ [[index]]
 	- [[Reconnaissance and Network Scanning Techniques for Ethical Hackers]]
 	- [[Vulnerability Assessment, Exploitation, and Post‑Exploitation Practices]]
 	- [[Web Application Security - Attack Vectors and Defensive Controls]]
-
-# UAS
 - ## Secure SDLC
 	- [[Motivasi dan Tujuan Secure SDLC]]
 	- [[Touchpoints dan Fase Secure Software Development Lifecycle]]
 	- [[Risk Assessment dan Security Requirements]]
 	- [[Threat Modeling STRIDE dan Secure Design Principles]]
+- ## Software Security Design
+	- [[STRIDE dan Security by Design]]
+	- [[Security Control dan Defense in Depth]]
+	- [[Prinsip Secure Design]]
+	- [[Risk-Based Trade-Off dan Weakest Link]]
+# UAS
 - ## Static Analysis
 	- [[Tipe Analisis dan Terminologi Pengukuran]]
 	- [[Pendekatan Static Analysis]]
 	- [[Teknik Analisis - Data Flow, Control Flow, dan Taint Propagation]]
 	- [[Tools Static Analysis]]
 	- [[Integrasi Static Analysis ke SDLC dan CI-CD]]
-- ## Software Security Design
-	- [[STRIDE dan Security by Design]]
-	- [[Security Control dan Defense in Depth]]
-	- [[Prinsip Secure Design]]
-	- [[Risk-Based Trade-Off dan Weakest Link]]
+- ## Secure APIs & Microservices
+	- [[Konsep API dan Microservices serta Tantangan Keamanannya]]
+	- [[OWASP API Security Top 10 dan Kerentanan Umum]]
+	- [[Best Practices dan Secure API Design]]
+	- [[Keamanan Microservices dan Tools Pengujian]]
+- ## Supply Chain Security
+	- [[Konsep dan Elemen Supply Chain Security]]
+	- [[Attack Vectors dan Studi Kasus Serangan Supply Chain]]
+	- [[Best Practices dan Mitigasi Supply Chain]]
+- ## Vulnerability Assessment & CVE Case Studies
+	- [[Vulnerability Assessment dan VAPT Workflow]]
+	- [[Studi Kasus CVE - Stored XSS (CVE-2024-6886)]]
+	- [[Studi Kasus CVE - Broken Access Control (CVE-2025-68945)]]
+	- [[Studi Kasus CVE - Open Redirect (CVE-2022-1058)]]
 - ## Security Testing
 	- [[Fundamental Security Testing]]
 	- [[Security Testing Realm - Level, Visibility, dan Teknik]]
 	- [[Fault Injection, Mutation, dan Fuzz Testing]]
 	- [[Security Testing per Layer - Unit, Integration, Acceptance]]
 	- [[Teknik dan Standar Security Testing]]
-- ## Mobile Security
-	- [[Lanskap Ancaman Mobile dan OWASP Mobile Top 10]]
-	- [[Arsitektur dan Model Keamanan Android]]
-	- [[Application Sandbox, UID, dan IPC]]
-	- [[Permission Model Android]]
-	- [[Penyimpanan Data, Enkripsi, dan Komunikasi Aman]]
-- ## Secure APIs & Microservices
-	- [[Konsep API dan Microservices serta Tantangan Keamanannya]]
-	- [[OWASP API Security Top 10 dan Kerentanan Umum]]
-	- [[Best Practices dan Secure API Design]]
-	- [[Keamanan Microservices dan Tools Pengujian]]
+- ## Attacker Mindset - Code Review & Fuzzing
+	- [[Attacker Mindset dan Operasionalisasi STRIDE]]
+	- [[Attacker-Oriented Code Review]]
+	- [[Fuzzing dan Gitea Exercise]]
 - ## Reverse Engineering & Application Protection
 	- [[Reverse Engineering, IPR, dan Tools-nya]]
 	- [[Teknik Proteksi - Obfuscation dan Packing]]
 	- [[Anti-Debugging, Code Signing, dan Tamper Detection]]
 	- [[Proteksi Platform - Windows, Android, iOS, dan Steam]]
+- ## Cryptography & Key Management
+	- [[Kriptografi Praktis dan Studi Kasus LastPass]]
+	- [[Key Management dan Topik Lanjutan]]
+%% - ## Mobile Security
+	- [[Lanskap Ancaman Mobile dan OWASP Mobile Top 10]]
+	- [[Arsitektur dan Model Keamanan Android]]
+	- [[Application Sandbox, UID, dan IPC]]
+	- [[Permission Model Android]]
+	- [[Penyimpanan Data, Enkripsi, dan Komunikasi Aman]] %%
