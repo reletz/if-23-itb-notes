@@ -29,7 +29,7 @@ _Back to_ [[IF4053 Keamanan Perangkat Lunak]]
 > > Tiga sisanya: **(8) Security Misconfiguration**—konfigurasi default yang tidak aman, header keamanan yang hilang, atau pesan error yang terlalu informatif; **(9) Improper Inventory Management**—endpoint lama/versi usang (*shadow API* dan *zombie API*) yang masih aktif tanpa pengawasan; serta **(10) Unsafe Consumption of APIs**—terlalu mempercayai data dari API pihak ketiga tanpa validasi, sehingga rentan diserang melalui rantai pasok (supply chain). Memahami daftar ini memberi kerangka prioritas mitigasi yang terstruktur.
 > >
 > > ```mermaid
-> > flowchart TD
+> > flowchart LR
 > >     A["OWASP API Top 10"] --> B["Authorization: BOLA, Function-Level, Property-Level"]
 > >     A --> C["Authentication: Broken Auth"]
 > >     A --> D["Resource: Unrestricted Consumption &amp; Business Flows"]

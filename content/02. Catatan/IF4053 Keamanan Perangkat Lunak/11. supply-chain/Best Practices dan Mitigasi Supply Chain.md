@@ -27,7 +27,7 @@ _Back to_ [[IF4053 Keamanan Perangkat Lunak]]
 > > Slide merangkum sembilan **best practice** untuk mengamankan supply chain. **Verify Sources**—gunakan repositori tepercaya dan verifikasi integritas kode. **Automated Dependency Scanning**—deteksi kerentanan yang sudah diketahui. **Code Signing & Verification**—pastikan semua artefak otentik dan tidak diubah. **Artifact Attestation & Provenance**—lacak dan verifikasi asal serta proses build artefak. **Secure Build Pipelines**—lindungi lingkungan CI/CD dengan kontrol kuat. **Reproducible Builds**—pastikan build deterministik agar tampering terdeteksi. **Runtime Monitoring & Anomaly Detection**—deteksi dan tanggapi ancaman di produksi. **Maintain SBOM**—inventaris semua komponen dan versinya. **Manage 3rd-Party Risk**—nilai postur keamanan sebelum memakai/bergantung pada pihak ketiga.
 > >
 > > ```mermaid
-> > flowchart TD
+> > flowchart LR
 > >     A["Best Practices Supply Chain"] --> B["Verify Sources"]
 > >     A --> C["Automated Dependency Scanning"]
 > >     A --> D["Code Signing &amp; Verification"]
@@ -64,7 +64,7 @@ _Back to_ [[IF4053 Keamanan Perangkat Lunak]]
 > > ### Emerging Trends dan Standar
 > >
 > > Slide menutup dengan tren yang sedang berkembang: **blockchain** untuk transparansi dan verifikasi integritas supply chain; **machine learning** untuk *predictive threat analytics*; **standar industri** seperti **NIST SP 800-161**, **ISO/IEC 27036**, dan **SLSA framework**; **automated vulnerability remediation** dan patch management; serta pendekatan **zero-trust** terhadap supply chain security. Arah umumnya jelas: bergerak dari kepercayaan implisit menuju **verifikasi yang terotomasi, terstandar, dan terus-menerus** di seluruh rantai.
->
+
 > [!cornell] #### Summary
 >
 > Mitigasi supply chain bertumpu pada sembilan best practice: **Verify Sources** (repo resmi, checksum, tanda tangan), **Automated Dependency Scanning** (OWASP Dependency-Check, Snyk, Dependabot terhadap NVD/CVE/OSV), **Code Signing** (kunci di HSM), **Attestation & Provenance** (in-toto, SLSA—provenance mendeskripsikan cara artefak dibuat, attestation menegaskannya via JSON tertandatangani), **Secure Build Pipelines** (RBAC, JIT access, ephemeral agents; GitGuardian/Spectral/Checkmarx), **Reproducible Builds** (deterministik, SLSA L4), **Runtime Monitoring** (RASP; Trivy/Clair/Anchore), **SBOM** (CycloneDX/SPDX/Syft), dan **Manage 3rd-Party Risk** (kontrak, kebijakan; SecurityScorecard/BitSight). Emerging trends meliputi **blockchain, ML predictive analytics, zero-trust**, serta standar **NIST SP 800-161, ISO/IEC 27036, dan SLSA**.

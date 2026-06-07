@@ -29,7 +29,7 @@ _Back to_ [[IF4053 Keamanan Perangkat Lunak]]
 > > **Network segmentation** mengisolasi layanan kritis ke dalam segmen jaringan terpisah sehingga, bila satu layanan terkompromikan, penyerang tidak dapat bergerak bebas (lateral movement) ke layanan sensitif lain. Contohnya, `payment-service` dan database-nya ditempatkan di segmen yang hanya dapat diakses oleh layanan tertentu. Selain itu, **monitor dan log komunikasi inter-service** untuk mendeteksi anomali—pola panggilan yang tidak biasa bisa menandakan serangan—dan lakukan **update serta patching rutin** terhadap setiap layanan beserta dependensinya, karena komponen usang dengan kerentanan yang diketahui adalah target empuk.
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     A["Service A"] -- "mTLS" --> B["Service B"]
 > >     B -- "mTLS" --> C["Service C (kritis)"]
 > >     V[("Secret Vault")] -.-> A

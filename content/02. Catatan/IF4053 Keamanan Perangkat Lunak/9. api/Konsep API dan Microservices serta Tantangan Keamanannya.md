@@ -37,7 +37,7 @@ _Back to_ [[IF4053 Keamanan Perangkat Lunak]]
 > > Namun fleksibilitas ini datang dengan konsekuensi. Komunikasi yang dulunya berupa pemanggilan fungsi in-memory di dalam monolit kini berubah menjadi panggilan jaringan (network call) yang melewati banyak endpoint. Setiap titik komunikasi ini adalah potensi vektor serangan baru, dan kompleksitas pengelolaannya jauh lebih tinggi dibanding monolit.
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     U["Client / Mobile App"] --> GW["API Gateway"]
 > >     GW --> US["user-service"]
 > >     GW --> OS["order-service"]

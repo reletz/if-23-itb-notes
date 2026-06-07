@@ -33,7 +33,7 @@ _Back to_ [[IF4053 Keamanan Perangkat Lunak]]
 > > Cara memandangnya: rantai ini bersifat **berurutan dan saling bergantung**. Kode mengalir dari source, ditambah dependencies, dirakit oleh build tools melalui pipeline CI/CD, dikirim lewat deployment, lalu dirawat melalui updates hingga sampai ke end system. Jika **satu** mata rantai dikompromikan, integritas seluruh produk akhir ikut tercemar.
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     A["Source Code"] --> B["Dependencies"]
 > >     B --> C["Build Tools"]
 > >     C --> D["CI/CD Pipeline"]
@@ -47,7 +47,7 @@ _Back to_ [[IF4053 Keamanan Perangkat Lunak]]
 > > Slide menegaskan urgensi dengan beberapa angka. **Satu kerentanan** pada komponen mana pun dapat mengkompromikan **seluruh sistem**. Menurut slide, **78% organisasi mengalami serangan supply chain pada 2021** (dikutip dari *Anchore 2022 report*), dan **rata-rata biaya satu pelanggaran supply chain mencapai $4.5 juta** (dikutip dari *IBM Cost of Data Breach Report*). Organisasi umumnya memiliki **visibilitas dan kontrol yang terbatas** atas komponen pihak ketiga, dan penyerang makin sering menargetkan supply chain sebagai **jalur dengan perlawanan paling kecil** (*path of least resistance*)—lebih mudah menyusup lewat dependensi tepercaya daripada menembus pertahanan langsung target.
 > >
 > > **Third-Party Risks** yang spesifik mencakup: **kerentanan tak diketahui** (*unknown vulnerabilities*) pada kode pihak ketiga; **kurangnya transparansi** praktik keamanan vendor; **transitive dependencies**—dependensi-dari-dependensi yang membawa risiko tersembunyi tanpa disadari karena tidak diimpor secara langsung; **kontrol terbatas** atas pembaruan dan patch keamanan (organisasi bergantung pada jadwal vendor); serta potensi **dependensi yang ditinggalkan atau tak terawat** (*abandoned/unmaintained dependencies*) yang tidak lagi menerima perbaikan keamanan. Kombinasi faktor ini membuat permukaan serangan supply chain sulit dipetakan dan sulit dijaga sepenuhnya.
->
+ 
 > [!cornell] #### Summary
 >
 > **Supply chain security** melindungi seluruh **komponen, proses, dan aktor** dalam siklus hidup pengembangan perangkat lunak—kode, dependencies, build tools, deployment pipelines, dan layanan pihak ketiga—dengan fokus menjaga **integritas dan keamanan di setiap tahap**. Software supply chain tersusun atas tujuh elemen berurutan: **Source Code → Dependencies → Build Tools → CI/CD Pipeline → Deployment → Updates → End System**, di mana satu mata rantai yang dikompromikan mencemari produk akhir. Slide menekankan urgensinya: **78% organisasi mengalami serangan supply chain pada 2021** dan rata-rata biaya pelanggaran **$4.5 juta**, sementara penyerang memilih supply chain sebagai **path of least resistance**. Risiko pihak ketiga utama meliputi **kerentanan tak diketahui, kurang transparansi vendor, transitive dependencies, kontrol patch terbatas, dan dependensi yang ditinggalkan**.

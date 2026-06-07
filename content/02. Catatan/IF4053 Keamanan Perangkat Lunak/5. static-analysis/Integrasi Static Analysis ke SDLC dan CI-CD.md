@@ -35,13 +35,13 @@ _Back to_ [[IF4053 Keamanan Perangkat Lunak]]
 > > **Langkah 4 — Integrasi dengan CI/CD Pipeline**: otomasi analisis pada setiap perubahan kode dengan menambah step di konfigurasi pipeline (GitHub Actions via workflow file, GitLab CI/CD via `.gitlab-ci.yml`, atau Jenkins via plugin/script). **Langkah 5 — Monitor dan Report**: hasilkan laporan tiap run dan buat dapat diakses tim, gunakan dashboard atau notifikasi (SonarQube menyediakan dashboard web; GitHub Actions dapat mem-posting hasil langsung di pull request). **Langkah 6 — Enforce Quality Gates**: definisikan **quality gate** untuk memblokir build/deployment bila ditemukan isu kritis (mis. gagalkan pipeline jika ada kerentanan high-severity atau gagal memenuhi ambang coverage). **Langkah 7 — Edukasi Developer**: latih developer menafsirkan hasil dan memperbaiki isu, serta dorong mereka menjalankan analisis lokal sebelum commit.
 > >
 > > ```mermaid
-> > flowchart LR
-> >     L["1. Pilih tool"] --> C["2. Konfigurasi &amp; ruleset"]
-> >     C --> V["3. VCS pre-commit hooks"]
-> >     V --> CI["4. CI/CD pipeline"]
-> >     CI --> M["5. Monitor &amp; report"]
-> >     M --> Q["6. Quality gates"]
-> >     Q --> E["7. Edukasi developer"]
+> > flowchart TD
+> >     L["(1) Pilih tool"] --> C["(2) Konfigurasi ruleset"]
+> >     C --> V["(3) VCS pre-commit hooks"]
+> >     V --> CI["(4) CI/CD pipeline"]
+> >     CI --> M["(5) Monitor and report"]
+> >     M --> Q["(6) Quality gates"]
+> >     Q --> E["(7) Edukasi developer"]
 > > ```
 > >
 > > ### Best Practices dan Workflow
@@ -51,7 +51,7 @@ _Back to_ [[IF4053 Keamanan Perangkat Lunak]]
 > > **Workflow** mengalir melalui empat tahap. **Local Development**: developer menjalankan tool lokal (ESLint, PHPStan) sebelum commit, dengan pre-commit hooks menegakkan pemeriksaan dasar. **Code Commit**: kode di-push ke VCS (GitHub/GitLab) dan analisis berjalan otomatis di CI pipeline. **Pull Request**: hasil analisis diposting di PR untuk review, developer memperbaiki isu yang ditandai. **Build and Deploy**: bila lolos semua quality gate, kode lanjut ke build dan deployment; bila ada isu, pipeline gagal dan developer diberi tahu. Manfaatnya: keamanan meningkat (kerentanan diperbaiki sebelum deploy), kualitas kode konsisten, dan development lebih cepat karena tugas berulang diotomasi.
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     DEV["Local Development<br/>(ESLint/PHPStan + pre-commit)"] --> COMMIT["Code Commit<br/>(push ke VCS, CI jalan)"]
 > >     COMMIT --> PR["Pull Request<br/>(hasil diposting, developer fix)"]
 > >     PR --> GATE{"Quality gates<br/>lolos?"}

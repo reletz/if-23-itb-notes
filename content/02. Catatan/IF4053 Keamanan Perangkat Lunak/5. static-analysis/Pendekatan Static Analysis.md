@@ -35,7 +35,7 @@ _Back to_ [[IF4053 Keamanan Perangkat Lunak]]
 > > Ada beragam pendekatan static analysis, dan orang berbeda mengelompokkannya dengan cara berbeda. Daftar pada perkuliahan mencakup: **human analysis** (termasuk peer review), **type checkers**, **compiler warnings**, **style checkers / defect finders / quality scanners**, serta **security analysis** yang dibagi lagi menjadi text scanner dan analisis yang lebih dalam dari sekadar teks, ditambah **property checkers** dan **knowledge extraction**. Formal methods dibahas terpisah.
 > >
 > > ```mermaid
-> > flowchart TD
+> > flowchart LR
 > >     R["Pendekatan Static Analysis"] --> H["Human analysis<br/>(peer review, inspeksi IEEE 1028)"]
 > >     R --> T["Type checkers"]
 > >     R --> C["Compiler warnings (-Wall)"]

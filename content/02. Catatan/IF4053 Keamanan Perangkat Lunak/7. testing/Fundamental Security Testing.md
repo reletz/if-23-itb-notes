@@ -59,8 +59,8 @@ _Back to_ [[IF4053 Keamanan Perangkat Lunak]]
 > > Untuk memetakan bagaimana serangan eksternal berlangsung, materi memakai **Cyber Kill Chain** dari Lockheed Martin yang terdiri dari **7 tahap**: (1) **Reconnaissance**, (2) **Weaponization**, (3) **Delivery**, (4) **Exploitation**, (5) **Installation**, (6) **Command & Control**, dan (7) **Actions on Objectives**. Memutus rantai pada salah satu tahap saja sudah cukup menggagalkan serangan.
 > >
 > > ```mermaid
-> > flowchart LR
-> >     R["1. Reconnaissance"] --> W["2. Weaponization"] --> D["3. Delivery"] --> E["4. Exploitation"] --> I["5. Installation"] --> C["6. Command &amp; Control"] --> A["7. Actions on Objectives"]
+> > flowchart TD
+> >     R["(1) Reconnaissance"] --> W["(2) Weaponization"] --> D["(3) Delivery"] --> E["(4) Exploitation"] --> I["(5) Installation"] --> C["(6) Command & Control"] --> A["(7) Actions on Objectives"]
 > > ```
 > >
 > > Selain versi eksternal, ada pula **"Internal" Cyber Kill Chain Model** yang memetakan perspektif insider atau pasca-kompromi dengan 7 tahap berbeda: (1) **Reconnaissance**, (2) **Access**, (3) **Aggregation**, (4) **Assembly**, (5) **Encryption**, (6) **Obfuscation**, dan (7) **Exfiltration**. Model internal ini menyoroti bagaimana data dikumpulkan, dirakit, dienkripsi, disamarkan, lalu diselundupkan keluar — fokus yang relevan untuk mendeteksi pencurian data dari dalam jaringan.

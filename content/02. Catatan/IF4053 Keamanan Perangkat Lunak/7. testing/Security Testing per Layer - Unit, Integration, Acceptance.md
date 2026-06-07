@@ -43,7 +43,7 @@ _Back to_ [[IF4053 Keamanan Perangkat Lunak]]
 > > 5. **endXXX()** — tes sisi klien (memeriksa respons).
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     B["beginXXX()<br/>client setup"] --> S["setUp()<br/>server common"] --> T["testXXX()<br/>server test"] --> D["tearDown()<br/>server common"] --> E["endXXX()<br/>client tests"]
 > > ```
 > >

@@ -28,7 +28,7 @@ _Back to_ [[IF4053 Keamanan Perangkat Lunak]]
 > > Slide menyebut lima **attack vector** utama pada serangan supply chain. **(1) Code Injection**—kode jahat disisipkan ke dalam pustaka *open-source* atau pihak ketiga, sehingga setiap aplikasi yang menariknya ikut tercemar. **(2) Dependency Confusion**—penyerang menerbitkan paket berbahaya dengan **nama yang mirip** paket sah (atau nama paket internal) agar package manager keliru mengunduh versi jahat. **(3) Compromised Build Environments**—penyerang menargetkan **pipeline CI/CD** atau *build server* sehingga artefak yang dihasilkan sudah disusupi sejak proses build. **(4) Tampered Updates**—pembaruan perangkat lunak yang sah **digantikan** dengan versi berbahaya, memanfaatkan kepercayaan pengguna pada mekanisme update. **(5) Compromised Developer Accounts**—penyerang memperoleh akses ke **kredensial developer tepercaya**, lalu menyalahgunakan hak akses tersebut untuk menyuntikkan kode.
 > >
 > > ```mermaid
-> > flowchart TD
+> > flowchart LR
 > >     A["Attack Vectors Supply Chain"] --> B["Code Injection<br/>(pustaka open-source/3rd-party)"]
 > >     A --> C["Dependency Confusion<br/>(nama paket mirip)"]
 > >     A --> D["Compromised Build Env<br/>(CI/CD, build server)"]
@@ -59,7 +59,7 @@ _Back to_ [[IF4053 Keamanan Perangkat Lunak]]
 > > ### Risiko Khas Open Source
 > >
 > > Slide menyoroti dua isu spesifik pada supply chain open source. **Maintainer Trust dan Project Sustainability**—banyak proyek open-source dipelihara oleh **segelintir relawan**, meningkatkan risiko *burnout*/ketidakberlanjutan (contoh **Log4j**) maupun **malicious takeover** (contoh **XZ Utils backdoor**, di mana maintainer yang sudah dipercaya menyisipkan backdoor). **Dependency Confusion**—penyerang dapat menerbitkan paket berbahaya dengan **nama mirip** paket populer, mengeksploitasi cara package manager me-resolve nama. Kedua isu ini menegaskan bahwa **kepercayaan** dalam ekosistem open source bersifat rapuh dan perlu diverifikasi, bukan diasumsikan.
->
+
 > [!cornell] #### Summary
 >
 > Attack vector supply chain mencakup **Code Injection, Dependency Confusion, Compromised Build Environments, Tampered Updates, dan Compromised Developer Accounts**. Insiden nyata membentang dari **NotPetya (2017), Event-Stream NPM (2018), SolarWinds (2020), Codecov (2021), Log4j/CVE-2021-44228 (2021), XZ Utils Backdoor (2024), hingga Walkie-Talkie (2024)**. **SolarWinds** menyisipkan backdoor **SUNBURST** ke proses build Orion, menyebar ke ~**18.000 pelanggan** termasuk lembaga AS dan diatribusikan ke **APT29/Cozy Bear**. **Walkie-Talkie 2024** adalah serangan **hardware supply chain** oleh Mossad terhadap Hezbollah—perangkat berisi peledak dipasok lewat perusahaan palsu, dorman lama, lalu **diledakkan jarak jauh**. Risiko khas open source: **maintainer trust** yang rapuh (Log4j, XZ Utils) dan **dependency confusion**.

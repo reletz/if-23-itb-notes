@@ -32,7 +32,7 @@ _Back to_ [[IF4053 Keamanan Perangkat Lunak]]
 > > Dengan memadukan keempatnya, misalnya "Blackbox + Fuzz + Network + System", tim dapat mendefinisikan ruang lingkup pengujian secara presisi dan memastikan cakupan yang seimbang alih-alih hanya menguji satu sudut.
 > >
 > > ```mermaid
-> > flowchart TB
+> > flowchart LR
 > >     ST["Security Testing Realm"]
 > >     ST --> L["Level<br/>Unit / Integration<br/>System / Acceptance"]
 > >     ST --> V["Visibility<br/>Whitebox / Greybox<br/>Blackbox"]
