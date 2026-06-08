@@ -42,8 +42,8 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > >
 > > Formulasi orisinal memakai fungsi sinus dan kosinus berfrekuensi berbeda:
 > >
-> > `PE(pos, 2i) = sin(pos / 10000^(2i/d))`
-> > `PE(pos, 2i+1) = cos(pos / 10000^(2i/d))`
+> > $$PE(pos, 2i) = sin(pos / 10000^{(2i/d)})$$
+> > $$PE(pos, 2i+1) = cos(pos / 10000^{(2i/d)})$$
 > >
 > > Pola ini memberi setiap posisi "tanda tangan" unik dan memungkinkan model memperkirakan posisi relatif antar token. Tanpa positional encoding, kalimat "Budi memukul Andi" dan "Andi memukul Budi" akan tampak identik bagi model.
 > >
@@ -57,7 +57,7 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > >
 > > ```mermaid
 > > flowchart TD
-> >     IE["Input Embedding"] --> ADD["+ Positional Encoding"]
+> >     IE["Input Embedding"] --> ADD["\+ Positional Encoding"]
 > >     ADD --> ENC["Encoder Stack<br/>(N× Multi-Head Self-Attention<br/>&amp; Feed-Forward)"]
 > >     OE["Output Embedding<br/>+ Positional Encoding"] --> DEC["Decoder Stack<br/>(N× Masked Self-Attention,<br/>Enc-Dec Attention &amp; FFN)"]
 > >     ENC --> DEC

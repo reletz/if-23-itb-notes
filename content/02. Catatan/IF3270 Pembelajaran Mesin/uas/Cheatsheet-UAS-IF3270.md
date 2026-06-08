@@ -117,7 +117,7 @@ $W_{xf}=[.7,.5]\;W_{xi}=[.9,.8]\;W_{xc}=[.4,.2]\;W_{xo}=[.6,.4]$; $W_{hf}=.1\;W_
 1. Encoder = satu layer rekuren atas dim input: RNN $n_h\cdot(n_{in}+n_h+1)$ atau LSTM $4\cdot n_h\cdot(...)$.
 2. Decoder = satu layer rekuren; ⚠️ **asumsikan dim input decoder = dim output sebelumnya** (sebut asumsi!).
 3. Output = dense $(dec_h+1)\cdot n_{out}$.
-4. + attention: dot=0, general=$dec_h\cdot enc_h$, concat=$a\cdot(dec_h+enc_h)+a$.
+4. \+ attention: dot=0, general=$dec_h\cdot enc_h$, concat=$a\cdot(dec_h+enc_h)+a$.
 
 ### Contoh param (encoder RNN 2 neuron atas input 4-fitur; decoder RNN 2 neuron; output FC 1; input decoder dim 1)
 $enc = 2\cdot(4+2+1)=$ **14**; $dec = 2\cdot(1+2+1)=$ **8**; $out = (2+1)\cdot1=$ **3** → total **25**.

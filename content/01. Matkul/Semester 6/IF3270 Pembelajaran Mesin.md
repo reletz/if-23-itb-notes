@@ -68,6 +68,7 @@ _Back to_ [[index]]
 	- [[Deep Q-Networks and Advanced Techniques]]
 - ## Latihan & Persiapan UAS
 	- [[Cheatsheet-UAS-IF3270|Cheatsheet + Panduan Tracing UAS (RNN · LSTM · Attention · Transformer · RL)]]
+	- [[Cheatsheet-Konsep-Hitung-Attention-RL|Cheatsheet Konsep + Alur Hitung — Encoder-Decoder · Attention · Transformer · RL]]
 	- [[Paket-Soal-IF3270-UAS-full-01|Paket Soal Latihan UAS 01]] · [[Pembahasan-Paket-Soal-IF3270-UAS-full-01|Pembahasan 01]]
 	- [[Paket-Soal-IF3270-UAS-full-02|Paket Soal Latihan UAS 02]] · [[Pembahasan-Paket-Soal-IF3270-UAS-full-02|Pembahasan 02]]
 	- [[Paket-Soal-IF3270-UAS-full-03|Paket Soal Latihan UAS 03]] · [[Pembahasan-Paket-Soal-IF3270-UAS-full-03|Pembahasan 03]]

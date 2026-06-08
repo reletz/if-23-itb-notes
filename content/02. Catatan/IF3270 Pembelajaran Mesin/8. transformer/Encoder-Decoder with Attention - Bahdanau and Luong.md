@@ -24,12 +24,12 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > > ### Encoder-Decoder tanpa vs dengan Attention
 > > Pada arsitektur **encoder-decoder tanpa attention**, encoder memampatkan seluruh input menjadi **satu context vector tunggal** `c` (hidden state terakhir), dan decoder memprediksi tiap kata target berdasarkan vektor tetap itu:
 > >
-> > `p(yt | y1,…,yt-1, x) = g(yt-1, st, c)`
+> > $$p(y_t | y_1,…,y_{t-1}, x) = g(y_{t-1}, s_t, c)$$
 > >
 > > Pada **encoder-decoder dengan attention**, context vector **tidak lagi tunggal** melainkan **berbeda untuk setiap timestep decoder** (`ct`). Decoder menjadi:
 > >
-> > `p(yt | y1,…,yt-1, x) = g(yt-1, st, ct)`
-> > `st = f(st-1, yt-1, ct)`
+> > $$p(y_t | y_1,…,y_{t-1}, x) = g(y_{t-1}, s_t, c_t)$$
+> > $$s_t = f(s_{t-1}, y_{t-1}, c_t)$$
 > >
 > > Dengan context vector per timestep, decoder dapat **menyorot bagian kalimat sumber yang berbeda** di setiap langkah produksi kata target — inilah inti perbaikan attention pada penerjemahan mesin.
 > >
@@ -54,7 +54,7 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > > Decoder memulai dari token start `<s>` dan secara autoregresif memakai output sebelumnya sebagai input berikutnya, sambil menghitung context vector baru di setiap langkah.
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     subgraph Encoder
 > >       XB["Budi"] --> H1["h1"]
 > >       XG["gave"] --> H2["h2"]
@@ -78,14 +78,14 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > >
 > > **Bahdanau Attention (additive, 2015)**: context vector dihitung **sebelum** state decoder baru, lalu masuk ke fungsi rekuren decoder:
 > >
-> > `p(yt | y1,…,yt-1, x) = g(yt-1, st, ct)`
-> > `st = f(st-1, yt-1, ct)`
+> > $$p(y_t | y_1,…,y_{t-1}, x) = g(y_{t-1}, s_t, c_t)$$
+> > $$s_t = f(s_{t-1}, y_{t-1}, c_t)$$
 > >
 > > Di sini `ct` menjadi **input** bagi perhitungan `st`.
 > >
-> > **Luong Attention (multiplicative, 2015)**: state decoder dihitung dulu tanpa context (`st = f(st-1, yt-1)`), kemudian digabung dengan context vector untuk membentuk hidden state attentional:
+> > **Luong Attention (multiplicative, 2015)**: state decoder dihitung dulu tanpa context ($s_t = f(s_{t-1}, y_{t-1})$), kemudian digabung dengan context vector untuk membentuk hidden state attentional:
 > >
-> > `s̃t = f(ct, st) = tanh(Wc·[ct; st])`
+> > $$s̃_t = f(c_t, s_t) = tanh(W_c·[c_t; s_t])$$
 > >
 > > Di sini `ct` digabung **setelah** `st` terbentuk, lalu `s̃t` dipakai untuk prediksi.
 > >

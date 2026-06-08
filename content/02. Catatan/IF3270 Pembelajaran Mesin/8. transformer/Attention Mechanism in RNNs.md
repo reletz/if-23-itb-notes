@@ -34,7 +34,7 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > > ### Context Vector sebagai Weighted Sum
 > > **Context vector** `c` adalah **jumlah berbobot (weighted sum)** dari seluruh hidden state encoder:
 > >
-> > `c = Σj ⍺j · h(j)`
+> > $$c = \sum_j ⍺_j · h(j)$$
 > >
 > > di mana ⍺j adalah bobot attention untuk hidden state h(j). Karena bobot ditentukan secara dinamis dan dipelajari, context vector ini merangkum informasi dari **seluruh timestep**, bukan hanya state terakhir. Inilah yang memungkinkan model menyoroti bagian sekuens yang paling informatif.
 > >
@@ -60,22 +60,22 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > > ### Forward Propagation Many-to-One dengan Attention
 > > Forward propagation berjalan dalam dua tahap. Pertama, **encoder** menghitung hidden state untuk tiap timestep:
 > >
-> > `h(j) = fh(Wxh·x(j) + Whh·h(j-1) + bxh)`
+> > $$h(j) = f_h(W_{xh}·x(j) + W_{hh}·h(j-1) + b_{xh})$$
 > >
 > > Kemudian bobot attention ⍺t1, ⍺t2, ⍺t3 dihitung dari hidden state, dan **context vector** `c` dibentuk sebagai weighted sum. Akhirnya, **output** dihasilkan dari context vector:
 > >
-> > `y(t) = fy(Why·c + bhy)`
+> > $$y(t) = f_y(W_{hy}·c + b_{hy})$$
 > >
 > > Bandingkan dengan model tanpa attention yang outputnya `y(3) = Linear(Why·h(3) + bhy)` — hanya bergantung pada satu hidden state terakhir. Pada versi attention, `y(3) = Linear(Why·c + bhy)` bergantung pada context vector yang merangkum seluruh state.
 > >
 > > ### Perhitungan Jumlah Parameter
 > > Jumlah parameter RNN dasar (tanpa attention) adalah:
 > >
-> > `#Params = (ninput + nhidden + 1)·nhidden + (nhidden + 1)·noutput`
+> > $$Params = (n_{input} + n_{hidden} + 1)·n_{hidden} + (n_{hidden} + 1)·n_{output}$$
 > >
 > > Dengan penambahan **satu attention unit**, suku tambahan muncul untuk bobot attention sepanjang timestep:
 > >
-> > `#Params = (ninput + nhidden + 1)·nhidden + ntimestep + nhidden + (nhidden + 1)·noutput`
+> > $$Params = (n_{input} + n_{hidden} + 1)·n_{hidden} + n_{timestep} + n_{hidden} + (n_{hidden} + 1)·n_{output}$$
 > >
 > > Suku `ntimestep + nhidden` merepresentasikan bobot dan bias attention yang baru. Penambahan ini relatif kecil dibanding total parameter, namun memberi peningkatan kualitas yang berarti.
 > >

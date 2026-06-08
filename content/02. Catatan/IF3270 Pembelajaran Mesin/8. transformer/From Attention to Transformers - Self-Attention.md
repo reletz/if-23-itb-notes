@@ -79,7 +79,7 @@ _Back to_ [[IF3270 Pembelajaran Mesin]]
 > > ### Scaled Dot-Product Self-Attention
 > > Pada dimensi besar, hasil dot product `qi · kj` bisa membengkak sehingga softmax masuk ke wilayah gradien sangat kecil (saturasi). Karena itu Transformer memakai **scaled dot-product self-attention**: skor **dibagi dengan akar dimensi key** `√dk` sebelum softmax:
 > >
-> > `Attention(Q, K, V) = softmax( (Q·Kᵀ) / √dk ) · V`
+> > $$Attention(Q, K, V) = softmax( \frac{Q·Kᵀ}{√d_k} ) · V$$
 > >
 > > Pembagian dengan `√dk` menstabilkan magnitudo skor sehingga softmax tetap berada di rentang gradien sehat, mempercepat dan menstabilkan pelatihan. Inilah formula self-attention inti yang menjadi blok bangun utama arsitektur Transformer.
 
