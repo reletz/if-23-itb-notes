@@ -4,13 +4,16 @@ description: >-
   Generate a realistic IF3270 Pembelajaran Mesin practice exam packet ("paket
   soal latihan UAS") for a given list of topics, with a Python-verified answer
   key. Produces two markdown files in the course's uas/ folder — a question sheet
-  and a worked pembahasan. Every assessment follows the course invariant: exactly
-  3 Bagian, built from 5 recurring formats (step-by-step bertingkat, nested
-  computation, pilihan ganda, benar/salah + alasan, menggambar arsitektur), with
-  composite/pipeline Bagian fusing related topics (CNN→RNN encoder-decoder,
-  FFNN→RNN, Attention+LSTM). Use when the user asks to make IF3270 practice
-  questions / latihan UAS (e.g. "buat paket soal IF3270 topik RNN, LSTM, CNN").
-  Topics are REQUIRED — there is no default.
+  and a worked pembahasan. Course structure: 3 Bagian (Kuis/UTS) or 4 Bagian
+  (the real UAS 2024-2025), built from recurring formats — step-by-step
+  bertingkat, nested computation, pilihan ganda (incl. the mark-each-option O/X
+  variant), benar/salah + alasan, menggambar arsitektur — plus composite/pipeline
+  Bagian (CNN→RNN encoder-decoder, FFNN→RNN, Attention+LSTM). Supports the full
+  UAS surface: RNN/LSTM forward, LSTM BPTT backward pass, encoder-decoder +
+  attention parameter counting and inference formulas, and Reinforcement Learning
+  (Temporal-Difference Q-learning, Wumpus World). Use when the user asks to make
+  IF3270 practice questions / latihan UAS (e.g. "buat paket soal IF3270 topik
+  RNN, LSTM, RL"). Topics are REQUIRED — there is no default.
 ---
 
 # IF3270 exam packet generator
@@ -30,8 +33,12 @@ the library uses the stdlib only (no numpy). Don't commit unless asked.
 - **Topics are required.** If the user gives none, ask which topics (from:
   Perceptron, FFNN, CNN, RNN, LSTM, Transformer/Attention, RL, Ensemble). Do NOT
   invent a default.
-- The packet has **exactly 3 Bagian**, Bobot summing to **100**, each Bagian one
-  topic or a composite of two (see playbook). Each sub-question has `(Nilai n)`.
+- **Bagian count: 3 or 4.** Kuis/UTS use 3 Bagian; the real **UAS 2024-2025 had
+  4 Bagian** (MC block · LSTM forward+BPTT · encoder-decoder param+formula · RL).
+  For a UAS-style packet default to **4 Bagian**; confirm 3 vs 4 with the user in
+  the blueprint step. Bobot sums to **100**; each sub-question has `(Nilai n)`.
+- Each Bagian is one topic, a composite of two, or a mixed conceptual block (the
+  MC Bagian spans several topics). See the playbook.
 
 ## 2. Read the references first
 
@@ -44,20 +51,28 @@ the library uses the stdlib only (no numpy). Don't commit unless asked.
 4. Optionally glance at `uas/Pembahasan-Solusi-UTS-IF3270-2-2025.md` and
    `uas/Solusi-Kuis-2-IF3270-2-2025.md` to anchor the style.
 
-## 3. Map topics → 3 Bagian, choose formats, present a blueprint
+## 3. Map topics → Bagian, choose formats, present a blueprint
 
-- **3 topics** → one per Bagian.
-- **>3 topics** → fuse related ones into a **composite/pipeline Bagian** (playbook
-  recipes) so every requested topic appears. Don't drop topics.
-- **<3 topics** → ask whether to repeat/expand a topic across Bagian, or add one.
-- Pick formats per Bagian by topic affinity (CNN→nested+sizing+param-count+drawing;
-  RNN→bertingkat table+architecture; LSTM→gate steps+symbol essay; Perceptron→SGD
-  table; Transformer/RL→MC+benar-salah+small calc). Mix in the conceptual formats
-  (MC, benar/salah, drawing) so the packet isn't pure arithmetic.
-- Assign Bobot (e.g. 40/30/30) and per-sub-question Nilai (sum to the Bobot).
-- **Present this blueprint to the user with AskUserQuestion** (topics→Bagian,
-  formats, Bobot) and the one execution choice: write directly (default) vs fan out
-  one subagent per Bagian. Get approval before generating.
+- Decide **3 or 4 Bagian** (see §1). A faithful UAS blueprint mirrors the real
+  paper: **Bagian I = pilihan ganda block** (mark-each-option O/X, ~12 @2.5,
+  spanning RNN/LSTM/encoder-decoder/Bi-RNN concepts + small calc), **II = a worked
+  computation** (e.g. LSTM forward + BPTT, or RNN/perceptron table), **III =
+  encoder-decoder param counting + inference formulas** (optionally attention),
+  **IV = RL** (supervised-vs-RL table + Wumpus TD Q-learning).
+- Map the requested topics onto the Bagian:
+  - one topic per Bagian when counts line up;
+  - **fuse related topics into a composite/pipeline Bagian** (CNN→RNN, FFNN→RNN,
+    Attention+LSTM) so nothing is dropped;
+  - a conceptual MC Bagian can span several topics at once.
+- Pick formats by topic affinity (CNN→nested+sizing+param-count+drawing;
+  RNN→bertingkat table+architecture; LSTM→gate steps+symbol essay or forward+BPTT;
+  encoder-decoder→param count+inference formula; Perceptron→SGD table; RL→TD
+  Q-learning table+grid+policy). Mix conceptual formats (MC, benar/salah, drawing)
+  so the packet isn't pure arithmetic.
+- Assign Bobot (UAS reference: 30/20/25/25) and per-sub-question Nilai (sum to Bobot).
+- **Present this blueprint to the user with AskUserQuestion** (Bagian count,
+  topics→Bagian, formats, Bobot) and the one execution choice: write directly
+  (default) vs fan out one subagent per Bagian. Get approval before generating.
 
 ## 4. Instantiate concrete parameters and compute the key
 
@@ -72,8 +87,12 @@ the library uses the stdlib only (no numpy). Don't commit unless asked.
   python3 "scripts/gen_packet.py"
   ```
   (Run from the skill dir, or pass its absolute path. Re-run after any param edit.)
-- Sanity: the library is self-validated against real solutions —
-  `python3 "scripts/mlcompute.py"` must print `ALL PASS`.
+- Sanity: the library is self-validated against real solutions (CNN/FFNN/RNN/LSTM
+  forward, all param counts, **Wumpus TD Q-learning**, and **LSTM BPTT verified by
+  finite-difference gradient checking**) — `python3 "scripts/mlcompute.py"` must
+  print `ALL PASS`. Available primitives include `q_learning_td`, `lstm_bptt`,
+  `count_params_rnn_layer`/`count_params_lstm_layer` (stacked), and
+  `count_params_attention` (state its assumed scoring variant in the key).
 
 ## 5. Author the two files
 
@@ -107,9 +126,10 @@ fragments and writes the two files (avoids write conflicts).
   grep -nE '=\s*-?[0-9]+\.[0-9]+|ReLU|maxpool|σ\(|tanh\(' "uas/Paket-Soal-IF3270-UAS-<slug>.md"
   ```
   (Setup constants are fine; computed results are not.)
-- **Structure:** exactly 3 `## Bagian` headings; Bobot values sum to 100; every
-  soal `(Nilai n)` has a matching kunci entry; the Nilai inside each Bagian sum to
-  its Bobot.
+- **Structure:** 3 or 4 `## Bagian` headings (as chosen); Bobot values sum to 100;
+  every soal `(Nilai n)` has a matching kunci entry; the Nilai inside each Bagian
+  sum to its Bobot. For an MC Bagian, each item's options are marked in the key
+  (correct/incorrect) per the O/X scheme.
 - **Mermaid sanity** (if diagrams used): code fences balanced (even count of
   ```` ``` ````); inside a Quartz callout, mermaid lines are `> > `-prefixed (here
   the files are plain `#` docs, so a bare fenced ```mermaid block is fine).

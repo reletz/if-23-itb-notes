@@ -54,7 +54,6 @@ _Back to_ [[index]]
 	- [[CNN - Kuis 2]]
 	- [[RNN - Kuis 2]]
 	- [[LSTM - Kuis 2]]
-	- [[Encoder-Decoder - Kuis 2]]
 - ## Attention and Transformers
 	- [[Attention Mechanism in RNNs]]
 	- [[Encoder-Decoder with Attention - Bahdanau and Luong]]
@@ -67,5 +66,9 @@ _Back to_ [[index]]
 	- [[Optimal Policy Formulation]]
 	- [[Temporal Difference Learning Methods]]
 	- [[Deep Q-Networks and Advanced Techniques]]
-- ## Simulasi Interaktif
+- ## Latihan & Persiapan UAS
+	- [[Cheatsheet-UAS-IF3270|Cheatsheet + Panduan Tracing UAS (RNN · LSTM · Attention · Transformer · RL)]]
+	- [[Paket-Soal-IF3270-UAS-full-01|Paket Soal Latihan UAS 01]] · [[Pembahasan-Paket-Soal-IF3270-UAS-full-01|Pembahasan 01]]
+	- [[Paket-Soal-IF3270-UAS-full-02|Paket Soal Latihan UAS 02]] · [[Pembahasan-Paket-Soal-IF3270-UAS-full-02|Pembahasan 02]]
+	- [[Paket-Soal-IF3270-UAS-full-03|Paket Soal Latihan UAS 03]] · [[Pembahasan-Paket-Soal-IF3270-UAS-full-03|Pembahasan 03]]
 	- [Simulasi RNN · Attention · RL](https://if-notes.naufarrel.dev/02.-Catatan/IF3270-Pembelajaran-Mesin/simulations/index.htm) — alur penghitungan dinamis (buka di tab baru bila tampilan tidak muncul)

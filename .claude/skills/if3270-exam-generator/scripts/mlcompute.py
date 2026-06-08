@@ -352,6 +352,161 @@ def count_params_lstm(n_in: int, n_hidden: int) -> int:
     return 4 * ((n_in + n_hidden + 1) * n_hidden)
 
 
+def count_params_rnn_layer(n_in: int, n_hidden: int) -> int:
+    """One Simple-RNN layer (no output head): n_h*(n_in + n_h + 1).
+    Use to sum stacked RNN layers, e.g. UAS Bagian I Q3:
+    rnn(10,6)+rnn(6,5)+rnn(5,4)+dense(4,3)+dense(3,2) = 225."""
+    return n_hidden * (n_in + n_hidden + 1)
+
+
+def count_params_lstm_layer(n_in: int, n_hidden: int) -> int:
+    """One LSTM layer (no output head): 4*n_h*(n_in + n_h + 1)."""
+    return 4 * n_hidden * (n_in + n_hidden + 1)
+
+
+def count_params_attention(variant: str, dec_h: int, enc_h: int,
+                           attn_dim: int = None) -> int:
+    """EXTRA params an attention unit adds, by scoring variant. The course is
+    not explicit on a single counting convention, so STATE THE ASSUMPTION in the
+    key. Conventions (from the Bahdanau/Luong note):
+      - 'dot'     : score = sᵀh, no weights        -> 0
+      - 'general' : score = sᵀ·Wa·h                -> dec_h * enc_h
+      - 'concat'  : score = vaᵀ·tanh(Wa·[s;h])     -> attn_dim*(dec_h+enc_h) + attn_dim
+    For 'concat' pass attn_dim (often = dec_h)."""
+    if variant == "dot":
+        return 0
+    if variant == "general":
+        return dec_h * enc_h
+    if variant == "concat":
+        a = attn_dim if attn_dim is not None else dec_h
+        return a * (dec_h + enc_h) + a
+    raise ValueError(f"unknown attention variant {variant!r}")
+
+
+# --------------------------------------------------------------------------- #
+# Reinforcement Learning: Temporal-Difference Q-learning on a gridworld         #
+# (Wumpus-World style, UAS Bagian IV). State = (col, row); actions N/E/S/W.     #
+# --------------------------------------------------------------------------- #
+def _direction(s, s2):
+    (c, r), (c2, r2) = s, s2
+    if r2 > r:
+        return "N"
+    if r2 < r:
+        return "S"
+    if c2 > c:
+        return "E"
+    if c2 < c:
+        return "W"
+    raise ValueError(f"no move between {s} and {s2}")
+
+
+def q_learning_td(episodes, reward, terminals, alpha, gamma,
+                  actions=("N", "E", "S", "W")) -> dict:
+    """Tabular TD Q-learning. `episodes` = list of state-paths (each a list of
+    (col,row)); the action between consecutive states is inferred. `reward` =
+    dict {state: r} for ENTERING that state (default 0). `terminals` = set of
+    terminal states (no bootstrap from them). Update per transition:
+        Q(s,a) ← Q(s,a) + α[r + γ·max_a' Q(s',a') − Q(s,a)]
+    Returns {'Q': {(state,action): value}, 'steps': [per-update trace]}.
+    All Q initialised to 0."""
+    Q = {}
+
+    def q(s, a):
+        return Q.get((s, a), 0.0)
+
+    steps = []
+    for ep_idx, path in enumerate(episodes, start=1):
+        for s, s2 in zip(path, path[1:]):
+            a = _direction(s, s2)
+            r = reward.get(s2, 0.0)
+            max_next = 0.0 if s2 in terminals else max(q(s2, aa) for aa in actions)
+            old = q(s, a)
+            new = old + alpha * (r + gamma * max_next - old)
+            Q[(s, a)] = new
+            steps.append({"episode": ep_idx, "s": s, "a": a, "s_next": s2,
+                          "r": r, "max_next": max_next, "old": old, "new": new})
+    return {"Q": Q, "steps": steps}
+
+
+# --------------------------------------------------------------------------- #
+# LSTM BPTT — single hidden unit, T timesteps, squared error on h(t) (UAS      #
+# Bagian II). Analytic gradients; the self-check verifies them by finite        #
+# differences so the key's numbers are provably correct.                        #
+# Naming maps the exam's table: Wx* = input→gate weights (per feature),         #
+# Wh* = recurrent hidden→gate weight (scalar). Default acts: σ gates, tanh      #
+# candidate, tanh on cell for h.                                                 #
+# --------------------------------------------------------------------------- #
+def _lstm_forward_scalar(xs, W, b):
+    """Forward over T steps, h0=c0=0. Returns per-step cache + outputs h[t]."""
+    h_prev, c_prev = 0.0, 0.0
+    cache = []
+    for x in xs:
+        af = sum(W["Wxf"][k] * x[k] for k in range(len(x))) + W["Whf"][0] * h_prev + b["bf"]
+        ai = sum(W["Wxi"][k] * x[k] for k in range(len(x))) + W["Whi"][0] * h_prev + b["bi"]
+        ac = sum(W["Wxc"][k] * x[k] for k in range(len(x))) + W["Whc"][0] * h_prev + b["bc"]
+        ao = sum(W["Wxo"][k] * x[k] for k in range(len(x))) + W["Who"][0] * h_prev + b["bo"]
+        f, i, ctil, o = sigmoid(af), sigmoid(ai), tanh(ac), sigmoid(ao)
+        C = f * c_prev + i * ctil
+        h = o * tanh(C)
+        cache.append({"x": x, "h_prev": h_prev, "c_prev": c_prev,
+                      "f": f, "i": i, "ctil": ctil, "o": o, "C": C, "h": h})
+        h_prev, c_prev = h, C
+    return cache
+
+
+def lstm_loss(xs, targets, W, b):
+    """L = Σ_t ½(h(t) − target(t))²  over the timesteps. Used by the gradcheck."""
+    cache = _lstm_forward_scalar(xs, W, b)
+    return sum(0.5 * (st["h"] - t) ** 2 for st, t in zip(cache, targets))
+
+
+def lstm_bptt(xs, targets, W, b, lr) -> dict:
+    """One forward + one BPTT backward over the given timesteps, then a
+    gradient-descent weight update `Wnew = Wold − lr·grad`. Objective = squared
+    error on h(t) vs target(t). Returns forward cache, per-gate deltas per
+    timestep, accumulated gradients, the updated W/b, and the total loss."""
+    cache = _lstm_forward_scalar(xs, W, b)
+    n_in = len(xs[0])
+    grads = {k: [0.0] * n_in for k in ("Wxf", "Wxi", "Wxc", "Wxo")}
+    grads.update({k: [0.0] for k in ("Whf", "Whi", "Whc", "Who")})
+    gb = {k: 0.0 for k in ("bf", "bi", "bc", "bo")}
+    deltas = [None] * len(xs)
+
+    dh_next, dC_next = 0.0, 0.0
+    for t in range(len(xs) - 1, -1, -1):
+        st = cache[t]
+        f, i, ctil, o, C = st["f"], st["i"], st["ctil"], st["o"], st["C"]
+        tanhC = tanh(C)
+        dh = (st["h"] - targets[t]) + dh_next
+        dao = dh * tanhC * o * (1 - o)
+        dC = dh * o * (1 - tanhC ** 2) + dC_next
+        daf = dC * st["c_prev"] * f * (1 - f)
+        dai = dC * ctil * i * (1 - i)
+        dac = dC * i * (1 - ctil ** 2)
+        for k in range(n_in):
+            grads["Wxf"][k] += daf * st["x"][k]
+            grads["Wxi"][k] += dai * st["x"][k]
+            grads["Wxc"][k] += dac * st["x"][k]
+            grads["Wxo"][k] += dao * st["x"][k]
+        grads["Whf"][0] += daf * st["h_prev"]
+        grads["Whi"][0] += dai * st["h_prev"]
+        grads["Whc"][0] += dac * st["h_prev"]
+        grads["Who"][0] += dao * st["h_prev"]
+        gb["bf"] += daf
+        gb["bi"] += dai
+        gb["bc"] += dac
+        gb["bo"] += dao
+        deltas[t] = {"daf": daf, "dai": dai, "dac": dac, "dao": dao, "dC": dC}
+        dh_next = daf * W["Whf"][0] + dai * W["Whi"][0] + dac * W["Whc"][0] + dao * W["Who"][0]
+        dC_next = dC * f
+
+    newW = {k: [W[k][j] - lr * grads[k][j] for j in range(len(W[k]))] for k in W}
+    newb = {k: b[k] - lr * gb[k] for k in b}
+    loss = sum(0.5 * (st["h"] - t) ** 2 for st, t in zip(cache, targets))
+    return {"cache": cache, "deltas": deltas, "grads": grads, "gb": gb,
+            "newW": newW, "newb": newb, "loss": loss}
+
+
 # --------------------------------------------------------------------------- #
 # tiny self-check against known IF3270 solutions when run directly             #
 # --------------------------------------------------------------------------- #
@@ -416,5 +571,51 @@ if __name__ == "__main__":
            + count_params_conv_layer(1, 2, 2, 2)
            + count_params_dense(1, 1))
     check("UTS CNN total params", cnn, 31)
+
+    # --- UAS Bagian I Q3: stacked RNN 10→6→5→4, dense 3, out 2 = 225 (opt b) ---
+    q3 = (count_params_rnn_layer(10, 6) + count_params_rnn_layer(6, 5)
+          + count_params_rnn_layer(5, 4) + count_params_dense(4, 3)
+          + count_params_dense(3, 2))
+    check("UAS Bagian I Q3 stacked-RNN params", q3, 225)
+
+    # --- UAS Bagian IV: Wumpus-World TD Q-learning, internal consistency ---
+    # gold (3,2)=+10 enter, wumpus (3,1) & pit (1,3) = -10 enter; all terminal.
+    reward = {(3, 2): 10.0, (3, 1): -10.0, (1, 3): -10.0}
+    terminals = {(3, 2), (3, 1), (1, 3)}
+    episodes = [[(1, 1), (2, 1), (3, 1)],
+                [(1, 1), (1, 2), (2, 2), (3, 2)],
+                [(1, 1), (1, 2), (1, 3)]]
+    res = q_learning_td(episodes, reward, terminals, alpha=0.4, gamma=0.6)
+    Q = res["Q"]
+    check("Wumpus Q[(2,1),E] (enter wumpus)", Q[((2, 1), "E")], -4.0)
+    check("Wumpus Q[(2,2),E] (enter gold)", Q[((2, 2), "E")], 4.0)
+    check("Wumpus Q[(1,2),N] (enter pit)", Q[((1, 2), "N")], -4.0)
+    check("Wumpus Q[(1,1),E] (neutral)", Q[((1, 1), "E")], 0.0)
+
+    # --- LSTM BPTT: analytic gradients verified by finite differences ---
+    Wb = {"Wxf": [0.7, 0.5], "Wxi": [0.9, 0.8], "Wxc": [0.4, 0.2], "Wxo": [0.6, 0.4],
+          "Whf": [0.1], "Whi": [0.6], "Whc": [0.1], "Who": [0.2]}
+    bb = {"bf": 0.15, "bi": 0.4, "bc": 0.1, "bo": 0.2}
+    xs = [[1.0, 2.0], [0.5, 3.0]]
+    tg = [0.5, 0.75]
+    out = lstm_bptt(xs, tg, Wb, bb, lr=0.5)
+    eps = 1e-5
+    max_gerr = 0.0
+    for key in Wb:
+        for j in range(len(Wb[key])):
+            Wp = {k: v[:] for k, v in Wb.items()}
+            Wm = {k: v[:] for k, v in Wb.items()}
+            Wp[key][j] += eps
+            Wm[key][j] -= eps
+            num = (lstm_loss(xs, tg, Wp, bb) - lstm_loss(xs, tg, Wm, bb)) / (2 * eps)
+            max_gerr = max(max_gerr, abs(num - out["grads"][key][j]))
+    for key in bb:
+        bp = dict(bb)
+        bm = dict(bb)
+        bp[key] += eps
+        bm[key] -= eps
+        num = (lstm_loss(xs, tg, Wb, bp) - lstm_loss(xs, tg, Wb, bm)) / (2 * eps)
+        max_gerr = max(max_gerr, abs(num - out["gb"][key]))
+    check("LSTM BPTT analytic vs numeric grad (max err)", max_gerr, 0.0, tol=1e-6)
 
     print("\nALL PASS" if ok else "\nSOME CHECKS FAILED")

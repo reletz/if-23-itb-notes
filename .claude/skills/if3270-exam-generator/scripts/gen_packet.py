@@ -124,8 +124,64 @@ def bagian3_lstm():
     return r
 
 
+# ========================================================================== #
+# BAGIAN (UAS) — LSTM BPTT: forward + 1 backward pass + weight update          #
+# ========================================================================== #
+def bagian_lstm_bptt():
+    hr("BAGIAN (UAS) — LSTM forward + BPTT backward")
+
+    # --- PARAM BLOCK (edit per packet). Wx* = input→gate (per feature),
+    #     Wh* = recurrent hidden→gate (scalar). Target is on the hidden unit. ---
+    W = {"Wxf": [0.7, 0.5], "Wxi": [0.9, 0.8], "Wxc": [0.4, 0.2], "Wxo": [0.6, 0.4],
+         "Whf": [0.1], "Whi": [0.6], "Whc": [0.1], "Who": [0.2]}
+    b = {"bf": 0.15, "bi": 0.4, "bc": 0.1, "bo": 0.2}
+    xs = [[1.0, 2.0], [0.5, 3.0]]      # 2 timesteps, 2 features
+    targets = [0.5, 0.75]              # target h(t) per timestep
+    lr = 0.5
+    # --- end PARAM BLOCK ---
+
+    out = ml.lstm_bptt(xs, targets, W, b, lr)
+    for t, st in enumerate(out["cache"], start=1):
+        print(f"t={t}: f={ml.fmt(st['f'],R)} i={ml.fmt(st['i'],R)} "
+              f"Ĉ={ml.fmt(st['ctil'],R)} o={ml.fmt(st['o'],R)} "
+              f"C={ml.fmt(st['C'],R)} h={ml.fmt(st['h'],R)}")
+    print("error total (½Σ(h-target)²) =", ml.fmt(out["loss"], R))
+    print("gradients:", {k: [ml.fmt(v, R) for v in out["grads"][k]] for k in out["grads"]})
+    print("grad bias:", {k: ml.fmt(out["gb"][k], R) for k in out["gb"]})
+    print("updated Wx*/Wh*:", {k: [ml.fmt(v, R) for v in out["newW"][k]] for k in out["newW"]})
+    print("updated bias:", {k: ml.fmt(out["newb"][k], R) for k in out["newb"]})
+    return out
+
+
+# ========================================================================== #
+# BAGIAN (UAS) — Reinforcement Learning: TD Q-learning on a gridworld          #
+# ========================================================================== #
+def bagian_rl():
+    hr("BAGIAN (UAS) — Temporal-Difference Q-learning (Wumpus World)")
+
+    # --- PARAM BLOCK (edit per packet). State = (col, row). ---
+    reward = {(3, 2): 10.0, (3, 1): -10.0, (1, 3): -10.0}   # reward for ENTERING
+    terminals = {(3, 2), (3, 1), (1, 3)}
+    episodes = [[(1, 1), (2, 1), (3, 1)],
+                [(1, 1), (1, 2), (2, 2), (3, 2)],
+                [(1, 1), (1, 2), (1, 3)]]
+    alpha, gamma = 0.4, 0.6
+    # --- end PARAM BLOCK ---
+
+    res = ml.q_learning_td(episodes, reward, terminals, alpha, gamma)
+    for s in res["steps"]:
+        print(f"ep{s['episode']} {s['s']}-{s['a']}->{s['s_next']}: "
+              f"r={s['r']}, maxQ'={ml.fmt(s['max_next'],R)}, "
+              f"Q: {ml.fmt(s['old'],R)} -> {ml.fmt(s['new'],R)}")
+    print("final non-zero Q(s,a):",
+          {f"{k[0]},{k[1]}": ml.fmt(v, R) for k, v in res["Q"].items() if v != 0})
+    return res
+
+
 if __name__ == "__main__":
     flat = bagian1_cnn()
     rnn = bagian2_rnn()
     lstm = bagian3_lstm()
+    bptt = bagian_lstm_bptt()
+    rl = bagian_rl()
     hr("DONE — copy the numbers above into the Pembahasan file")
