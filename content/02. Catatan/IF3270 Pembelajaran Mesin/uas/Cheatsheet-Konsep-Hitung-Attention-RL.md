@@ -270,6 +270,59 @@ Contoh reward depan [0,0,+10], γ=0.6: $G=0+0.6\cdot0+0.6^2\cdot10=0.36\cdot10=$
 - **TD vs MC**: TD update tiap langkah (bootstrap), gak nunggu episode selesai; MC nunggu $G_t$ penuh.
 - **π\*(s)=argmax_a q\*(s,a)** · **γ**: kecil=myopic, besar=far-sighted · **DQN**=Q-learning+NN.
 
+## Peta Wumpus 3×3
+
+Koordinat $(kolom, baris)$, baris 1 di bawah. Agent gerak `up/down/left/right`.
+
+```
+        c1         c2          c3
+	 ┌──────────┬──────────┬──────────────┐
+r3 │    .     │    .     │  GOLD  +10   │  ← terminal (menang)
+	 ├──────────┼──────────┼──────────────┤
+r2 │    .     │   (s')   │ WUMPUS −10   │  ← terminal (mati)
+	 │          │  (2,2)   │   (3,2)      │
+	 ├──────────┼──────────┼──────────────┤
+r1 │  START   │    .     │     .        │
+	 │  (1,1)   │   (s)    │              │
+	 └──────────┴──────────┴──────────────┘
+```
+
+**Jalur ke GOLD (3,3):** harus naik lewat kolom 1–2, lalu masuk gold dari $(2,3)$. **Kolom 3 berbahaya** karena $(3,2)$ = WUMPUS persis di bawah gold.
+
+Cell kunci = **$(2,2)$**: dari sini
+- `up` → menuju gold (bagus) → $Q\big((2,2),\texttt{up}\big) = 8$
+- `right` → masuk WUMPUS (mati) → $Q\big((2,2),\texttt{right}\big) = -9$
+
+---
+
+## Update yang bikin SARSA ≠ Q-learning
+
+Skenario: agent di $s=(2,1)$, ambil `up`, masuk $s'=(2,2)$, reward $R=0$.
+Yang di-update: $Q\big((2,1),\texttt{up}\big)$, sekarang $= 3$. Pakai $\alpha=0.5,\ \gamma=0.9$.
+
+Di $s'=(2,2)$, $\varepsilon$-greedy **kebetulan explore → pilih `right`** (ke arah wumpus).
+
+**Q-learning** — pakai $\max$, cuek action aslinya:
+$$Q \leftarrow 3 + 0.5\big[0 + 0.9\cdot\underbrace{\max(8,\,-9)}_{=8} - 3\big] = 3 + 0.5(7.2-3) = \mathbf{5.1}\ \uparrow$$
+
+**SARSA** — pakai action yang BENERAN dipilih (`right`, $Q=-9$):
+$$Q \leftarrow 3 + 0.5\big[0 + 0.9\cdot\underbrace{(-9)}_{\texttt{right}} - 3\big] = 3 + 0.5(-8.1-3) = \mathbf{-2.55}\ \downarrow$$
+
+---
+
+## Bacanya
+
+|                | $Q\big((2,1),\texttt{up}\big)$ jadi | Artinya                                                                                          |
+| -------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------ |
+| **Q-learning** | $5.1$ (naik)                        | "Naik ke $(2,2)$ itu bagus — toh nanti aku main optimal (`up` ke gold)." Abaikan risiko explore. |
+| **SARSA**      | $-2.55$ (turun)                     | "Naik ke $(2,2)$ bahaya — soalnya aku kadang explore dan bisa nyebur ke WUMPUS."                 |
+
+Bedanya **murni** karena di $s'$ exploration milih `right` (bukan greedy `up`). Kalau di $s'$ dia milih `up`, dua-duanya pakai $Q=8$ → hasil identik $5.1$.
+
+**Efek jangka panjang:** SARSA bakal belajar **mutar lewat kolom 1** (jauh dari wumpus, aman), Q-learning belajar jalur **mepet wumpus** (optimal kalau eksekusinya sempurna). Persis Cliff Walking, tapi versi wumpus. 🐍
+
+Mau aku masukin contoh peta wumpus ini ke cheatsheet bagian RL?
+
 ---
 
 ## Checklist 30 detik sebelum ngerjain

@@ -80,13 +80,12 @@ Hidden: `h_t = tanh(W_xh·x_t + W_hh·h_{t-1} + b_xh)`. Output: `y_t = softmax(W
 
 ```mermaid
 flowchart LR
-    X1["x(1)<br/>2 fitur"] --> H1["hidden t=1<br/>2 neuron (tanh)<br/>+bias b_xh"]
+    X1["x(1)<br/>2 fitur"] -->|W_xh| H1["hidden t=1<br/>2 neuron (tanh)<br/>+bias b_xh"]
     H0["h0 = [0,0]"] -->|W_hh| H1
     H1 -->|W_hy| Y1["output t=1<br/>2 neuron (softmax)<br/>+bias b_hy"]
     X2["x(2)<br/>2 fitur"] -->|W_xh| H2["hidden t=2<br/>2 neuron (tanh)<br/>+bias b_xh"]
     H1 -->|W_hh| H2
     H2 -->|W_hy| Y2["output t=2<br/>2 neuron (softmax)<br/>+bias b_hy"]
-    X1 -->|W_xh| H1
 ```
 
 **b. Hidden state.**

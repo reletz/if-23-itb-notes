@@ -3,7 +3,7 @@ cssclasses:
   - dashboard
 ---
 _Back to_ [[index]]
-# Overview
+# UTS
 - ## Intro
 	- [[Fundamentals of Computing Platforms]]
 	- [[Mobile vs Web Application Paradigms]]
@@ -22,9 +22,6 @@ _Back to_ [[index]]
 - ## Cross Platform Mobile App Development Technology and Architecture
 	- [[Mobile App Development Definitions and Scope]]
 	- [[Mobile Development Approach Taxonomy]]
-	- [[Cross-Platform Framework Fundamentals: React Native vs Flutter]]
-	- [[React Native Architecture: JSI, Fabric, and Rendering Pipeline]]
-	- [[Flutter Architecture: Widget Trees and Rendering Process]]
 	- [[Cross-Platform Framework Selection Guidelines]]
 - ## Material Design dan Human Interface Guideline
 	- [[Core Principles of Material Design and HIG]]
@@ -37,13 +34,11 @@ _Back to_ [[index]]
 - ## Introduction to Android App with Kotlin
 	- [[Android Platform Fundamentals]]
 	- [[Android Application Components Architecture]]
-	- [[Android UI Development: Views and Layout Systems]]
 	- [[Android Project Configuration and Build Process]]
 	- [[Accessibility Implementation in Android Apps]]
 - ## Layouts in Android
 	- [[Android Screen Adaptation and Density-Independent Units]]
 	- [[ConstraintLayout Fundamentals and Relative Positioning]]
-	- [[Advanced ConstraintLayout Tools: Guidelines and Groups]]
 	- [[Data Binding Implementation and Layout Expressions]]
 	- [[RecyclerView Implementation with Adapters and ViewHolders]]
 - ## App Navigation in Android
@@ -53,3 +48,38 @@ _Back to_ [[index]]
 	- [[Navigation Component Core Architecture]]
 	- [[Safe Args for Type-Safe Navigation]]
 	- [[Navigation UI Integration Patterns]]
+# UAS
+- ## Activity and Fragment Lifecycles
+	- [[Activity Lifecycle States and Callbacks]]
+	- [[Fragment Lifecycle States and Callbacks]]
+	- [[Lifecycle-aware Components]]
+	- [[Tasks and Back Stack]]
+- ## App Architecture (Persistence)
+	- [[Android Data Storage Options and SQLite]]
+	- [[Room Persistence Library - Entity, DAO, and Database]]
+	- [[Coroutines for Asynchronous Programming]]
+	- [[Testing Room Databases with AndroidJUnit4]]
+- ## Broadcast Receiver, Notification, and Content Provider
+	- [[Broadcast Receivers - System and Custom Broadcasts]]
+	- [[Android Services - Started, Bound, and Foreground]]
+	- [[Notifications and PendingIntents]]
+	- [[Content Providers and ContentResolver]]
+- ## Mobile App Connectivity
+	- [[Android Connectivity Overview and Permissions]]
+	- [[Retrofit and Repository Pattern for Network Requests]]
+	- [[Network State Monitoring and Battery Optimization]]
+- ## Basics of Dart and Flutter
+	- [[Dart Language Fundamentals - Types, Variables, and Functions]]
+	- [[Dart OOP - Classes, Closures, and Advanced Features]]
+	- [[Dart Null Safety and Type System]]
+	- [[Flutter Widgets and App Architecture]]
+- ## Mobile Security
+	- [[OWASP Mobile Top 10 and Mobile Security Landscape]]
+	- [[Android Security Architecture - Sandbox and Permissions]]
+	- [[Secure Data Storage and Encrypted Communication]]
+	- [[Mobile Security Philosophy - Prevent, Minimize, Detect, React]]
+- ## Android Jetpack Compose
+	- [[Jetpack Compose Fundamentals - Declarative UI and Composables]]
+	- [[Compose Modifiers and Layout System]]
+	- [[Compose UI Components and Scaffold]]
+	- [[Compose State Management and MVVM Integration]]
