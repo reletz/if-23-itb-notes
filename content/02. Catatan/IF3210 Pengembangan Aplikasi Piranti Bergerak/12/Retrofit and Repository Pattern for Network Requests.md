@@ -70,6 +70,14 @@ _Back to_ [[IF3210 Pengembangan Aplikasi Piranti Bergerak]]
 > >
 > > **Moshi** adalah library JSON modern dari Square yang dirancang khusus untuk Kotlin. Perannya dalam alur jaringan adalah mengkonversi JSON yang diterima dari server menjadi objek data Kotlin (dan sebaliknya).
 > >
+> > Untuk integrasi dengan Kotlin, Moshi menggunakan **`KotlinJsonAdapterFactory`** agar dapat memproses fitur bahasa Kotlin seperti parameter default dan nullability secara tepat:
+> >
+> > ```kotlin
+> > private val moshi = Moshi.Builder()
+> >     .add(KotlinJsonAdapterFactory())
+> >     .build()
+> > ```
+> >
 > > Data class yang akan di-parse harus dianotasi dengan `@JsonClass`:
 > >
 > > ```kotlin

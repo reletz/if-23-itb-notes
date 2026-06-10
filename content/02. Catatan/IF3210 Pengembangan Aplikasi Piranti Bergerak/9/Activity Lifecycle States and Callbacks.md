@@ -61,7 +61,9 @@ _Back to_ [[IF3210 Pengembangan Aplikasi Piranti Bergerak]]
 > >
 > > **`onCreate()`** adalah satu-satunya callback yang wajib diimplementasikan. Di sinilah Activity menginflate layout UI, menginisialisasi variabel, dan menjalankan logika startup awal. Callback ini selalu dipanggil pertama kali saat Activity dibuat.
 > >
-> > **`onStart()`** dipanggil saat Activity mulai terlihat oleh pengguna. Dapat dipanggil setelah `onCreate()` (pertama kali) atau setelah `onRestart()` (jika Activity sebelumnya di-stop). Di sini biasanya dilakukan registrasi listener yang terkait visibilitas.
+> > **`onStart()`** dipanggil saat Activity mulai terlihat oleh pengguna. Dapat dipanggil setelah `onCreate()` (pertama kali) atau setelah `onRestart()`. Di sini biasanya dilakukan registrasi listener yang terkait visibilitas.
+> >
+> > **`onRestart()`** dipanggil ketika Activity yang sebelumnya berada di state STOPPED akan dimulai kembali (misalnya pengguna kembali ke aplikasi setelah sempat membuka aplikasi lain). Callback ini segera diikuti oleh `onStart()`.
 > >
 > > **`onResume()`** dipanggil saat Activity mendapatkan input focus dan pengguna dapat mulai berinteraksi. Activity akan terus berada di state RESUMED sampai sistem memicunya berpindah ke PAUSED, misalnya saat dialog muncul di atas Activity.
 > >

@@ -83,3 +83,6 @@ _Back to_ [[index]]
 	- [[Compose Modifiers and Layout System]]
 	- [[Compose UI Components and Scaffold]]
 	- [[Compose State Management and MVVM Integration]]
+- ## UAS
+	- [[00_CRAM_SHEET_UJIAN]]
+	- [[00_CODE_SYNTAX_NOTES]]

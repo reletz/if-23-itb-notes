@@ -44,7 +44,7 @@ _Back to_ [[IF3210 Pengembangan Aplikasi Piranti Bergerak]]
 > >
 > > Mekanisme teknis Prevent di level kernel dan runtime:
 > > - **ProPolice**: Stack overflow protection — mendeteksi buffer overflow di stack sebelum menyebabkan kerusakan
-> > - **Heap protection di dlmalloc**: `dlmalloc` (dynamic memory allocator Android) dimodifikasi untuk mencegah **heap consolidation attacks** dengan memeriksa pointer `fd` (forward) dan `bk` (backward) sebelum operasi free. Serangan yang mencoba mengeksploitasi korupsi heap akan terdeteksi sebelum berjalan.
+> > - **Heap protection di dlmalloc**: `dlmalloc` (dynamic memory allocator Android) dimodifikasi untuk mencegah **heap consolidation attacks**. Serangan ini memanfaatkan korupsi metadata alokasi untuk menulis ke lokasi memori sembarang. Perbaikannya melibatkan pengecekan integritas pointer `fd` (forward) dan `bk` (backward): `b->fd->bk == b` dan `b->bk->fd == b` sebelum operasi penggabungan (*consolidation*) dilakukan.
 > > - **ASLR (Address Space Layout Randomization)**: Menempatkan komponen memori di alamat acak sehingga attacker tidak bisa memprediksi lokasi kode yang ingin di-jump ke
 > > - **NX (No-Execute) bit**: Menandai halaman memori sebagai non-executable agar injeksi shellcode tidak dapat dijalankan
 > > - **OpenBSD dlmalloc**: Versi dlmalloc yang diperkeras dari proyek OpenBSD

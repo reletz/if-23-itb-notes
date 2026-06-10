@@ -63,6 +63,8 @@ _Back to_ [[IF3210 Pengembangan Aplikasi Piranti Bergerak]]
 > > 3. **System and User-defined Permissions**: Kontrol akses granular terhadap fitur sensitif, baik yang didefinisikan sistem maupun oleh aplikasi sendiri
 > > 4. **Application Signing**: Setiap APK harus ditandatangani secara kriptografis; sistem menggunakan tanda tangan untuk verifikasi identitas pengembang dan memastikan integritas update
 > >
+> > **Pemisahan Hak Akses (Privilege Separation)** juga diterapkan pada level sistem. Contohnya, library pengolah media (*codecs*) yang sangat kompleks dan rawan celah keamanan dijalankan dalam proses terpisah dengan hak akses terbatas (**mediaserver**). Dengan demikian, jika terjadi eksploitasi pada parser media, penyerang tetap terisolasi dan tidak mendapatkan akses penuh ke sistem.
+> >
 > > ### Sistem Permission Android
 > >
 > > Permission di Android beroperasi sebagai **whitelist model**: akses ke resource sensitif diblokir secara default, dan aplikasi harus secara eksplisit meminta izin yang diperlukan. Terdapat lebih dari **194 permission** yang didefinisikan oleh sistem.

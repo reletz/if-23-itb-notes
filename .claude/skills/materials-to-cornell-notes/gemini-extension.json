@@ -1,0 +1,6 @@
+{
+  "name": "materials-to-cornell-notes",
+  "version": "1.0.0",
+  "description": "Turn a folder of course materials — .pptx slide decks, .pdf documents, or .docx files — into Cornell-format Obsidian/Quartz notes (Bahasa Indonesia) that match this vault's template, grouped into \"payung\" topic folders, with mermaid diagrams where helpful, and wired into the course index/MOC. Use when the user points at a folder of lecture materials for a course (e.g. \"baca folder X, buat markdown materinya untuk tiap ppt/pdf\") and wants notes generated. Fans out one subagent per topic folder for speed.",
+  "contextFileName": "GEMINI.md"
+}

@@ -92,9 +92,13 @@ _Back to_ [[IF3210 Pengembangan Aplikasi Piranti Bergerak]]
 > >
 > > Flutter mendukung **Google Fonts** melalui package `google_fonts` yang mengunduh dan men-cache font dari Google Fonts API. _Rounded corners_ dibuat menggunakan `BorderRadius.circular()` pada dekorasi widget.
 > >
+> > Untuk efek transparansi gambar, terdapat dua pendekatan utama:
+> > 1. **Widget `Opacity`**: Menerapkan transparansi pada seluruh subtree di bawahnya. Subtree dirender ke *offscreen buffer* terlebih dahulu sebelum transformasi diterapkan, yang lebih berat secara performa.
+> > 2. **Properti `color` pada `Image`**: Menerapkan warna sebagai *tint* (biasanya digabung dengan `colorBlendMode`). Ini merupakan bagian dari proses rendering gambar standar dan dapat diakselerasi oleh GPU.
+> >
 > > Untuk filter data pada list, gunakan method **`.where()`** dari `Iterable` yang menerima fungsi predikat dan mengembalikan `Iterable` baru berisi elemen yang memenuhi kondisi. Kombinasikan dengan `.toList()` untuk mengkonversi hasilnya.
 > >
-> > Untuk list yang dapat discroll, Flutter menyediakan:
+> > Dalam Flutter, widget yang melebihi batas layar (*overflow*) **tidak otomatis terbungkus atau dapat discroll**. Pengembang harus menyediakan widget pendukung secara eksplisit:
 > > - **`SingleChildScrollView`**: membungkus satu child yang mungkin lebih besar dari layar — cocok untuk form atau konten panjang yang tidak diketahui jumlahnya.
 > > - **`Expanded`**: mengisi ruang yang tersedia dalam `Row` atau `Column` — penting agar `ListView` di dalam `Column` bisa scrollable tanpa overflow.
 > >

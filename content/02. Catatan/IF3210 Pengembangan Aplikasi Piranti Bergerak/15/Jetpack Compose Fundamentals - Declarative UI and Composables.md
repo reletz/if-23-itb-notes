@@ -85,7 +85,12 @@ _Back to_ [[IF3210 Pengembangan Aplikasi Piranti Bergerak]]
 > >
 > > ### @Preview dan Material Theme
 > >
-> > Anotasi **`@Preview`** memungkinkan IDE (Android Studio) menampilkan pratinjau fungsi `@Composable` tanpa menjalankan aplikasi di perangkat. Fungsi yang diberi `@Preview` tidak boleh menerima parameter, sehingga biasanya dibuat fungsi preview terpisah.
+> > Anotasi **`@Preview`** memungkinkan IDE (Android Studio) menampilkan pratinjau fungsi `@Composable` tanpa menjalankan aplikasi di perangkat. Fitur utama pratinjau:
+> > - **Static Preview**: Tampilan visual dasar dari UI.
+> > - **Interactive Mode**: Memungkinkan interaksi terbatas dengan UI (seperti klik tombol) langsung di dalam editor.
+> > - **Launch to Device**: Menjalankan pratinjau tertentu secara terisolasi pada emulator atau perangkat fisik.
+> >
+> > Fungsi yang diberi `@Preview` tidak boleh menerima parameter, sehingga biasanya dibuat fungsi preview terpisah.
 > >
 > > **Material Theme** adalah elemen akar yang mendefinisikan tema aplikasi secara menyeluruh, mencakup tiga aspek:
 > >
