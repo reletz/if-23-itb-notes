@@ -48,3 +48,13 @@ Semoga semua catatannya bermanfaat. Selamat belajar, ya!
 	- [[IF3250 Proyek Perangkat Lunak]]
 	- [[IF3270 Pembelajaran Mesin]]
 	- [[IF4053 Keamanan Perangkat Lunak]]
+- ## Semester 7
+	hello
+	- [[IF4020 Kriptografi]]
+	- [[IF4033 Keamanan Siber]]
+	- [[IF4054 Pengoperasian Sistem Perangkat Lunak]]
+	- [[IF4090 Kerja Praktik]]
+	- [[IF4091 Penyusunan Proposal]]
+	- [[IF5100 Pemrograman untuk Data Analitik]]
+	- [[IF5101 Manajemen Data]]
+	- [[IF5161 Keamanan Data dan Perangkat Lunak]]

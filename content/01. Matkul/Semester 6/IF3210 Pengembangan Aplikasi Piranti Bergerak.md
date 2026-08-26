@@ -86,3 +86,4 @@ _Back to_ [[index]]
 - ## UAS
 	- [[00_CRAM_SHEET_UJIAN]]
 	- [[00_CODE_SYNTAX_NOTES]]
+	- [[PLAN_DEMO_NAUFARREL]]
