@@ -11,4 +11,14 @@ _Back to_ [[index]]
 	- [[Sejarah Kriptografi]]
 	- [[Algoritma Kriptografi]]
 	- [[Ekosistem, Tantangan Masa Depan, dan Miskonsepsi]]
+- ## Matematika Dalam Kriptografi
+	- [[Teori Bilangan untuk Kriptografi]]
+	- [[Teori Informasi dan Entropi]]
+- ## Kriptografi Klasik
+	- [[Caesar Cipher dan ROT13]]
+	- [[Cipher Transposisi - Columnar dan Rail Fence]]
+	- [[Cipher Abjad-Tunggal dan Analisis Frekuensi]]
+	- [[Vigenère Cipher dan Kriptanalisis Kasiski]]
+	- [[Playfair dan Affine Cipher]]
+	- [[Hill Cipher dan Enigma Cipher]]
 # UAS

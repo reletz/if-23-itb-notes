@@ -35,8 +35,8 @@ Semoga semua catatannya bermanfaat. Selamat belajar, ya!
 	- [[IF3130 Sistem Paralel dan Terdistribusi]]
 	- [[IF3140 Sistem Basis Data]]
 	- [[IF3170 Inteligensi Artifisial]]
-	- [[IF4031 Arsitektur Aplikasi Terdistribusi]] (Matkul Spesialisasi)
-	- [[II2100 Komunikasi Interpersonal dan Publik]] (Matkul Pilihan)
+	- [[IF4031 Arsitektur Aplikasi Terdistribusi]]
+	- [[II2100 Komunikasi Interpersonal dan Publik]]
 	- [[WI2022 Manajemen Proyek]]
 	- [[ZZXXXX Seleksi Labsister]] (Arsip aja ^^)
 - ## Semester 6
