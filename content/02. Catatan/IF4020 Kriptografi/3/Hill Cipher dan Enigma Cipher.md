@@ -31,7 +31,7 @@ _Back to_ [[IF4020 Kriptografi]]
 > >
 > > Dalam bentuk matriks: $\mathbf{C} = K\mathbf{P} \bmod 26$, dengan $K$ matriks kunci $m \times m$.
 > >
-> > Contoh $m = 3$, plainteks `paymoremoney`, tiga huruf pertama `pay` $= (15, 0, 24)$ → $\mathbf{C} = (11, 13, 18) = $ `LNS`. Selengkapnya: `LNSHDLEWMTRW`.
+> > Contoh $m = 3$, plainteks `paymoremoney`, tiga huruf pertama `pay` $= (15, 0, 24)$ → $\mathbf{C} = (11, 13, 18) =$ `LNS`. Selengkapnya: `LNSHDLEWMTRW`.
 > >
 > > ### Dekripsi Hill Cipher
 > >
@@ -67,7 +67,7 @@ _Back to_ [[IF4020 Kriptografi]]
 > > - Rotor kedua bergeser satu langkah setiap rotor pertama menyelesaikan 26 langkah, dst (seperti odometer).
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     KB["Keyboard: huruf P"] --> PB["Plugboard"]
 > >     PB --> R3["Rotor 3"] --> R2["Rotor 2"] --> R1["Rotor 1"]
 > >     R1 --> RF["Reflector"]

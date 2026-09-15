@@ -46,7 +46,7 @@ _Back to_ [[IF4053 Keamanan Perangkat Lunak]]
 > >
 > >
 > > ```mermaid
-> > flowchart TD
+> > flowchart LR
 > >     STRIDE["STRIDE"] --> S["Spoofing<br/>melanggar Otentikasi"]
 > >     STRIDE --> T["Tampering<br/>melanggar Integritas"]
 > >     STRIDE --> R["Repudiation<br/>melanggar Non-repudiation"]

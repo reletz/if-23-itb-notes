@@ -48,6 +48,9 @@ _Back to_ [[IF4020 Kriptografi]]
 > > Contoh hitung: $(t + s) = (19 + 18) \bmod 26 = 37 \bmod 26 = 11 = L$; $(e + o) = (4 + 14) \bmod 26 = 18 = S$.
 > >
 > > **Vigenère square** (tabel $26 \times 26$): baris $i$ adalah pergeseran alfabet sejauh $i$; enkripsi = titik potong baris huruf kunci dengan kolom huruf plainteks. Tak wajib — perhitungan modular di atas sudah cukup.
+> > 
+> > ![[Pasted image 20260901161611.png]]
+> > ![[Pasted image 20260901161635.png]]
 > >
 > > ### Kelebihan dan Histogram Datar
 > >

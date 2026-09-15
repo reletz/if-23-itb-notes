@@ -38,7 +38,6 @@ Semoga semua catatannya bermanfaat. Selamat belajar, ya!
 	- [[IF4031 Arsitektur Aplikasi Terdistribusi]]
 	- [[II2100 Komunikasi Interpersonal dan Publik]]
 	- [[WI2022 Manajemen Proyek]]
-	- [[ZZXXXX Seleksi Labsister]] (Arsip aja ^^)
 - ## Semester 6
 	 chillin' out
 	- [[IF3141 Sistem Informasi]]
@@ -58,3 +57,8 @@ Semoga semua catatannya bermanfaat. Selamat belajar, ya!
 	- [[IF5100 Pemrograman untuk Data Analitik]]
 	- [[IF5101 Manajemen Data]]
 	- [[IF5161 Keamanan Data dan Perangkat Lunak]]
+- ## Extras
+	- [[ZZXXXX Seleksi Labsister]] (Arsip aja ^^) (5)
+	- [[IF4031 Arsitektur Aplikasi Terdistribusi - A]] (7)
+	- [[IF3141 Sistem Informasi - A]] (7)
+	- [[ZZXXXY Socio-Tech Graph]] (7)
