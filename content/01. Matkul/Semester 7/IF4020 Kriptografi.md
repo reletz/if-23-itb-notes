@@ -21,4 +21,29 @@ _Back to_ [[index]]
 	- [[Vigenère Cipher dan Kriptanalisis Kasiski]]
 	- [[Playfair dan Affine Cipher]]
 	- [[Hill Cipher dan Enigma Cipher]]
+- ## One-Time Pad
+	- [[One-Time Pad dan Perfect Secrecy]]
+	- [[Kelemahan dan Penggunaan OTP]]
+- ## Serangan pada Kriptografi
+	- [[Serangan Berdasarkan Informasi yang Dimiliki]]
+	- [[Serangan Berdasarkan Tujuan Penyerang]]
+	- [[Serangan Pasif, Aktif, dan Side-Channel]]
+- ## Stream Cipher
+	- [[Kriptografi Modern dan Operasi XOR]]
+	- [[Stream Cipher dan LFSR]]
+	- [[RC4 dan A5]]
+	- [[Trivium, Salsa20, dan ChaCha20]]
+- ## Block Cipher
+	- [[Konsep Cipher Blok dan Mode Operasi]]
+	- [[Confusion, Diffusion, dan Jaringan Feistel]]
+	- [[DES dan Triple DES]]
+	- [[AES Rijndael]]
+	- [[GOST, RC5, RC6, dan Cipher Blok Lainnya]]
+- ## Kriptografi Kunci Publik
+	- [[Konsep Kriptografi Kunci Publik]]
+	- [[Algoritma RSA]]
+	- [[Keamanan dan Praktik RSA]]
+	- [[Algoritma ElGamal]]
+	- [[Hybrid Cryptography dan Diffie-Hellman]]
+	- [[Algoritma Knapsack Merkle-Hellman]]
 # UAS
