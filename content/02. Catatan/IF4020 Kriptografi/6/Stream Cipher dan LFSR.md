@@ -28,9 +28,11 @@ _Back to_ [[IF4020 Kriptografi]]
 > > Bit-bit kunci alir disebut **keystream**, dibangkitkan oleh **keystream generator** dari sebuah umpan (**seed**) $U$:
 > >
 > > $$c_i = p_i \oplus k_i \qquad p_i = c_i \oplus k_i$$
-> >
+> > 
+> > ![[Pasted image 20260929032711.png]]
+> > 
 > > ```mermaid
-> > flowchart LR
+> > flowchart TB
 > >     U1["Seed U"] --> G1["Keystream<br/>generator"] --> K1["k_i"]
 > >     P["p_i (plainteks)"] --> X1(("XOR"))
 > >     K1 --> X1

@@ -36,7 +36,7 @@ _Back to_ [[IF4020 Kriptografi]]
 > > **Mode operasi** menyangkut cara blok pesan dioperasikan **sebelum** dienkripsi/didekripsi oleh $E$ dan $D$. Ada lima: **ECB, CBC, CFB, OFB, Counter**.
 > >
 > > ```mermaid
-> > flowchart TD
+> > flowchart LR
 > >     M["Mode operasi cipher blok"]
 > >     M --> ECB["ECB<br/>blok independen"]
 > >     M --> CBC["CBC<br/>chaining blok sebelumnya"]

@@ -29,7 +29,7 @@ _Back to_ [[IF4020 Kriptografi]]
 > > Era ini juga melahirkan konsep baru: **kriptografi kunci-publik, fungsi hash, protokol kriptografi, tanda tangan digital, pembangkit bilangan acak, skema pembagian kunci**. Peta besarnya:
 > >
 > > ```mermaid
-> > flowchart TD
+> > flowchart LR
 > >     KL["Cryptology"] --> KG["Cryptography"]
 > >     KL --> KA["Cryptanalysis"]
 > >     KG --> SY["Symmetric ciphers"]
