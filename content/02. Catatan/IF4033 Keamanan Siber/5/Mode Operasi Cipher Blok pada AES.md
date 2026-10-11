@@ -33,7 +33,7 @@ _Back to_ [[IF4033 Keamanan Siber]]
 > > Blok pertama memerlukan **Initialization Vector (IV)** acak sebagai `c[0]`. IV **tidak harus rahasia**, tetapi harus **berbeda untuk tiap pesan/sesi** sehingga pesan sama yang dikirim berulang menghasilkan ciphertext yang selalu berbeda.
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     IV["IV"] --> X0["XOR m0"] --> E0["E(k)"] --> C0["c0"]
 > >     C0 --> X1["XOR m1"] --> E1["E(k)"] --> C1["c1"]
 > >     C1 --> X2["XOR m2"] --> E2["E(k)"] --> C2["c2"]

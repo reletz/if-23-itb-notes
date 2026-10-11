@@ -49,7 +49,7 @@ _Back to_ [[IF4033 Keamanan Siber]]
 > > Adaptasi prinsip *fail-safe*: saat terjadi error atau kegagalan (akibat serangan maupun cacat desain), sistem harus **jatuh ke keadaan aman**. Contoh: subjek tidak dapat mengambil objek bila authorization server gagal.
 > >
 > > ```mermaid
-> > flowchart TB
+> > flowchart LR
 > >     P["Prinsip Desain Aman"] --> D1["Defense in Depth"]
 > >     P --> D2["Open Design"]
 > >     P --> D3["Least Privilege"]

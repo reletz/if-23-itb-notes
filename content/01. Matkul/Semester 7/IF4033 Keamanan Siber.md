@@ -4,6 +4,16 @@ cssclasses:
 ---
 _Back to_ [[index]]
 
+# Rangkuman
+- ## Rangkuman UTS 
+	- [[Rangkuman - Definisi dan Contoh 1 - Fondasi, Software Security, VA, dan Network]]
+	- [[Rangkuman - Definisi dan Contoh 2 - Kriptografi dan Access Control]]
+	- [[Rangkuman - Definisi dan Contoh 3 - Forensics, Cloud-Native, dan Malware]]
+	- [[Rangkuman - Perbandingan Konsep yang Sering Tertukar]]
+	- [[Rangkuman - Studi Kasus Membaca Kode]]
+	- [[Rangkuman - Studi Kasus Membaca Topologi]]
+	- [[Rangkuman - Studi Kasus Memilih Metode Kriptografi]]
+
 # UTS
 - ## Intro
 	- [[Security Holistik, Vulnerability, Threat, Attack, dan Control]]
@@ -32,7 +42,6 @@ _Back to_ [[index]]
 	- [[Catatan Siber 7 Sept 2026 ]]
 	- [[Writeup Network Scanning]]
 - ## Cryptography
-	- [[Writeup Cryptography]]
 	- [[Dasar Kriptografi - Sejarah, Terminologi, dan Jenis Cipher]]
 	- [[Kriptografi Simetris - DES, 3DES, dan AES]]
 	- [[Mode Operasi Cipher Blok pada AES]]
@@ -41,6 +50,7 @@ _Back to_ [[index]]
 	- [[Hash Function, Message Digest, MAC, dan HMAC]]
 	- [[Kriptografi Kunci Publik dan Tanda Tangan Digital]]
 	- [[Kriptanalisis dan Protokol Keamanan Email]]
+	- [[Writeup Cryptography]]
 
 - ## Access Control
 	- [[Konsep Dasar Access Control]]

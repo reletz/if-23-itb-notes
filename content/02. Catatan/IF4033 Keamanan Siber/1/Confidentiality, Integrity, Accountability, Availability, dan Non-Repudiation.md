@@ -54,7 +54,7 @@ _Back to_ [[IF4033 Keamanan Siber]]
 > > | Authorization | Situs mengecek DB apakah Bob boleh memesan atas nama PCs-R-Us |
 > > | Integrity | Checksum pada paket TCP/IP (+ MAC pada SSL) |
 > > | Accountability | Log pesanan Bob |
-> > | Non-repudiation | Umumnya tidak ada karena butuh TTP |
+> > | Non-repudiation | Umumnya tidak ada karena butuh TTP (_Trusted Third Party_) |
 
 > [!cornell] #### Summary
 >

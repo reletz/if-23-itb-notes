@@ -51,7 +51,7 @@ _Back to_ [[IF4033 Keamanan Siber]]
 > > Mengorganisasi temuan recon, scanning, dan testing: per **host, service, bahaya dan risiko**, serta **rekomendasi perbaikan**. Tool dokumentasi: Dradis, Obsidian, Notion.
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     S["Scan<br/>(Nessus/OpenVAS)"] --> M["Mapping ke CVE/CWE"] --> V["Skor CVSS"] --> P["Prioritisasi"] --> R["Laporan & remediasi"]
 > > ```
 

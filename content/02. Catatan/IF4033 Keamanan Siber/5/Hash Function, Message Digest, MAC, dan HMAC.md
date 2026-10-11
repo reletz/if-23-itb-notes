@@ -59,7 +59,7 @@ _Back to_ [[IF4033 Keamanan Siber]]
 > > MAC membuktikan Alice yang *membuat* pesan, tetapi bukan bahwa ia *mengirimnya* sekarang. Penyerang dapat merekam dan memutar ulang "Transfer $1M dari Bill ke Trudy" beserta MAC-nya. Pertahanan: sertakan **nonce** R pada MAC = f(msg, s, R) sehingga setiap sesi unik.
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     M["Pesan m + rahasia s + nonce R"] --> H["HMAC"] --> T["Tag"]
 > >     T --> V["Penerima menghitung ulang<br/>dan membandingkan"]
 > > ```

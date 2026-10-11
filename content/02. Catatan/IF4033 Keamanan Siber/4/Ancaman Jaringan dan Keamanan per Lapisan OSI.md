@@ -34,6 +34,8 @@ _Back to_ [[IF4033 Keamanan Siber]]
 > > - **Membanjiri** layanan dengan trafik berlebih, **memblokir** trafik tertentu atau seluruhnya.
 > >
 > > ### Keamanan pada Lapisan Berbeda
+> > 
+> > ![[Pasted image 20261011224723.png]]
 > >
 > > | Lapisan | Mekanisme |
 > > |---|---|

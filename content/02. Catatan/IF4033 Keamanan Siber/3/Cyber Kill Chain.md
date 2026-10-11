@@ -24,7 +24,7 @@ _Back to_ [[IF4033 Keamanan Siber]]
 > > **Cyber Kill Chain** dikembangkan oleh **Lockheed Martin** untuk menggambarkan tahapan serangan siber dari awal hingga mencapai tujuan penyerang. Dengan memahami rantainya, pembela dapat **memutus rantai** di tahap mana pun.
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     R["1. Reconnaissance"] --> W["2. Weaponization"] --> D["3. Delivery"] --> E["4. Exploitation"] --> I["5. Installation"] --> C["6. Command &<br/>Control"] --> A["7. Action on<br/>Objective"]
 > > ```
 > >

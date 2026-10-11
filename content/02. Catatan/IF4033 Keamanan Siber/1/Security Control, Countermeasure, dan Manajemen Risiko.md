@@ -44,7 +44,7 @@ _Back to_ [[IF4033 Keamanan Siber]]
 > > ### Proses Risk Management
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     RA["Risk Assessment<br/>identify, describe,<br/>estimate, evaluate"] --> RT["Risk Treatment<br/>pilih perlakuan"]
 > >     RT --> RC["Risk Acceptance<br/>evaluasi residual risk"]
 > >     RC --> CM["Risk Communication<br/>ke seluruh organisasi"]

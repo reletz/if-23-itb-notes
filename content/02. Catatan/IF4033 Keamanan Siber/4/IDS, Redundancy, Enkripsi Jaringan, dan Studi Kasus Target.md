@@ -37,6 +37,9 @@ _Back to_ [[IF4033 Keamanan Siber]]
 > > Kombinasi segregasi, firewall, IDS/IPS, redundansi, dan enkripsi: kegagalan satu lapis tidak langsung menjatuhkan seluruh sistem.
 > >
 > > ### Enkripsi: Link vs End-to-End
+> > 
+> > ![[Pasted image 20261011230755.png]]
+> > ![[Pasted image 20261011230806.png]]
 > >
 > > | Aspek | Link Encryption | End-to-End Encryption |
 > > |---|---|---|
@@ -46,7 +49,7 @@ _Back to_ [[IF4033 Keamanan Siber]]
 > > | Kelemahan | Data terbuka di tiap node perantara | Header/metadata tetap terlihat |
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     S["Sumber"] -->|"enkripsi per link"| R1["Router 1"] -->|"enkripsi per link"| R2["Router 2"] -->|"enkripsi per link"| T["Tujuan"]
 > > ```
 > >

@@ -31,10 +31,14 @@ _Back to_ [[IF4033 Keamanan Siber]]
 > > Skala DDoS terus tumbuh dari tahun ke tahun (laporan Kaspersky Securelist Q3 2022).
 > >
 > > ### Reflection Attack
+> > 
+> > ![[Pasted image 20261011224809.png]]
 > >
 > > Penyerang mengirim request ke server pihak ketiga dengan **alamat sumber dipalsukan** menjadi alamat korban. Server pihak ketiga membalas ke korban, sehingga trafik datang dari banyak sumber sah. Bila balasan jauh lebih besar dari request (*amplification*, mis. DNS/NTP/memcached), dampaknya berlipat.
 > >
 > > ### Replay Attack
+> > 
+> > ![[Pasted image 20261011224825.png]]
 > >
 > > Penyerang **merekam dan memutar ulang** trafik. Walau trafik terenkripsi, penyerang tidak perlu memecahkannya: tujuannya mendapatkan **sesi valid** tanpa menyerang enkripsinya. Mitigasi: *nonce*, timestamp, nomor urut, dan token sesi sekali pakai.
 > >
@@ -42,11 +46,7 @@ _Back to_ [[IF4033 Keamanan Siber]]
 > >
 > > Dikenal juga sebagai *proxy*: penyerang diam-diam **meneruskan dan mungkin mengubah** komunikasi antara dua pihak yang mengira berkomunikasi langsung. Mitigasi: autentikasi sertifikat (TLS), mutual authentication, dan integritas pesan.
 > >
-> > ```mermaid
-> > flowchart LR
-> >     A["Alice"] <--> M["Mallory<br/>(MitM)"] <--> B["Bob"]
-> >     A -.->|"mengira langsung"| B
-> > ```
+> > ![[Pasted image 20261011225001.png]]
 
 > [!cornell] #### Summary
 >
