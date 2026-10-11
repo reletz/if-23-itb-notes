@@ -83,6 +83,38 @@ _Back to_ [[IF5100 Pemrograman untuk Data Analitik]]
 > >
 > > Deret: `1, 1, 2, 3, 5, 8, 13, 21, ...` — juga muncul sebagai penataan persegi (spiral Fibonacci) yang mendekati *golden spiral*.
 > >
+> > #### Memoization pada Fibonacci
+> >
+> > Rekursi naif `fib(5)` membuat **15 pemanggilan** karena subproblem yang sama dihitung berulang: `fib(3)` dipanggil **2x**, `fib(2)` **3x**, dan `fib(1)` **5x** (`fib(0)` 3x). Solusinya **memoization**: simpan nilai yang sudah dihitung di sebuah **cache** (dictionary `n -> nilai`) dan periksa cache sebelum menghitung.
+> >
+> > ```python
+> > def fibonacci_memo(n, cache=None):
+> >     if cache is None:
+> >         cache = {}
+> >
+> >     # Base cases & cache lookup
+> >     if n in cache:
+> >         return cache[n]
+> >     if n <= 0:
+> >         return 0
+> >     if n == 1:
+> >         return 1
+> >
+> >     # Simpan hasil di cache sebelum return
+> >     cache[n] = fibonacci_memo(n - 1, cache) + fibonacci_memo(n - 2, cache)
+> >     return cache[n]
+> >
+> > print(fibonacci_memo(100))  # 354224848179261915075
+> > ```
+> >
+> > Dengan cache, tiap `n` hanya dihitung **sekali** sehingga waktunya linear (`fib(100)` selesai seketika, padahal versi naif praktis tak selesai).
+> >
+> > > [!warning] Mengapa `cache=None`, bukan `cache={}`?
+> > > Nilai default argumen dibuat **sekali saat `def` dieksekusi**, bukan tiap pemanggilan. Dengan `cache={}`, dictionary yang **sama** (*mutable default*) dipakai ulang di semua pemanggilan dan **bocor antar pemanggilan** (state tersisa dari panggilan sebelumnya). Pola `cache=None` lalu `if cache is None: cache = {}` membuat dictionary baru tiap pemanggilan terluar, sementara pemanggilan rekursif meneruskan `cache` yang sama sebagai argumen.
+> >
+> > > [!note] Indeks Fibonacci: 0/1 vs 1/1
+> > > Ada dua konvensi indeks. Teka-teki kelinci memakai `females(0) = 1, females(1) = 1` (deret `1, 1, 2, 3, 5, 8, ...`). `fibonacci_memo` memakai konvensi baku `fib(0) = 0, fib(1) = 1` (deret `0, 1, 1, 2, 3, 5, 8, ...`), sehingga `females(n) = fib(n+1)`. Perhatikan konvensi ini saat membandingkan keluaran.
+> >
 > > ### Contoh: Menara Hanoi
 > >
 > > Tiga tiang; tumpukan `n` cakram berbeda ukuran di tiang pertama. **Tujuan**: pindahkan seluruh tumpukan ke tiang kedua. **Aturan**: pindahkan hanya **satu cakram** dalam satu waktu; **cakram yang lebih besar tidak boleh menutupi cakram yang lebih kecil**.

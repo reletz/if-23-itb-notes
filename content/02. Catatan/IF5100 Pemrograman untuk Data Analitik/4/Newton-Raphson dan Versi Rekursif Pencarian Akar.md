@@ -66,6 +66,11 @@ _Back to_ [[IF5100 Pemrograman untuk Data Analitik]]
 > >
 > > Perlu dicatat trade-off yang sama seperti dibahas di materi rekursi sebelumnya: versi rekursif **menghabiskan lebih banyak memori** dibanding versi iteratif, karena setiap pemanggilan rekursif menambah **stack frame** baru yang menyimpan *local scope* pemanggilan tersebut — sedangkan versi iteratif hanya memakai satu frame yang diperbarui berulang lewat loop.
 > >
+> > > [!note] Catatan istilah: "Recurrence?"
+> > > Slide menamai bagian ini **"Recurrence?"** padahal yang dimaksud adalah **rekursi** (*recursion*, fungsi memanggil dirinya sendiri), bukan *recurrence relation* (relasi rekurens) dalam analisis algoritma. Isinya hanya pertanyaan "bisakah kamu membuat versi rekursif dari bisection dan Newton-Raphson?" beserta peringatan memori stack frame.
+> >
+> > Slide Newton-Raphson (slide 7) sendiri hanya menyatakan "*much faster convergence even compared to bisection*" tanpa tabel atau grafik pembanding. Sebagai gambaran (dihitung dengan kode di atas, `x = 24`): untuk `epsilon = 0.01`, `0.0001`, `0.000001`, Newton-Raphson butuh **4, 4, 5** iterasi sedangkan bisection butuh **9, 16, 26** iterasi.
+> >
 > > ### Bisection Search, Versi Rekursif
 > >
 > > ```python

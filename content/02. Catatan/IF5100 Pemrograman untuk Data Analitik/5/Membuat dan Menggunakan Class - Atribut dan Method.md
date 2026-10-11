@@ -140,6 +140,20 @@ _Back to_ [[IF5100 Pemrograman untuk Data Analitik]]
 > > ```
 > >
 > > Tipe objek `c` adalah class `Coordinate`. `Coordinate` **adalah sebuah class**; class `Coordinate` **adalah sebuah tipe objek**. Fungsi `isinstance()` memeriksa apakah suatu objek merupakan instance dari class tertentu.
+> >
+> > > [!note] Keluaran Python 2 vs Python 3
+> > > Format keluaran pada slide (`<class __main__.Coordinate>` dan `<type 'type'>`) adalah gaya **Python 2**. Pada **Python 3**, keluarannya:
+> > >
+> > > ```
+> > > >>> print(type(c))
+> > > <class '__main__.Coordinate'>
+> > > >>> print(Coordinate)
+> > > <class '__main__.Coordinate'>
+> > > >>> print(type(Coordinate))
+> > > <class 'type'>
+> > > ```
+> > >
+> > > Maknanya sama: `type(c)` adalah class `Coordinate`, dan `type(Coordinate)` adalah `type` (class dari semua class). Selain itu, di Python 3 `class Coordinate:` tanpa `(object)` setara dengan `class Coordinate(object):`.
 
 > [!cornell] #### Summary
 >

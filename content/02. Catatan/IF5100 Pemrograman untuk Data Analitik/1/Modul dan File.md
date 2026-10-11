@@ -52,6 +52,29 @@ _Back to_ [[IF5100 Pemrograman untuk Data Analitik]]
 > >
 > > `pi` dan `circle.pi` merujuk **objek yang berbeda** — impor memberi *namespace* tersendiri.
 > >
+> > `circle.py` pada slide juga memuat dua fungsi bola, dan program pemakainya mencetak lima baris (nilai di komentar):
+> >
+> > ```python
+> > # tambahan di circle.py
+> > def sphere_surface(radius):
+> >     return 4.0 * area(radius)
+> >
+> > def sphere_volume(radius):
+> >     return (4.0 / 3.0) * pi * (radius ** 3)
+> >
+> > # program pemakai
+> > import circle
+> > pi = 3
+> > print(pi)                          # 3
+> > print(circle.pi)                   # 3.14159
+> > print(circle.area(3))              # 28.27431
+> > print(circle.circumference(3))     # 18.849539999999998
+> > print(circle.sphere_surface(3))    # 113.09724
+> > print(circle.sphere_volume(3))     # 113.09723999999999
+> > ```
+> >
+> > Perhatikan hasil `18.849539999999998`: artefak representasi *floating point*, bukan bug.
+> >
 > > ### Varian Statement import
 > >
 > > ```mermaid
@@ -77,6 +100,36 @@ _Back to_ [[IF5100 Pemrograman untuk Data Analitik]]
 > > print(cal.day_name[cal.weekday(2033, 12, 25)])  # hari Natal 2033
 > > ```
 > >
+> > **Thanksgiving AS** selalu jatuh pada **Kamis keempat bulan November**. `calendar.monthcalendar(year, month)` mengembalikan list minggu (tiap minggu list 7 angka, hari di luar bulan bernilai `0`). Bila minggu pertama sudah memuat hari Kamis (`month[0][THURSDAY] != 0`), Kamis keempat ada di indeks minggu 3; bila tidak, ada di indeks minggu 4.
+> >
+> > ```python
+> > import calendar as cal
+> >
+> > def find_thanksgiving(year):
+> >     month = cal.monthcalendar(year, 11)
+> >     if month[0][cal.THURSDAY] != 0:
+> >         thanksgiving = month[3][cal.THURSDAY]
+> >     else:
+> >         thanksgiving = month[4][cal.THURSDAY]
+> >     return thanksgiving
+> >
+> > print("In 2011", "U.S. Thanksgiving was on November", find_thanksgiving(2011))
+> > # In 2011 U.S. Thanksgiving was on November 24
+> > ```
+> >
+> > **Finger exercise**: tulis `shopping_days(year)` yang mengembalikan jumlah hari antara Thanksgiving AS dan Natal pada tahun tersebut. Spesifikasi slide: `year` berupa angka `<= 1941` (catatan: tanggal Thanksgiving 4th-Thursday secara hukum baru berlaku dari 1941/1942, sehingga solusi di bawah valid untuk tahun yang mengikuti aturan itu).
+> >
+> > ```python
+> > def shopping_days(year):
+> >     """year: a number <= 1941
+> >     returns the number of days between US Thanksgiving and Christmas
+> >     of the year"""
+> >     # November punya 30 hari: sisa hari November + 25 hari Desember
+> >     return (30 - find_thanksgiving(year)) + 25
+> >
+> > print(shopping_days(2011))   # 31  (24 Nov -> 25 Des)
+> > ```
+> >
 > > ### Operasi File Dasar
 > >
 > > File menyimpan hasil dari satu komputasi ke komputasi berikutnya. `open()` mengembalikan sebuah **file handle**:
@@ -96,6 +149,30 @@ _Back to_ [[IF5100 Pemrograman untuk Data Analitik]]
 > >
 > > File handle juga bisa langsung diiterasi: `for line in fh:` menghasilkan baris demi baris.
 > >
+> > Contoh **append lalu baca ulang** `kids.txt`:
+> >
+> > ```python
+> > # baca isi file
+> > with open("kids.txt", 'r') as name_handle:
+> >     for line in name_handle:
+> >         print(line)          # tiap baris dicetak dengan baris kosong di bawahnya
+> >
+> > # tambah dua nama, lalu baca ulang
+> > name_handle = open("kids.txt", 'a')
+> > for i in range(2):
+> >     name = input("Enter new name: ")
+> >     name_handle.write(name + '\n')
+> > name_handle.close()
+> >
+> > name_handle = open("kids.txt", 'r')
+> > for line in name_handle:
+> >     print(line)
+> > name_handle.close()
+> > ```
+> >
+> > - **Gotcha baris kosong**: `line` sudah berakhir `'\n'`, dan `print` menambah `'\n'` lagi, sehingga keluaran berjarak dua baris. Perbaiki dengan `print(line, end='')` atau `print(line.strip())`.
+> > - **`write()` hanya menerima string**: `fh.write(5)` memunculkan `TypeError`; ubah dulu dengan `str(5)`.
+> >
 > > ### Statement with
 > >
 > > `with` menjamin file **selalu ditutup**, bahkan bila terjadi error di tengah — menggantikan pola `try/finally` yang verbose:
@@ -107,6 +184,26 @@ _Back to_ [[IF5100 Pemrograman untuk Data Analitik]]
 > >         name = input("Enter name: ")
 > >         name_handle.write(name + '\n')
 > > # file otomatis tertutup di sini
+> > ```
+> >
+> > Tiga cara menulis ke file, dari yang paling rawan ke yang paling aman:
+> >
+> > ```python
+> > # 1) open/close manual: bila write() error, close() tidak pernah tercapai
+> > file = open('file_path', 'w')
+> > file.write('hello world !')
+> > file.close()
+> >
+> > # 2) try/finally: file pasti ditutup, tetapi verbose
+> > file = open('file_path', 'w')
+> > try:
+> >     file.write('hello world')
+> > finally:
+> >     file.close()
+> >
+> > # 3) with: ringkas dan otomatis menutup file
+> > with open('file_path', 'w') as file:
+> >     file.write('hello world !')
 > > ```
 > >
 > > ### Konvensi Import

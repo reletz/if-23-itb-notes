@@ -25,6 +25,27 @@ _Back to_ [[IF5100 Pemrograman untuk Data Analitik]]
 > >
 > > Exception juga bisa dipakai untuk **mengatur alur eksekusi**. Alih-alih mengembalikan nilai khusus saat terjadi error lalu memaksa pemanggil mengecek "apakah nilai error dikembalikan", lebih baik **lempar exception ketika fungsi tidak mampu menghasilkan hasil yang konsisten dengan spesifikasinya**.
 > >
+> > ### Contoh #1: `get_ratios`
+> >
+> > Contoh pertama pada slide 10: fungsi yang membagi dua list elemen demi elemen. **Pembagian nol** dianggap hasil yang sah (diberi `nan`), sedangkan **error lain** dianggap argumen yang buruk sehingga fungsi **melempar exception-nya sendiri** (`ValueError`) untuk mengatur alur program:
+> >
+> > ```python
+> > def get_ratios(L1, L2):
+> >     """ Assumes: L1 and L2 are lists of equal length of numbers
+> >         Returns: a list containing L1[i]/L2[i] """
+> >     ratios = []
+> >     for index in range(len(L1)):
+> >         try:
+> >             ratios.append(L1[index]/L2[index])
+> >         except ZeroDivisionError:
+> >             ratios.append(float('nan'))  # nan = not a number
+> >         except:
+> >             raise ValueError('get_ratios called with bad arg')
+> >     return ratios
+> > ```
+> >
+> > Contoh: `get_ratios([1, 4, 3], [2, 0, 3])` menghasilkan `[0.5, nan, 1.0]`; `get_ratios([1, 2], ['a', 1])` atau list dengan panjang tidak sama melempar `ValueError: get_ratios called with bad arg`.
+> >
 > > ### Studi Kasus: `get_stats` dan `avg`
 > >
 > > Diberikan daftar kelas sebuah mata kuliah; tiap entri adalah list dua bagian — list nama depan/belakang, dan list nilai tugas:
@@ -40,7 +61,29 @@ _Back to_ [[IF5100 Pemrograman untuk Data Analitik]]
 > >     return sum(grades) / len(grades)
 > > ```
 > >
-> > **Masalahnya**: bila ada entri seperti `[['deadpool'], []]` (tanpa nilai), `avg` menjalankan `sum([]) / len([])` → **`ZeroDivisionError: float division by zero`**.
+> > Dengan data sederhana, hasilnya sesuai harapan:
+> >
+> > ```python
+> > test_grades = [[['peter', 'parker'], [80.0, 70.0, 85.0]],
+> >                [['bruce', 'wayne'], [100.0, 80.0, 74.0]]]
+> > # get_stats(test_grades) ->
+> > # [[['peter', 'parker'], [80.0, 70.0, 85.0], 78.33333],
+> > #  [['bruce', 'wayne'], [100.0, 80.0, 74.0], 84.666667]]
+> > ```
+> >
+> > **Masalahnya**: bila ada entri seperti `[['deadpool'], []]` (tanpa nilai), `avg` menjalankan `sum([]) / len([])` → **`ZeroDivisionError: float division by zero`**. Data uji pada slide 12 sengaja memuat entri tak wajar:
+> >
+> > ```python
+> > test_grades = [[['peter', 'parker'], [10.0, 5.0, 85.0]],
+> >                [['bruce', 'wayne'], [10.0, 8.0, 74.0]],
+> >                [['captain', 'america'], [8.0, 10.0, 96.0], 17.5],  # entri 3 elemen (cacat)
+> >                [['deadpool'], []]]
+> > ```
+> >
+> > Entri `captain america` punya **elemen ketiga** (`17.5`) yang diabaikan `get_stats` karena hanya memakai `elt[0]` dan `elt[1]`; yang menggagalkan program tetap `deadpool`.
+> >
+> > > [!note] Keluaran contoh pada slide tidak cocok dengan data
+> > > Slide menampilkan rata-rata `15.41666666`, `13.83333334`, dan `17.5` untuk data di atas, padahal dihitung langsung `avg` menghasilkan `33.33`, `30.67`, dan `38.0` (mis. `(10 + 5 + 85) / 3 = 33.33`). Angka di slide tampaknya berasal dari data lain; yang penting dari contoh ini adalah **bentuk keluarannya**: `deadpool` bernilai `None` (opsi 1) atau `0.0` (opsi 2), disertai `warning: no grades data`.
 > >
 > > ### Tiga Opsi Penanganan
 > >
@@ -86,7 +129,16 @@ _Back to_ [[IF5100 Pemrograman untuk Data Analitik]]
 > >         raise e
 > > ```
 > >
-> > Ini **tidak fail silently** — error tetap disinyalkan setelah dicatat. **Pemanggil (atau pemanggil dari pemanggil, dst.) harus menangani** exception itu; jika tidak, terjadi *unhandled exception*.
+> > Ini **tidak fail silently** — error tetap disinyalkan setelah dicatat. **Pemanggil (atau pemanggil dari pemanggil, dst.) harus menangani** exception itu; jika tidak, terjadi *unhandled exception*. Contoh penanganan di sisi pemanggil:
+> >
+> > ```python
+> > try:
+> >     stats = get_stats(test_grades)
+> > except ZeroDivisionError:
+> >     print('class list contains a student without grades')
+> > ```
+> >
+> > Dengan data di atas, keluarannya `warning: no grades data` (dari `avg`) diikuti `class list contains a student without grades` (dari pemanggil); `stats` tidak pernah terisi.
 > >
 > > ### Assertion
 > >
@@ -112,11 +164,12 @@ _Back to_ [[IF5100 Pemrograman untuk Data Analitik]]
 > >
 > > Tujuannya **menemukan bug sedini mungkin** dan memperjelas di mana ia terjadi; dipakai sebagai **pelengkap testing**. Gunakan assertion untuk:
 > >
-> > - melempar exception bila pengguna memberi **input data yang buruk**;
 > > - memeriksa **tipe** argumen atau nilai;
 > > - memeriksa bahwa **invarian** struktur data terpenuhi;
 > > - memeriksa **batasan** pada nilai return;
 > > - memeriksa pelanggaran **constraint** pada prosedur (mis. tidak ada duplikat dalam list).
+> >
+> > Terpisah dari assertion, slide 20 juga menyebut: **`raise` exception bila pengguna memberi data input yang buruk** — validasi data dari pengguna memakai exception (`if ...: raise ValueError(...)`), bukan `assert`, karena `assert` ditujukan untuk memeriksa asumsi programmer dan dapat dinonaktifkan.
 
 > [!cornell] #### Summary
 >

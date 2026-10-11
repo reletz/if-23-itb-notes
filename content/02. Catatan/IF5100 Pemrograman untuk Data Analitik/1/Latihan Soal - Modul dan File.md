@@ -33,6 +33,8 @@ with open("log.txt", "w") as f:
     f.write("new entry\n")
 ```
 
+3.7 (write, finger exercise from deck) Using `calendar`, write `shopping_days(year)` that returns the number of days between US Thanksgiving (fourth Thursday of November) and Christmas of that year. Check it with 2011.
+
 ---
 
 3.1. Pembahasan: `import circle` menaruh nama **`circle`** (modul itu sendiri sebagai objek) ke *namespace* saat ini — isi modul hanya bisa diakses lewat *dot notation* (`circle.pi`). Jika kode saat ini juga mendefinisikan variabel `pi` sendiri, itu adalah nama **terpisah** di *namespace* saat ini; keduanya kebetulan sama-sama bernama `pi` tapi hidup di *namespace* berbeda, jadi tidak saling menimpa. `from circle import *` **mengubah ini** — ia menyalin semua nama publik modul (termasuk `pi`) langsung ke *namespace* saat ini, sehingga `pi` lokal (jika ada, didefinisikan setelah `import *`) akan **menimpa** `pi` dari `circle`, atau sebaliknya jika `import *` dieksekusi setelah `pi` lokal didefinisikan — berpotensi tabrakan nama (*name collision*) yang sulit dilacak sumbernya.
@@ -73,3 +75,23 @@ with open("data.txt", "w") as f:
 with open("log.txt", "a") as f:
     f.write("new entry\n")
 ```
+
+3.7. Kode verifikasi:
+```python
+import calendar as cal
+
+def find_thanksgiving(year):
+    month = cal.monthcalendar(year, 11)
+    if month[0][cal.THURSDAY] != 0:
+        return month[3][cal.THURSDAY]
+    return month[4][cal.THURSDAY]
+
+def shopping_days(year):
+    """year: a number <= 1941
+    returns the number of days between US Thanksgiving and Christmas
+    of the year"""
+    return (30 - find_thanksgiving(year)) + 25
+
+print(shopping_days(2011))   # 31
+```
+`monthcalendar(year, 11)` mengembalikan list minggu dengan `0` untuk hari di luar bulan. Bila minggu pertama sudah memuat Kamis, Kamis keempat ada di `month[3]`; jika tidak di `month[4]`. Thanksgiving 2011 jatuh pada 24 November, sehingga sisa November = 30 - 24 = 6 hari, ditambah 25 hari Desember = 31 hari.

@@ -19,3 +19,5 @@ _Back to_ [[index]]
 	- [[OWASP Top 10 2004]]
 	- [[OWASP Top 10 2003]]
 	- [[Summary OWASP Top 10]]
+- ## Security Testing
+	- [[Catatan KDPL 5 Oktober 2026]]

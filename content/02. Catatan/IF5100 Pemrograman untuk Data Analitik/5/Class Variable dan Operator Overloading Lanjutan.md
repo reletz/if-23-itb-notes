@@ -70,6 +70,20 @@ _Back to_ [[IF5100 Pemrograman untuk Data Analitik]]
 > >
 > > Ini mendefinisikan operator `+` antara dua instance `Rabbit`: `r4 = r1 + r2` (r1, r2 adalah instance Rabbit). `r4` adalah instance `Rabbit` **baru** dengan umur `0`; `r4` memiliki `self` sebagai satu parent dan `other` sebagai parent lainnya — mengacu langsung pada signature `__init__(self, age, parent1=None, parent2=None)` milik `Rabbit`. Pola ini menunjukkan bagaimana operator overloading bisa **membangun objek baru dari kombinasi dua objek lama**, mensimulasikan "perkawinan" dua kelinci menghasilkan anak.
 > >
+> > Contoh penggunaan `+` dan `get_rid()` (keluaran terverifikasi, dimulai dari `Rabbit.tag == 1`):
+> >
+> > ```python
+> > r1 = Rabbit(3)
+> > r2 = Rabbit(4)
+> > r3 = r1 + r2                     # Rabbit(0, r1, r2)
+> > print(r1.get_rid(), r2.get_rid())  # 001 002
+> > print(r3.get_rid())              # 003  (id ketiga, berumur 0)
+> > print(r3.get_parent1().get_rid())  # 001  (parent1 adalah r1)
+> > print(Rabbit.tag)                # 4  (nilai tag berikutnya)
+> > ```
+> >
+> > `str(3).zfill(3)` menghasilkan `'003'`; angka yang sudah 3 digit atau lebih tidak dipotong (`str(1234).zfill(3)` tetap `'1234'`).
+> >
 > > ### Membandingkan Dua Rabbit: `__eq__`
 > >
 > > Diputuskan bahwa dua kelinci adalah **saudara (sibling)** jika keduanya memiliki **dua parent yang sama**:

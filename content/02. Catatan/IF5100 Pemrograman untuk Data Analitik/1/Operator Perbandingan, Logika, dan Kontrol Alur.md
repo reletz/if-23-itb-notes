@@ -67,6 +67,8 @@ _Back to_ [[IF5100 Pemrograman untuk Data Analitik]]
 > >
 > > `<condition>` dievaluasi ke Boolean; bila `True`, seluruh langkah dalam blok dijalankan, lalu `<condition>` **diperiksa lagi**, berulang sampai `<condition>` bernilai `False`. Programmer bertanggung jawab memastikan kondisi akhirnya menjadi `False` (jika tidak → loop tak berujung).
 > >
+> > Motivasi dari slide: bagaimana memprogram *generic maze solver*? Alih-alih menulis aturan untuk tiap labirin, cukup "**ulangi `while` belum sampai finish**, lalu lakukan langkah gerak" — kondisi berhenti baru diketahui saat runtime, sehingga cocok untuk `while`.
+> >
 > > ```mermaid
 > > flowchart TD
 > >     S["Mulai"] --> C{"condition True?"}

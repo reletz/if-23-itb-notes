@@ -189,6 +189,209 @@ _Back to_ [[IF5100 Pemrograman untuk Data Analitik]]
 > > 1. **Bangun frequency dict** `str → int`: iterasi kata, `d[word] += 1` bila sudah ada, `d[word] = 1` bila belum.
 > > 2. **Cari kata terbanyak**: `best = max(d.values())`, kumpulkan semua key dengan `d[k] == best` ke sebuah list, kembalikan `(words, best)` (list untuk mengantisipasi seri).
 > > 3. **Cari kata dengan frekuensi ≥ X**: loop — ambil kata terbanyak, bila `freq >= minTimes` simpan lalu **hapus key itu dari dict** dan ulangi; berhenti saat tak ada lagi. Bekerja karena kita **memutasi dictionary** untuk menyederhanakan iterasi.
+> >
+> > ### Contoh Kode Lengkap
+> >
+> > **String dan loop** (slide 9) — dua potongan di bawah melakukan hal sama; versi `for char in s` lebih *pythonic*. Perhatikan perbandingan harus `==` (slide asli salah menulis `=`):
+> >
+> > ```python
+> > s = "abcdefghi"
+> >
+> > for index in range(len(s)):
+> >     if s[index] == 'i' or s[index] == 'u':
+> >         print("There is an i or u")
+> >
+> > for char in s:
+> >     if char == 'i' or char == 'u':
+> >         print("There is an i or u")
+> > ```
+> >
+> > **Robot Cheerleaders** (slide 10) — `an` dipakai untuk huruf yang dilafalkan berawalan vokal (*an* H, *an* L, *an* X, dst.):
+> >
+> > ```python
+> > an_letters = "aefhilmnorsxAEFHILMNORSX"
+> >
+> > word = input("I will cheer for you! Enter a word: ")
+> > times = int(input("Enthusiasm level (1-10): "))
+> >
+> > i = 0
+> > while i < len(word):
+> >     char = word[i]
+> >     if char in an_letters:
+> >         print("Give me an " + char + "! " + char)
+> >     else:
+> >         print("Give me a " + char + "! " + char)
+> >     i += 1
+> >
+> > print("What does that spell?")
+> > for i in range(times):
+> >     print(word, "!!!")
+> > ```
+> >
+> > Catatan: kode di slide menyelipkan `for char in word:` di dalam cabang `if char in an_letters`. Loop dalam itu **bug (sisa yang tidak disengaja)**: untuk tiap huruf `an` seluruh kata akan dicetak ulang, dan `char` ditimpa oleh variabel loop dalam. Versi di atas sudah membuangnya sehingga hanya ada satu baris cheer per huruf.
+> >
+> > **Latihan nested loop `s1`/`s2`** (slide 11) — `break` hanya keluar dari loop **terdalam**, bukan keduanya:
+> >
+> > ```python
+> > s1 = "itb u rock"
+> > s2 = "i rule itb"
+> > if len(s1) == len(s2):
+> >     for char1 in s1:
+> >         for char2 in s2:
+> >             if char1 == char2:
+> >                 print("common letter")
+> >                 break
+> > # mencetak "common letter" 7 kali: satu per karakter s1
+> > # yang ada di s2 (i, t, b, spasi, u, spasi, r), bukan satu kali.
+> > ```
+> >
+> > **Menukar nilai: naif vs temp vs tuple** (slide 14):
+> >
+> > ```python
+> > x, y = 1, 2
+> >
+> > # naif: SALAH, nilai x asli hilang
+> > x = y
+> > y = x          # x = 2, y = 2
+> >
+> > x, y = 1, 2
+> > # dengan variabel temporer
+> > temp = x
+> > x = y
+> > y = temp       # x = 2, y = 1
+> >
+> > x, y = 1, 2
+> > # tuple: tanpa variabel temporer
+> > (x, y) = (y, x)   # x = 2, y = 1
+> > ```
+> >
+> > **Manipulasi tuple `get_data`** (slide 15) — membangun tuple baru lewat `+` dengan **singleton** `(t[0],)`, karena tuple immutable:
+> >
+> > ```python
+> > def get_data(aTuple):
+> >     """aTuple: tuple of (int, string) tuples
+> >     returns (angka terkecil, angka terbesar, jumlah kata unik)"""
+> >     nums = ()       # tuple kosong
+> >     words = ()
+> >     for t in aTuple:
+> >         nums = nums + (t[0],)           # singleton tuple
+> >         if t[1] not in words:
+> >             words = words + (t[1],)
+> >     min_n = min(nums)
+> >     max_n = max(nums)
+> >     unique_words = len(words)
+> >     return (min_n, max_n, unique_words)
+> >
+> > print(get_data(((1, "mine"), (2, "yours"), (3, "mine"))))   # (1, 3, 2)
+> > ```
+> >
+> > **Pola iterasi list** (slide 20) — dua cara menghitung jumlah elemen:
+> >
+> > ```python
+> > L = [4, 5, 6]
+> >
+> > total = 0
+> > for i in range(len(L)):    # iterasi lewat indeks 0..len(L)-1
+> >     total += L[i]
+> > print(total)               # 15
+> >
+> > total = 0
+> > for i in L:                # iterasi langsung elemen (seperti string)
+> >     total += i
+> > print(total)               # 15
+> > ```
+> >
+> > **Menghapus elemen: `remove`, `del`, `pop`** (slide 23) — jalankan **berurutan**, tiap langkah memutasi `L`:
+> >
+> > ```python
+> > L = [2, 1, 3, 6, 3, 7, 0]
+> > L.remove(2)    # L = [1, 3, 6, 3, 7, 0]
+> > L.remove(3)    # L = [1, 6, 3, 7, 0]   (hanya kemunculan pertama)
+> > del(L[1])      # L = [1, 3, 7, 0]
+> > L.pop()        # mengembalikan 0; L = [1, 3, 7]
+> > ```
+> >
+> > **List of lists dan aliasing** (slide 29-32) — alias, clone, dan nested list:
+> >
+> > ```python
+> > warm = ['red', 'yellow', 'orange']
+> > hot = warm                 # alias: menunjuk objek yang sama
+> > hot.append('pink')
+> > print(warm)                # ['red', 'yellow', 'orange', 'pink']
+> >
+> > cool = ['blue', 'green']
+> > chill = cool[:]            # clone: objek baru
+> > chill.append('black')
+> > print(cool)                # ['blue', 'green'] -- tidak berubah
+> >
+> > # nested list: elemen dalam tetap DIBAGI oleh clone dangkal
+> > a = [[1, 2], [3]]
+> > b = a[:]
+> > b[0].append(99)
+> > print(a)                   # [[1, 2, 99], [3]] -- side effect tetap terjadi
+> > ```
+> >
+> > **Parallel list dan `get_grade`** (slide 35-36) — info mahasiswa disimpan di beberapa list sejajar:
+> >
+> > ```python
+> > names = ["Anna", "John", "Denise", "Katy"]
+> > grade = ["B", "A+", "A", "A"]
+> > course = [2.00, 6.0001, 20.0002, 9.01]
+> >
+> > def get_grade(student, name_list, grade_list, course_list):
+> >     i = name_list.index(student)
+> >     grade = grade_list[i]
+> >     course = course_list[i]
+> >     return (course, grade)
+> >
+> > print(get_grade("John", names, grade, course))   # (6.0001, 'A+')
+> > ```
+> >
+> > Kelemahan pendekatan ini: **berantakan** bila info bertambah, harus **memelihara banyak list** dan mengopernya sebagai argumen, **selalu diindeks dengan integer**, dan harus **mengubah beberapa list sekaligus** agar tetap sinkron. Solusinya: dictionary.
+> >
+> > **Tiga fungsi analisis lirik** (slide 45-47), termasuk `words_often`:
+> >
+> > ```python
+> > def lyrics_to_frequencies(lyrics):
+> >     myDict = {}
+> >     for word in lyrics:
+> >         if word in myDict:
+> >             myDict[word] += 1
+> >         else:
+> >             myDict[word] = 1
+> >     return myDict
+> >
+> > def most_common_words(freqs):
+> >     values = freqs.values()    # iterable, bisa dipakai max()
+> >     best = max(values)
+> >     words = []
+> >     for k in freqs:            # iterasi key dictionary
+> >         if freqs[k] == best:
+> >             words.append(k)
+> >     return (words, best)
+> >
+> > def words_often(freqs, minTimes):
+> >     result = []
+> >     done = False
+> >     while not done:
+> >         temp = most_common_words(freqs)
+> >         if temp[1] >= minTimes:
+> >             result.append(temp)
+> >             for w in temp[0]:
+> >                 del(freqs[w])  # memutasi dictionary asli
+> >         else:
+> >             done = True
+> >     return result
+> >
+> > song = "she loves you yeah yeah yeah she loves you yeah yeah yeah you think you lost your love".split()
+> > freqs = lyrics_to_frequencies(song)
+> > print(words_often(freqs, 2))
+> > # [(['yeah'], 6), (['you'], 4), (['she', 'loves'], 2)]
+> > print(freqs)
+> > # {'think': 1, 'lost': 1, 'your': 1, 'love': 1}  <- freqs ikut berubah!
+> > ```
+> >
+> > **Gotcha `words_often`**: fungsi ini **memutasi `freqs` milik pemanggil** (side effect) — setelah dipanggil, kata-kata yang lolos ambang sudah terhapus dari dictionary. Bila data asli masih dibutuhkan, oper salinan: `words_often(dict(freqs), 2)`. Perhatikan juga bahwa bila **semua** kata lolos ambang (mis. `minTimes=1`), dictionary menjadi kosong dan `max()` memunculkan `ValueError`.
 
 > [!cornell] #### Summary
 >

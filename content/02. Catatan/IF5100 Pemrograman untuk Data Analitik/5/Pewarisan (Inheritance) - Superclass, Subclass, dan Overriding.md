@@ -78,6 +78,9 @@ _Back to_ [[IF5100 Pemrograman untuk Data Analitik]]
 > >
 > > `Mammal(Animal)` berarti `Mammal` adalah **subclass** dari `Animal`.
 > >
+> > > [!note] Redundansi pada `Mammal`
+> > > Isi `Mammal` di slide hanyalah **menulis ulang** method yang sudah ada di `Animal` (`__init__`, `get_age`, `get_name`, `set_age`, `set_name`) — satu-satunya bagian yang berbeda adalah `__str__` yang mengembalikan `"mammal:..."`. Secara fungsional `Mammal` cukup ditulis sebagai subclass yang hanya meng-override `__str__` (atau bahkan `class Mammal(Animal): pass`), karena semua method lainnya otomatis diwarisi. Duplikasi ini terutama berfungsi sebagai ilustrasi sintaks pewarisan di slide.
+> >
 > > ### Child Class: Cat
 > >
 > > ```python
@@ -142,6 +145,29 @@ _Back to_ [[IF5100 Pemrograman untuk Data Analitik]]
 > >     def __str__(self):
 > >         return "student:"+str(self.name)+":"+str(self.age)+":"+str(self.major)
 > > ```
+> >
+> > Contoh pemakaian rantai `Person` dan `Student` (keluaran terverifikasi):
+> >
+> > ```python
+> > p1 = Person("jack", 30)
+> > p2 = Person("jill", 25)
+> > print(p1)                # person:jack:30
+> > print(p1.get_name(), p1.get_age())   # jack 30  (diwarisi dari Mammal)
+> > p1.speak()               # hello
+> > p1.age_diff(p2)          # 5 year difference
+> > p1.add_friend("jill")
+> > p1.add_friend("jill")    # duplikat diabaikan
+> > print(p1.get_friends())  # ['jill']
+> >
+> > s = Student("alice", 20, "CS")
+> > print(s)                 # student:alice:20:CS
+> > s.change_major("EE")
+> > print(s)                 # student:alice:20:EE
+> > s.age_diff(p1)           # 10 year difference  (age_diff diwarisi dari Person)
+> > s.speak()                # salah satu dari 4 kalimat, acak
+> > ```
+> >
+> > `Mammal` tidak punya `speak()` sehingga `Mammal(5).speak()` melempar `AttributeError: 'Mammal' object has no attribute 'speak'` — method baru milik subclass **tidak tersedia ke atas** pada superclass-nya (hal yang sama berlaku bagi `Animal`).
 > >
 > > `import random` membawa masuk fungsi-fungsi dari modul `random`. `Student` mewarisi attribute milik `Person` sekaligus `Mammal` (rantai pewarisan: `Student` → `Person` → `Mammal` → `Animal`); `Person.__init__(self, name, age)` **merantai pemanggilan constructor naik ke hierarki**. `change_major` menambah perilaku baru yang mengubah data. `speak` **dioverride** dengan perilaku acak memakai `random.random()` (mengembalikan float di rentang [0,1)).
 

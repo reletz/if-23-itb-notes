@@ -36,3 +36,23 @@ _Back to_ [[index]]
 	- [[Latihan Soal - Exception dan Assertion]]
 	- [[Latihan Soal - Algoritma Numerik]]
 	- [[Latihan Soal - Object-Oriented Programming]]
+
+- ## Kompleksitas Algoritma
+	- [[Efisiensi Program dan Orders of Growth (Big-O)]]
+	- [[Kelas Kompleksitas, Analisis Program, dan Operasi Bawaan Python]]
+- ## Masalah Optimasi
+	- [[Model Optimasi dan Knapsack Problem]]
+	- [[Algoritma Greedy untuk Knapsack]]
+	- [[Decision Tree (Brute Force) untuk Knapsack]]
+	- [[Dynamic Programming dan Memoization]]
+- ## Model Graf
+	- [[Model Graf dan Implementasi Graf]]
+	- [[Shortest Path - DFS dan BFS]]
+- ## Exercise
+	- [[Latihan Soal - Kompleksitas Algoritma]]
+	- [[Latihan Soal - Masalah Optimasi]]
+	- [[Latihan Soal - Model Graf]]
+
+
+
+# UAS

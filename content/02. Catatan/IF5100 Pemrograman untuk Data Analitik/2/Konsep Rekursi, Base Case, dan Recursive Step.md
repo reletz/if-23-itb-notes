@@ -94,6 +94,17 @@ _Back to_ [[IF5100 Pemrograman untuk Data Analitik]]
 > >         return n * factorial(n - 1)
 > > ```
 > >
+> > ### Precondition dan Argumen Terminasi
+> >
+> > - **Precondition**: `mult(a, b)` benar **hanya selama `b` positif** (slide: "*as long as b is positive*"). `mult(a, 0)` tidak pernah menyentuh base case `b == 1` — `b` terus turun `0, -1, -2, ...` sehingga rekursi **tak berujung** (Python akhirnya melempar `RecursionError`). Hal yang sama berlaku untuk `factorial(0)`: base case-nya `n == 1`, jadi `n` turun ke `0, -1, ...` tanpa henti. Base case harus **terjangkau** dari semua input yang diizinkan; bila tidak, perluas base case (mis. `n <= 1`) atau jaga dengan `assert`.
+> > - **Terminasi versi iteratif**: `multiply_iter` pasti berhenti karena `b` awalnya positif dan **berkurang 1 tiap putaran**, sehingga akhirnya kurang dari 1 dan kondisi `while b > 0` menjadi salah. Argumen yang sama (nilai yang mengecil menuju batas) dipakai untuk versi rekursif: tiap pemanggilan membuat `b` lebih kecil hingga `b == 1`.
+> > - **Pra-pemrosesan string** (dipakai pada pengecek palindrome di catatan *Scope Pemanggilan*): buang tanda baca dan ubah ke huruf kecil dengan dua baris:
+> >
+> > ```python
+> > s = "Able was I, ere I saw Elba"
+> > clean = "".join(c.lower() for c in s if c.isalpha())  # 'ablewasiereisawelba'
+> > ```
+> >
 > > ### Iterasi vs Rekursi
 > >
 > > - Rekursi **bisa lebih sederhana dan intuitif** — kodenya sering lebih pendek dan lebih dekat ke definisi matematis masalah.

@@ -40,6 +40,8 @@ print(L1)
 
 4.8 (concept) Why can a tuple be a dictionary key but a list cannot?
 
+4.9 (write + gotcha, from deck) Write `words_often(freqs, minTimes)` that returns a list of `(words, count)` tuples for every word occurring at least `minTimes` times, ordered from most to least frequent, by repeatedly finding the most common word(s) and deleting them from the dict. What happens to the dict passed in?
+
 ---
 
 4.1. Kode verifikasi:
@@ -111,3 +113,29 @@ def most_common(freqs):
 Menangani kasus **seri** (lebih dari satu kata dengan hitungan tertinggi sama) dengan mengembalikan **semua** kata itu dalam satu list, dipasangkan dengan hitungannya dalam sebuah tuple.
 
 4.8. Pembahasan: Key dictionary harus **hashable** (punya nilai hash yang tidak berubah selama umur objek), dan Python hanya menjamin objek **immutable** aman untuk itu. `tuple` immutable — isinya tidak bisa diubah setelah dibuat, jadi nilai hash-nya stabil selamanya, aman dipakai sebagai key. `list` **mutable** — isinya bisa diubah kapan saja (`append`, `remove`, dst.), yang berarti nilai hash-nya bisa berubah; jika diizinkan jadi key, dictionary bisa "kehilangan jejak" entry itu setelah list-nya dimodifikasi, karena hash saat pencarian tidak lagi cocok dengan hash saat penyimpanan. Karena itu Python melarang `list` sebagai key (`TypeError: unhashable type: 'list'`).
+
+4.9. Kode verifikasi:
+```python
+def most_common(freqs):
+    best = max(freqs.values())
+    words = [w for w, c in freqs.items() if c == best]
+    return (words, best)
+
+def words_often(freqs, minTimes):
+    result = []
+    done = False
+    while not done:
+        temp = most_common(freqs)
+        if temp[1] >= minTimes:
+            result.append(temp)
+            for w in temp[0]:
+                del(freqs[w])
+        else:
+            done = True
+    return result
+
+f = {"yeah": 6, "you": 4, "she": 2, "loves": 2, "love": 1}
+print(words_often(f, 2))  # [(['yeah'], 6), (['you'], 4), (['she', 'loves'], 2)]
+print(f)                  # {'love': 1}
+```
+Idenya: cari kata paling sering, simpan, **hapus dari dictionary**, ulangi sampai frekuensi tertinggi `< minTimes`. Konsekuensinya `words_often` **memutasi dictionary milik pemanggil** (side effect) — `f` hanya menyisakan kata di bawah ambang. Bila data asli perlu dipertahankan, oper salinan `dict(f)`. Bila semua kata lolos ambang, dictionary menjadi kosong dan `max()` pada `most_common` memunculkan `ValueError`.
