@@ -46,7 +46,7 @@ _Back to_ [[IF4020 Kriptografi]]
 > > **Dekripsi** — bagi panjang cipherteks dengan panjang kunci ($30 / 6 = 5$ kolom). Tulis cipherteks **vertikal** sepanjang 5 kolom, lalu baca **horizontal** untuk memperoleh plainteks kembali.
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     P["Plainteks<br/>(buang spasi)"] --> G["Tulis baris demi baris<br/>ke matriks selebar |kunci|"]
 > >     G --> R["Baca kolom per kolom<br/>(vertikal)"]
 > >     R --> C["Cipherteks"]

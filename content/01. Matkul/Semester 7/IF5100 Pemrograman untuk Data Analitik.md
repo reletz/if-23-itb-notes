@@ -53,6 +53,9 @@ _Back to_ [[index]]
 	- [[Latihan Soal - Masalah Optimasi]]
 	- [[Latihan Soal - Model Graf]]
 
+# Cheatsheet
+- [[Cheatsheet IF5100]]
+
 
 
 # UAS

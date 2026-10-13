@@ -72,7 +72,7 @@ _Back to_ [[IF4020 Kriptografi]]
 > > $2 \cdot 31 \bmod 105 = 62$, $3 \to 93$, $6 \to 81$, $13 \to 88$, $27 \to 102$, $52 \to 37$. **Kunci publik $\{62, 93, 81, 88, 102, 37\}$**, privat $\{2, 3, 6, 13, 27, 52\}$.
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     S["Barisan superincreasing<br/>{2,3,6,13,27,52}<br/>(kunci privat)"] --> MUL["x n mod m<br/>n = 31, m = 105"]
 > >     MUL --> PUB["Barisan non-superincreasing<br/>{62,93,81,88,102,37}<br/>(kunci publik)"]
 > >     PUB --> ENC["Enkripsi: jumlahkan elemen<br/>sesuai bit 1 plainteks"]

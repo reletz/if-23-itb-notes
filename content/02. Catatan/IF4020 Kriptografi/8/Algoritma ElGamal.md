@@ -65,7 +65,7 @@ _Back to_ [[IF4020 Kriptografi]]
 > > **Bukti**: $a = g^k \Rightarrow a^x \equiv g^{xk}$; $b \equiv y^k m$ dan $y = g^x$, maka $\dfrac{b}{a^x} \equiv \dfrac{y^k m}{a^x} \equiv \dfrac{g^{xk} m}{g^{xk}} \equiv m \pmod p$.
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     M["m"] --> ENC["a = g^k mod p<br/>b = y^k * m mod p"]
 > >     K["k acak"] --> ENC
 > >     PUB["y, g, p"] --> ENC

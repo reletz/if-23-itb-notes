@@ -56,7 +56,7 @@ _Back to_ [[IF4020 Kriptografi]]
 > > Verifikasi: kunci `Key` dan plainteks `Plaintext` menghasilkan cipherteks `BBF316E8D940AF0AD3` (vektor uji standar).
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     K["Kunci rahasia K"] --> KSA["KSA<br/>acak larik S[0..255]"]
 > >     KSA --> PRGA["PRGA<br/>swap S[i],S[j]; u = S[(S[i]+S[j]) mod 256]"]
 > >     PRGA --> U["Keystream byte u"]

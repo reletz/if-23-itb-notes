@@ -91,7 +91,7 @@ _Back to_ [[IF4020 Kriptografi]]
 > > **Isi satu putaran biasa:**
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     S0["State"] --> SB["SubBytes"] --> SR["ShiftRows"] --> MC["MixColumns"] --> ARK(("⊕<br/>AddRoundKey"))
 > >     RK["Round key Ki"] -.-> ARK
 > >     ARK --> S1["State baru"]
@@ -142,7 +142,7 @@ _Back to_ [[IF4020 Kriptografi]]
 > >
 > > $$\begin{bmatrix} s'_0 \\ s'_1 \\ s'_2 \\ s'_3 \end{bmatrix} = \begin{bmatrix} 02 & 03 & 01 & 01 \\ 01 & 02 & 03 & 01 \\ 01 & 01 & 02 & 03 \\ 03 & 01 & 01 & 02 \end{bmatrix} \begin{bmatrix} s_0 \\ s_1 \\ s_2 \\ s_3 \end{bmatrix}$$
 > >
-> > Contoh kolom $(26, 7B, BD, 43)$: baris 1: $(02 \bullet 26) \oplus (03 \bullet 7B) \oplus (01 \bullet BD) \oplus (01 \bullet 43) = 4C \oplus 8D \oplus BD \oplus 43 = $ **3F**. Baris lain menghasilkan **4F, F9, 2A**. Perkalian dan penjumlahan dilakukan dalam GF($2^8$).
+> > Contoh kolom $(26, 7B, BD, 43)$: baris 1: $(02 \bullet 26) \oplus (03 \bullet 7B) \oplus (01 \bullet BD) \oplus (01 \bullet 43) = 4C \oplus 8D \oplus BD \oplus 43 =$ **3F**. Baris lain menghasilkan **4F, F9, 2A**. Perkalian dan penjumlahan dilakukan dalam GF($2^8$).
 > >
 > > |Baris matriks|$\bullet\,26$|$\bullet\,7B$|$\bullet\,BD$|$\bullet\,43$|$\oplus$ semua|
 > > |---|---|---|---|---|---|
@@ -176,7 +176,7 @@ _Back to_ [[IF4020 Kriptografi]]
 > > Kunci putaran dibangkitkan oleh **KeyExpansion** dari cipher key. Untuk AES-128: kunci 16 byte disalin ke $w[0..3]$ (word 4 byte), lalu untuk $i = 4..43$: $temp = w[i-1]$; bila $i$ **kelipatan 4** terapkan fungsi $g$: **RotWord** (geser 1 byte kiri) $\to$ **SubWord** (S-box) $\to$ **XOR Rcon[$i/4$]**; kemudian $w[i] = w[i-4] \oplus temp$. **Rcon**: `01, 02, 04, 08, 10, 20, 40, 80, 1B, 36` ($RC[j] = 2 \bullet RC[j-1]$ di GF($2^8$)).
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     W1["w[i-1]"] --> RW["RotWord<br/>geser 1 byte kiri"]
 > >     RW --> SW["SubWord<br/>S-box tiap byte"]
 > >     SW --> XR(("⊕"))
@@ -216,7 +216,7 @@ _Back to_ [[IF4020 Kriptografi]]
 > > Membalik tiap langkah: **InvSubBytes** (S-box invers), **InvShiftRows** (geser ke **kanan**), **InvMixColumns** (matriks invers `0E 0B 0D 09`), dan AddRoundKey (XOR, sama), dengan urutan round key terbalik.
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     C["Cipherteks"] --> A0(("⊕ K_Nr"))
 > >     A0 --> ISR["InvShiftRows"] --> ISB["InvSubBytes"] --> A1(("⊕ Ki")) --> IMC["InvMixColumns"]
 > >     IMC -. ulang i = Nr-1 sampai 1 .-> ISR

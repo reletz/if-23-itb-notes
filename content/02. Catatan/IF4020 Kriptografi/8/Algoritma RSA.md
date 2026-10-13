@@ -59,7 +59,7 @@ _Back to_ [[IF4020 Kriptografi]]
 > > **Kunci publik = $(e, n)$**, **kunci privat = $(d, n)$**.
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     PQ["Pilih prima p, q"] --> N["n = p x q"]
 > >     PQ --> PHI["phi(n) = (p-1)(q-1)"]
 > >     PHI --> E["Pilih e,<br/>gcd(e, phi) = 1"]
