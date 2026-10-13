@@ -31,7 +31,7 @@ _Back to_ [[IF5101 Manajemen Data]]
 > >    - **Physical Design** — menentukan **tata letak fisik** basis data (file, indeks, partisi, dsb.).
 > >
 > > ```mermaid
-> > flowchart LR
+> > flowchart TD
 > >     A["Initial phase<br/>karakterisasi kebutuhan data"] --> B["Choose data model<br/>+ conceptual schema"]
 > >     B --> C["Spesifikasi operasi/<br/>transaksi (functional req.)"]
 > >     C --> D["Logical Design<br/>tentukan skema relasi"]
