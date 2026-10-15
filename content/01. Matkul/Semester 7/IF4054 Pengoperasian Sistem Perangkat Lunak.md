@@ -5,6 +5,7 @@ cssclasses:
 _Back to_ [[index]]
 
 # UTS
+[[Rangkuman X-Ops]]
 
 - ## Pengantar X-Ops
 	- [[Course Overview and X-Ops Scope]]
