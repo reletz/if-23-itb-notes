@@ -63,3 +63,15 @@ _Back to_ [[index]]
 	- [[Fragile dan Robust Watermarking]]
 	- [[Aplikasi Watermarking, Netflix, dan DRM]]
 # UAS
+- ## Hash
+	- [[Fungsi Hash dan Sifat-sifatnya]]
+	- [[Aplikasi Fungsi Hash]]
+	- [[SHA-1 dan Konstruksi Merkle-Damgard]]
+	- [[SHA-2 - SHA-256 dan SHA-512]]
+	- [[SHA-3 Keccak dan Konstruksi Spons]]
+- ## MAC
+	- [[Konsep MAC]]
+	- [[Algoritma MAC dan HMAC]]
+- ## Tanda-tangan Digital
+	- [[Konsep Tanda-tangan Digital]]
+	- [[Tanda-tangan Digital dengan Hash dan RSA]]
