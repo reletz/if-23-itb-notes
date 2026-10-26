@@ -33,7 +33,14 @@ _Back to_ [[IF4020 Kriptografi]]
 > > 4. Ukuran blok **128 bit**.
 > > 5. Dapat diimplementasikan di **perangkat lunak maupun keras**.
 > >
-> > **Lima finalis:** **Rijndael** (Vincent Rijmen dan Joan Daemen, Belgia, **86 suara**), **Serpent** (Anderson, Biham, Knudsen; 59), **Twofish** (Bruce Schneier; 31), **RC6** (RSA Labs; 23), **MARS** (IBM; 13). **Oktober 2000** NIST memilih **Rijndael** (dibaca "Rhine-doll"); **November 2001** ditetapkan sebagai AES. Diharapkan dominan minimal 10 tahun.
+> > **Lima finalis:** 
+> > 1. **Rijndael** (Vincent Rijmen dan Joan Daemen, Belgia, **86 suara**), 
+> > 2. **Serpent** (Anderson, Biham, Knudsen; 59), 
+> > 3. **Twofish** (Bruce Schneier; 31), 
+> > 4. **RC6** (RSA Labs; 23), 
+> > 5. **MARS** (IBM; 13). 
+> >  
+> > **Oktober 2000** NIST memilih **Rijndael** (dibaca "Rhine-doll"); **November 2001** ditetapkan sebagai AES. Diharapkan dominan minimal 10 tahun.
 > >
 > > ### Spesifikasi
 > >

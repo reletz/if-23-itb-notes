@@ -41,6 +41,8 @@ _Back to_ [[IF4020 Kriptografi]]
 > >     SG -->|"M + S"| VR
 > > ```
 > >
+> > **Versi gambar lain (slide 17-18)**: *Sender*: pesan $\to$ fungsi hash $\to$ *message digest* $\to$ **enkripsi dengan kunci privat pengirim** $\to$ *signed digest*; *signed digest* digabung dengan pesan lalu dikirim. *Receiver*: pesan dihash menjadi *message digest*, sementara *signed digest* didekripsi dengan **kunci publik pengirim** menjadi *message digest*; keduanya dibandingkan (*Compare*) lalu keluar hasil "signature is valid or not".
+> >
 > > ### Algoritma Tanda Tangan Digital Standar
 > >
 > > **RSA signature**, **ElGamal signature** (varian ElGamal khusus tanda tangan), **DSA (Digital Signature Algorithm**, standar NIST), dan **ECDSA (Elliptic Curve DSA)**. Pada RSA, enkripsi dan dekripsi identik sehingga signing dan verifying juga identik.
@@ -68,6 +70,10 @@ _Back to_ [[IF4020 Kriptografi]]
 > > - **Verifying**: $h' = S^{PubK} \bmod n = 46489^{731} \bmod 223427 = \mathbf{125468}$.
 > > - $h' = h \bmod n$ ($125468$) $\to$ **tanda tangan valid**.
 > >
+> > Pesan pada contoh ini berupa artikel pendek tentang wisudawan ITB termuda ("Pada wisuda sarjana baru ITB, ... Kuliah di ITB selama empat tahun sehingga wajar saja menjadi sarjana pada umur 19 tahun"). Digest $h$ panjangnya 128 bit (32 digit heksa) sehingga dalam desimal ($\approx 2{,}19 \times 10^{38}$) jauh lebih besar dari $n = 223427$; karena itu penerima membandingkan $h \bmod n$. Bob menerima $M + S$ (pesan dengan `46489` di bawahnya), menghitung ulang $h$, lalu memeriksa bahwa $46489^{731} \bmod 223427 = 125468 = h \bmod n$: **"Tanda tangan valid!"**
+> >
+> > **Demo daring (slide 24-27)**: alat *RSA Signature Generation and Validation* (`8gwifi.org`) membangkitkan pasangan kunci (pilihan 512/1024/2048/4096 bit; contoh memakai 512 bit, format PEM). Pesan `Selamat Hari Raya Idul Fitri 1445 H` / `Mohon maaf lahir dan batin` menghasilkan *signature* Base64 (`H4nhw0cj7ZPP7SvM2CaXVZmpVFEheobJTCpDUfZymTER+KiTt2mEUDvd6IzRWarqseC0Dc2Yj1RcxFnZ2pQqSg==`, 64 byte = 512 bit); verifikasi: **"Signature Verification Passed"**. Setelah `1445 H` diubah menjadi `1446 H` dengan *signature* yang sama: **"Signature Verification Failed"**.
+> >
 > > Slide juga memperlihatkan bahwa mengubah isi pesan sedikit saja (mis. `1445 H` menjadi `1446 H`) membuat hash berbeda dan **verifikasi gagal**.
 > >
 > > ### Program Python (PyCryptodome)
@@ -81,7 +87,7 @@ _Back to_ [[IF4020 Kriptografi]]
 > > pkcs1_15.new(kunci_publik).verify(nilai_hash, tandatangan)      # verifying
 > > ```
 > >
-> > `verify` melempar `ValueError` bila tidak cocok (dianggap tidak valid). Pada demo, pesan `Guys, apakah kalian sudah membuat proposal Tugas Akhir?` terverifikasi **valid**; setelah huruf pertama diganti `*` pesan menjadi `*uys, apakah ...` dan verifikasi **tidak valid**. Kunci disimpan format **PEM** (privat dilindungi password).
+> > `verify` melempar `ValueError` bila tidak cocok (dianggap tidak valid). Pada demo, pesan `Guys, apakah kalian sudah membuat proposal Tugas Akhir?` terverifikasi **valid**; setelah huruf pertama diganti `*` pesan menjadi `*uys, apakah ...` dan verifikasi **tidak valid**. Pada hasil jalannya, modulus $n$ berukuran 1024 bit (309 digit desimal), $e = 65537$, dan *signature* ditampilkan dalam heksadesimal (`34ba0e6e...5a5e206`). Kunci disimpan format **PEM** (privat dilindungi password `passwordku` pada contoh).
 
 > [!cornell] #### Summary
 >

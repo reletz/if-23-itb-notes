@@ -50,9 +50,11 @@ _Back to_ [[IF4020 Kriptografi]]
 > >     R->>R: MAC' = MAC ? asli : palsu
 > > ```
 > >
+> > Ilustrasi pada slide 1 dan 4 (Gambar 9.3 dan 3.1): **pengirim** menghitung MAC dari pesan dengan kunci $K$ lalu melekatkannya di akhir pesan (*plaintext with MAC*); **penerima** menjalankan algoritma MAC yang sama dengan kunci yang sama atas pesan yang diterima, lalu **membandingkan** hasilnya dengan MAC yang melekat.
+> >
 > > ### Kegunaan MAC
 > >
-> > **1. Menjaga integritas pesan** (seperti message digest, *cryptographic checksum*). Namun bila hanya memakai hash biasa (mis. SHA), lawan dapat **mengubah dokumen, menghitung digest baru, dan menggantikan nilai hash lama** (contoh: peretas mengganti berkas unduhan sekaligus nilai MD5-nya; pengunduh tidak menyadarinya). Dengan **MAC**, lawan tidak bisa melakukannya karena **tidak tahu kunci $K$**.
+> > **1. Menjaga integritas pesan** (seperti message digest, *cryptographic checksum*). Namun bila hanya memakai hash biasa (mis. SHA), lawan dapat **mengubah dokumen, menghitung digest baru, dan menggantikan nilai hash lama** (contoh: peretas mengganti berkas unduhan sekaligus nilai MD5-nya; pengunduh tidak menyadarinya; slide 6 menunjukkan halaman unduhan Tucows untuk *Norton AntiVirus 2010* yang mencantumkan `MD5 HASH CE0F5F1BF0F165465BE97BAEB4BD940C`, yang dapat diganti peretas bersama berkasnya). Dengan **MAC**, lawan tidak bisa melakukannya karena **tidak tahu kunci $K$**.
 > >
 > > **2. Mengotentikasi pengirim.** Hanya pengirim dan penerima yang tahu $K$. Bila kunci pengirim tidak sama dengan kunci penerima, MAC hitungan penerima pasti tidak cocok dengan MAC pada pesan.
 > >

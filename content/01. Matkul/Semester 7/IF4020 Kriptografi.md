@@ -72,6 +72,6 @@ _Back to_ [[index]]
 - ## MAC
 	- [[Konsep MAC]]
 	- [[Algoritma MAC dan HMAC]]
-- ## Tanda-tangan Digital
+- ## Digital Signature
 	- [[Konsep Tanda-tangan Digital]]
 	- [[Tanda-tangan Digital dengan Hash dan RSA]]

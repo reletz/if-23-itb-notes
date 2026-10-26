@@ -27,15 +27,13 @@ _Back to_ [[IF4020 Kriptografi]]
 > >
 > > Pesan dienkripsi dengan block cipher **mode CBC atau CFB**; **MAC = hasil enkripsi blok terakhir** ($C_m$). Seluruh blok sebelumnya ikut mempengaruhi blok terakhir lewat umpan balik ([[Konsep Cipher Blok dan Mode Operasi]]).
 > >
-> > ```mermaid
-> > flowchart LR
-> >     P1["P1"] --> X1["XOR IV=0"] --> E1["E_K"] --> C1["C1"]
-> >     C1 --> X2["XOR P2"]
-> >     P2["P2"] --> X2 --> E2["E_K"] --> C2["C2"]
-> >     C2 --> D["..."] --> Cm["Cm = MAC"]
-> > ```
+> > ![[Pasted image 20261020171126.png]]
 > >
 > > Bila DES dipakai, MAC = ukuran blok = **64 bit**, dan kunci rahasia MAC adalah kunci DES (**56 bit**) ([[DES dan Triple DES]]). **DAA (Data Authentication Algorithm)** adalah algoritma MAC berbasis **DES-CBC** yang dipakai luas.
+> >
+> >![[Pasted image 20261020171216.png]]
+> >
+> > **Detail DAA (slide 12)**: pesan dipecah menjadi blok 64 bit $D_1, D_2, \dots, D_N$ (pada $t = 1 \dots N$). Tiap blok dienkripsi **DES** dengan kunci $K$ (56 bit); mulai blok ke-2, $D_t$ di-XOR dengan luaran sebelumnya $O_{t-1}$ sebelum dienkripsi. Luaran terakhir $O_N$ menjadi **DAC (*Data Authentication Code*), diambil sebesar 16 sampai 64 bit** (bit paling kiri).
 > >
 > > ### (b) MAC Berbasis Fungsi Hash
 > >
@@ -44,6 +42,8 @@ _Back to_ [[IF4020 Kriptografi]]
 > > $$\text{MAC} = H(M \,\|\, K)$$
 > >
 > > ($\|$ = concatenation.) Panjang MAC mengikuti fungsi hash: SHA-1 menghasilkan MAC **160 bit**. Skenarionya: Alice dan Bob berbagi kunci rahasia `KEY`; Alice mengirim `DATA` bersama MAC-nya, Bob menghitung ulang dan membandingkan.
+> > 
+> > ![[Pasted image 20261020171439.png]]
 > >
 > > ### HMAC
 > >
@@ -55,15 +55,40 @@ _Back to_ [[IF4020 Kriptografi]]
 > > - $\text{ipad}$ = byte `0x36` diulang; $\text{opad}$ = byte `0x5C` diulang.
 > > - Hash dijalankan **dua kali** (dalam dan luar), dengan kunci masuk di kedua lapisan.
 > >
+> > **Rincian HMAC (slide 15-16)**: $K'$ adalah **kunci seukuran blok hash** yang diturunkan dari $K$:
+> >
+> > $$K' = \begin{cases} H(K) & \text{bila } K \text{ lebih panjang dari ukuran blok} \\ K & \text{selain itu (di-padding nol di kanan hingga seukuran blok)} \end{cases}$$
+> >
+> > `opad` = byte `0x5c` diulang sepanjang blok (*outer padding*), `ipad` = byte `0x36` diulang (*inner padding*). Pseudocode dari Wikipedia pada slide:
+> >
+> > ```
+> > function hmac(key, message, hash, blockSize, outputSize):
+> >     block_sized_key = computeBlockSizedKey(key, hash, blockSize)
+> >     o_key_pad = block_sized_key xor [0x5c * blockSize]    # outer padded key
+> >     i_key_pad = block_sized_key xor [0x36 * blockSize]    # inner padded key
+> >     return hash(o_key_pad || hash(i_key_pad || message))
+> >
+> > function computeBlockSizedKey(key, hash, blockSize):
+> >     if length(key) > blockSize: key = hash(key)           # kunci panjang di-hash
+> >     if length(key) < blockSize: return Pad(key, blockSize) # kunci pendek di-pad nol
+> >     return key
+> > ```
+> >
+> > (Contoh `blockSize`: 64 byte untuk SHA-1, `outputSize`: 20 byte.) Alur skema berbasis hash pada slide 14: Alice dan Bob berbagi `KEY`; Alice memasukkan `KEY` dan `DATA` ke fungsi hash menghasilkan MAC, lalu mengirim `MAC + DATA`; Bob menghitung ulang MAC dari `KEY` dan `DATA` yang diterima lalu memeriksa kesamaan (`=?`).
+> >
+> > **Demo daring (slide 17-18)**: alat *HMAC Generator* di `freeformatter.com` menerima teks (pada slide: dua baris `Kita bikin romantis` / `Bikin paling romantis`), kunci rahasia (`MALIQ`), dan algoritma digest (**SHA256**), lalu menampilkan *computed HMAC* heksadesimal 64 digit.
+> >
 > > **Contoh slide**: $M$ = `Halo, Bob!`, $K$ = `12345678`, hash SHA-1 $\to$ MAC = `6f8605c7c3a649a40abfb87b44aa21f356e931a0` (ini hasil **HMAC-SHA1** asli, berbeda dari hash polos `SHA1(M || K)` yang bernilai `d3308cfe4d98c738757b9d654d61e213889a578b`).
 > >
 > > ### Teknik Otentikasi Lain dengan Kunci
 > >
 > > Selain MAC, slide menyebut tiga cara lain untuk mengotentikasi pesan memakai kunci:
+> > 
+> > ![[Pasted image 20261020172059.png]]
 > >
-> > - **(a)** fungsi hash + **enkripsi simetri** (hash pesan dienkripsi dengan kunci simetri),
-> > - **(b)** **kriptografi kunci publik** (basis tanda tangan digital, [[Tanda-tangan Digital dengan Hash dan RSA]]),
-> > - **(c)** **nilai rahasia $S$** yang disepakati pengirim dan penerima (ditambahkan ke pesan sebelum di-hash).
+> > - **(a) Enkripsi konvensional**: pengirim menghitung $H(M)$, mengenkripsinya dengan kunci simetri $K$, menempelkan hasilnya pada pesan; penerima menghitung $H(M)$ sendiri, mendekripsi bagian yang ditempel dengan $K$, lalu membandingkan keduanya.
+> > - **(b) Enkripsi kunci publik**: sama, tetapi digest dienkripsi dengan **kunci privat pengirim** $PR_a$ dan didekripsi dengan **kunci publik** $PU_a$ (ini cikal bakal tanda tangan digital).
+> > - **(c) Nilai rahasia $S$**: pengirim menghitung $H(M \,\|\, S)$ (pesan disambung nilai rahasia yang disepakati) dan mengirim $M$ bersama hash itu, **tanpa** mengirim $S$; penerima menyambung $M$ dengan $S$ miliknya, menghitung hash, lalu membandingkan.
 
 > [!cornell] #### Summary
 >

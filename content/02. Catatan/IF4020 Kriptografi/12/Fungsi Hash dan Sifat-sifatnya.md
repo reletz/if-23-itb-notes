@@ -58,6 +58,27 @@ _Back to_ [[IF4020 Kriptografi]]
 > >
 > > **Kolisi (collision)** adalah kejadian dua string sembarang memiliki nilai hash yang sama. Karena ruang input tak terhingga dan ruang digest terbatas ($2^{256}$ untuk SHA-256), kolisi **pasti ada** (prinsip pigeonhole); yang penting adalah apakah menemukannya **layak secara komputasi**. Bila kolisi dapat direkayasa, fungsi hash **tidak aman secara kriptografis**, sebab penyerang dapat membuat dua pesan berbeda dengan digest sama.
 > >
+> > ### Contoh Digest dan Daftar Fungsi Hash Satu-Arah
+> >
+> > Slide memperlihatkan tiga masukan yang sangat berbeda (kata sandi `MyPassword`, paragraf *Lorem ipsum*, dan citra `Peppers512.bmp`) yang semuanya menghasilkan digest **256 bit** (64 digit hex). Pada *hash generator* daring, masukan `Banyak musibah di negeriku` (26 byte) menghasilkan MD5 (128 bit), SHA-1 (160 bit), SHA-256 (256 bit), SHA-384, dan SHA-512 sekaligus; SHA-1-nya adalah `3f7d679ffac3676c4291677bdf18322b704623fa`.
+> >
+> > Daftar fungsi hash satu-arah yang disebut di slide beserta panjang digest:
+> >
+> > | Algoritma | Digest (bit) |
+> > |---|---|
+> > | MD2 / MD4 / MD5 | 128 |
+> > | RIPEMD | 128 |
+> > | RIPEMD-128/256 | 128 / 256 |
+> > | RIPEMD-160/320 | 160 / 320 |
+> > | SHA-1 | 160 |
+> > | SHA-256 / SHA-224 (**SHA-2**) | 256 / 224 |
+> > | SHA-512 / SHA-384 (**SHA-2**) | 512 / 384 |
+> > | SHA-3 (Keccak) | sembarang |
+> > | WHIRLPOOL | 512 |
+> > | Snefru | 128 atau 256 |
+> > | BLAKE 256/512 | 256 / 512 (slide menulis "156/512", kemungkinan salah ketik) |
+> > | Grøstl | maksimum 512 |
+> >
 > > ### Status Beberapa Fungsi Hash
 > >
 > > | Algoritma | Digest (bit) | Blok pesan (bit) | Kolisi |
