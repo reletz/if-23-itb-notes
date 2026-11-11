@@ -61,3 +61,24 @@ _Back to_ [[index]]
 - ## UTS
 	- [[Latihan UTS IF5101 - Soal]]
 	- [[Latihan UTS IF5101 - Jawaban]]
+
+# UAS
+- ## NoSQL Databases
+	- [[Keterbatasan Database Relasional dan Lahirnya NoSQL]]
+	- [[BASE dan CAP Theorem]]
+	- [[Jenis-jenis NoSQL Database]]
+	- [[Istilah Pemodelan dan Arsitektur Key-Value Database]]
+	- [[Desain Key, Partisi, Structured Value, dan Keterbatasan Key-Value]]
+	- [[Design Patterns Key-Value Database]]
+	- [[Studi Kasus Key-Value untuk Konfigurasi Aplikasi Mobile]]
+- ## Document Databases
+	- [[Konsep Document, JSON, XML, dan Perbedaannya dengan Key-Value]]
+	- [[Terminologi Document, Collection, Schema-less, dan Polymorphic Schema]]
+	- [[Operasi Dasar Document Database dengan MongoDB]]
+	- [[Normalisasi, Denormalisasi, dan Embedding vs Referencing]]
+	- [[Memodelkan Relasi Umum dan Hierarki pada Document Database]]
+	- [[Mutable Documents dan Strategi Indexing]]
+	- [[Studi Kasus Manifest Pengiriman dan Prinsip Desain Collection]]
+	- [[Partitioning - Vertical, Sharding, dan Algoritma Partisi]]
+- ## OOT
+	- [[Tugas Kehadiran IF5101 - Summary IcoDSE]]
