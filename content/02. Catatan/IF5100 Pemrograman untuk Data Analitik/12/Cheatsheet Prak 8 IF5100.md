@@ -256,6 +256,10 @@ df[df["c"].between(10, 20)]
 df.query("distance > 10 and passengers > 0")
 df.loc[df["distance"] == 0, "distance"] = np.nan    # ubah nilai kondisional
 df.loc[:, ["a", "b"]];  df.iloc[:5, :3]
+# filter gabungan + tampilkan kolom tertentu (soal 3i: akhir pekan & (jarak>10 atau durasi>45))
+mask = df["is_weekend"] & ((df["distance"] > 10) | (df["duration_min"] > 45))
+print(mask.sum())                                   # jumlah data
+df.loc[mask, ["pickup", "pickup_borough", "distance", "duration_min", "total"]].head()
 # hapus baris tidak masuk akal + hitung yang dihapus
 n0 = len(df)
 df = df[(df["distance"] != 0) & (df["passengers"] != 0) & (df["duration_min"] > 0)]
@@ -509,6 +513,60 @@ plt.show()
 
 `kind` valid: `line, bar, barh, hist, box, kde/density, area, pie, scatter, hexbin`.
 
+## 4.5 matplotlib tambahan (jarang, tapi mungkin muncul)
+
+```python
+# Skala log
+plt.semilogx(x, y); plt.semilogy(x, y); plt.loglog(x, y)
+
+# Contour / 2D field
+X, Y = np.meshgrid(np.linspace(-3, 3, 100), np.linspace(-3, 3, 100))
+Z = np.exp(-(X**2 + Y**2))
+cs = plt.contour(X, Y, Z, levels=10, cmap="viridis"); plt.clabel(cs)     # garis
+plt.contourf(X, Y, Z, levels=10, cmap="viridis"); plt.colorbar()          # terisi
+plt.pcolormesh(X, Y, Z, shading="auto", cmap="viridis")
+
+# Vektor
+plt.quiver(X[::10, ::10], Y[::10, ::10], U[::10, ::10], V[::10, ::10])
+plt.streamplot(X, Y, U, V)
+
+# Event / gantt sederhana
+plt.eventplot([[1, 2, 5], [2, 4]], lineoffsets=[0, 1])
+plt.broken_barh([(10, 20), (40, 10)], (0, 5), facecolors="tab:blue")      # (xmulai, lebar), (ymulai, tinggi)
+
+# Plot 3D
+from mpl_toolkits.mplot3d import Axes3D        # opsional di versi baru
+ax = plt.figure(figsize=(7, 6)).add_subplot(projection="3d")
+ax.scatter(df["a"], df["b"], df["c"], c=df["c"], cmap="viridis")
+ax.plot_surface(X, Y, Z, cmap="viridis"); ax.plot_wireframe(X, Y, Z)
+ax.set_xlabel("X"); ax.set_ylabel("Y"); ax.set_zlabel("Z"); ax.view_init(elev=30, azim=45)
+
+# Tabel di dalam plot
+plt.table(cellText=[[1, 2], [3, 4]], colLabels=["A", "B"], loc="bottom")
+
+# Layout tidak seragam
+import matplotlib.gridspec as gridspec
+fig = plt.figure(figsize=(10, 6)); gs = gridspec.GridSpec(2, 3, figure=fig)
+ax1 = fig.add_subplot(gs[0, :]); ax2 = fig.add_subplot(gs[1, 0]); ax3 = fig.add_subplot(gs[1, 1:])
+fig, axd = plt.subplot_mosaic([["A", "A", "B"], ["C", "D", "D"]])        # cara lain; axd["A"].plot(...)
+
+# Inset
+ins = ax.inset_axes([0.6, 0.6, 0.35, 0.35]); ins.plot(x, y)
+
+# Format tick & tanggal
+import matplotlib.dates as mdates
+ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %Y")); fig.autofmt_xdate()
+from matplotlib.ticker import PercentFormatter, FuncFormatter
+ax.yaxis.set_major_formatter(PercentFormatter(1.0))
+ax.yaxis.set_major_formatter(FuncFormatter(lambda v, _: f"{v:,.0f}"))     # ribuan: 1,000
+ax.set_xticks(range(0, 24, 3)); ax.tick_params(axis="x", labelsize=9)
+
+# Box dengan beberapa seri, bar horizontal berkelompok, bar dengan error
+ax.bar(cats, vals, yerr=err, capsize=4); ax.set_axisbelow(True)
+```
+
+⚠ Bagian 4.5 ditulis dari dokumentasi matplotlib dan belum dijalankan; cek jika ada error versi.
+
 ---
 
 # 5. seaborn
@@ -600,6 +658,50 @@ sns.move_legend(ax, "upper left", bbox_to_anchor=(1, 1))
 g = sns.catplot(...); g.set_xticklabels(rotation=45); g.fig.suptitle("…", y=1.03)
 g.savefig("out.png", dpi=300)                     # figure-level; axes-level: plt.savefig
 ```
+
+## 5.7 seaborn tambahan
+
+```python
+# 2D density & histogram
+sns.kdeplot(data=df, x="a", y="b", fill=True, cmap="mako", levels=10, thresh=0.05)
+sns.histplot(data=df, x="a", y="b", bins=30, cbar=True, cmap="viridis")
+
+# Grid kontrol penuh
+g = sns.PairGrid(df[["a", "b", "c"]], hue="d")
+g.map_upper(sns.scatterplot); g.map_lower(sns.kdeplot); g.map_diag(sns.histplot); g.add_legend()
+g = sns.JointGrid(data=df, x="a", y="b")
+g.plot(sns.scatterplot, sns.histplot)                       # joint, marginal
+g.plot_joint(sns.kdeplot); g.plot_marginals(sns.histplot, kde=True)
+
+# Anotasi barplot / countplot persen
+ax = sns.barplot(data=df, x="c", y="a", errorbar=None)
+for p in ax.patches:
+    ax.annotate(f"{p.get_height():.1f}", (p.get_x() + p.get_width()/2, p.get_height()),
+                ha="center", va="bottom")
+for c in ax.containers: ax.bar_label(c, fmt="%.1f")
+
+# Persentase pada countplot
+sns.countplot(data=df, x="c", stat="percent")               # seaborn >= 0.13
+
+# Baris/kolom pada relplot + warna manual
+sns.relplot(data=df, x="a", y="b", hue="c", col="d", kind="scatter",
+            palette={"x": "red", "y": "blue", "z": "green"})
+sns.lineplot(data=df, x="pickup_hour", y="a", hue="pickup_day", style="d", units=None, estimator="mean", errorbar="sd")
+
+# Objects API (seaborn >= 0.12)
+import seaborn.objects as so
+(so.Plot(df, x="a", y="b", color="c").add(so.Dot(alpha=.5)).add(so.Line(), so.PolyFit()).label(title="Judul").show())
+
+# Heatmap dengan format & anotasi sebagian
+sns.heatmap(corr, annot=True, fmt=".1f", annot_kws={"size": 8}, cbar=False, xticklabels=True, yticklabels=True)
+
+# Ukuran figure-level & legend
+g = sns.displot(data=df, x="a", height=4, aspect=1.5); g.set(xlim=(0, 30)); g.set_axis_labels("A", "Frekuensi")
+sns.set_style("darkgrid", {"grid.linestyle": ":"}); sns.set_context("notebook", font_scale=1.2)
+sns.color_palette("coolwarm", as_cmap=True)
+```
+
+⚠ Bagian 5.7 belum dijalankan; `stat="percent"` di `countplot` dan `seaborn.objects` butuh seaborn versi baru.
 
 ⚠ `hue` pada `barplot/boxplot` + `palette=` tanpa `hue` memunculkan FutureWarning di seaborn ≥0.13; isi `hue="x", legend=False`. ⚠ `sns.set()` lama = `sns.set_theme()`. ⚠ `ci=` diganti `errorbar=`.
 
@@ -730,6 +832,58 @@ import plotly.io as pio; pio.renderers.default = "colab"
 ```
 
 ⚠ Plot plotly kosong di Colab → set `pio.renderers.default = "colab"`. ⚠ `trendline="ols"` butuh `statsmodels`. ⚠ `px.treemap` gagal jika ada NaN di kolom `path` → `dropna` atau `fillna("Unknown")`. ⚠ `write_image` butuh `kaleido`.
+
+## 6.4 plotly tambahan
+
+```python
+# px 3D
+px.scatter_3d(df, x="a", y="b", z="c", color="d", size="e", opacity=0.7)
+px.line_3d(df, x="a", y="b", z="c", color="d")
+
+# px lain
+px.funnel(df, x="count", y="stage", color="group")
+px.funnel_area(names=stages, values=vals)
+px.timeline(df, x_start="start", x_end="end", y="task", color="owner")   # gantt; kolom harus datetime
+px.parallel_categories(df, dimensions=["a", "b", "c"], color="n")
+px.scatter_polar(df, r="r", theta="theta", color="c")
+px.scatter_mapbox(df, lat="lat", lon="lon", size="v", zoom=3, mapbox_style="open-street-map")
+px.density_mapbox(df, lat="lat", lon="lon", z="v", radius=10, mapbox_style="open-street-map")
+px.density_contour(df, x="a", y="b")
+px.violin(df, x="c", y="a", color="d", violinmode="overlay", box=True)
+px.ecdf(df, x="a", color="c", ecdfnorm="percent")
+px.histogram(df, x="c", y="a", histfunc="avg")                 # histfunc: count, sum, avg, min, max
+px.bar(df, x="c", y="a", color="d", facet_col="e", facet_col_wrap=2, category_orders={"c": ["x", "y", "z"]})
+px.line(df.melt(id_vars="date"), x="date", y="value", color="variable")        # banyak kolom jadi banyak garis (wide → long)
+px.line(df, x="date", y=["a", "b", "c"])                                         # wide-form langsung
+px.scatter(df, x="a", y="b", marginal_x="histogram", marginal_y="box", trendline="lowess")
+
+# go: permukaan, kontur, indikator, tabel, OHLC
+go.Figure(go.Surface(z=Z, x=X[0], y=Y[:, 0], colorscale="Viridis"))
+go.Figure(go.Contour(z=Z, x=X[0], y=Y[:, 0], colorscale="Viridis", contours_coloring="heatmap"))
+go.Figure(go.Indicator(mode="gauge+number+delta", value=72, delta={"reference": 60},
+                       gauge={"axis": {"range": [0, 100]}}, title={"text": "Skor"}))
+go.Figure(go.Table(header=dict(values=list(df.columns), fill_color="lightgrey"),
+                   cells=dict(values=[df[c] for c in df.columns])))
+go.Figure(go.Ohlc(x=d["date"], open=d["open"], high=d["high"], low=d["low"], close=d["close"]))
+go.Figure(go.Scatter3d(x=df["a"], y=df["b"], z=df["c"], mode="markers", marker=dict(size=3, color=df["c"])))
+go.Figure(go.Scattergeo(lat=df["lat"], lon=df["lon"], mode="markers"))
+
+# Interaktif: dropdown & slider
+fig.update_layout(updatemenus=[dict(buttons=[
+    dict(label="Semua", method="update", args=[{"visible": [True, True]}]),
+    dict(label="Hanya A", method="update", args=[{"visible": [True, False]}])])])
+fig.update_layout(xaxis=dict(rangeslider=dict(visible=True), rangeselector=dict(buttons=[
+    dict(count=7, label="1w", step="day", stepmode="backward"), dict(step="all")])))
+
+# Ubah trace/axis secara selektif, dua sumbu y
+fig.update_traces(marker_color="red", selector=dict(name="A"))
+fig.for_each_trace(lambda t: t.update(name=t.name.upper()))
+fig.update_yaxes(secondary_y=True)                       # setelah make_subplots(specs=[[{"secondary_y": True}]])
+fig.add_trace(go.Scatter(x=x, y=y2, name="B"), secondary_y=True)
+fig.update_layout(coloraxis_colorbar=dict(title="Nilai"))
+```
+
+⚠ Bagian 6.4 belum dijalankan. `scatter_mapbox` perlu data lat/lon nyata, dan versi plotly baru mulai mengganti `*_mapbox` dengan `*_map`; kalau error, coba `px.scatter_map`.
 
 ---
 
