@@ -56,6 +56,7 @@ _Back to_ [[index]]
 # Cheatsheet
 - [[Cheatsheet IF5100]]
 - [[Cheatsheet Prak 8 IF5100]]
+- [[Cheatsheet Prak 9 IF5100]]
 
 
 

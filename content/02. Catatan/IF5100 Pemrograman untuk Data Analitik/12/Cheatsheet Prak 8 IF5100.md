@@ -8,7 +8,7 @@ _Back to_ [[IF5100 Pemrograman untuk Data Analitik]]
 
 Legenda: ⚠ = jebakan/gotcha. Semua kode siap copy-paste di Colab. Contoh memakai dataset prak 7 (`phones`, `telco_churn`, `taxis`); ganti nama kolom sesuai soal.
 
-**Daftar isi:** 0 Template notebook · 1 gdown · 2 Pendahulu pandas (catatan prak 7) · 3 Peta chart · 4 matplotlib & `.plot()` · 5 seaborn · 6 plotly · 7 Pola poin soal · 8 Checklist jebakan
+**Daftar isi:** 0 Template notebook · 1 gdown · 2 Pendahulu pandas (catatan prak 7) · 3 Peta chart · 4 matplotlib & `.plot()` · 5 seaborn · 6 plotly · 7 Pola poin soal · 8 Checklist jebakan · 9 Resep persis dari deck 12a dan 12b (tambahan)
 
 ---
 
@@ -982,3 +982,424 @@ df.to_csv("out.csv", index=False)
 - ⚠ **Plotly kosong di Colab** → `pio.renderers.default = "colab"`; `write_image` butuh `kaleido`.
 - ⚠ **Tiap plot wajib**: judul, label sumbu, legend (jika >1 seri), angka di bar bila diminta ("tampilkan juga jumlah per kategori" → `print(counts)` **dan** `bar_label`).
 - ⚠ Jangan lupa jalankan ulang seluruh notebook sebelum submit (output harus ikut tersimpan).
+
+---
+
+# 9. Resep persis dari deck 12a dan 12b (tambahan)
+
+Bagian ini melengkapi bagian 4 sampai 6 dengan semua contoh yang dipakai di slide, termasuk yang sebelumnya terlewat: word cloud, waffle chart, Sankey dari JSON, colormap, stacked bar lewat unstack, dan seluruh contoh seaborn deck 12a (dataset mobil). Kode deck memakai API lama (distplot, normed); versi modern ditulis di bawah tiap contoh. Nama dataset di slide: patient.csv, cases.csv (Indonesia Coronavirus Cases), insurance.csv, diabetes.csv (Pima), apple.csv, cardata.csv, most_backed.csv, dan df_car (dataset mobil UCI).
+
+## 9.1 Library di deck (12a hlm 76)
+
+- Pandas: plotting library dasar.
+- matplotlib: library plotting 2-D, meniru grafik MATLAB.
+- seaborn: berbasis matplotlib, antarmuka tingkat tinggi untuk grafik statistik yang menarik dan informatif.
+- Chartmaker Directory (12b): JS, R, Python (matplotlib, seaborn), Excel, Tableau.
+
+```python
+!pip install -q wordcloud pywaffle      # tidak ada bawaan di Colab untuk pywaffle; wordcloud biasanya ada
+```
+
+## 9.2 Taksonomi, data variables, visual variables (12a hlm 77, 12b)
+
+Taksonomi (Andy Kirk, 2012): categorical (bandingkan ukuran relatif dan absolut nilai kategorikal: bar chart, dot plot), hierarchical (rincian nilai kategorikal terhadap populasi atau elemen struktur hierarki: donut chart, treemap), relational (asosiasi, distribusi, pola antar data multivariat: scatterplot, sankey), temporal (perubahan tren dari waktu ke waktu: line chart, stream graph), spatial (data geospasial: choropleth, cartogram).
+
+| Kelompok | Chart | Data variables | Visual variables | Dataset |
+|---|---|---|---|---|
+| Categorical | Dot plot | 2 kategorikal (province, current_state), 1 kuantitatif (age) | position, color-hue | patient |
+| Categorical | Bar chart | 1 kategorikal (province), 1 kuantitatif (count) | position, color-hue | patient |
+| Categorical | Histogram | 1 interval kuantitatif (interval umur), 1 rasio kuantitatif (jumlah kasus) | height, width | patient |
+| Categorical | Radial chart | 1 kategorikal (direction), 1 ordinal (strength), 1 kuantitatif (frequency) | position, color-saturation | px.data.wind |
+| Categorical | Sankey | 2 kategorikal (source, target), 1 kuantitatif (value) | link, height, color-hue | sankey_energy.json |
+| Categorical | Word cloud | 1 kategorikal (words), 1 kuantitatif (jumlah kata) | size | most_backed |
+| Hierarchical | Pie chart | 1 kategorikal (province), 1 kuantitatif (persen pasien) | angle, area, color-hue | patient |
+| Hierarchical | Stacked bar | 2 kategorikal (province, gender), 1 kuantitatif (count) | length, position, color-hue | patient |
+| Hierarchical | Square pie (waffle) | 1 kategorikal (fuel type), 1 kuantitatif (count) | length, position, color-hue | cardata |
+| Hierarchical | Treemap | 1 kategorikal (country), 2 kuantitatif (population, lifeExp) | area, position, color-hue, color-saturation | gapminder |
+| Temporal | Line chart | 1 kategorikal (status), 4 kuantitatif (acc_tested, acc_confirmed, acc_negative, acc_deceased), 1 interval (date) | position, slope, color-hue | cases |
+| Temporal | Area chart | sama dengan line | height, slope, area, color-hue | cases |
+| Temporal | Stacked area | sama dengan line | height, slope, area, color-hue | cases |
+| Temporal | Candlestick | 1 interval (date), 4 rasio (open, high, low, close) | position, height, color-hue | apple |
+| Relational | Scatter plot | 2 kuantitatif (bmi, charges), 1 kategorikal (smoker) | position, color-hue | insurance |
+| Relational | Bubble plot | 1 kategorikal (continent), kuantitatif (population, lifeExp, gdpPercap) | area, position, color-hue | gapminder |
+| Relational | Scatter matrix | 6 kuantitatif (glucose, bloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction), 1 kategorikal (outcome) | position, color-hue | diabetes |
+
+Catatan dari deck:
+- Line chart: sumbu y tidak harus mulai dari nol karena melihat pola relatif. Area chart dan stacked area: sumbu y harus mulai dari nol supaya penilaian luas akurat.
+- Pie chart: bar chart sederhana sudah cukup untuk menunjukkan hubungan bagian terhadap keseluruhan.
+- Word cloud: ukuran font menunjukkan frekuensi kata, warna sekadar dekorasi (malah mengacaukan prominensi visual).
+- Sankey: untuk menyampaikan ide aliran (flow).
+- Polar/radar chart: sumbu X dilipat mengelilingi keliling, sumbu Y dari pusat ke atas.
+- Candlestick: kotak = selisih open dan close, garis = selisih low dan high; close lebih tinggi dari open disebut increasing (hijau default), lebih rendah decreasing (merah default).
+- Waffle: grid satuan (kotak atau simbol) mewakili bagian dari keseluruhan.
+- Treemap: persegi bersarang berukuran sesuai nilai relatif, warna menambah informasi kuantitatif atau kategorikal.
+- Bubble plot: memperluas scatter plot dengan banyak encoding. Scatter matrix: memanfaatkan kemampuan mata melihat pola lintas beberapa tampilan sejenis.
+
+## 9.3 Categorical (12b)
+
+Dot plot (seaborn catplot):
+
+```python
+pasien = pd.read_csv("patient.csv")
+sns.set_theme()                                  # deck: sns.set()
+sns.catplot(x="age", y="province", hue="current_state", data=pasien, height=6, aspect=1.5)
+plt.title("Judul", weight="bold").set_fontsize("16")
+plt.show()
+```
+
+Bar chart plotly dari hasil groupby (count per province):
+
+```python
+pasien_df = pasien.groupby(["province"]).size().to_frame("count").reset_index()
+pasien_df.head()
+fig = px.bar(pasien_df, y="count", x="province", text="count")
+fig.update_traces(textposition="outside")                      # label data di luar bar
+fig.update_layout(uniformtext_minsize=8, uniformtext_mode="hide",
+                  title="Jumlah Kasus Covid-19 per Provinsi di Indonesia", width=600)
+fig.show()
+# cara lain (slide): plt.bar(y_var, x_var, align="center", alpha=0.5)
+#                    sns.barplot(x=x_var, y=y_var, data=data2.head(10))
+```
+
+Histogram umur, 6 bin (deck memakai distplot kde=False):
+
+```python
+sns.histplot(pasien["age"], bins=6)                            # modern; deck: sns.distplot(pasien["age"], kde=False, bins=6)
+plt.title("Distribusi Kasus Pasien Covid di Indonesia", weight="bold").set_fontsize("16")
+plt.ylabel("number of case")
+plt.show()
+# cara lain di slide: plt.hist(x, bins=30, normed=True)  → modern: density=True
+```
+
+Radial chart dengan colormap berurutan:
+
+```python
+df = px.data.wind()
+fig = px.bar_polar(df, r="frequency", theta="direction", color="strength",
+                   color_discrete_sequence=px.colors.sequential.Plasma_r,
+                   title="Kekuatan Tiupan Angin berdasarkan Arah Mata Angin", width=600)
+fig.show()
+# daftar palet: px.colors.sequential, px.colors.qualitative, px.colors.diverging
+# (misal px.colors.sequential.Viridis, px.colors.qualitative.Set2)
+```
+Sankey dari JSON (data energi 2050), dengan warna link dari warna node:
+
+```python
+import plotly.graph_objects as go
+import urllib, json
+
+url = "https://raw.githubusercontent.com/plotly/plotly.js/master/test/image/mocks/sankey_energy.json"
+response = urllib.request.urlopen(url)
+data = json.loads(response.read())
+
+# warna link abu-abu diganti warna node asal, dengan opacity
+opacity = 0.4
+data["data"][0]["node"]["color"] = ["rgba(255,0,255, 0.8)" if color == "magenta" else color
+                                    for color in data["data"][0]["node"]["color"]]
+data["data"][0]["link"]["color"] = [data["data"][0]["node"]["color"][src].replace("0.8", str(opacity))
+                                    for src in data["data"][0]["link"]["source"]]
+
+fig = go.Figure(data=[go.Sankey(
+    valueformat=".0f",
+    valuesuffix="TWh",
+    node=dict(pad=15, thickness=15, line=dict(color="black", width=0.5),
+              label=data["data"][0]["node"]["label"],
+              color=data["data"][0]["node"]["color"]),
+    link=dict(source=data["data"][0]["link"]["source"],
+              target=data["data"][0]["link"]["target"],
+              value=data["data"][0]["link"]["value"],
+              label=data["data"][0]["link"]["label"],
+              color=data["data"][0]["link"]["color"]))])
+fig.update_layout(title_text="<b>Prediksi Energi pada 2050</b>", font_size=14)
+fig.show()
+```
+
+Struktur JSON: link berisi source, target (indeks node) dan value; node berisi label dan color.
+
+Word cloud (library wordcloud):
+
+```python
+from wordcloud import WordCloud, STOPWORDS
+stopwords = set(STOPWORDS)                       # daftar stopword bawaan
+data = pd.read_csv("most_backed.csv")
+wc = WordCloud(background_color="white", stopwords=stopwords).generate(str(data["title"]))
+fig = plt.figure(1)
+plt.imshow(wc, interpolation="bilinear")         # bilinear = gambar halus
+plt.title("Statistik Judul dari Kickstarter Project")
+plt.axis("off")
+plt.show()
+
+# opsi lain
+WordCloud(width=800, height=400, max_words=100, colormap="viridis",
+          stopwords=stopwords | {"kata_tambahan"}, background_color="white").generate(" ".join(data["title"].astype(str)))
+WordCloud().generate_from_frequencies({"data": 10, "viz": 7})   # dari dict frekuensi
+wc.to_file("wc.png")
+wc.words_                                         # kata dan bobotnya
+```
+
+⚠ Deck memakai str(data["title"]), yang juga menyertakan teks seperti "Name: title, Length" ikut terhitung; lebih bersih pakai " ".join(data["title"].astype(str)).
+
+## 9.4 Hierarchical (12b)
+
+Pie chart per provinsi dengan colormap Spectral:
+
+```python
+patient = pd.read_csv("patient.csv")
+source_labels = patient.groupby(["province"]).size().index
+source_counts = patient.groupby(["province"]).size().values     # jumlah baris tiap grup
+
+plt.figure(1, figsize=(20, 10))
+cmap = plt.get_cmap("Spectral")                                 # colormap Spectral
+colors = [cmap(i) for i in np.linspace(0, 1, 8)]                # 8 warna dari colormap
+source_pie = plt.pie(source_counts, labels=source_labels, autopct="%1.1f%%", shadow=True, colors=colors)
+plt.title("Perbandingan Jumlah Kasus COVID 19 Per Provinsi", fontsize=24)
+plt.show()
+```
+
+⚠ colors diberi 8 warna; kalau provinsi lebih dari 8, warna berulang. Buat sejumlah kategori: [cmap(i) for i in np.linspace(0, 1, len(source_counts))].
+
+Stacked bar (province x gender) lewat unstack:
+
+```python
+pasien_df = pasien.groupby(["province", "gender"]).size().to_frame("count").reset_index()
+tmp = pasien_df.set_index(["province", "gender"]).unstack()      # ubah ke format lebar
+tmp.columns = tmp.columns.levels[1]                              # buang level "count" di header
+tmp.head()
+tmp.plot(kind="bar", stacked=True)
+plt.title("Jumlah Kasus Covid-19 per Provinsi di Indonesia", weight="bold").set_fontsize("16")
+plt.show()
+# alternatif ringkas: pd.crosstab(pasien["province"], pasien["gender"]).plot(kind="bar", stacked=True)
+```
+
+Square pie (waffle chart) dengan pywaffle:
+
+```python
+from pywaffle import Waffle
+raw_data = pd.read_csv("cardata.csv")
+data = raw_data.groupby("Fuel_Type").size().reset_index(name="counts_Fuel_Type")
+n_categories = data.shape[0]
+colors = [plt.cm.tab20b(i / float(n_categories)) for i in range(n_categories)]
+fig = plt.figure(
+    FigureClass=Waffle,
+    plots={
+        111: {                                                    # grid 1 x 1, plot pertama. Deck menulis "111" (string); di pywaffle baru harus int 111
+            "values": data["counts_Fuel_Type"],
+            "labels": ["{0}({1})".format(n[0], n[1]) for n in data[["Fuel_Type", "counts_Fuel_Type"]].itertuples(index=False)],
+            "legend": {"loc": "upper left", "bbox_to_anchor": (1.05, 1), "fontsize": 12},
+            "title": {"label": "Vehicle by Fuel Type", "loc": "center", "fontsize": 18},
+        },
+    },
+    rows=7, colors=colors, figsize=(10, 7),
+)
+plt.show()
+```
+
+Treemap Gapminder dengan titik tengah warna:
+
+```python
+df = px.data.gapminder().query("year == 2007")
+df["world"] = "world"                                             # satu root node
+fig = px.treemap(df, path=["world", "continent", "country"], values="pop",
+                 color="lifeExp", hover_data=["iso_alpha"],
+                 color_continuous_scale="RdBu",
+                 color_continuous_midpoint=np.average(df["lifeExp"], weights=df["pop"]))
+fig.show()
+```
+
+## 9.5 Temporal (12b)
+
+Line chart empat seri (pandas):
+
+```python
+cases = pd.read_csv("cases.csv")
+cases.head(3)
+plt.figure(figsize=(20, 10))
+cases.plot("date", ["acc_tested", "acc_confirmed", "acc_negative", "acc_deceased"], figsize=(10, 8))
+plt.title("Trend of COVID-19 Case in Indonesia by State", weight="bold").set_fontsize("16")
+plt.ylabel("case")
+plt.show()
+```
+
+Area chart, empat panel (subplots 2 x 2 dengan stackplot):
+
+```python
+fig, axs = plt.subplots(2, 2, figsize=(14, 8))
+fig.suptitle("COVID-19 Case Until March 2020 in Indonesia").set_fontsize("16")
+# ⚠ deck menulis colors="red" (string); di matplotlib baru harus list: colors=["red"]
+axs[0, 0].stackplot(cases["date"], cases["acc_deceased"], colors=["red"], alpha=0.6)
+axs[0, 0].set_title("Deceased").set_fontsize("16")
+axs[0, 1].stackplot(cases["date"], cases["acc_confirmed"], colors=["orange"], alpha=0.6)
+axs[0, 1].set_title("Confirmed").set_fontsize("16")
+axs[1, 0].stackplot(cases["date"], cases["acc_negative"], colors=["green"], alpha=0.6)
+axs[1, 0].set_title("Negative").set_fontsize("16")
+axs[1, 1].stackplot(cases["date"], cases["acc_tested"], colors=["blue"], alpha=0.6)
+axs[1, 1].set_title("Tested").set_fontsize("16")
+for ax in axs.flat:
+    ax.set(xlabel="Until March 2020", ylabel="case")
+    ax.set_xticks([])                                             # label x dikosongkan
+    plt.setp(ax.get_xticklabels(), rotation=45)
+plt.show()
+```
+
+Stacked area chart:
+
+```python
+plt.figure(figsize=(10, 8))
+plt.stackplot(cases["date"], cases["acc_deceased"], cases["acc_confirmed"], cases["acc_negative"],
+              cases["acc_tested"], labels=["deceased", "confirmed", "negative", "tested"],
+              colors=["red", "orange", "green", "blue"], alpha=0.6)
+plt.xlabel("date")
+plt.xticks(rotation=45)
+plt.ylabel("case")
+plt.title("COVID-19 Case in Indonesia by State", weight="bold").set_fontsize("16")
+plt.legend(loc="upper left")
+plt.show()
+```
+
+Candlestick (Apple 2010-2017):
+
+```python
+import plotly.graph_objects as go
+data = pd.read_csv("apple.csv")
+data = data.reset_index()
+data[["Date"]] = data[["Date"]].apply(pd.to_datetime)              # ubah ke datetime
+dates = data.Date
+open_data, high_data, low_data, close_data = data.Open, data.High, data.Low, data.Close
+fig = go.Figure(data=[go.Candlestick(x=dates, open=open_data, high=high_data,
+                                     low=low_data, close=close_data)])
+fig.update_layout(title_text="<b>Apple Stock Prices from 2010 to 2017</b>", font_size=12)
+fig.show()
+```
+
+## 9.6 Relational (12b)
+
+```python
+# Scatter plot (seaborn) bmi, charges, hue smoker
+insurance_data = pd.read_csv("insurance.csv")
+sns.scatterplot(x=insurance_data["bmi"], y=insurance_data["charges"], hue=insurance_data["smoker"])
+plt.title("The Relationship between Body Mass Index, Insurance Cost and Smoker", weight="bold").set_fontsize("12")
+plt.show()
+
+# Bubble plot (plotly), size = pop
+df = px.data.gapminder()
+fig = px.scatter(df.query("year==2007"), x="gdpPercap", y="lifeExp", size="pop",
+                 color="continent", hover_name="country", size_max=60)
+fig.update_layout(title_text="<b>The Correlation between Life Expectancy, GDP per Capita, and Population</b>", font_size=12)
+fig.show()
+
+# Scatter matrix (plotly graph_objs Splom) dataset diabetes
+import plotly.graph_objs as go
+dfd = pd.read_csv("diabetes.csv")
+textd = ["non-diabetic" if cl == 0 else "diabetic" for cl in dfd["Outcome"]]
+fig = go.Figure(data=go.Splom(
+    dimensions=[dict(label="Glucose", values=dfd["Glucose"]),
+                dict(label="BloodPressure", values=dfd["BloodPressure"]),
+                dict(label="SkinThickness", values=dfd["SkinThickness"]),
+                dict(label="Insulin", values=dfd["Insulin"]),
+                dict(label="BMI", values=dfd["BMI"]),
+                dict(label="DiabPedigreeFun", values=dfd["DiabetesPedigreeFunction"])],
+    marker=dict(color=dfd["Outcome"], size=5, colorscale="Bluered",
+                line=dict(width=0.5, color="rgb(230,230,230)")),
+    text=textd, diagonal=dict(visible=False)))
+fig.update_layout(title="<b>Scatterplot Matrix for Diabetes Dataset</b>",
+                  dragmode="select", width=800, height=800, hovermode="closest")
+fig.show()
+```
+
+## 9.7 seaborn deck 12a (dataset mobil df_car)
+
+Persiapan data mobil dan histogram bawaan pandas (12a hlm 78):
+
+```python
+df_car["carlength"].value_counts().sort_index(ascending=True)     # frekuensi tiap nilai, urut
+df_car["carlength"].describe()                                    # count, mean, std, min, 25%, 50%, 75%, max
+df_car["carlength"].hist().set(xlabel="Attribute10", ylabel="Frequency")
+```
+
+Histogram = distribusi data dengan membentuk bin sepanjang rentang data lalu menggambar bar untuk jumlah pengamatan di tiap bin.
+
+Histogram seaborn dan parameter KDE (hlm 79-80). Deck memakai distplot; modern pakai histplot:
+
+```python
+import seaborn as sns
+sns.distplot(df_car["carlength"], kde=False, bins=5)             # deck (deprecated, hanya di seaborn lama)
+sns.histplot(df_car["carlength"], bins=5)                        # modern
+
+f, axes = plt.subplots(1, 3, figsize=(15, 5), sharex=True)
+# deck:
+# sns.distplot(df_car["carlength"], kde=False, bins=5, ax=axes[0]).set(xlabel="Attribute 10", ylabel="Frequency")
+# sns.distplot(df_car["carlength"], bins=5, ax=axes[1]).set(xlabel="Attribute 10", ylabel="Density")
+# sns.distplot(df_car["carlength"], bins=5, hist=False, ax=axes[2]).set(xlabel="Attribute 10", ylabel="Density")
+# modern:
+sns.histplot(df_car["carlength"], bins=5, ax=axes[0]).set(xlabel="Attribute 10", ylabel="Frequency")          # kde=False
+sns.histplot(df_car["carlength"], bins=5, kde=True, stat="density", ax=axes[1]).set(xlabel="Attribute 10", ylabel="Density")   # hist + KDE
+sns.kdeplot(df_car["carlength"], ax=axes[2]).set(xlabel="Attribute 10", ylabel="Density")                     # hist=False
+plt.show()
+```
+
+Countplot (hlm 81-82): histogram untuk data kategorikal, menghitung pengamatan tiap kategori:
+
+```python
+sns.countplot(x=df_car["carbody"]).set(xlabel="Attribute 6", ylabel="Frequency")
+sns.countplot(y=df_car["carbody"])                               # horizontal
+sns.countplot(x=df_car["carbody"], hue=df_car["fueltype"])       # dipecah menurut fueltype
+```
+
+Boxplot (hlm 83-86). Boxplot menampilkan distribusi dari: minimum, kuartil pertama (Q1), median, kuartil ketiga (Q3), maksimum. Dengan outlier: IQR = Q3 - Q1, whisker bawah ("Minimum") = Q1 - 1.5 x IQR, whisker atas ("Maximum") = Q3 + 1.5 x IQR, titik di luar itu adalah outlier.
+
+```python
+sns.boxplot(y=df_car["car_ID"]).set_title("basic plot")                       # satu kelompok
+sns.boxplot(y=df_car["car_ID"], x=df_car["fueltype"]).set_title("group by fuel type")
+sns.boxplot(y=df_car["car_ID"], x=df_car["fueltype"], hue=df_car["aspiration"]).set_title("grouped by fuel type & aspiration")
+```
+
+Scatter plot dan koefisien korelasi (hlm 87-88):
+
+```python
+df_price = df_car[df_car["price"] != "?"]["price"].astype("int64")         # buang nilai "?" lalu ubah ke angka
+sns.scatterplot(x=df_car["enginesize"], y=df_price).set(xlabel="Attribute 16", ylabel="Attribute 25")
+# ⚠ x dan y disejajarkan lewat index; baris dengan "?" otomatis tidak punya pasangan
+
+df_price_engine = df_car.iloc[:, [16, 25]]                                   # kolom enginesize dan price
+df_price_engine = df_price_engine[df_price_engine["price"] != "?"]
+df_price_engine["price"] = df_price_engine["price"].astype("int64")
+df_price_engine.corr()                                                        # enginesize-price = 0.874145
+```
+
+Heatmap (hlm 89-91): heatmap mewakili pivot table, mengambil grid persegi panjang dan memberi intensitas warna berdasarkan nilai di titik grid.
+
+```python
+# rata-rata harga per drivewheel (baris) dan carbody (kolom)
+# price di dataset mobil bertipe teks karena ada nilai "?", ubah dulu ke angka
+df_car = df_car[df_car["price"] != "?"].copy()
+df_car["price"] = df_car["price"].astype("int64")
+pv = df_car.pivot_table(index="drivewheel", columns="carbody", values="price", aggfunc="mean")
+sns.heatmap(pv, annot=True, fmt=".2f")
+
+# contoh dokumentasi seaborn: dataset flights
+flights = sns.load_dataset("flights")
+flights = flights.pivot(index="month", columns="year", values="passengers")      # deck: flights.pivot("month", "year", "passengers")
+ax = sns.heatmap(flights, annot=True, fmt="d")
+
+# heatmap koefisien korelasi seluruh kolom numerik
+corr = df_car.corr(numeric_only=True)
+sns.set(rc={"figure.figsize": (11.7, 8.27)})                                      # ukuran figure global
+sns.heatmap(corr, annot=True, fmt=".2f")
+```
+
+⚠ Di pandas dan seaborn baru, flights.pivot memakai argumen bernama (index, columns, values). ⚠ sns.load_dataset butuh internet; dataset bawaan lain: tips, iris, penguins, titanic, diamonds, mpg, planets, flights, exercise.
+
+## 9.8 Ringkasan pemetaan cepat dari deck ke kode
+
+| Mau menampilkan | Kode deck | Pengganti modern |
+|---|---|---|
+| Histogram | sns.distplot(x, kde=False, bins=n) | sns.histplot(x, bins=n) |
+| Histogram + KDE | sns.distplot(x, bins=n) | sns.histplot(x, bins=n, kde=True, stat="density") |
+| KDE saja | sns.distplot(x, hist=False) | sns.kdeplot(x) |
+| Histogram pandas | df[col].hist() | sama |
+| Histogram kategorikal | sns.countplot(x=df[col]) | sama |
+| Boxplot per kelompok | sns.boxplot(y=..., x=..., hue=...) | sama (isi data=df, x="col", y="col") |
+| Dot plot kategori | sns.catplot(x, y, hue, data, height, aspect) | sama |
+| Heatmap pivot | sns.heatmap(pivot, annot=True, fmt=...) | sama |
+| Density di hist matplotlib | plt.hist(x, normed=True) | plt.hist(x, density=True) |
+| Tema default | sns.set() | sns.set_theme() |
